@@ -1,0 +1,38 @@
+<resources>
+
+  <!-- Base application theme. -->
+  <style name="AppTheme" parent="Theme.AppCompat.Light">
+    <!-- Customize your theme here. -->
+    <item name="colorPrimary">@color/color_primary</item>
+    <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+    <item name="colorAccent">@color/color_accent</item>
+    <item name="android:typeface">serif</item>
+    <item name="android:textColor">#000000</item>
+    <item name="android:editTextColor">#000000</item>
+  </style>
+
+  <style name="NoActionBar" parent="Theme.AppCompat.Light.NoActionBar">
+    <item name="colorPrimaryDark">@color/primary_dark</item>
+  </style>
+
+  <!--fonts-->
+  <style name="IranSans">
+    <item name="fontPath">fonts/IRANSansMobile.ttf</item>
+  </style>
+
+  <style name="IranSans.Bold">
+    <item name="fontPath">fonts/IRANSansMobile_Bold.ttf</item>
+  </style>
+
+  <style name="IranSans.Light">
+    <item name="fontPath">fonts/IRANSansMobile_Light.ttf</item>
+  </style>
+
+  <style name="IranSans.Medium">
+    <item name="fontPath">fonts/IRANSansMobile_Medium.ttf</item>
+  </style>
+
+  <style name="IranSans.Ultra">
+    <item name="fontPath">fonts/IRANSansMobile_UltraLight.ttf</item>
+  </style>
+</resources>
