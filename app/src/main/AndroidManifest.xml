@@ -13,7 +13,8 @@
       android:name="io.fabric.ApiKey"
       android:value="bf939acb1b76ea3f52f26b54a1d8f266e5f6fea4" />
 
-    <activity android:name=".ui.activity.MainActivity">
+    <activity android:name=".ui.activity.MainActivity"
+      android:screenOrientation="portrait">
       <intent-filter>
         <action android:name="android.intent.action.MAIN" />
 

@@ -1,27 +1,147 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
   xmlns:app="http://schemas.android.com/apk/res-auto"
-  android:orientation="vertical"
   xmlns:tools="http://schemas.android.com/tools"
   android:layout_width="match_parent"
   android:layout_height="match_parent"
+  android:orientation="vertical"
   tools:context="app.arash.androidcore.ui.activity.MainActivity">
-<FrameLayout
-  android:layout_width="match_parent"
-  android:layout_weight="1"
-  android:id="@+id/container"
-  android:layout_height="0dp">
-  
-  
-</FrameLayout>
+  <FrameLayout
+    android:id="@+id/container"
+    android:layout_width="match_parent"
+    android:layout_height="0dp"
+    android:layout_weight="1" />
+  <View
+    android:layout_width="match_parent"
+    android:layout_height="1dp"
+    android:background="@color/navigation_drawer_divider" />
   <LinearLayout
-    android:orientation="horizontal"
     android:id="@+id/bottom_navigation_bar"
     android:layout_width="match_parent"
-    android:layout_height="56dp">
-
-
-
+    android:layout_height="56dp"
+    android:background="@color/white"
+    android:orientation="horizontal"
+    android:weightSum="10">
+    <LinearLayout
+      android:id="@+id/chart_lay"
+      android:layout_width="0dp"
+      android:layout_height="match_parent"
+      android:layout_weight="2"
+      android:orientation="vertical">
+      <ImageView
+        android:id="@+id/chart_img"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_gravity="center"
+        android:src="@drawable/ic_chart_24_dp" />
+      <TextView
+        android:id="@+id/chart_tv"
+        style="@style/IranSans.Light"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:layout_gravity="center|bottom"
+        android:text="@string/healthy_chart"
+        android:textColor="@color/gray_66"
+        android:textSize="10sp" />
+    </LinearLayout>
+    <LinearLayout
+      android:id="@+id/medicine_lay"
+      android:layout_width="0dp"
+      android:layout_height="match_parent"
+      android:layout_weight="2"
+      android:orientation="vertical">
+      <ImageView
+        android:id="@+id/medicine_img"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_gravity="center"
+        android:src="@drawable/ic_pill_24_dp" />
+      <TextView
+        android:id="@+id/medicine_tv"
+        style="@style/IranSans.Light"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:layout_gravity="center|bottom"
+        android:text="@string/medicine"
+        android:textColor="@color/gray_66"
+        android:textSize="10sp" />
+    </LinearLayout>
+    <LinearLayout
+      android:id="@+id/home_lay"
+      android:layout_width="0dp"
+      android:layout_height="match_parent"
+      android:layout_weight="2"
+      android:orientation="vertical">
+      <ImageView
+        android:id="@+id/home_img"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_gravity="center"
+        android:src="@drawable/ic_home_24_dp" />
+      <TextView
+        android:id="@+id/home_tv"
+        style="@style/IranSans.Light"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:layout_gravity="center|bottom"
+        android:text="@string/home"
+        android:textColor="@color/color_primary"
+        android:textSize="12sp" />
+    </LinearLayout>
+    <LinearLayout
+      android:id="@+id/doctor_lay"
+      android:layout_width="0dp"
+      android:layout_height="match_parent"
+      android:layout_weight="2"
+      android:orientation="vertical">
+      <ImageView
+        android:id="@+id/doctor_img"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_gravity="center"
+        android:src="@drawable/ic_stethoscope_24_dp" />
+      <TextView
+        android:id="@+id/doctor_tv"
+        style="@style/IranSans.Light"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:layout_gravity="center|bottom"
+        android:text="@string/my_doctors"
+        android:textColor="@color/gray_66"
+        android:textSize="10sp" />
+    </LinearLayout>
+    <LinearLayout
+      android:id="@+id/more_lay"
+      android:layout_width="0dp"
+      android:layout_height="match_parent"
+      android:layout_weight="2"
+      android:orientation="vertical">
+      <ImageView
+        android:id="@+id/more_img"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_gravity="center"
+        android:src="@drawable/ic_chart_24_dp" />
+      <TextView
+        android:id="@+id/more_tv"
+        style="@style/IranSans.Light"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:layout_gravity="center|bottom"
+        android:text="@string/more"
+        android:textColor="@color/gray_66"
+        android:textSize="10sp" />
+    </LinearLayout>
   </LinearLayout>
-  
+
 </LinearLayout>

@@ -1,0 +1,119 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
+  xmlns:tools="http://schemas.android.com/tools"
+  android:layout_width="match_parent"
+  android:layout_height="match_parent"
+  android:background="@color/white"
+  android:orientation="vertical"
+  tools:context="app.arash.androidcore.ui.fragment.MoreFragment">
+  <TextView
+    style="@style/IranSans"
+    android:layout_width="match_parent"
+    android:layout_height="56dp"
+    android:paddingLeft="16dp"
+    android:paddingRight="16dp"
+    android:background="@color/color_primary"
+    android:drawableEnd="@drawable/ic_account_circle_24_dp"
+    android:drawablePadding="35dp"
+    android:drawableRight="@drawable/ic_account_circle_24_dp"
+    android:gravity="right|center"
+    android:text="09301780245"
+    android:textColor="@color/white"
+    android:textSize="14sp" />
+
+  <TextView
+    android:id="@+id/about_us_tv"
+    style="@style/IranSans.Light"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingTop="24dp"
+    android:paddingBottom="16dp"
+    android:paddingLeft="16dp"
+    android:paddingRight="16dp"
+    android:drawableEnd="@drawable/ic_info_outline_24dp"
+    android:drawablePadding="35dp"
+    android:drawableRight="@drawable/ic_info_outline_24dp"
+    android:drawableTint="@color/gray_75"
+    android:gravity="right|center"
+    android:text="@string/about_us"
+    android:textColor="@color/black_21"
+    android:textSize="14sp" />
+
+  <View
+    android:layout_width="match_parent"
+    android:layout_height="1dp"
+    android:background="@color/gray_e0" />
+
+
+  <TextView
+    android:id="@+id/contact_us_tv"
+    style="@style/IranSans.Light"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingTop="16dp"
+    android:paddingBottom="16dp"
+    android:paddingLeft="16dp"
+    android:paddingRight="16dp"
+    android:drawableEnd="@drawable/ic_mail_outline_24_dp"
+    android:drawablePadding="35dp"
+    android:drawableRight="@drawable/ic_mail_outline_24_dp"
+    android:drawableTint="@color/gray_75"
+    android:gravity="right|center"
+    android:text="@string/contact_us"
+    android:textColor="@color/black_21"
+    android:textSize="14sp" />
+
+  <View
+    android:layout_width="match_parent"
+    android:layout_height="1dp"
+    android:background="@color/gray_e0" />
+
+  <TextView
+    android:id="@+id/log_out_tv"
+    style="@style/IranSans.Light"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingTop="16dp"
+    android:paddingBottom="16dp"
+    android:paddingLeft="16dp"
+    android:paddingRight="16dp"
+    android:drawableEnd="@drawable/ic_logout_24_dp"
+    android:drawablePadding="35dp"
+    android:drawableRight="@drawable/ic_logout_24_dp"
+    android:gravity="right|center"
+    android:text="@string/log_out"
+    android:textColor="@color/red_f4"
+    android:textSize="14sp" />
+
+  <View
+    android:layout_width="match_parent"
+    android:layout_height="1dp"
+    android:background="@color/gray_e0" />
+
+  <android.support.v4.widget.Space
+    android:layout_width="match_parent"
+    android:layout_height="0dp"
+    android:layout_weight="1" />
+
+  <TextView
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="15dp"
+    android:gravity="center"
+    android:text="@string/version"
+    android:textColor="@color/gray_cc"
+    android:textSize="12sp" />
+
+  <TextView
+    android:id="@+id/upgrade_app"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingTop="13dp"
+    android:paddingBottom="13dp"
+    android:background="@color/color_primary"
+    android:gravity="center"
+    android:text="@string/upgrade_app"
+    android:textColor="@color/white"
+    android:textSize="14sp" />
+
+</LinearLayout>

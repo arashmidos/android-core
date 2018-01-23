@@ -25,6 +25,8 @@
   <color name="light_orange">#fff69436</color>
   <color name="color_accent">#ffcc33</color>
   <color name="color_primary">#00838f</color>
+  <color name="color_primary_dark">#006972</color>
+  <color name="green_54">#546e7a</color>
   <color name="dark_blue">#ff2d6b9e</color>
   <color name="dark_gray">#ff727174</color>
   <color name="light_gray">#ffdbdcde</color>
@@ -84,4 +86,7 @@
   <color name="register_image">#673ab7</color>
   <color name="register_return">#f57f17</color>
   <color name="register_return_dark">#dc7316</color>
+  <color name="gray_66">#666666</color>
+  <color name="red_f4">#f44336</color>
+  <color name="gray_cc">#cccccc</color>
 </resources>

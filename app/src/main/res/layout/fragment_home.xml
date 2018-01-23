@@ -1,0 +1,124 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
+  xmlns:tools="http://schemas.android.com/tools"
+  android:layout_width="match_parent"
+  android:layout_height="match_parent"
+  tools:context="app.arash.androidcore.ui.fragment.HomeFragment">
+  <LinearLayout
+    android:id="@+id/toolbar"
+    android:layout_width="match_parent"
+    android:layout_height="56dp"
+    android:background="@color/color_primary"
+    android:orientation="horizontal">
+    <TextView
+      style="@style/IranSans.Ultra"
+      android:layout_width="0dp"
+      android:layout_height="match_parent"
+      android:layout_weight="1"
+      android:layout_marginStart="16dp"
+      android:layout_marginLeft="16dp"
+      android:gravity="left|center"
+      android:text="امروز، شنبه 24 دی"
+      android:textColor="@color/white"
+      android:textSize="16sp" />
+    <TextView
+      style="@style/IranSans.Medium"
+      android:layout_width="wrap_content"
+      android:layout_height="match_parent"
+      android:layout_marginEnd="16dp"
+      android:layout_marginRight="16dp"
+      android:gravity="center"
+      android:text="@string/home"
+      android:textColor="@color/white"
+      android:textSize="16sp" />
+  </LinearLayout>
+  <android.support.v4.widget.NestedScrollView
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_below="@id/toolbar">
+    <LinearLayout
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:orientation="vertical">
+
+      <TextView
+        android:id="@+id/medicines_tv"
+        style="@style/IranSans.Bold"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="29dp"
+        android:layout_marginBottom="12dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginRight="16dp"
+        android:gravity="right"
+        android:text="@string/medicine"
+        android:textColor="@color/green_54"
+        android:textSize="16sp" />
+
+      <android.support.v7.widget.RecyclerView
+        android:id="@+id/medicine_recycler_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp" />
+
+      <TextView
+        android:id="@+id/visit_tv"
+        style="@style/IranSans.Bold"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="29dp"
+        android:layout_marginBottom="12dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginRight="16dp"
+        android:gravity="right"
+        android:text="@string/visit_time"
+        android:textColor="@color/green_54"
+        android:textSize="16sp" />
+
+      <android.support.v7.widget.RecyclerView
+        android:id="@+id/visit_recycler_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp" />
+
+      <TextView
+        android:id="@+id/charts_tv"
+        style="@style/IranSans.Bold"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="29dp"
+        android:layout_marginBottom="12dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginRight="16dp"
+        android:gravity="right"
+        android:text="@string/healthy_chart"
+        android:textColor="@color/green_54"
+        android:textSize="16sp" />
+
+      <android.support.v7.widget.RecyclerView
+        android:id="@+id/healthy_chart_recycler_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="40dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp" />
+    </LinearLayout>
+  </android.support.v4.widget.NestedScrollView>
+
+  <android.support.design.widget.FloatingActionButton
+    android:id="@+id/add_fab"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_margin="16dp"
+    android:layout_alignParentBottom="true"
+    android:layout_alignParentLeft="true"
+    android:layout_alignParentStart="true"
+    android:src="@drawable/ic_add_24_dp"
+    app:backgroundTint="@color/color_accent"
+    app:fabSize="normal" />
+</RelativeLayout>
