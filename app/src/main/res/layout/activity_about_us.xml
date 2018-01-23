@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
+  xmlns:tools="http://schemas.android.com/tools"
+  android:layout_width="match_parent"
+  android:layout_height="match_parent"
+  android:orientation="vertical"
+  tools:context="app.arash.androidcore.ui.activity.AboutUsActivity">
+  <LinearLayout
+    android:id="@+id/toolbar"
+    android:layout_width="match_parent"
+    android:layout_height="56dp"
+    android:background="@color/color_primary"
+    android:orientation="horizontal">
+    <TextView
+      style="@style/IranSans.Medium"
+      android:layout_width="0dp"
+      android:layout_height="56dp"
+      android:layout_weight="1"
+      android:paddingEnd="16dp"
+      android:paddingRight="16dp"
+      android:gravity="right|center"
+      android:text="@string/about_us"
+      android:textColor="@color/white"
+      android:textSize="16sp" />
+    <ImageView
+      android:id="@+id/back_img"
+      android:layout_width="wrap_content"
+      android:layout_height="match_parent"
+      android:layout_gravity="center"
+      android:paddingLeft="16dp"
+      android:paddingRight="16dp"
+      android:src="@drawable/ic_back_24_dp" />
+
+  </LinearLayout>
+  <ScrollView
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    <TextView
+      android:id="@+id/description_tv"
+      style="@style/IranSans.Light"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:paddingTop="23dp"
+      android:paddingStart="20dp"
+      android:paddingEnd="16dp"
+      android:paddingLeft="20dp"
+      android:paddingRight="16dp"
+      android:lineSpacingExtra="16sp"
+      android:text="@string/about_us_description"
+      android:textColor="@color/black_21"
+      android:textSize="14sp" />
+  </ScrollView>
+</LinearLayout>

@@ -14,6 +14,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import app.arash.androidcore.R;
 import app.arash.androidcore.ui.fragment.BaseFragment;
+import app.arash.androidcore.ui.fragment.DrugsFragment;
 import app.arash.androidcore.ui.fragment.HomeFragment;
 import app.arash.androidcore.ui.fragment.MoreFragment;
 import butterknife.BindView;
@@ -27,6 +28,7 @@ public class MainActivity extends AppCompatActivity {
 
   public static final int HOME_FRAGMENT = 1;
   public static final int MORE_FRAGMENT = 2;
+  public static final int DRUGS_FRAGMENT = 3;
 
   @BindView(R.id.container)
   FrameLayout container;
@@ -88,6 +90,7 @@ public class MainActivity extends AppCompatActivity {
         break;
       case R.id.medicine_lay:
         onBottomBarItemClicked(R.id.medicine_tv, R.id.medicine_img);
+        setupFragment(DRUGS_FRAGMENT);
         break;
       case R.id.home_lay:
         onBottomBarItemClicked(R.id.home_tv, R.id.home_img);
@@ -131,6 +134,9 @@ public class MainActivity extends AppCompatActivity {
         break;
       case MORE_FRAGMENT:
         fragment = MoreFragment.newInstance();
+        break;
+      case DRUGS_FRAGMENT:
+        fragment = DrugsFragment.newInstance();
         break;
     }
     tr.replace(R.id.container, fragment);

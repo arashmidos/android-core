@@ -4,6 +4,7 @@
   xmlns:tools="http://schemas.android.com/tools"
   android:layout_width="match_parent"
   android:layout_height="match_parent"
+  android:background="@color/gray_ee"
   android:orientation="vertical"
   tools:context="app.arash.androidcore.ui.activity.MainActivity">
   <FrameLayout
@@ -13,8 +14,8 @@
     android:layout_weight="1" />
   <View
     android:layout_width="match_parent"
-    android:layout_height="1dp"
-    android:background="@color/navigation_drawer_divider" />
+    android:layout_height="2dp"
+    android:background="@drawable/shadow_bottom_to_top" />
   <LinearLayout
     android:id="@+id/bottom_navigation_bar"
     android:layout_width="match_parent"
@@ -130,7 +131,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:layout_gravity="center"
-        android:src="@drawable/ic_chart_24_dp" />
+        android:src="@drawable/ic_dots_vertical_24_dp" />
       <TextView
         android:id="@+id/more_tv"
         style="@style/IranSans.Light"

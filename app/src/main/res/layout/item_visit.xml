@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
+  xmlns:tools="http://schemas.android.com/tools"
+  android:id="@+id/main_lay"
+  android:layout_width="match_parent"
+  android:layout_height="wrap_content"
+  android:layout_marginTop="8dp"
+  android:layout_marginLeft="8dp"
+  android:layout_marginRight="8dp"
+  app:cardCornerRadius="2dp"
+  app:cardElevation="4dp">
+  <RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    <ImageView
+      android:id="@+id/calendar_img"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="23dp"
+      android:layout_marginStart="24dp"
+      android:layout_marginEnd="20dp"
+      android:layout_marginLeft="24dp"
+      android:layout_marginRight="20dp"
+      android:layout_alignParentEnd="true"
+      android:layout_alignParentRight="true"
+      android:src="@drawable/ic_calendar_24_dp" />
+    <TextView
+      android:id="@+id/visit_time_tv"
+      style="@style/IranSans.Medium"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="26dp"
+      android:layout_toLeftOf="@id/calendar_img"
+      android:layout_toStartOf="@id/calendar_img"
+      android:textColor="@color/color_primary"
+      android:textSize="14sp"
+      tools:text="دوشنبه، 21 بهمن  20:30" />
+    <TextView
+      android:id="@+id/left_time_tv"
+      style="@style/IranSans.Light"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="26dp"
+      android:layout_marginStart="16dp"
+      android:layout_marginLeft="16dp"
+      android:layout_alignParentLeft="true"
+      android:layout_alignParentStart="true"
+      android:layout_toLeftOf="@id/visit_time_tv"
+      android:layout_toStartOf="@id/visit_time_tv"
+      android:gravity="left"
+      android:textColor="@color/gray_75"
+      android:textSize="14sp"
+      tools:text="27 روز دیگر" />
+    <ImageView
+      android:id="@+id/person_img"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="17dp"
+      android:layout_marginBottom="23dp"
+      android:layout_marginStart="24dp"
+      android:layout_marginEnd="20dp"
+      android:layout_marginLeft="24dp"
+      android:layout_marginRight="20dp"
+      android:layout_alignParentEnd="true"
+      android:layout_alignParentRight="true"
+      android:layout_below="@id/calendar_img"
+      android:src="@drawable/ic_person_line_24_dp" />
+    <TextView
+      android:id="@+id/doctor_name_tv"
+      style="@style/IranSans.Medium"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="25dp"
+      android:layout_below="@id/visit_time_tv"
+      android:layout_toLeftOf="@id/person_img"
+      android:layout_toStartOf="@id/person_img"
+      android:textColor="@color/color_primary"
+      android:textSize="14sp"
+      tools:text="زهرا قنبری" />
+    <TextView
+      style="@style/IranSans.Light"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="25dp"
+      android:layout_marginStart="16dp"
+      android:layout_marginLeft="16dp"
+      android:id="@+id/expertise_tv"
+      android:layout_alignParentLeft="true"
+      android:layout_alignParentStart="true"
+      android:layout_below="@id/left_time_tv"
+      android:layout_toLeftOf="@id/doctor_name_tv"
+      android:layout_toStartOf="@id/doctor_name_tv"
+      android:gravity="left"
+      android:textColor="@color/gray_75"
+      android:textSize="14sp"
+      tools:text="متخصص مغز و اعصاب" />
+  </RelativeLayout>
+
+</android.support.v7.widget.CardView>

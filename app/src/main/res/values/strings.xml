@@ -14,8 +14,6 @@
   <string name="home">خانه</string>
   <string name="my_doctors">پزشکان من</string>
   <string name="more">بیشتر</string>
-
-  <!-- TODO: Remove or change this placeholder text -->
   <string name="hello_blank_fragment">Hello blank fragment</string>
   <string name="about_us">درباره ما</string>
   <string name="contact_us">تماس با ما</string>
@@ -23,4 +21,14 @@
   <string name="version">version 1.12</string>
   <string name="upgrade_app">ارتقاء نرم افزار</string>
   <string name="visit_time">وقت ویزیت</string>
+  <string name="more_items">موارد بیشتر</string>
+  <string name="my_drugs">داروهای من</string>
+  <string name="drugs_list">لیست دارو ها</string>
+  <string name="category">دسته بندی</string>
+  <string name="stared">نشان شده ها</string>
+  <string name="about_us_description">با اپلیکیشن سلامتکده دغدغه ی خود راجب سلامتیتان را کاهش دهید و زندگی سالمتری داشته باشید.
+
+یادآوردی داروهایتان را به اپلیکشن سلامتکده بسپارید این اپ علاوه بر یادآوردی مصرف راجب نکات مصرف آن دارو، موانع مصرف، تداخل دارویی و... شما را راهنمایی میکند و شما میتوانید با آگاهی بیشتر و بدون مشکلات احتمالی داروهایتان را مصرف کنید.
+
+ست کاملی از پزشکانتان بسازید به همراه شماره تماسشان و آدرسشان و همیشه آنها را در جیبتان داشته باشید همچنین میتوانید برای نوبتی که از دکتر گرفته اید آلارم ست کنید تا نوبتتان فراموشتان نشود. اطلاعات مربوط به سلامتیتان مانند فشار خون، وزن، ضربان قلب، کالری مصرفی، کالری دریافتی و... را در اپلیکیشن ذخیره کنید و نمودار تغییرات آنها در گذر زمان را مشاهده کنید.</string>
 </resources>

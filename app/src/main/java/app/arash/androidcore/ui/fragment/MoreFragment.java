@@ -1,6 +1,7 @@
 package app.arash.androidcore.ui.fragment;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -8,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 import app.arash.androidcore.R;
+import app.arash.androidcore.ui.activity.AboutUsActivity;
 import app.arash.androidcore.ui.activity.MainActivity;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -46,7 +48,7 @@ public class MoreFragment extends BaseFragment {
   public void onViewClicked(View view) {
     switch (view.getId()) {
       case R.id.about_us_tv:
-        Toast.makeText(mainActivity, "about us", Toast.LENGTH_SHORT).show();
+        startActivity(new Intent(mainActivity, AboutUsActivity.class));
         break;
       case R.id.contact_us_tv:
         Toast.makeText(mainActivity, "contact us", Toast.LENGTH_SHORT).show();

@@ -51,6 +51,7 @@
   <color name="payment_bottom_line">#4caf50</color>
   <color name="green_return">#388e3c</color>
   <color name="green_question">#43a047</color>
+  <color name="green_97">#0097a7</color>
 
   <color name="log_in_enter_bg_20">#804cb050</color>
   <color name="customers_number">#1d988c</color>
@@ -79,7 +80,6 @@
   <color name="black_10">#1a000000</color>
   <color name="black_21">#212121</color>
 
-  <!-- visit detail-->
   <color name="register_order">#558b2f</color>
   <color name="register_payment">#009688</color>
   <color name="blue_19">#1976d2</color>

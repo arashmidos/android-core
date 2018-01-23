@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:tools="http://schemas.android.com/tools"
+  android:id="@+id/main_lay"
+  android:layout_width="match_parent"
+  android:layout_height="wrap_content"
+  android:orientation="vertical">
+  <View
+    android:id="@+id/first_view"
+    android:layout_width="match_parent"
+    android:layout_height="8dp"
+    android:visibility="gone" />
+  <RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_height="48dp">
+    <ImageView
+      android:id="@+id/time_status_img"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginEnd="17dp"
+      android:layout_marginRight="17dp"
+      android:layout_alignParentEnd="true"
+      android:layout_alignParentRight="true"
+      android:layout_centerVertical="true"
+      tools:src="@drawable/ic_sun_24_dp" />
+    <View
+      android:id="@+id/bottom_line"
+      android:layout_width="1dp"
+      android:layout_height="match_parent"
+      android:layout_marginTop="2dp"
+      android:layout_marginEnd="28dp"
+      android:layout_marginRight="28dp"
+      android:layout_alignParentEnd="true"
+      android:layout_alignParentRight="true"
+      android:layout_below="@id/time_status_img"
+      android:background="@color/gray_cc" />
+    <View
+      android:id="@+id/top_line"
+      android:layout_width="1dp"
+      android:layout_height="match_parent"
+      android:layout_marginBottom="2dp"
+      android:layout_marginEnd="28dp"
+      android:layout_marginRight="28dp"
+      android:layout_above="@id/time_status_img"
+      android:layout_alignParentEnd="true"
+      android:layout_alignParentRight="true"
+      android:background="@color/gray_cc" />
+    <TextView
+      android:id="@+id/medicine_time_tv"
+      style="@style/IranSans"
+      android:layout_width="wrap_content"
+      android:layout_height="match_parent"
+      android:layout_marginEnd="23dp"
+      android:layout_marginRight="23dp"
+      android:layout_centerVertical="true"
+      android:layout_toLeftOf="@id/time_status_img"
+      android:layout_toStartOf="@id/time_status_img"
+      android:gravity="center"
+      android:textColor="@color/gray_75"
+      android:textSize="14sp"
+      tools:text="6:30" />
+    <TextView
+      android:id="@+id/medicine_number_tv"
+      style="@style/IranSans.Light"
+      android:layout_width="wrap_content"
+      android:layout_height="match_parent"
+      android:layout_marginStart="16dp"
+      android:layout_marginLeft="16dp"
+      android:layout_alignParentLeft="true"
+      android:layout_alignParentStart="true"
+      android:layout_centerVertical="true"
+      android:gravity="center"
+      android:textColor="@color/color_primary_dark"
+      android:textSize="14sp"
+      tools:text="1 عدد" />
+    <TextView
+      android:id="@+id/medicine_name_tv"
+      style="@style/IranSans.Light"
+      android:layout_width="wrap_content"
+      android:layout_height="match_parent"
+      android:layout_marginEnd="52dp"
+      android:layout_marginRight="52dp"
+      android:layout_centerVertical="true"
+      android:layout_toEndOf="@id/medicine_number_tv"
+      android:layout_toLeftOf="@id/medicine_time_tv"
+      android:layout_toRightOf="@id/medicine_number_tv"
+      android:layout_toStartOf="@id/medicine_time_tv"
+      android:ellipsize="end"
+      android:gravity="center|right"
+      android:maxLines="1"
+      android:textColor="@color/black_21"
+      android:textSize="14sp"
+      tools:text="استامینوفن" />
+  </RelativeLayout>
+
+  <View
+    android:id="@+id/last_view"
+    android:layout_width="match_parent"
+    android:layout_height="8dp"
+    android:visibility="gone" />
+</LinearLayout>
