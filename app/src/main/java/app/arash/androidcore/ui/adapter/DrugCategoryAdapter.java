@@ -1,6 +1,9 @@
 package app.arash.androidcore.ui.adapter;
 
+import static app.arash.androidcore.data.entity.Constant.DRUG_CATEGORY;
+
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.RecyclerView.Adapter;
 import android.text.TextUtils;
@@ -11,6 +14,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 import app.arash.androidcore.R;
+import app.arash.androidcore.ui.activity.DrugCategoryActivity;
 import app.arash.androidcore.ui.adapter.DrugCategoryAdapter.ViewHolder;
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -72,7 +76,9 @@ public class DrugCategoryAdapter extends Adapter<ViewHolder> {
 
     @OnClick(R.id.category_name_tv)
     public void onViewClicked() {
-      Toast.makeText(context, categories.get(position), Toast.LENGTH_SHORT).show();
+      Intent intent = new Intent(context, DrugCategoryActivity.class);
+      intent.putExtra(DRUG_CATEGORY, categories.get(position));
+      context.startActivity(intent);
     }
   }
 }

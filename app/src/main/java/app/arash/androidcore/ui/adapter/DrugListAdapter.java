@@ -1,6 +1,7 @@
 package app.arash.androidcore.ui.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.RecyclerView.Adapter;
 import android.text.TextUtils;
@@ -11,7 +12,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 import app.arash.androidcore.R;
+import app.arash.androidcore.data.entity.Constant;
 import app.arash.androidcore.data.entity.Drug;
+import app.arash.androidcore.ui.activity.DrugDetailActivity;
 import app.arash.androidcore.ui.adapter.DrugListAdapter.ViewHolder;
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -85,7 +88,7 @@ public class DrugListAdapter extends Adapter<ViewHolder> {
       }
     }
 
-    @OnClick({R.id.more_items_img, R.id.star_img, R.id.alarm_img})
+    @OnClick({R.id.more_items_img, R.id.star_img, R.id.alarm_img, R.id.drug_name_tv})
     public void onViewClicked(View view) {
       switch (view.getId()) {
         case R.id.more_items_img:
@@ -96,6 +99,11 @@ public class DrugListAdapter extends Adapter<ViewHolder> {
           break;
         case R.id.alarm_img:
           Toast.makeText(context, "alarm", Toast.LENGTH_SHORT).show();
+          break;
+        case R.id.drug_name_tv:
+          Intent intent = new Intent(context, DrugDetailActivity.class);
+          intent.putExtra(Constant.DRUG_OBJ, drug);
+          context.startActivity(intent);
           break;
 
       }
