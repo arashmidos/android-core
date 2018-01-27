@@ -5,6 +5,7 @@ import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteException;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -70,7 +71,7 @@ public class MedicDatabaseHelper extends SQLiteOpenHelper {
       String myPath = DATABASE_PATH + DATABASE_NAME;
       checkDB = SQLiteDatabase.openDatabase(myPath, null, SQLiteDatabase.OPEN_READONLY);
     } catch (SQLiteException e) {
-      //database does't exist yet.
+      Log.i(TAG, "Database not exist. Copying...");
     }
 
     if (checkDB != null) {
@@ -83,7 +84,7 @@ public class MedicDatabaseHelper extends SQLiteOpenHelper {
   private void copyDataBase() throws IOException {
 
     //Open your local db as the input stream
-    InputStream myInput = context.getAssets().open(DATABASE_NAME);
+    InputStream myInput = context.getAssets().open("databases/"+DATABASE_NAME);
 
     // Path to the just created empty db
     String outFileName = DATABASE_PATH + DATABASE_NAME;

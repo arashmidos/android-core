@@ -1,18 +1,20 @@
 package app.arash.androidcore.ui.activity;
 
 import android.content.Context;
-import android.graphics.PorterDuff.Mode;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import app.arash.androidcore.R;
+import app.arash.androidcore.data.entity.MedicDatabaseHelper;
 import app.arash.androidcore.ui.fragment.BaseFragment;
 import app.arash.androidcore.ui.fragment.DrugsFragment;
 import app.arash.androidcore.ui.fragment.HomeFragment;
@@ -29,6 +31,7 @@ public class MainActivity extends AppCompatActivity {
   public static final int HOME_FRAGMENT = 1;
   public static final int MORE_FRAGMENT = 2;
   public static final int DRUGS_FRAGMENT = 3;
+  private static final String TAG = MainActivity.class.getSimpleName();
 
   @BindView(R.id.container)
   FrameLayout container;
@@ -64,7 +67,19 @@ public class MainActivity extends AppCompatActivity {
     setContentView(R.layout.activity_main);
     ButterKnife.bind(this);
     initBottomBarList();
-    setupFragment(HOME_FRAGMENT);
+
+    if (savedInstanceState == null) {
+      setupFragment(HOME_FRAGMENT);
+    }
+
+    /*MedicDatabaseHelper db = MedicDatabaseHelper.getInstance(this);
+    SQLiteDatabase database = db.getReadableDatabase();
+    Cursor cursor = database.rawQuery("select * from drug", null);
+    int i = 0;
+    while (cursor.moveToNext()) {
+      i++;
+      Log.i(TAG, cursor.getString(1));
+    }*/
   }
 
   private void initBottomBarList() {
