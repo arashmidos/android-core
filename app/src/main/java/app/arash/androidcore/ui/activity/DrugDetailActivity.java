@@ -12,11 +12,8 @@ import app.arash.androidcore.R;
 import app.arash.androidcore.data.entity.Constant;
 import app.arash.androidcore.data.entity.Drug;
 import app.arash.androidcore.ui.adapter.DrugsViewPagerAdapter;
-import app.arash.androidcore.ui.fragment.DrugCategoryFragment;
-import app.arash.androidcore.ui.fragment.DrugListFragment;
 import app.arash.androidcore.ui.fragment.DrugReminderFragment;
 import app.arash.androidcore.ui.fragment.DrugSpecificationFragment;
-import app.arash.androidcore.ui.fragment.StaredDrugsFragment;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -48,7 +45,7 @@ public class DrugDetailActivity extends AppCompatActivity {
   private void getIntentData() {
     if (getIntent() != null && getIntent().getSerializableExtra(Constant.DRUG_OBJ) != null) {
       drug = (Drug) getIntent().getSerializableExtra(Constant.DRUG_OBJ);
-      drugNameTv.setText(drug.getDrugName());
+      drugNameTv.setText(drug.getNameFa());
       if (drug.isStared()) {
         starImg.setVisibility(View.VISIBLE);
       }

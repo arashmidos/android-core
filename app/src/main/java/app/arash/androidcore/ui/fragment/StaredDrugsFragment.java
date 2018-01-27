@@ -1,7 +1,5 @@
 package app.arash.androidcore.ui.fragment;
 
-import android.content.Context;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.DividerItemDecoration;
@@ -13,11 +11,13 @@ import android.view.ViewGroup;
 
 import app.arash.androidcore.R;
 import app.arash.androidcore.data.entity.Drug;
+import app.arash.androidcore.data.impl.DrugDaoImpl;
 import app.arash.androidcore.ui.activity.MainActivity;
 import app.arash.androidcore.ui.adapter.DrugListAdapter;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
+import java.util.List;
 
 public class StaredDrugsFragment extends Fragment {
 
@@ -32,8 +32,7 @@ public class StaredDrugsFragment extends Fragment {
   }
 
   public static StaredDrugsFragment newInstance() {
-    StaredDrugsFragment fragment = new StaredDrugsFragment();
-    return fragment;
+    return new StaredDrugsFragment();
   }
 
   @Override
@@ -48,8 +47,7 @@ public class StaredDrugsFragment extends Fragment {
   }
 
   private void setUpRecyclerView() {
-    //TODO:need to load favorite list
-    DrugListAdapter drugListAdapter = new DrugListAdapter(mainActivity, Drug.getFavoriteDrugList());
+    DrugListAdapter drugListAdapter = new DrugListAdapter(mainActivity, getFavoriteList());
     LinearLayoutManager layoutManager = new LinearLayoutManager(mainActivity);
     DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(
         recyclerView.getContext(),
@@ -57,6 +55,11 @@ public class StaredDrugsFragment extends Fragment {
     recyclerView.addItemDecoration(dividerItemDecoration);
     recyclerView.setAdapter(drugListAdapter);
     recyclerView.setLayoutManager(layoutManager);
+  }
+
+  private List<Drug> getFavoriteList() {
+    DrugDaoImpl drugDao = new DrugDaoImpl(mainActivity);
+    return drugDao.getAllFavourites();
   }
 
   @Override

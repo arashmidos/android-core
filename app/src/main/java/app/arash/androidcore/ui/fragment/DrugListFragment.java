@@ -6,17 +6,18 @@ import android.support.v4.app.Fragment;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.RecyclerView.LayoutManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import app.arash.androidcore.R;
 import app.arash.androidcore.data.entity.Drug;
+import app.arash.androidcore.data.impl.DrugDaoImpl;
 import app.arash.androidcore.ui.activity.MainActivity;
 import app.arash.androidcore.ui.adapter.DrugListAdapter;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
+import java.util.List;
 
 
 public class DrugListFragment extends Fragment {
@@ -32,8 +33,7 @@ public class DrugListFragment extends Fragment {
   }
 
   public static DrugListFragment newInstance() {
-    DrugListFragment fragment = new DrugListFragment();
-    return fragment;
+    return new DrugListFragment();
   }
 
   @Override
@@ -48,8 +48,7 @@ public class DrugListFragment extends Fragment {
   }
 
   private void setUpRecyclerView() {
-    //TODO:need to load all drugs list
-    DrugListAdapter drugListAdapter = new DrugListAdapter(mainActivity, Drug.getDrugList());
+    DrugListAdapter drugListAdapter = new DrugListAdapter(mainActivity, getAllDrugs());
     LinearLayoutManager layoutManager = new LinearLayoutManager(mainActivity);
     DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(
         recyclerView.getContext(),
@@ -57,6 +56,11 @@ public class DrugListFragment extends Fragment {
     recyclerView.addItemDecoration(dividerItemDecoration);
     recyclerView.setAdapter(drugListAdapter);
     recyclerView.setLayoutManager(layoutManager);
+  }
+
+  private List<Drug> getAllDrugs() {
+    DrugDaoImpl drugDao = new DrugDaoImpl(mainActivity);
+    return drugDao.retrieveAll();
   }
 
   @Override
