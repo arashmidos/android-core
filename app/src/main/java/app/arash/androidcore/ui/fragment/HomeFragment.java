@@ -127,13 +127,6 @@ public class HomeFragment extends BaseFragment {
     unbinder.unbind();
   }
 
-  private void showNewDoctorDialog() {
-    FragmentTransaction ft = mainActivity.getFragmentManager().beginTransaction();
-    NewDoctorDialogFragment newDoctorDialogFragment = NewDoctorDialogFragment
-        .newInstance(mainActivity);
-    newDoctorDialogFragment.show(ft, "new doctor");
-  }
-
   @OnClick({R.id.more_medicine_tv, R.id.add_fab, R.id.set_visit_tv})
   public void onViewClicked(View view) {
     switch (view.getId()) {
@@ -141,7 +134,8 @@ public class HomeFragment extends BaseFragment {
         Toast.makeText(mainActivity, "more", Toast.LENGTH_SHORT).show();
         break;
       case R.id.add_fab:
-        showNewDoctorDialog();
+        Toast.makeText(mainActivity, "add", Toast.LENGTH_SHORT).show();
+
         break;
       case R.id.set_visit_tv:
         Toast.makeText(mainActivity, "set visit tv", Toast.LENGTH_SHORT).show();

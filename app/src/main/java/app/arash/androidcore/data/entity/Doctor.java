@@ -6,7 +6,7 @@ import java.io.Serializable;
  * Created by arash on 1/28/18.
  */
 
-public class Doctor extends BaseEntity<Long> implements Serializable{
+public class Doctor extends BaseEntity<Long> implements Serializable {
 
   public static final String TABLE_NAME = "doctor";
 
@@ -21,6 +21,16 @@ public class Doctor extends BaseEntity<Long> implements Serializable{
   private String expertise;
   private String phone;
   private String address;
+
+  public Doctor(String name, String expertise, String phone, String address) {
+    this.name = name;
+    this.expertise = expertise;
+    this.phone = phone;
+    this.address = address;
+  }
+
+  public Doctor() {
+  }
 
   public Long getId() {
     return id;

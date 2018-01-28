@@ -16,6 +16,7 @@ import android.widget.TextView;
 import app.arash.androidcore.R;
 import app.arash.androidcore.data.entity.MedicDatabaseHelper;
 import app.arash.androidcore.ui.fragment.BaseFragment;
+import app.arash.androidcore.ui.fragment.DoctorListFragment;
 import app.arash.androidcore.ui.fragment.DrugsFragment;
 import app.arash.androidcore.ui.fragment.HomeFragment;
 import app.arash.androidcore.ui.fragment.MoreFragment;
@@ -31,6 +32,8 @@ public class MainActivity extends AppCompatActivity {
   public static final int HOME_FRAGMENT = 1;
   public static final int MORE_FRAGMENT = 2;
   public static final int DRUGS_FRAGMENT = 3;
+  public static final int CHARTS_FRAGMENT = 4;
+  public static final int DOCTORS_FRAGMENT = 5;
   private static final String TAG = MainActivity.class.getSimpleName();
 
   @BindView(R.id.container)
@@ -93,6 +96,7 @@ public class MainActivity extends AppCompatActivity {
     switch (view.getId()) {
       case R.id.chart_lay:
         onBottomBarItemClicked(R.id.chart_tv, R.id.chart_img);
+        setupFragment(CHARTS_FRAGMENT);
         break;
       case R.id.medicine_lay:
         onBottomBarItemClicked(R.id.medicine_tv, R.id.medicine_img);
@@ -104,6 +108,7 @@ public class MainActivity extends AppCompatActivity {
         break;
       case R.id.doctor_lay:
         onBottomBarItemClicked(R.id.doctor_tv, R.id.doctor_img);
+        setupFragment(DOCTORS_FRAGMENT);
         break;
       case R.id.more_lay:
         onBottomBarItemClicked(R.id.more_tv, R.id.more_img);
@@ -144,6 +149,10 @@ public class MainActivity extends AppCompatActivity {
       case DRUGS_FRAGMENT:
         fragment = DrugsFragment.newInstance();
         break;
+      case DOCTORS_FRAGMENT:
+        fragment = DoctorListFragment.newInstance();
+      case CHARTS_FRAGMENT:
+//        fragment = ChartFragment.newInstance();//TODO
     }
     tr.replace(R.id.container, fragment);
     tr.commit();

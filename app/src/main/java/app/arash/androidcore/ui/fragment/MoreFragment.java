@@ -3,20 +3,24 @@ package app.arash.androidcore.ui.fragment;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 import android.widget.Toast;
+import app.arash.androidcore.BuildConfig;
 import app.arash.androidcore.R;
 import app.arash.androidcore.ui.activity.AboutUsActivity;
 import app.arash.androidcore.ui.activity.MainActivity;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
 
 public class MoreFragment extends BaseFragment {
 
+  @BindView(R.id.version_name)
+  TextView versionName;
   private Unbinder unbinder;
   private MainActivity mainActivity;
 
@@ -35,7 +39,13 @@ public class MoreFragment extends BaseFragment {
     View view = inflater.inflate(R.layout.fragment_more, container, false);
     unbinder = ButterKnife.bind(this, view);
     mainActivity = (MainActivity) getActivity();
+
+    setData();
     return view;
+  }
+
+  private void setData() {
+    versionName.setText(String.format("version %s", BuildConfig.VERSION_NAME));
   }
 
   @Override
@@ -51,13 +61,13 @@ public class MoreFragment extends BaseFragment {
         startActivity(new Intent(mainActivity, AboutUsActivity.class));
         break;
       case R.id.contact_us_tv:
-        Toast.makeText(mainActivity, "contact us", Toast.LENGTH_SHORT).show();
+        Toast.makeText(mainActivity, "تماس با ما", Toast.LENGTH_SHORT).show();
         break;
       case R.id.log_out_tv:
-        Toast.makeText(mainActivity, "log out", Toast.LENGTH_SHORT).show();
+        Toast.makeText(mainActivity, "خروج", Toast.LENGTH_SHORT).show();
         break;
       case R.id.upgrade_app:
-        Toast.makeText(mainActivity, "upgrade app", Toast.LENGTH_SHORT).show();
+        Toast.makeText(mainActivity, "ارتقا نرم افزار", Toast.LENGTH_SHORT).show();
         break;
     }
   }

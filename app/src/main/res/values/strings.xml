@@ -84,5 +84,8 @@
   <string name="set_new_reminder">تنظیم یادآور</string>
   <string name="search_drugs_hint">جستجو در داروها...</string>
   <string name="no_result">هیچ نتیجه ای یافت نشد</string>
+  <string name="error_doctor_name_is_empty">نام دکتر نمی تواند خالی باشد</string>
+  <string name="message_register_doctor_successful">ثبت دکتر با موفقیت انجام شد</string>
+  <string name="error_in_register_doctor">خطا در ثبت دکتر</string>
 
 </resources>

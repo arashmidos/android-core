@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:tools="http://schemas.android.com/tools"
+  android:id="@+id/doctor_layout"
+  android:layout_width="match_parent"
+  android:layout_height="wrap_content"
+  android:orientation="horizontal">
+  <ImageView
+    android:id="@+id/more_img"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center"
+    android:paddingLeft="16dp"
+    android:paddingRight="16dp"
+    android:src="@drawable/ic_more_vertical_24_dp"
+    android:visibility="visible" />
+  <TextView
+    android:id="@+id/doctor_name_tv"
+    style="@style/IranSans.Light"
+    android:layout_width="0dp"
+    android:layout_height="wrap_content"
+    android:layout_weight="1"
+    android:layout_marginTop="16dp"
+    android:layout_marginBottom="16dp"
+    android:layout_marginEnd="16dp"
+    android:layout_marginRight="16dp"
+    android:ellipsize="end"
+    android:maxLines="1"
+    android:textColor="@color/black_21"
+    android:textSize="14sp"
+    tools:text="@string/doctor_name" />
+</LinearLayout>
