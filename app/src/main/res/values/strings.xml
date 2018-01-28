@@ -93,5 +93,7 @@
   <string name="delete_doctor">حذف پزشک</string>
   <string name="edit_visit">ویرایش وقت ویزیت</string>
   <string name="delete_visit">حذف وقت ویزیت</string>
+  <string name="message_confirm_delete_doctor">آیا از حذف پزشک اطمینان دارید؟</string>
+  <string name="delete">حذف</string>
 
 </resources>

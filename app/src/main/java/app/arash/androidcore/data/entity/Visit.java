@@ -54,12 +54,7 @@ public class Visit {
   }
 
   public static List<Visit> getVisitList() {
-    List<Visit> visits = new ArrayList<>();
-    visits.add(
-        new Visit("دوشنبه، 21 بهمن  20:30", "شکیب ایز د بست", "۵ روز دیگر", "متخصص زنان و زایمان"));
-    visits
-        .add(new Visit("دوشنبه، 21 بهمن  20:30", "جعفر رضایی", "۲ روز دیگر", "متخصص خرابی اعصاب"));
-    visits.add(new Visit("دوشنبه، 21 بهمن  20:30", "حسن حسینی", "۳ روز دیگر", "متخصص گوش پا دهن"));
-    return visits;
+
+    return new ArrayList<>();
   }
 }

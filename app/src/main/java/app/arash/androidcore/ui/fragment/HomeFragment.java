@@ -1,8 +1,8 @@
 package app.arash.androidcore.ui.fragment;
 
 
-import android.app.FragmentTransaction;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -19,12 +19,13 @@ import app.arash.androidcore.data.entity.Visit;
 import app.arash.androidcore.ui.activity.MainActivity;
 import app.arash.androidcore.ui.adapter.MedicineAdapter;
 import app.arash.androidcore.ui.adapter.VisitAdapter;
-import app.arash.androidcore.ui.fragment.dialog.NewDoctorDialogFragment;
-import app.arash.androidcore.ui.fragment.dialog.SearchDialogFragment;
+import app.arash.androidcore.util.DateUtil;
+import app.arash.androidcore.util.NumberUtil;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
+import java.util.Date;
 import java.util.List;
 
 public class HomeFragment extends BaseFragment {
@@ -46,6 +47,18 @@ public class HomeFragment extends BaseFragment {
   LinearLayout medicineEmptyView;
   @BindView(R.id.visit_empty_view)
   CardView visitEmptyView;
+  @BindView(R.id.toolbar_date)
+  TextView toolbarDate;
+  @BindView(R.id.visit_tv)
+  TextView visitTv;
+  @BindView(R.id.set_visit_tv)
+  TextView setVisitTv;
+  @BindView(R.id.charts_tv)
+  TextView chartsTv;
+  @BindView(R.id.healthy_chart_recycler_view)
+  RecyclerView healthyChartRecyclerView;
+  @BindView(R.id.add_fab)
+  FloatingActionButton addFab;
 
   private MedicineAdapter medicineAdapter;
   private VisitAdapter visitAdapter;
@@ -57,8 +70,7 @@ public class HomeFragment extends BaseFragment {
 
 
   public static HomeFragment newInstance() {
-    HomeFragment fragment = new HomeFragment();
-    return fragment;
+    return new HomeFragment();
   }
 
   @Override
@@ -68,14 +80,20 @@ public class HomeFragment extends BaseFragment {
     View view = inflater.inflate(R.layout.fragment_home, container, false);
     unbinder = ButterKnife.bind(this, view);
     mainActivity = (MainActivity) getActivity();
+    setDate();
     setUpMedicineRecyclerView();
     setUpVisitRecyclerView();
     return view;
   }
 
+  private void setDate() {
+    String dateString = DateUtil.getFullPersianDate(new Date());
+    toolbarDate.setText(String.format("امروز، %s", NumberUtil.digitsToPersian(dateString)));
+  }
+
   private void setUpMedicineRecyclerView() {
     List<Medicine> medicines = Medicine.getMedicineList();
-    if (medicines == null || medicines.size() == 0) {
+    if ( medicines.size() == 0) {
       medicineRecyclerView.setVisibility(View.GONE);
       medicineEmptyView.setVisibility(View.VISIBLE);
       moreMedicineTv.setVisibility(View.VISIBLE);
@@ -103,7 +121,7 @@ public class HomeFragment extends BaseFragment {
 
   private void setUpVisitRecyclerView() {
     List<Visit> visits = Visit.getVisitList();
-    if (visits != null && visits.size() != 0) {
+    if ( visits.size() != 0) {
       visitRecyclerView.setVisibility(View.VISIBLE);
       visitEmptyView.setVisibility(View.GONE);
       visitAdapter = new VisitAdapter(mainActivity, visits);

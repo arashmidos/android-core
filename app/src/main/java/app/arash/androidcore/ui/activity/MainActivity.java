@@ -96,7 +96,7 @@ public class MainActivity extends AppCompatActivity {
     switch (view.getId()) {
       case R.id.chart_lay:
         onBottomBarItemClicked(R.id.chart_tv, R.id.chart_img);
-        setupFragment(CHARTS_FRAGMENT);
+//        setupFragment(CHARTS_FRAGMENT);
         break;
       case R.id.medicine_lay:
         onBottomBarItemClicked(R.id.medicine_tv, R.id.medicine_img);

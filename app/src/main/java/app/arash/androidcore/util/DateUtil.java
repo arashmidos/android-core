@@ -381,8 +381,10 @@ public class DateUtil {
     String dateString = DateUtil.convertDate(date, DateUtil.GLOBAL_FORMATTER, "FA");
     String[] splitDate = dateString.split("/");
     String monthName = monthNames[Integer.parseInt(splitDate[1]) - 1];
-    return String.format("%s %s %s %s", getPersianDayOfWeek(dayOfWeek), splitDate[2], monthName,
-        splitDate[0], monthName);
+    if (splitDate[2].startsWith("0")) {
+      splitDate[2] = splitDate[2].replace("0", "");
+    }
+    return String.format("%s %s %s", getPersianDayOfWeek(dayOfWeek), splitDate[2], monthName);
   }
 
   public static String moveDate(String date1, Integer count) {

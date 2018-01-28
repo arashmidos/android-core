@@ -64,23 +64,7 @@ public class Medicine {
   }
 
   public static List<Medicine> getMedicineList() {
-    List<Medicine> medicines = new ArrayList<>();
-    medicines.add(new Medicine(1L, "06:30", "استامینوفن", 2, 1));
-    medicines.add(new Medicine(2L, "09:30", "هماتروپین", 1, 0));
-    medicines.add(new Medicine(3L, "12:50", "سوماتریپتان", 10, 2));
-    medicines.add(new Medicine(4L, "13:30", "استامینوفن", 2, 1));
-    medicines.add(new Medicine(5L, "18:30", "استامینوفن", 44, 1));
-    medicines.add(new Medicine(6L, "06:30", "استامینوفن", 6, 0));
-    medicines.add(new Medicine(7L, "06:30", "استامینوفن", 2, 1));
-    medicines.add(new Medicine(8L, "06:30", "استامینوفن", 2, 1));
-    return medicines;
-  }
 
-  public static List<Medicine> getMedicineTopThreeList() {
-    List<Medicine> medicines = new ArrayList<>();
-    medicines.add(new Medicine(1L, "06:30", "استامینوفن", 2, 1));
-    medicines.add(new Medicine(2L, "09:30", "هماتروپین", 1, 0));
-//    medicines.add(new Medicine(3L, "12:50", "سوماتریپتان", 10, 2));
-    return medicines;
+    return new ArrayList<>();
   }
 }

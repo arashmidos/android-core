@@ -79,6 +79,6 @@
     android:layout_marginLeft="40dp"
     android:layout_alignParentLeft="true"
     android:layout_below="@id/body_tv"
-    android:textColor="@color/primary"
+    android:textColor="@color/color_primary"
     android:textSize="14sp"/>
 </RelativeLayout>
