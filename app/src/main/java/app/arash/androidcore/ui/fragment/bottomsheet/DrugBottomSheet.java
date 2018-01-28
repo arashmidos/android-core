@@ -13,7 +13,6 @@ import app.arash.androidcore.R;
 import app.arash.androidcore.data.entity.Drug;
 import app.arash.androidcore.data.entity.RefreshEvent;
 import app.arash.androidcore.data.impl.DrugDaoImpl;
-import app.arash.androidcore.ui.activity.DrugDetailActivity;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;

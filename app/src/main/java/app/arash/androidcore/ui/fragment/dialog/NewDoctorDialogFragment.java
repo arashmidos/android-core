@@ -3,6 +3,7 @@ package app.arash.androidcore.ui.fragment.dialog;
 import android.app.DialogFragment;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,7 +14,6 @@ import app.arash.androidcore.R;
 import app.arash.androidcore.data.entity.Doctor;
 import app.arash.androidcore.data.entity.DoctorRefreshEvent;
 import app.arash.androidcore.data.impl.DoctorDaoImpl;
-import app.arash.androidcore.ui.activity.MainActivity;
 import app.arash.androidcore.util.ToastUtil;
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -39,11 +39,13 @@ public class NewDoctorDialogFragment extends DialogFragment {
   LinearLayout root;
 
   private Unbinder unbinder;
-  private MainActivity context;
+  private AppCompatActivity context;
+  private Doctor doctor;
 
-  public static NewDoctorDialogFragment newInstance(MainActivity context) {
+  public static NewDoctorDialogFragment newInstance(AppCompatActivity context, Doctor doctor) {
     NewDoctorDialogFragment fragment = new NewDoctorDialogFragment();
     fragment.context = context;
+    fragment.doctor = doctor;
     return fragment;
   }
 
@@ -60,7 +62,17 @@ public class NewDoctorDialogFragment extends DialogFragment {
       Bundle savedInstanceState) {
     View view = inflater.inflate(R.layout.fragment_dialog_new_doctor, container, false);
     unbinder = ButterKnife.bind(this, view);
+    if (doctor != null) {
+      setData();
+    }
     return view;
+  }
+
+  private void setData() {
+    doctorNameEdt.setText(doctor.getName());
+    fieldEdt.setText(doctor.getExpertise());
+    addressEdt.setText(doctor.getAddress());
+    phoneNumberEdt.setText(doctor.getPhone());
   }
 
   @Override
@@ -87,8 +99,19 @@ public class NewDoctorDialogFragment extends DialogFragment {
           String address = addressEdt.getText().toString().trim();
           String field = fieldEdt.getText().toString().trim();
 
-          Doctor doctor = new Doctor(name, field, phone, address);
-          Long id = new DoctorDaoImpl(context).create(doctor);
+          Long id;
+          DoctorDaoImpl doctorDao = new DoctorDaoImpl(context);
+          if (doctor == null) {
+            doctor = new Doctor(name, field, phone, address);
+            id = doctorDao.create(doctor);
+          } else {
+            doctor.setName(name);
+            doctor.setExpertise(field);
+            doctor.setPhone(phone);
+            doctor.setAddress(address);
+            doctorDao.update(doctor);
+            id = doctor.getId();
+          }
           if (id != null) {
             ToastUtil.toastMessage(context, getString(R.string.message_register_doctor_successful));
             getDialog().dismiss();

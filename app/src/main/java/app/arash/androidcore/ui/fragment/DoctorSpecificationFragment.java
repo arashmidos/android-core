@@ -14,10 +14,13 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import app.arash.androidcore.R;
 import app.arash.androidcore.data.entity.Doctor;
+import app.arash.androidcore.data.entity.DoctorRefreshEvent;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
 
 
 public class DoctorSpecificationFragment extends Fragment {
@@ -81,5 +84,25 @@ public class DoctorSpecificationFragment extends Fragment {
     Intent intent = new Intent(Intent.ACTION_DIAL);
     intent.setData(Uri.parse(uri));
     startActivity(intent);
+  }
+
+  @Override
+  public void onResume() {
+    super.onResume();
+    EventBus.getDefault().register(this);
+  }
+
+  @Override
+  public void onPause() {
+    super.onPause();
+    EventBus.getDefault().unregister(this);
+  }
+
+  @Subscribe
+  public void getMessage(DoctorRefreshEvent event) {
+    if (event.getDoctor() != null) {
+      doctor = event.getDoctor();
+      setData();
+    }
   }
 }

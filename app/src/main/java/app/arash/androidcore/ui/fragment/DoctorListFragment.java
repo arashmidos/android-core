@@ -11,8 +11,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import app.arash.androidcore.R;
 import app.arash.androidcore.data.entity.Doctor;
+import app.arash.androidcore.data.entity.DoctorDeleteEvent;
 import app.arash.androidcore.data.entity.DoctorRefreshEvent;
-import app.arash.androidcore.data.entity.RefreshEvent;
 import app.arash.androidcore.data.impl.DoctorDaoImpl;
 import app.arash.androidcore.ui.activity.MainActivity;
 import app.arash.androidcore.ui.adapter.DoctorListAdapter;
@@ -89,6 +89,11 @@ public class DoctorListFragment extends BaseFragment {
     doctorListAdapter.update(getAllDoctors());
   }
 
+  @Subscribe
+  public void getMessage(DoctorDeleteEvent event) {
+    doctorListAdapter.update(getAllDoctors());
+  }
+
   @Override
   public void onDestroyView() {
     super.onDestroyView();
@@ -112,7 +117,7 @@ public class DoctorListFragment extends BaseFragment {
   private void showNewDoctorDialog() {
     FragmentTransaction ft = mainActivity.getFragmentManager().beginTransaction();
     NewDoctorDialogFragment newDoctorDialogFragment = NewDoctorDialogFragment
-        .newInstance(mainActivity);
+        .newInstance(mainActivity, null);
     newDoctorDialogFragment.show(ft, "new doctor");
   }
 }

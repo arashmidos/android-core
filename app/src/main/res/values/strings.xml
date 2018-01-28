@@ -89,5 +89,9 @@
   <string name="message_register_doctor_successful">ثبت دکتر با موفقیت انجام شد</string>
   <string name="error_in_register_doctor">خطا در ثبت دکتر</string>
   <string name="expertise">تخصص</string>
+  <string name="edit_doctor">ویرایش مشخصات پزشک</string>
+  <string name="delete_doctor">حذف پزشک</string>
+  <string name="edit_visit">ویرایش وقت ویزیت</string>
+  <string name="delete_visit">حذف وقت ویزیت</string>
 
 </resources>

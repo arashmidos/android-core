@@ -9,12 +9,15 @@ import android.widget.TextView;
 import app.arash.androidcore.R;
 import app.arash.androidcore.data.entity.Constant;
 import app.arash.androidcore.data.entity.Doctor;
+import app.arash.androidcore.data.entity.DoctorDeleteEvent;
 import app.arash.androidcore.data.entity.RefreshEvent;
 import app.arash.androidcore.data.entity.SearchHistory;
 import app.arash.androidcore.data.impl.SearchDaoImpl;
 import app.arash.androidcore.ui.adapter.DrugsViewPagerAdapter;
 import app.arash.androidcore.ui.fragment.DoctorReminderFragment;
 import app.arash.androidcore.ui.fragment.DoctorSpecificationFragment;
+import app.arash.androidcore.ui.fragment.bottomsheet.DoctorBottomSheet;
+import app.arash.androidcore.ui.fragment.bottomsheet.DrugBottomSheet;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -69,8 +72,8 @@ public class DoctorDetailActivity extends AppCompatActivity {
   public void onViewClicked(View view) {
     switch (view.getId()) {
       case R.id.more_img:
-        /*DrugBottomSheet drugBottomSheet = DrugBottomSheet.newInstance(drug);
-        drugBottomSheet.show(getSupportFragmentManager(), "drug bottom sheet");*///TODO:
+        DoctorBottomSheet doctorBottomSheet = DoctorBottomSheet.newInstance(doctor);
+        doctorBottomSheet.show(getSupportFragmentManager(), "drug bottom sheet");
         break;
       case R.id.back_img:
         onBackPressed();
@@ -97,5 +100,10 @@ public class DoctorDetailActivity extends AppCompatActivity {
   @Subscribe
   public void getMessage(RefreshEvent event) {
 
+  }
+
+  @Subscribe
+  public void getMessage(DoctorDeleteEvent event) {
+    finish();
   }
 }

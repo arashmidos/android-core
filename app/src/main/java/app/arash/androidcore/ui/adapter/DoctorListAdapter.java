@@ -1,5 +1,6 @@
 package app.arash.androidcore.ui.adapter;
 
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.RecyclerView.Adapter;
 import android.view.LayoutInflater;
@@ -8,10 +9,13 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 import app.arash.androidcore.R;
+import app.arash.androidcore.data.entity.Constant;
 import app.arash.androidcore.data.entity.Doctor;
 import app.arash.androidcore.data.impl.DrugDaoImpl;
+import app.arash.androidcore.ui.activity.DoctorDetailActivity;
 import app.arash.androidcore.ui.activity.MainActivity;
 import app.arash.androidcore.ui.adapter.DoctorListAdapter.ViewHolder;
+import app.arash.androidcore.ui.fragment.bottomsheet.DoctorBottomSheet;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -74,11 +78,17 @@ public class DoctorListAdapter extends Adapter<ViewHolder> {
       doctorNameTv.setText(doctor.getName());
     }
 
-    @OnClick({R.id.more_img})
+    @OnClick({R.id.more_img, R.id.doctor_layout})
     public void onViewClicked(View view) {
       switch (view.getId()) {
         case R.id.more_img:
-          //TODO: Doctor bottom sheet
+          DoctorBottomSheet doctorBottomSheet = DoctorBottomSheet.newInstance(doctor);
+          doctorBottomSheet.show(context.getSupportFragmentManager(), "drug bottom sheet");
+          break;
+        case R.id.doctor_layout:
+          Intent intent = new Intent(context, DoctorDetailActivity.class);
+          intent.putExtra(Constant.DRUG_OBJ, doctor);
+          context.startActivity(intent);
       }
     }
   }
