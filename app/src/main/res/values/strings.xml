@@ -75,4 +75,12 @@
   <string name="colesterol_ldl">کلسترول LDL</string>
   <string name="colesterol_hdl">کلسترل HDL</string>
   <string name="calories_recieved">کالری دریافتی</string>
+  <string name="add_to_stared">افزودن به نشان شده ها</string>
+  <string name="add_to_my_drug">افزودن به دارو های من</string>
+  <string name="remove_from_stared">حذف از نشان شده ها</string>
+  <string name="remove_from_my_drug">حذف از دارو های من</string>
+  <string name="remove_reminder">حذف یادآور دارو</string>
+  <string name="reminder_setting">تنظیمات یادآور دارو</string>
+  <string name="set_new_reminder">تنظیم یادآور</string>
+
 </resources>
