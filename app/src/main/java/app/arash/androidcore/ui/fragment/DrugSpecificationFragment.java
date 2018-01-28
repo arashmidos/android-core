@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.RecyclerView.LayoutManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -66,9 +65,9 @@ public class DrugSpecificationFragment extends Fragment {
     List<String> pre = new ArrayList<>();
     List<String> post = new ArrayList<>();
 
-    if (drug.getDrugName() != null) {
-      pre.add(drug.getDrugName());
-      post.add(drug.getDrugName());
+    if (drug.getNameFa() != null) {
+      pre.add(drug.getNameFa());
+      post.add(drug.getNameFa());
     }
     if (drug.getUsage() != null) {
       pre.add(getString(R.string.usage));

@@ -65,8 +65,8 @@ public class DrugSearchAdapter extends Adapter<ViewHolder> {
 
     public void setData(int position) {
       this.drug = drugs.get(position);
-      if (!TextUtils.isEmpty(drug.getDrugName())) {
-        drugNameTv.setText(drug.getDrugName());
+      if (!TextUtils.isEmpty(drug.getNameFa())) {
+        drugNameTv.setText(drug.getNameFa());
       }
     }
   }

@@ -71,15 +71,6 @@ public class MainActivity extends AppCompatActivity {
     if (savedInstanceState == null) {
       setupFragment(HOME_FRAGMENT);
     }
-
-    /*MedicDatabaseHelper db = MedicDatabaseHelper.getInstance(this);
-    SQLiteDatabase database = db.getReadableDatabase();
-    Cursor cursor = database.rawQuery("select * from drug", null);
-    int i = 0;
-    while (cursor.moveToNext()) {
-      i++;
-      Log.i(TAG, cursor.getString(1));
-    }*/
   }
 
   private void initBottomBarList() {

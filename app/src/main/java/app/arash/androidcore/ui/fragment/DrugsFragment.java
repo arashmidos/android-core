@@ -1,16 +1,14 @@
 package app.arash.androidcore.ui.fragment;
 
 
-import android.app.FragmentManager;
+import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
-import android.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 import app.arash.androidcore.R;
 import app.arash.androidcore.ui.activity.MainActivity;
 import app.arash.androidcore.ui.activity.MyDrugsActivity;
@@ -37,8 +35,7 @@ public class DrugsFragment extends BaseFragment {
   }
 
   public static DrugsFragment newInstance() {
-    DrugsFragment fragment = new DrugsFragment();
-    return fragment;
+    return new DrugsFragment();
   }
 
   @Override
