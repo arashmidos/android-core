@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+  android:layout_width="match_parent"
+  android:layout_height="match_parent"
+  android:background="@color/gray_ee"
+  android:orientation="vertical">
+  <LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_gravity="center"
+    android:gravity="center"
+    android:orientation="vertical">
+    <ImageView
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:src="@drawable/ic_timetable_64_dp" />
+    <TextView
+      style="@style/IranSans.Light"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="34dp"
+      android:gravity="center"
+      android:text="@string/no_doctor_visit"
+      android:textColor="@color/gray_75"
+      android:textSize="14sp" />
+    <TextView
+      style="@style/IranSans"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="41dp"
+      android:paddingTop="10dp"
+      android:paddingBottom="10dp"
+      android:paddingLeft="16dp"
+      android:paddingRight="16dp"
+      android:background="@drawable/rec_green_primary"
+      android:text="@string/set_visit"
+      android:textColor="@color/white"
+      android:textSize="14sp" />
+  </LinearLayout>
+</LinearLayout>

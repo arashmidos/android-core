@@ -8,16 +8,18 @@ import android.view.View;
 import android.view.ViewGroup;
 import app.arash.androidcore.R;
 
+/**
+ * @author arash
+ */
+public class DoctorReminderFragment extends Fragment {
 
-public class DrugReminderFragment extends Fragment {
-
-  public DrugReminderFragment() {
+  public DoctorReminderFragment() {
     // Required empty public constructor
   }
 
 
-  public static DrugReminderFragment newInstance() {
-    return new DrugReminderFragment();
+  public static DoctorReminderFragment newInstance() {
+    return new DoctorReminderFragment();
   }
 
 
@@ -25,7 +27,7 @@ public class DrugReminderFragment extends Fragment {
   public View onCreateView(LayoutInflater inflater, ViewGroup container,
       Bundle savedInstanceState) {
     // Inflate the layout for this fragment
-    return inflater.inflate(R.layout.fragment_drug_reminder, container, false);
+    return inflater.inflate(R.layout.fragment_doctor_reminder, container, false);
   }
 
 }

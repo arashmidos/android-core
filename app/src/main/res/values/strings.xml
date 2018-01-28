@@ -40,6 +40,7 @@
   <string name="pregnancy">مصرف برای کودکان و مادران شیرده</string>
   <string name="instruction">آموزش به بیمار و خانواده</string>
   <string name="no_reminder">شما هنوز برای این دارو یادآوری ثبت نکرده اید!</string>
+  <string name="no_doctor_visit">شما هنوز برای این پزشک وقت ویزیت ثبت نکرده اید!</string>
   <string name="set_reminder">ثبت یادآور</string>
   <string name="empty" />
   <string name="intro_text_1">لیست کاملی از داروها به همراه امکان تنظیم یادآور برای آنها را در جیبتان داشته باشید.</string>
@@ -87,5 +88,6 @@
   <string name="error_doctor_name_is_empty">نام دکتر نمی تواند خالی باشد</string>
   <string name="message_register_doctor_successful">ثبت دکتر با موفقیت انجام شد</string>
   <string name="error_in_register_doctor">خطا در ثبت دکتر</string>
+  <string name="expertise">تخصص</string>
 
 </resources>
