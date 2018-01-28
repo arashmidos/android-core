@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
+  xmlns:tools="http://schemas.android.com/tools"
+  android:layout_width="match_parent"
+  android:layout_height="match_parent"
+  android:background="@color/white"
+  android:orientation="vertical"
+  tools:context="app.arash.androidcore.ui.activity.IntroActivity">
+
+  <android.support.v4.view.ViewPager
+    android:id="@+id/view_pager"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true" />
+
+  <TextView
+    android:id="@+id/enter_tv"
+    style="@style/IranSans.Medium"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="32dp"
+    android:layout_marginBottom="32dp"
+    android:layout_marginLeft="32dp"
+    android:layout_marginRight="32dp"
+    android:layout_alignParentBottom="true"
+    android:paddingTop="10dp"
+    android:paddingBottom="10dp"
+    android:background="@drawable/rec_green_primary"
+    android:gravity="center"
+    android:text="@string/enter_to_app"
+    android:textColor="@color/white"
+    android:textSize="14sp" />
+
+  <me.relex.circleindicator.CircleIndicator
+    android:id="@+id/indicator_default"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_above="@id/enter_tv"
+    android:gravity="center"
+    app:ci_drawable="@drawable/ic_lens_green_margin4"
+    app:ci_drawable_unselected="@drawable/ic_lens_gray_18"
+    app:ci_height="6dp"
+    app:ci_width="6dp" />
+
+</RelativeLayout>
