@@ -14,6 +14,7 @@ import app.arash.androidcore.data.entity.Drug;
 import app.arash.androidcore.ui.adapter.DrugsViewPagerAdapter;
 import app.arash.androidcore.ui.fragment.DrugReminderFragment;
 import app.arash.androidcore.ui.fragment.DrugSpecificationFragment;
+import app.arash.androidcore.ui.fragment.bottomsheet.DrugBottomSheet;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -64,7 +65,8 @@ public class DrugDetailActivity extends AppCompatActivity {
   public void onViewClicked(View view) {
     switch (view.getId()) {
       case R.id.more_img:
-        Toast.makeText(this, "more", Toast.LENGTH_SHORT).show();
+        DrugBottomSheet drugBottomSheet = DrugBottomSheet.newInstance(drug);
+        drugBottomSheet.show(getSupportFragmentManager(), "drug bottom sheet");
         break;
       case R.id.back_img:
         onBackPressed();
