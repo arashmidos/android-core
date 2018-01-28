@@ -57,4 +57,22 @@
   <string name="filed">تخصص</string>
   <string name="phone_number">شماره تماس</string>
   <string name="address">آدرس</string>
+  <string name="weight">وزن</string>
+  <string name="weight_unit">Kg</string>
+  <string name="blood_pressure">فشار خون</string>
+  <string name="blood_pressure_unit">mmHg</string>
+  <string name="heart_beat">ضربان قلب</string>
+  <string name="heart_beat_unit">bpm</string>
+  <string name="blood_glucose">قند خون</string>
+  <string name="blood_glucose_unit">Mg/dl</string>
+  <string name="body_temperature">دمای بدن</string>
+  <string name="body_temperature_unit">C</string>
+  <string name="daily_walk">پیاده روی روزانه</string>
+  <string name="daily_walk_unit">Steps</string>
+  <string name="calories_consumed">کالری مصرفی</string>
+  <string name="calories_consumed_unit">Calories</string>
+  <string name="triglyceride">تری گلیسیرید</string>
+  <string name="colesterol_ldl">کلسترول LDL</string>
+  <string name="colesterol_hdl">کلسترل HDL</string>
+  <string name="calories_recieved">کالری دریافتی</string>
 </resources>

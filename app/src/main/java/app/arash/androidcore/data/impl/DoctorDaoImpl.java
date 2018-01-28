@@ -73,27 +73,9 @@ public class DoctorDaoImpl extends AbstractDao<Doctor, Long> implements DoctorDa
     return doctor;
   }
 
-  public List<String> getAllCategory() {
-    MedicDatabaseHelper databaseHelper = MedicDatabaseHelper.getInstance(getContext());
-    SQLiteDatabase db = databaseHelper.getReadableDatabase();
-
-    String[] projections = {Drug.COL_CATEGORY_FA};
-    Cursor cursor = db
-        .query(getTableName(), projections, null, null, Drug.COL_CATEGORY_FA, null, null);
-    List<String> list = new ArrayList<>();
-
-    while (cursor.moveToNext()) {
-      list.add(cursor.getString(0));
-    }
-    cursor.close();
-
-    return list;
-  }
-
   public List<Doctor> searchByName(String constraint) {
     String[] args = {constraint};
     String selection = Doctor.COL_NAME + " =? ";
     return retrieveAll(selection, args, null, null, null);
   }
-
 }
