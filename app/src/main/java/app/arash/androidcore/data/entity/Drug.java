@@ -8,7 +8,7 @@ import java.util.List;
  * Created by shkbhbb on 1/23/18.
  */
 
-public class Drug extends BaseEntity implements Serializable {
+public class Drug extends BaseEntity<Long> implements Serializable {
 
   public static final String TABLE_NAME = "drug";
 
@@ -261,7 +261,7 @@ public class Drug extends BaseEntity implements Serializable {
   }
 
   @Override
-  public Serializable getPrimaryKey() {
+  public Long getPrimaryKey() {
     return id;
   }
 
