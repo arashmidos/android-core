@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:tools="http://schemas.android.com/tools"
+  android:layout_width="match_parent"
+  android:layout_height="match_parent"
+  android:background="@color/white"
+  android:orientation="vertical">
+  <View
+    android:id="@+id/center_view"
+    android:layout_width="match_parent"
+    android:layout_height="1dp"
+    android:layout_centerInParent="true"
+    android:background="@color/transparent" />
+
+  <ImageView
+    android:id="@+id/intro_img"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_above="@id/center_view"
+    android:layout_centerHorizontal="true"
+    tools:src="@drawable/im_slide_2" />
+  <TextView
+    android:id="@+id/intro_tv"
+    style="@style/IranSans.Medium"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="48dp"
+    android:layout_marginLeft="32dp"
+    android:layout_marginRight="32dp"
+    android:layout_below="@id/center_view"
+    android:gravity="center"
+    android:textColor="@color/black_21"
+    android:textSize="16sp"
+    tools:text="اطلاعات پزشکانتان را در اپلیکیشن ذخیره
+کنید و همیشه و همه جا به آنها دسترسی داشته باشید." />
+  <TextView
+    android:id="@+id/detail_tv"
+    style="@style/IranSans"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="20dp"
+    android:layout_marginBottom="100dp"
+    android:layout_below="@id/intro_tv"
+    android:gravity="center"
+    android:text="@string/medic_desc"
+    android:textColor="@color/gray_75"
+    android:textSize="14sp" />
+</RelativeLayout>

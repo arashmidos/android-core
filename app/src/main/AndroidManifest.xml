@@ -16,6 +16,21 @@
 
     <activity
       android:name=".ui.activity.MainActivity"
+      android:screenOrientation="portrait"></activity>
+    <activity
+      android:name=".ui.activity.AboutUsActivity"
+      android:screenOrientation="portrait" />
+    <activity
+      android:name=".ui.activity.DrugCategoryActivity"
+      android:screenOrientation="portrait" />
+    <activity
+      android:name=".ui.activity.MyDrugsActivity"
+      android:screenOrientation="portrait" />
+    <activity
+      android:name=".ui.activity.DrugDetailActivity"
+      android:screenOrientation="portrait" />
+    <activity
+      android:name=".ui.activity.IntroActivity"
       android:screenOrientation="portrait">
       <intent-filter>
         <action android:name="android.intent.action.MAIN" />
@@ -23,14 +38,6 @@
         <category android:name="android.intent.category.LAUNCHER" />
       </intent-filter>
     </activity>
-    <activity
-      android:name=".ui.activity.AboutUsActivity"
-      android:screenOrientation="portrait" />
-    <activity
-      android:name=".ui.activity.DrugCategoryActivity"
-      android:screenOrientation="portrait" />
-    <activity android:name=".ui.activity.MyDrugsActivity" />
-    <activity android:name=".ui.activity.DrugDetailActivity"></activity>
   </application>
 
 </manifest>

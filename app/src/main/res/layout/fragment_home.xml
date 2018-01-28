@@ -9,8 +9,8 @@
     android:id="@+id/toolbar"
     android:layout_width="match_parent"
     android:layout_height="56dp"
-    android:elevation="5dp"
     android:background="@color/color_primary"
+    android:elevation="5dp"
     android:orientation="horizontal">
     <TextView
       style="@style/IranSans.Ultra"
@@ -73,6 +73,31 @@
             android:id="@+id/medicine_recycler_view"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
+          <LinearLayout
+            android:id="@+id/medicine_empty_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:visibility="gone">
+            <ImageView
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:layout_marginTop="24dp"
+              android:layout_marginBottom="18dp"
+              android:layout_gravity="center"
+              android:src="@drawable/ic_bell_56_dp" />
+            <TextView
+              style="@style/IranSans"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:layout_marginBottom="23dp"
+              android:layout_marginLeft="16dp"
+              android:layout_marginRight="16dp"
+              android:gravity="center"
+              android:text="@string/set_alarm_for_drugs"
+              android:textColor="@color/gray_9e"
+              android:textSize="12sp" />
+          </LinearLayout>
           <View
             android:id="@+id/medicine_more_divider"
             android:layout_width="match_parent"
@@ -91,7 +116,6 @@
             android:textColor="@color/color_primary"
             android:textSize="14sp"
             android:visibility="gone" />
-
         </LinearLayout>
       </android.support.v7.widget.CardView>
       <TextView
@@ -113,6 +137,56 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
+      <android.support.v7.widget.CardView
+        android:id="@+id/visit_empty_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:visibility="gone"
+        card_view:cardCornerRadius="2dp"
+        card_view:cardElevation="5dp">
+        <LinearLayout
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:orientation="vertical">
+          <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:layout_marginBottom="18dp"
+            android:layout_gravity="center"
+            android:src="@drawable/ic_calendar_56_dp" />
+          <TextView
+            style="@style/IranSans"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="23dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:gravity="center"
+            android:text="@string/set_visit_empty"
+            android:textColor="@color/gray_9e"
+            android:textSize="12sp" />
+          <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/gray_e0" />
+
+          <TextView
+            android:id="@+id/set_visit_tv"
+            style="@style/IranSans"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="13dp"
+            android:layout_marginBottom="16dp"
+            android:gravity="center"
+            android:text="@string/set_visit"
+            android:textColor="@color/color_primary"
+            android:textSize="14sp" />
+        </LinearLayout>
+      </android.support.v7.widget.CardView>
       <TextView
         android:id="@+id/charts_tv"
         style="@style/IranSans.Bold"

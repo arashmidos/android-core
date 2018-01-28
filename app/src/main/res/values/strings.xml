@@ -41,4 +41,20 @@
   <string name="instruction">آموزش به بیمار و خانواده</string>
   <string name="no_reminder">شما هنوز برای این دارو یادآوری ثبت نکرده اید!</string>
   <string name="set_reminder">ثبت یادآور</string>
+  <string name="empty" />
+  <string name="intro_text_1">لیست کاملی از داروها به همراه امکان تنظیم یادآور برای آنها را در جیبتان داشته باشید.</string>
+  <string name="intro_text_2">وضعیت معیارهای مهم سلامتیتان مانند فشار خون، وزن، میزان کالری مصرفی و ... را در گذر زمان بررسی کنید.</string>
+  <string name="intro_text_3">اطلاعات پزشکانتان را در اپلیکیشن ذخیره کنید و همیشه و همه جا به آنها دسترسی داشته باشید.</string>
+  <string name="enter_to_app">ورود به برنامه</string>
+  <string name="medic_desc">برای آشنا شدن با مدیک، ورق بزنید!</string>
+  <string name="intro_text_0">به اپلیکیشن مدیک خوش آمدید!\n با مدیک سالمتر زندگی کنید!</string>
+  <string name="set_alarm_for_drugs">برای دارو های مصرفی تان، یادآور تنظیم کنید!</string>
+  <string name="set_visit_empty">مدیک وقت ویزیتتان را به شما یادآوری می کند!</string>
+  <string name="set_visit">ثبت وقت ویزیت</string>
+  <string name="set_drug_alarm">ثبت یادآور دارو</string>
+  <string name="register_doctor">ثبت پزشک</string>
+  <string name="doctor_name">نام پزشک</string>
+  <string name="filed">تخصص</string>
+  <string name="phone_number">شماره تماس</string>
+  <string name="address">آدرس</string>
 </resources>
