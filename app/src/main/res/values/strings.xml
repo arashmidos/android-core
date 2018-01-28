@@ -82,5 +82,7 @@
   <string name="remove_reminder">حذف یادآور دارو</string>
   <string name="reminder_setting">تنظیمات یادآور دارو</string>
   <string name="set_new_reminder">تنظیم یادآور</string>
+  <string name="search_drugs_hint">جستجو در داروها...</string>
+  <string name="no_result">هیچ نتیجه ای یافت نشد</string>
 
 </resources>

@@ -8,15 +8,19 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.TextView;
-import android.widget.Toast;
 import app.arash.androidcore.R;
 import app.arash.androidcore.data.entity.Constant;
 import app.arash.androidcore.data.entity.Drug;
+import app.arash.androidcore.data.entity.RefreshEvent;
+import app.arash.androidcore.data.impl.DrugDaoImpl;
 import app.arash.androidcore.ui.adapter.DrugListAdapter;
 import app.arash.androidcore.ui.fragment.dialog.SearchDialogFragment;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import java.util.List;
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
 
 public class DrugCategoryActivity extends AppCompatActivity {
 
@@ -25,8 +29,8 @@ public class DrugCategoryActivity extends AppCompatActivity {
   @BindView(R.id.recycler_view)
   RecyclerView recyclerView;
 
-  //TODO:CHANGE object
-  private String drug;
+  private String drugCategory;
+  private DrugListAdapter drugListAdapter;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
@@ -40,15 +44,14 @@ public class DrugCategoryActivity extends AppCompatActivity {
   private void getIntentData() {
     if (getIntent() != null && getIntent().getExtras() != null
         && getIntent().getExtras().getString(Constant.DRUG_CATEGORY) != null) {
-      //todo
-      drug = getIntent().getExtras().getString(Constant.DRUG_CATEGORY);
-      toolbarTitleTv.setText(drug);
+
+      drugCategory = getIntent().getExtras().getString(Constant.DRUG_CATEGORY);
+      toolbarTitleTv.setText(drugCategory);
     }
   }
 
   private void setUpRecyclerView() {
-    //TODO:need to load current category drugs list
-    DrugListAdapter drugListAdapter = new DrugListAdapter(this, Drug.getDrugList());
+    drugListAdapter = new DrugListAdapter(this, getDrugListByCategory());
     LinearLayoutManager layoutManager = new LinearLayoutManager(this);
     DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(
         recyclerView.getContext(),
@@ -58,9 +61,14 @@ public class DrugCategoryActivity extends AppCompatActivity {
     recyclerView.setLayoutManager(layoutManager);
   }
 
+  private List<Drug> getDrugListByCategory() {
+    DrugDaoImpl drugDao = new DrugDaoImpl(this);
+    return drugDao.getAllDrugsByCategory(drugCategory);
+  }
+
   private void showSearchDialog() {
     FragmentTransaction ft = getFragmentManager().beginTransaction();
-    SearchDialogFragment searchDialogFragment = SearchDialogFragment.newInstance(this);
+    SearchDialogFragment searchDialogFragment = SearchDialogFragment.newInstance(this,true);
     searchDialogFragment.show(ft, "search");
   }
 
@@ -74,5 +82,23 @@ public class DrugCategoryActivity extends AppCompatActivity {
         onBackPressed();
         break;
     }
+  }
+
+  @Override
+  protected void onPause() {
+    super.onPause();
+    EventBus.getDefault().unregister(this);
+  }
+
+  @Override
+  protected void onResume() {
+    super.onResume();
+    EventBus.getDefault().register(this);
+    drugListAdapter.update(getDrugListByCategory());
+  }
+
+  @Subscribe
+  public void getMessage(RefreshEvent event) {
+    drugListAdapter.update(getDrugListByCategory());
   }
 }

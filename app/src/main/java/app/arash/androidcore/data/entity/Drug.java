@@ -1,8 +1,6 @@
 package app.arash.androidcore.data.entity;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Created by shkbhbb on 1/23/18.
@@ -66,62 +64,6 @@ public class Drug extends BaseEntity<Long> implements Serializable {
   }
 
   public Drug() {
-  }
-
-  public static List<Drug> getDrugList() {
-    List<Drug> drugs = new ArrayList<>();
-    drugs.add(new Drug("آ.اس.آ", "usage", "not usage", "side effect", "drug conflict", "pregency",
-        "instruction", "other", true, false));
-    drugs
-        .add(new Drug("آپروتینین", "usage", "not usage", "side effect", "drug conflict", "pregency",
-            "instruction", "other", true, false));
-    drugs.add(
-        new Drug("آتراکوریوم", "usage", "not usage", "side effect", "drug conflict", "pregency",
-            "instruction", "other", true, false));
-    drugs.add(new Drug("آتروپین", "usage", "not usage", "side effect", "drug conflict", "pregency",
-        "instruction", "other", true, false));
-    drugs.add(
-        new Drug("آتورواستاتین", "usage", "not usage", "side effect", "drug conflict", "pregency",
-            "instruction", "other", true, false));
-    drugs.add(new Drug("آتروپین", "usage", "not usage", "side effect", "drug conflict", "pregency",
-        "instruction", "other", true, false));
-    drugs.add(new Drug("آتنولول", "usage", "not usage", "side effect", "drug conflict", "pregency",
-        "instruction", "other", true, false));
-    drugs.add(
-        new Drug("آزاتیوپرین", "usage", "not usage", "side effect", "drug conflict", "pregency",
-            "instruction", "other", true, false));
-    drugs.add(
-        new Drug("آزیترومایسین", "usage", "not usage", "side effect", "drug conflict", "pregency",
-            "instruction", "other", true, false));
-    return drugs;
-  }
-
-  public static List<Drug> getFavoriteDrugList() {
-    List<Drug> drugs = new ArrayList<>();
-    drugs.add(new Drug("آ.اس.آ", "usage", "not usage", "side effect", "drug conflict", "pregency",
-        "instruction", "other", true, false));
-    drugs
-        .add(new Drug("آپروتینین", "usage", "not usage", "side effect", "drug conflict", "pregency",
-            "instruction", "other", true, false));
-    drugs.add(
-        new Drug("آتراکوریوم", "usage", "not usage", "side effect", "drug conflict", "pregency",
-            "instruction", "other", true, false));
-    drugs.add(new Drug("آتروپین", "usage", "not usage", "side effect", "drug conflict", "pregency",
-        "instruction", "other", true, false));
-    drugs.add(
-        new Drug("آتورواستاتین", "usage", "not usage", "side effect", "drug conflict", "pregency",
-            "instruction", "other", true, false));
-    drugs.add(new Drug("آتروپین", "usage", "not usage", "side effect", "drug conflict", "pregency",
-        "instruction", "other", true, false));
-    drugs.add(new Drug("آتنولول", "usage", "not usage", "side effect", "drug conflict", "pregency",
-        "instruction", "other", true, false));
-    drugs.add(
-        new Drug("آزاتیوپرین", "usage", "not usage", "side effect", "drug conflict", "pregency",
-            "instruction", "other", true, false));
-    drugs.add(
-        new Drug("آزیترومایسین", "usage", "not usage", "side effect", "drug conflict", "pregency",
-            "instruction", "other", true, false));
-    return drugs;
   }
 
   public Long getId() {

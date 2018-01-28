@@ -22,5 +22,5 @@
     android:maxLines="1"
     android:textColor="@color/black_21"
     android:textSize="14sp"
-    tools:text="drugs" />
+    tools:text="historyList" />
 </LinearLayout>

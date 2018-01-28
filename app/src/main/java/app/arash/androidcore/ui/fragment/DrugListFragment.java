@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import app.arash.androidcore.R;
 import app.arash.androidcore.data.entity.Drug;
+import app.arash.androidcore.data.entity.RefreshEvent;
 import app.arash.androidcore.data.impl.DrugDaoImpl;
 import app.arash.androidcore.ui.activity.MainActivity;
 import app.arash.androidcore.ui.adapter.DrugListAdapter;
@@ -18,6 +19,8 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 import java.util.List;
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
 
 
 public class DrugListFragment extends Fragment {
@@ -27,6 +30,7 @@ public class DrugListFragment extends Fragment {
 
   Unbinder unbinder;
   private MainActivity mainActivity;
+  private DrugListAdapter drugListAdapter;
 
   public DrugListFragment() {
     // Required empty public constructor
@@ -48,7 +52,7 @@ public class DrugListFragment extends Fragment {
   }
 
   private void setUpRecyclerView() {
-    DrugListAdapter drugListAdapter = new DrugListAdapter(mainActivity, getAllDrugs());
+    drugListAdapter = new DrugListAdapter(mainActivity, getAllDrugs());
     LinearLayoutManager layoutManager = new LinearLayoutManager(mainActivity);
     DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(
         recyclerView.getContext(),
@@ -61,6 +65,25 @@ public class DrugListFragment extends Fragment {
   private List<Drug> getAllDrugs() {
     DrugDaoImpl drugDao = new DrugDaoImpl(mainActivity);
     return drugDao.retrieveAll();
+  }
+
+
+  @Override
+  public void onResume() {
+    super.onResume();
+    EventBus.getDefault().register(this);
+    drugListAdapter.update(getAllDrugs());
+  }
+
+  @Override
+  public void onPause() {
+    super.onPause();
+    EventBus.getDefault().unregister(this);
+  }
+
+  @Subscribe
+  public void getMessage(RefreshEvent event) {
+    drugListAdapter.update(getAllDrugs());
   }
 
   @Override

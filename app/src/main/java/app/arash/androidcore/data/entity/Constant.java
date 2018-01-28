@@ -13,4 +13,7 @@ public class Constant {
   public static final int TITLE = 1;
   public static final int DETAIL = 2;
 
+  public static final String MAX_DRUG_HISTORY = "5";
+  public static final String SEARCH_DRUG = "1";
+  public static final String SEARCH_DOCTOR = "2";
 }

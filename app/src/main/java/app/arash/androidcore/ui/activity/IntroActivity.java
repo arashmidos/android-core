@@ -5,10 +5,10 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
-
 import app.arash.androidcore.R;
 import app.arash.androidcore.ui.adapter.IntroPagerAdapter;
 import app.arash.androidcore.util.DepthPageTransformer;
+import app.arash.androidcore.util.PreferenceHelper;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -27,10 +27,15 @@ public class IntroActivity extends AppCompatActivity {
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
-    setContentView(R.layout.activity_intro);
-    ButterKnife.bind(this);
-    init();
-    setData();
+    if (PreferenceHelper.isSetIntro() == 1) {
+      onClick();
+      finish();
+    } else {
+      setContentView(R.layout.activity_intro);
+      ButterKnife.bind(this);
+      init();
+      setData();
+    }
   }
 
   /**
@@ -62,6 +67,7 @@ public class IntroActivity extends AppCompatActivity {
 
   @OnClick(R.id.enter_tv)
   public void onClick() {
+    PreferenceHelper.setIntro(1);
     Intent intent = new Intent(this, MainActivity.class);
     intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
     startActivity(intent);

@@ -8,9 +8,9 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
 import app.arash.androidcore.R;
 import app.arash.androidcore.data.entity.Drug;
+import app.arash.androidcore.data.entity.RefreshEvent;
 import app.arash.androidcore.data.impl.DrugDaoImpl;
 import app.arash.androidcore.ui.activity.MainActivity;
 import app.arash.androidcore.ui.adapter.DrugListAdapter;
@@ -18,6 +18,8 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 import java.util.List;
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
 
 public class StaredDrugsFragment extends Fragment {
 
@@ -26,6 +28,7 @@ public class StaredDrugsFragment extends Fragment {
 
   Unbinder unbinder;
   private MainActivity mainActivity;
+  private DrugListAdapter drugListAdapter;
 
   public StaredDrugsFragment() {
     // Required empty public constructor
@@ -47,7 +50,7 @@ public class StaredDrugsFragment extends Fragment {
   }
 
   private void setUpRecyclerView() {
-    DrugListAdapter drugListAdapter = new DrugListAdapter(mainActivity, getFavoriteList());
+    drugListAdapter = new DrugListAdapter(mainActivity, getFavoriteList());
     LinearLayoutManager layoutManager = new LinearLayoutManager(mainActivity);
     DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(
         recyclerView.getContext(),
@@ -66,5 +69,23 @@ public class StaredDrugsFragment extends Fragment {
   public void onDestroyView() {
     super.onDestroyView();
     unbinder.unbind();
+  }
+
+  @Override
+  public void onResume() {
+    super.onResume();
+    drugListAdapter.update(getFavoriteList());
+    EventBus.getDefault().register(this);
+  }
+
+  @Override
+  public void onPause() {
+    super.onPause();
+    EventBus.getDefault().unregister(this);
+  }
+
+  @Subscribe
+  public void getMessage(RefreshEvent event) {
+    drugListAdapter.update(getFavoriteList());
   }
 }

@@ -127,13 +127,40 @@ public class DrugDaoImpl extends AbstractDao<Drug, Long> implements DrugDao {
 
   public List<Drug> getAllFavourites() {
     String[] args = {"1"};
-    String selection = Drug.COL_STAR + " =? ";
+    String selection = Drug.COL_STAR + " = ? ";
     return retrieveAll(selection, args, null, null, null);
   }
 
   public List<Drug> getAllMyDrug() {
     String[] args = {"1"};
-    String selection = Drug.COL_MY + " =? ";
+    String selection = Drug.COL_MY + " = ? ";
     return retrieveAll(selection, args, null, null, null);
+  }
+
+  public List<Drug> getAllDrugsByCategory(String category) {
+    String[] args = {category};
+    String selection = Drug.COL_CATEGORY_FA + " = ? ";
+    return retrieveAll(selection, args, null, null, null);
+  }
+
+  public Drug retriveByName(String drugName) {
+    String[] args = {drugName};
+    String selection = Drug.COL_NAME_FA + " = ? ";
+    List<Drug> drugList = retrieveAll(selection, args, null, null, null);
+    if (drugList.size() > 0) {
+      return drugList.get(0);
+    }
+    return null;
+  }
+
+  public List<String> searchByName(String constraint) {
+    String[] args = {"%" + constraint + "%", "%" + constraint + "%"};
+    String selection = Drug.COL_NAME_FA + " LIKE ? OR " + Drug.COL_NAME_EN + " LIKE ? ";
+    List<Drug> list = retrieveAll(selection, args, null, null, null);
+    ArrayList<String> drugList = new ArrayList<>();
+    for (int i = 0; i < list.size(); i++) {
+      drugList.add(list.get(i).getNameFa());
+    }
+    return drugList;
   }
 }

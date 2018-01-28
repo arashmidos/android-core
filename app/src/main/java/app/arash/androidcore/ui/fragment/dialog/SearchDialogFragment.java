@@ -7,15 +7,17 @@ import android.support.annotation.Nullable;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import app.arash.androidcore.R;
-import app.arash.androidcore.data.entity.Drug;
-import app.arash.androidcore.ui.activity.MainActivity;
-import app.arash.androidcore.ui.adapter.DrugCategoryAdapter;
+import app.arash.androidcore.data.impl.DrugDaoImpl;
+import app.arash.androidcore.data.impl.SearchDaoImpl;
 import app.arash.androidcore.ui.adapter.DrugSearchAdapter;
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -36,13 +38,21 @@ public class SearchDialogFragment extends DialogFragment {
   EditText searchEdt;
   @BindView(R.id.recycler_view)
   RecyclerView recyclerView;
+  @BindView(R.id.no_item_lay)
+  LinearLayout noItemLayout;
 
   private Unbinder unbinder;
   private Context context;
+  private DrugSearchAdapter drugSearchAdapter;
+  private SearchDaoImpl searchDaoImpl;
+  private String constraint;
+  private boolean isDrug;
+  private DrugDaoImpl drugDaoImpl;
 
-  public static SearchDialogFragment newInstance(Context context) {
+  public static SearchDialogFragment newInstance(Context context, boolean isDrug) {
     SearchDialogFragment fragment = new SearchDialogFragment();
     fragment.context = context;
+    fragment.isDrug = isDrug;
     return fragment;
   }
 
@@ -59,12 +69,54 @@ public class SearchDialogFragment extends DialogFragment {
       Bundle savedInstanceState) {
     View view = inflater.inflate(R.layout.fragment_dialog_search, container, false);
     unbinder = ButterKnife.bind(this, view);
+    searchDaoImpl = new SearchDaoImpl(context);
+    drugDaoImpl = new DrugDaoImpl(context);
+
+    searchEdt.addTextChangedListener(new TextWatcher() {
+      @Override
+      public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+      }
+
+      @Override
+      public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+      }
+
+      @Override
+      public void afterTextChanged(Editable editable) {
+        constraint = editable.toString();
+        if (!constraint.isEmpty()) {
+          getSearchList();
+        } else {
+          drugSearchAdapter.update(getSearchHistoryList(), true);
+        }
+      }
+    });
     setUpRecyclerView();
     return view;
   }
 
+  private void getSearchList() {
+    List<String> searchList = new ArrayList<>();
+    if (isDrug) {
+      searchList = drugDaoImpl.searchByName(constraint);
+    }else{
+      //searchList = doctorDaoImpl.searchByName(constraint);//TODO
+    }
+    if (searchList.size() > 0) {
+      recyclerView.setVisibility(View.VISIBLE);
+      noItemLayout.setVisibility(View.GONE);
+      drugSearchAdapter.update(searchList, false);
+    } else {
+      recyclerView.setVisibility(View.GONE);
+      noItemLayout.setVisibility(View.VISIBLE);
+    }
+
+  }
+
   private void setUpRecyclerView() {
-    DrugSearchAdapter drugSearchAdapter = new DrugSearchAdapter(context, Drug.getDrugList());
+    drugSearchAdapter = new DrugSearchAdapter(context, getSearchHistoryList());
     LinearLayoutManager layoutManager = new LinearLayoutManager(context);
     DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(
         recyclerView.getContext(),
@@ -72,6 +124,10 @@ public class SearchDialogFragment extends DialogFragment {
     recyclerView.addItemDecoration(dividerItemDecoration);
     recyclerView.setAdapter(drugSearchAdapter);
     recyclerView.setLayoutManager(layoutManager);
+  }
+
+  private List<String> getSearchHistoryList() {
+    return searchDaoImpl.getLatestDrugSearch();
   }
 
   @Override

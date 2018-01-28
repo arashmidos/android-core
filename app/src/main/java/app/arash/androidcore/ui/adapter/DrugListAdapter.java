@@ -1,7 +1,7 @@
 package app.arash.androidcore.ui.adapter;
 
-import android.content.Context;
 import android.content.Intent;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.RecyclerView.Adapter;
 import android.text.TextUtils;
@@ -10,12 +10,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 import app.arash.androidcore.R;
 import app.arash.androidcore.data.entity.Constant;
 import app.arash.androidcore.data.entity.Drug;
 import app.arash.androidcore.ui.activity.DrugDetailActivity;
 import app.arash.androidcore.ui.adapter.DrugListAdapter.ViewHolder;
+import app.arash.androidcore.ui.fragment.bottomsheet.DrugBottomSheet;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -28,12 +28,11 @@ import java.util.List;
 
 public class DrugListAdapter extends Adapter<ViewHolder> {
 
-  private Context context;
+  private AppCompatActivity context;
   private List<Drug> drugs = new ArrayList<>();
   private LayoutInflater layoutInflater;
 
-  public DrugListAdapter(Context context,
-      List<Drug> drugs) {
+  public DrugListAdapter(AppCompatActivity context, List<Drug> drugs) {
     this.context = context;
     this.drugs = drugs;
     this.layoutInflater = LayoutInflater.from(context);
@@ -53,6 +52,16 @@ public class DrugListAdapter extends Adapter<ViewHolder> {
   @Override
   public int getItemCount() {
     return drugs.size();
+  }
+
+  public void updateList(List<Drug> myDrugs) {
+    this.drugs = myDrugs;
+    notifyDataSetChanged();
+  }
+
+  public void update(List<Drug> allDrugs) {
+    this.drugs = allDrugs;
+    notifyDataSetChanged();
   }
 
   public class ViewHolder extends RecyclerView.ViewHolder {
@@ -92,20 +101,14 @@ public class DrugListAdapter extends Adapter<ViewHolder> {
     public void onViewClicked(View view) {
       switch (view.getId()) {
         case R.id.more_items_img:
-          Toast.makeText(context, "more", Toast.LENGTH_SHORT).show();
-          break;
-        case R.id.star_img:
-          Toast.makeText(context, "star", Toast.LENGTH_SHORT).show();
-          break;
-        case R.id.alarm_img:
-          Toast.makeText(context, "alarm", Toast.LENGTH_SHORT).show();
+          DrugBottomSheet drugBottomSheet = DrugBottomSheet.newInstance(drug);
+          drugBottomSheet.show(context.getSupportFragmentManager(), "drug bottom sheet");
           break;
         case R.id.drug_name_tv:
           Intent intent = new Intent(context, DrugDetailActivity.class);
           intent.putExtra(Constant.DRUG_OBJ, drug);
           context.startActivity(intent);
           break;
-
       }
     }
   }

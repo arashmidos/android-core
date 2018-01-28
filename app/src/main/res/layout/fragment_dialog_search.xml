@@ -22,7 +22,10 @@
       android:layout_width="0dp"
       android:layout_height="match_parent"
       android:layout_weight="1"
+      android:hint="@string/search_drugs_hint"
+      android:layout_marginRight="16dp"
       android:background="@color/transparent_white"
+      android:textColorHint="@color/gray_9e"
       android:gravity="center|right" />
     <ImageView
       android:id="@+id/close_img"
@@ -31,6 +34,32 @@
       android:paddingLeft="16dp"
       android:paddingRight="16dp"
       android:src="@drawable/ic_close_24_dp" />
+  </LinearLayout>
+  <LinearLayout
+    android:id="@+id/no_item_lay"
+    android:layout_width="match_parent"
+    android:layout_height="0dp"
+    android:layout_weight="1"
+    android:orientation="vertical"
+    android:visibility="gone">
+
+    <ImageView
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="50dp"
+      android:layout_marginBottom="25dp"
+      android:layout_gravity="center_vertical|top"
+      android:gravity="center"
+      android:src="@drawable/ic_launcher_48_dp" />
+
+    <TextView
+      style="@style/IranSans"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:gravity="center"
+      android:text="@string/no_result"
+      android:textColor="@color/login_gray"
+      android:textSize="14sp" />
   </LinearLayout>
   <android.support.v7.widget.RecyclerView
     android:id="@+id/recycler_view"

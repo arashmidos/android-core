@@ -3,6 +3,7 @@ package app.arash.androidcore.ui.fragment.bottomsheet;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.BottomSheetDialogFragment;
+import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,10 +11,13 @@ import android.widget.TextView;
 import android.widget.Toast;
 import app.arash.androidcore.R;
 import app.arash.androidcore.data.entity.Drug;
+import app.arash.androidcore.data.entity.RefreshEvent;
+import app.arash.androidcore.data.impl.DrugDaoImpl;
 import app.arash.androidcore.ui.activity.DrugDetailActivity;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import org.greenrobot.eventbus.EventBus;
 
 public class DrugBottomSheet extends BottomSheetDialogFragment {
 
@@ -31,8 +35,9 @@ public class DrugBottomSheet extends BottomSheetDialogFragment {
   TextView reminderSettingTv;
   @BindView(R.id.set_reminder_tv)
   TextView setReminderTv;
-  private DrugDetailActivity drugDetailActivity;
+  private AppCompatActivity activity;
   private Drug drug;
+  private DrugDaoImpl drugDaoImpl;
 
 
   public static DrugBottomSheet newInstance(Drug drug) {
@@ -57,7 +62,8 @@ public class DrugBottomSheet extends BottomSheetDialogFragment {
    */
 
   private void init() {
-    drugDetailActivity = (DrugDetailActivity) getActivity();
+    activity = (AppCompatActivity) getActivity();
+    drugDaoImpl = new DrugDaoImpl(activity);
   }
 
   private void setData() {
@@ -92,33 +98,32 @@ public class DrugBottomSheet extends BottomSheetDialogFragment {
   public void onViewClicked(View view) {
     switch (view.getId()) {
       case R.id.add_to_stared_tv:
-        Toast.makeText(drugDetailActivity, "add to star", Toast.LENGTH_SHORT).show();
-        dismiss();
+        drug.setStared(true);
+        drugDaoImpl.update(drug);
         break;
       case R.id.add_to_my_drug_tv:
-        Toast.makeText(drugDetailActivity, "add to my drug", Toast.LENGTH_SHORT).show();
-        dismiss();
+        drug.setMyDrug(true);
+        drugDaoImpl.update(drug);
         break;
       case R.id.remove_from_stared_tv:
-        Toast.makeText(drugDetailActivity, "remove from star", Toast.LENGTH_SHORT).show();
-        dismiss();
+        drug.setStared(false);
+        drugDaoImpl.update(drug);
         break;
       case R.id.remove_from_my_drug_tv:
-        Toast.makeText(drugDetailActivity, "remove from my drug", Toast.LENGTH_SHORT).show();
-        dismiss();
+        drug.setMyDrug(false);
+        drugDaoImpl.update(drug);
         break;
       case R.id.remove_reminder_tv:
-        Toast.makeText(drugDetailActivity, "remove reminder", Toast.LENGTH_SHORT).show();
-        dismiss();
+        Toast.makeText(activity, "حذف از یادآور", Toast.LENGTH_SHORT).show();
         break;
       case R.id.set_reminder_tv:
-        Toast.makeText(drugDetailActivity, "set reminder", Toast.LENGTH_SHORT).show();
-        dismiss();
+        Toast.makeText(activity, "ثبت یادآور", Toast.LENGTH_SHORT).show();
         break;
       case R.id.reminder_setting_tv:
-        Toast.makeText(drugDetailActivity, "setting reminder", Toast.LENGTH_SHORT).show();
-        dismiss();
+        Toast.makeText(activity, "تنظیمات یادآور", Toast.LENGTH_SHORT).show();
         break;
     }
+    dismiss();
+    EventBus.getDefault().post(new RefreshEvent(drug));
   }
 }
