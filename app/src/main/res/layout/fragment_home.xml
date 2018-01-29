@@ -4,6 +4,7 @@
   xmlns:tools="http://schemas.android.com/tools"
   android:layout_width="match_parent"
   android:layout_height="match_parent"
+  xmlns:fab="http://schemas.android.com/apk/res-auto"
   tools:context="app.arash.androidcore.ui.fragment.HomeFragment">
   <LinearLayout
     android:id="@+id/toolbar"
@@ -212,7 +213,7 @@
     </LinearLayout>
   </android.support.v4.widget.NestedScrollView>
 
-  <android.support.design.widget.FloatingActionButton
+  <!--<android.support.design.widget.FloatingActionButton
     android:id="@+id/add_fab"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
@@ -222,5 +223,63 @@
     android:layout_alignParentStart="true"
     android:src="@drawable/ic_add_24_dp"
     app:backgroundTint="@color/color_accent"
-    app:fabSize="normal" />
+    app:fabSize="normal" />-->
+
+  <com.getbase.floatingactionbutton.FloatingActionsMenu
+    android:id="@+id/right_labels"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_alignParentLeft="true"
+    android:layout_alignParentStart="true"
+    android:layout_margin="16dp"
+    android:layout_alignParentBottom="true"
+    fab:fab_addButtonColorNormal="@color/color_accent"
+    fab:fab_addButtonColorPressed="@color/color_accent"
+    fab:fab_addButtonPlusIconColor="@color/black"
+    fab:fab_addButtonSize="normal"
+    fab:fab_labelsPosition="right">
+
+    <com.getbase.floatingactionbutton.FloatingActionButton
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      fab:fab_colorNormal="@color/white"
+      app:fab_size="mini"
+      android:id="@+id/add_visit"
+      android:src="@drawable/ic_time_calendar_24_dp"
+      fab:fab_labelsPosition="left"
+      fab:fab_labelStyle="@style/menu_labels_style"
+      fab:fab_title="ثبت وقت ویزین"/>
+
+    <com.getbase.floatingactionbutton.FloatingActionButton
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      fab:fab_colorNormal="@color/white"
+      android:src="@drawable/ic_stethoscope_green_24_dp"
+      fab:fab_size="mini"
+      android:id="@+id/add_doctor"
+      fab:fab_labelStyle="@style/menu_labels_style"
+      fab:fab_title="ثبت پزشک"/>
+
+    <com.getbase.floatingactionbutton.FloatingActionButton
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:src="@drawable/ic_chart__green_24_dp"
+      app:fab_size="mini"
+      android:id="@+id/add_chart"
+      fab:fab_colorNormal="@color/white"
+      fab:fab_labelStyle="@style/menu_labels_style"
+      fab:fab_labelsPosition="left"
+      fab:fab_title="ثبت نمودار سلامت" />
+
+    <com.getbase.floatingactionbutton.FloatingActionButton
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:src="@drawable/ic_drug_24_dp"
+      android:id="@+id/add_reminder"
+      fab:fab_colorNormal="@color/white"
+      fab:fab_labelStyle="@style/menu_labels_style"
+      fab:fab_size="mini"
+      fab:fab_title="ثبت یادآور دارو" />
+
+  </com.getbase.floatingactionbutton.FloatingActionsMenu>
 </RelativeLayout>

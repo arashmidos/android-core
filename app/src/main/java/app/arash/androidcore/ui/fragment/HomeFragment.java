@@ -1,8 +1,8 @@
 package app.arash.androidcore.ui.fragment;
 
 
+import android.app.FragmentTransaction;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -19,6 +19,7 @@ import app.arash.androidcore.data.entity.Visit;
 import app.arash.androidcore.ui.activity.MainActivity;
 import app.arash.androidcore.ui.adapter.MedicineAdapter;
 import app.arash.androidcore.ui.adapter.VisitAdapter;
+import app.arash.androidcore.ui.fragment.dialog.NewDoctorDialogFragment;
 import app.arash.androidcore.util.DateUtil;
 import app.arash.androidcore.util.NumberUtil;
 import butterknife.BindView;
@@ -57,8 +58,6 @@ public class HomeFragment extends BaseFragment {
   TextView chartsTv;
   @BindView(R.id.healthy_chart_recycler_view)
   RecyclerView healthyChartRecyclerView;
-  @BindView(R.id.add_fab)
-  FloatingActionButton addFab;
 
   private MedicineAdapter medicineAdapter;
   private VisitAdapter visitAdapter;
@@ -93,7 +92,7 @@ public class HomeFragment extends BaseFragment {
 
   private void setUpMedicineRecyclerView() {
     List<Medicine> medicines = Medicine.getMedicineList();
-    if ( medicines.size() == 0) {
+    if (medicines.size() == 0) {
       medicineRecyclerView.setVisibility(View.GONE);
       medicineEmptyView.setVisibility(View.VISIBLE);
       moreMedicineTv.setVisibility(View.VISIBLE);
@@ -121,7 +120,7 @@ public class HomeFragment extends BaseFragment {
 
   private void setUpVisitRecyclerView() {
     List<Visit> visits = Visit.getVisitList();
-    if ( visits.size() != 0) {
+    if (visits.size() != 0) {
       visitRecyclerView.setVisibility(View.VISIBLE);
       visitEmptyView.setVisibility(View.GONE);
       visitAdapter = new VisitAdapter(mainActivity, visits);
@@ -145,15 +144,25 @@ public class HomeFragment extends BaseFragment {
     unbinder.unbind();
   }
 
-  @OnClick({R.id.more_medicine_tv, R.id.add_fab, R.id.set_visit_tv})
+  @OnClick({R.id.add_visit, R.id.add_doctor, R.id.add_chart, R.id.add_reminder,
+      R.id.more_medicine_tv, R.id.set_visit_tv})
   public void onViewClicked(View view) {
     switch (view.getId()) {
+      case R.id.add_visit:
+        break;
+      case R.id.add_doctor:
+        FragmentTransaction ft = mainActivity.getFragmentManager().beginTransaction();
+        NewDoctorDialogFragment newDoctorDialogFragment = NewDoctorDialogFragment
+            .newInstance(mainActivity, null);
+        newDoctorDialogFragment.show(ft, "new doctor");
+
+        break;
+      case R.id.add_chart:
+        break;
+      case R.id.add_reminder:
+        break;
       case R.id.more_medicine_tv:
         Toast.makeText(mainActivity, "more", Toast.LENGTH_SHORT).show();
-        break;
-      case R.id.add_fab:
-        Toast.makeText(mainActivity, "add", Toast.LENGTH_SHORT).show();
-
         break;
       case R.id.set_visit_tv:
         Toast.makeText(mainActivity, "set visit tv", Toast.LENGTH_SHORT).show();
