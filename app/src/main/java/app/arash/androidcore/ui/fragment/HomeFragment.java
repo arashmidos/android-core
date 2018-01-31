@@ -14,12 +14,14 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 import app.arash.androidcore.R;
+import app.arash.androidcore.data.entity.MeasureDetailType;
 import app.arash.androidcore.data.entity.Medicine;
 import app.arash.androidcore.data.entity.Visit;
 import app.arash.androidcore.ui.activity.MainActivity;
 import app.arash.androidcore.ui.adapter.MedicineAdapter;
 import app.arash.androidcore.ui.adapter.VisitAdapter;
 import app.arash.androidcore.ui.fragment.dialog.NewDoctorDialogFragment;
+import app.arash.androidcore.ui.fragment.dialog.NewMeasureDialogFragment;
 import app.arash.androidcore.util.DateUtil;
 import app.arash.androidcore.util.NumberUtil;
 import butterknife.BindView;
@@ -155,9 +157,12 @@ public class HomeFragment extends BaseFragment {
         NewDoctorDialogFragment newDoctorDialogFragment = NewDoctorDialogFragment
             .newInstance(mainActivity, null);
         newDoctorDialogFragment.show(ft, "new doctor");
-
         break;
       case R.id.add_chart:
+        FragmentTransaction ft2 = mainActivity.getFragmentManager().beginTransaction();
+        NewMeasureDialogFragment newMeasureDialogFragment = NewMeasureDialogFragment
+            .newInstance(mainActivity, MeasureDetailType.BLOOD_GLUCOSE);
+        newMeasureDialogFragment.show(ft2, "new measure");
         break;
       case R.id.add_reminder:
         break;

@@ -11,12 +11,10 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import app.arash.androidcore.R;
 import app.arash.androidcore.data.entity.Constant;
-import app.arash.androidcore.ui.activity.DrugDetailActivity;
 import app.arash.androidcore.ui.adapter.DrugSpecificationAdapter.ViewHolder;
 import app.arash.androidcore.ui.fragment.DrugSpecificationFragment;
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import butterknife.OnClick;
 import java.util.List;
 import org.jetbrains.annotations.Nullable;
 

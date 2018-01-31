@@ -23,7 +23,7 @@ public enum MeasureDetailType {
   private final int unit;
   private long id;
 
-  MeasureDetailType(long value, int type, int unit) {
+  MeasureDetailType(long id, int type, int unit) {
     this.id = id;
     this.unit = unit;
     this.type = type;

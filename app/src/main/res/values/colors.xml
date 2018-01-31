@@ -91,4 +91,6 @@
   <color name="gray_cc">#cccccc</color>
   <color name="black_42">#424242</color>
   <color name="transparent">#00000000</color>
+  <color name="gray_ec">#eceff1</color>
+  <color name="gray_85">#858585</color>
 </resources>

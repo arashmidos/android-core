@@ -86,6 +86,7 @@
   <string name="search_drugs_hint">جستجو در داروها...</string>
   <string name="no_result">هیچ نتیجه ای یافت نشد</string>
   <string name="error_doctor_name_is_empty">نام دکتر نمی تواند خالی باشد</string>
+  <string name="error_field_is_empty">این قسمت نمی تواند خالی باشد</string>
   <string name="message_register_doctor_successful">ثبت دکتر با موفقیت انجام شد</string>
   <string name="error_in_register_doctor">خطا در ثبت دکتر</string>
   <string name="expertise">تخصص</string>
@@ -95,5 +96,12 @@
   <string name="delete_visit">حذف وقت ویزیت</string>
   <string name="message_confirm_delete_doctor">آیا از حذف پزشک اطمینان دارید؟</string>
   <string name="delete">حذف</string>
+  <string name="register_weight_title">ثبت وزن</string>
+  <string name="new_weight">وزن جدید</string>
+  <string name="measure_time_label">زمان اندازه گیری</string>
+  <string name="date">تاریخ</string>
+  <string name="click_add_date">جهت انتخاب تاریخ لمس کنید</string>
+  <string name="click_add_time">جهت انتخاب زمان لمس کنید</string>
+  <string name="hour">ساعت</string>
 
 </resources>
