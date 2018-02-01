@@ -1,36 +1,31 @@
 package app.arash.androidcore.ui.adapter;
 
-import static app.arash.androidcore.data.entity.Constant.DRUG_CATEGORY;
-
 import android.content.Context;
-import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.RecyclerView.Adapter;
-import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 import app.arash.androidcore.R;
-import app.arash.androidcore.ui.activity.DrugCategoryActivity;
-import app.arash.androidcore.ui.adapter.DrugCategoryAdapter.ViewHolder;
+import app.arash.androidcore.data.entity.MeasureDetailType;
+import app.arash.androidcore.ui.adapter.MeasureListAdapter.ViewHolder;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import java.util.ArrayList;
-import java.util.List;
 
 /**
- * Created by shkbhbb on 1/23/18.
+ * Created by Arash on 1/23/18.
  */
 
-public class DrugCategoryAdapter extends Adapter<ViewHolder> {
+public class MeasureListAdapter extends Adapter<ViewHolder> {
 
   private Context context;
-  private List<String> categories = new ArrayList<>();
+  private MeasureDetailType[] categories;
   private LayoutInflater layoutInflater;
 
-  public DrugCategoryAdapter(Context context, List<String> categories) {
+  public MeasureListAdapter(Context context, MeasureDetailType[] categories) {
     this.context = context;
     this.categories = categories;
     this.layoutInflater = LayoutInflater.from(context);
@@ -38,7 +33,7 @@ public class DrugCategoryAdapter extends Adapter<ViewHolder> {
 
   @Override
   public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-    View view = layoutInflater.inflate(R.layout.item_drug_category, parent, false);
+    View view = layoutInflater.inflate(R.layout.item_measure, parent, false);
     return new ViewHolder(view);
   }
 
@@ -49,13 +44,13 @@ public class DrugCategoryAdapter extends Adapter<ViewHolder> {
 
   @Override
   public int getItemCount() {
-    return categories.size();
+    return categories.length;
   }
 
   public class ViewHolder extends RecyclerView.ViewHolder {
 
-    @BindView(R.id.category_name_tv)
-    TextView categoryNameTv;
+    @BindView(R.id.measure_name_tv)
+    TextView measureNameTv;
 
     private int position;
 
@@ -66,16 +61,12 @@ public class DrugCategoryAdapter extends Adapter<ViewHolder> {
 
     public void setData(int position) {
       this.position = position;
-      if (!TextUtils.isEmpty(categories.get(position))) {
-        categoryNameTv.setText(categories.get(position));
-      }
+      measureNameTv.setText(categories[position].getType());
     }
 
-    @OnClick(R.id.category_name_tv)
+    @OnClick(R.id.measure_name_tv)
     public void onViewClicked() {
-      Intent intent = new Intent(context, DrugCategoryActivity.class);
-      intent.putExtra(DRUG_CATEGORY, categories.get(position));
-      context.startActivity(intent);
+      Toast.makeText(context, "boodi hala", Toast.LENGTH_SHORT).show();
     }
   }
 }

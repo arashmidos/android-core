@@ -103,5 +103,6 @@
   <string name="click_add_date">جهت انتخاب تاریخ لمس کنید</string>
   <string name="click_add_time">جهت انتخاب زمان لمس کنید</string>
   <string name="hour">ساعت</string>
+  <string name="add_health_measure">ثبت نمودار سلامت</string>
 
 </resources>

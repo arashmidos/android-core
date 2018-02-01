@@ -10,26 +10,32 @@ import android.support.v7.widget.RecyclerView.LayoutManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 import app.arash.androidcore.R;
-import app.arash.androidcore.data.entity.MeasureDetailType;
+import app.arash.androidcore.data.entity.FabChangedEvent;
+import app.arash.androidcore.data.entity.FabChangedEvent.FabStatus;
 import app.arash.androidcore.data.entity.Medicine;
 import app.arash.androidcore.data.entity.Visit;
 import app.arash.androidcore.ui.activity.MainActivity;
 import app.arash.androidcore.ui.adapter.MedicineAdapter;
 import app.arash.androidcore.ui.adapter.VisitAdapter;
+import app.arash.androidcore.ui.fragment.dialog.MeasureListDialogFragment;
 import app.arash.androidcore.ui.fragment.dialog.NewDoctorDialogFragment;
-import app.arash.androidcore.ui.fragment.dialog.NewMeasureDialogFragment;
 import app.arash.androidcore.util.DateUtil;
 import app.arash.androidcore.util.NumberUtil;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
+import com.getbase.floatingactionbutton.FloatingActionsMenu;
+import com.getbase.floatingactionbutton.FloatingActionsMenu.OnFloatingActionsMenuUpdateListener;
 import java.util.Date;
 import java.util.List;
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
 
 public class HomeFragment extends BaseFragment {
 
@@ -60,6 +66,10 @@ public class HomeFragment extends BaseFragment {
   TextView chartsTv;
   @BindView(R.id.healthy_chart_recycler_view)
   RecyclerView healthyChartRecyclerView;
+  @BindView(R.id.overlay)
+  FrameLayout overlay;
+  @BindView(R.id.right_labels)
+  FloatingActionsMenu rightLabels;
 
   private MedicineAdapter medicineAdapter;
   private VisitAdapter visitAdapter;
@@ -84,7 +94,24 @@ public class HomeFragment extends BaseFragment {
     setDate();
     setUpMedicineRecyclerView();
     setUpVisitRecyclerView();
+    setFABListener();
     return view;
+  }
+
+  private void setFABListener() {
+    rightLabels.setOnFloatingActionsMenuUpdateListener(new OnFloatingActionsMenuUpdateListener() {
+      @Override
+      public void onMenuExpanded() {
+        overlay.setVisibility(View.VISIBLE);
+        mainActivity.showOverlay(true);
+      }
+
+      @Override
+      public void onMenuCollapsed() {
+        overlay.setVisibility(View.GONE);
+        mainActivity.showOverlay(false);
+      }
+    });
   }
 
   private void setDate() {
@@ -147,7 +174,7 @@ public class HomeFragment extends BaseFragment {
   }
 
   @OnClick({R.id.add_visit, R.id.add_doctor, R.id.add_chart, R.id.add_reminder,
-      R.id.more_medicine_tv, R.id.set_visit_tv})
+      R.id.more_medicine_tv, R.id.set_visit_tv, R.id.overlay})
   public void onViewClicked(View view) {
     switch (view.getId()) {
       case R.id.add_visit:
@@ -160,11 +187,13 @@ public class HomeFragment extends BaseFragment {
         break;
       case R.id.add_chart:
         FragmentTransaction ft2 = mainActivity.getFragmentManager().beginTransaction();
-        NewMeasureDialogFragment newMeasureDialogFragment = NewMeasureDialogFragment
-            .newInstance(mainActivity, MeasureDetailType.BLOOD_GLUCOSE);
-        newMeasureDialogFragment.show(ft2, "new measure");
+        MeasureListDialogFragment dialogFragment = MeasureListDialogFragment
+            .newInstance(mainActivity);
+        dialogFragment.show(ft2, "new measure");
         break;
       case R.id.add_reminder:
+        Toast.makeText(mainActivity, "add reminder", Toast.LENGTH_SHORT).show();
+
         break;
       case R.id.more_medicine_tv:
         Toast.makeText(mainActivity, "more", Toast.LENGTH_SHORT).show();
@@ -172,6 +201,29 @@ public class HomeFragment extends BaseFragment {
       case R.id.set_visit_tv:
         Toast.makeText(mainActivity, "set visit tv", Toast.LENGTH_SHORT).show();
         break;
+      case R.id.overlay:
+        overlay.setVisibility(View.GONE);
+        rightLabels.collapse();
+        break;
+    }
+  }
+
+  @Override
+  public void onPause() {
+    super.onPause();
+    EventBus.getDefault().unregister(this);
+  }
+
+  @Override
+  public void onResume() {
+    super.onResume();
+    EventBus.getDefault().register(this);
+  }
+
+  @Subscribe
+  public void getMessage(FabChangedEvent event) {
+    if (event.getFabStatus() == FabStatus.COLLAPSED) {
+      rightLabels.collapse();
     }
   }
 }

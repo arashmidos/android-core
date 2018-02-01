@@ -1,30 +1,33 @@
 package app.arash.androidcore.ui.activity;
 
 import android.content.Context;
-import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
+import android.util.EventLog.Event;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 import app.arash.androidcore.R;
-import app.arash.androidcore.data.entity.MedicDatabaseHelper;
+import app.arash.androidcore.data.entity.FabChangedEvent;
+import app.arash.androidcore.data.entity.FabChangedEvent.FabStatus;
 import app.arash.androidcore.ui.fragment.BaseFragment;
 import app.arash.androidcore.ui.fragment.DoctorListFragment;
 import app.arash.androidcore.ui.fragment.DrugsFragment;
 import app.arash.androidcore.ui.fragment.HomeFragment;
 import app.arash.androidcore.ui.fragment.MoreFragment;
+import app.arash.androidcore.util.ToastUtil;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import java.util.ArrayList;
 import java.util.List;
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 public class MainActivity extends AppCompatActivity {
@@ -60,6 +63,8 @@ public class MainActivity extends AppCompatActivity {
   TextView doctorTv;
   @BindView(R.id.more_tv)
   TextView moreTv;
+  @BindView(R.id.overlay)
+  FrameLayout overlay;
 
   private List<Integer> bottomBarImageView;
   private List<Integer> bottomBarTextView;
@@ -91,7 +96,7 @@ public class MainActivity extends AppCompatActivity {
     bottomBarTextView.add(R.id.more_tv);
   }
 
-  @OnClick({R.id.chart_lay, R.id.medicine_lay, R.id.home_lay, R.id.doctor_lay, R.id.more_lay})
+  @OnClick({R.id.chart_lay, R.id.medicine_lay, R.id.home_lay, R.id.doctor_lay, R.id.more_lay,R.id.overlay})
   public void onViewClicked(View view) {
     switch (view.getId()) {
       case R.id.chart_lay:
@@ -114,6 +119,8 @@ public class MainActivity extends AppCompatActivity {
         onBottomBarItemClicked(R.id.more_tv, R.id.more_img);
         setupFragment(MORE_FRAGMENT);
         break;
+      case R.id.overlay:
+        EventBus.getDefault().post(new FabChangedEvent(FabStatus.COLLAPSED));
     }
   }
 
@@ -161,5 +168,13 @@ public class MainActivity extends AppCompatActivity {
   @Override
   protected void attachBaseContext(Context newBase) {
     super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
+  }
+
+  public void showOverlay(boolean show) {
+    if (show) {
+      overlay.setVisibility(View.VISIBLE);
+    }else{
+      overlay.setVisibility(View.GONE);
+    }
   }
 }

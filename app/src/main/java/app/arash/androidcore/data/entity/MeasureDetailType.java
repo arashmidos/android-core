@@ -1,6 +1,8 @@
 package app.arash.androidcore.data.entity;
 
 import app.arash.androidcore.R;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by Arash

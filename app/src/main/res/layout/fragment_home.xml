@@ -214,10 +214,11 @@
     </LinearLayout>
   </android.support.v4.widget.NestedScrollView>
   <FrameLayout
+    android:visibility="gone"
     android:id="@+id/overlay"
     android:layout_width="match_parent"
     android:background="#80000000"
-    android:layout_height="match_parent"></FrameLayout>
+    android:layout_height="match_parent" />
   <com.getbase.floatingactionbutton.FloatingActionsMenu
     android:id="@+id/right_labels"
     android:layout_width="wrap_content"
@@ -239,7 +240,7 @@
       fab:fab_colorNormal="@color/white"
       app:fab_size="mini"
       android:id="@+id/add_visit"
-      android:src="@drawable/ic_time_calendar_24_dp"
+      app:fab_icon="@drawable/ic_time_calendar_24_dp"
       fab:fab_labelsPosition="left"
       fab:fab_title="ثبت وقت ویزیت"/>
 
@@ -247,7 +248,7 @@
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       fab:fab_colorNormal="@color/white"
-      android:src="@drawable/ic_stethoscope_green_24_dp"
+      app:fab_icon="@drawable/ic_stethoscope_green_24_dp"
       fab:fab_size="mini"
       android:id="@+id/add_doctor"
       fab:fab_title="ثبت پزشک"/>
@@ -255,7 +256,7 @@
     <com.getbase.floatingactionbutton.FloatingActionButton
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
-      android:src="@drawable/ic_chart__green_24_dp"
+      app:fab_icon="@drawable/ic_chart__green_24_dp"
       app:fab_size="mini"
       android:id="@+id/add_chart"
       fab:fab_colorNormal="@color/white"
@@ -265,7 +266,7 @@
     <com.getbase.floatingactionbutton.FloatingActionButton
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
-      android:src="@drawable/ic_drug_24_dp"
+      app:fab_icon="@drawable/ic_drug_24_dp"
       android:id="@+id/add_reminder"
       fab:fab_colorNormal="@color/white"
       fab:fab_size="mini"
