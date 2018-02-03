@@ -16,7 +16,7 @@
     android:drawablePadding="35dp"
     android:drawableRight="@drawable/ic_account_circle_24_dp"
     android:gravity="right|center"
-    android:text="09301780245"
+    android:text=""
     android:textColor="@color/white"
     android:textSize="14sp" />
 
@@ -82,7 +82,8 @@
     android:gravity="right|center"
     android:text="@string/log_out"
     android:textColor="@color/red_f4"
-    android:textSize="14sp" />
+    android:textSize="14sp"
+    android:visibility="gone" />
 
   <View
     android:layout_width="match_parent"
@@ -114,6 +115,7 @@
     android:gravity="center"
     android:text="@string/upgrade_app"
     android:textColor="@color/white"
-    android:textSize="14sp" />
+    android:textSize="14sp"
+    android:visibility="gone" />
 
 </LinearLayout>
