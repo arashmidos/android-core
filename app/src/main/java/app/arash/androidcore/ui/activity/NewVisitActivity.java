@@ -3,6 +3,7 @@ package app.arash.androidcore.ui.activity;
 import android.app.FragmentTransaction;
 import android.app.TimePickerDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
@@ -11,11 +12,13 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import app.arash.androidcore.R;
+import app.arash.androidcore.data.entity.Constant;
 import app.arash.androidcore.data.entity.Doctor;
+import app.arash.androidcore.data.entity.DoctorVisit;
+import app.arash.androidcore.data.impl.DoctorVisitDaoImpl;
 import app.arash.androidcore.ui.fragment.dialog.DoctorSearchDialogFragment;
 import app.arash.androidcore.util.DateUtil;
 import app.arash.androidcore.util.NumberUtil;
-import app.arash.androidcore.util.SunDate;
 import app.arash.androidcore.util.ToastUtil;
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -48,6 +51,14 @@ public class NewVisitActivity extends AppCompatActivity {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_new_visit);
     ButterKnife.bind(this);
+
+    Intent intent = getIntent();
+    if (intent != null) {
+      doctor = (Doctor) intent.getSerializableExtra(Constant.DOCTOR);
+      if (!TextUtils.isEmpty(doctor.getName())) {
+        doctorTv.setText(doctor.getName());
+      }
+    }
   }
 
   @OnClick({R.id.done_img, R.id.close_img, R.id.doctor_tv, R.id.date_layout, R.id.time_layout})
@@ -56,10 +67,14 @@ public class NewVisitActivity extends AppCompatActivity {
       case R.id.done_img:
         if (isValid()) {
           String time = timeValueTv.getText().toString().trim();
-          String date = dateValueTv.getText().toString().trim();
+          String date = DateUtil
+              .convertDate(cal.getTime(), DateUtil.FULL_FORMATTER_GREGORIAN_WITH_TIME, "EN");
           String description = descriptionEdt.getText().toString().trim();
           long doctorId = doctor.getId();
-          //TODO:CALL SAVE VISIT SERVICE
+          DoctorVisit doctorVisit = new DoctorVisit(date, time, description, doctorId);
+          DoctorVisitDaoImpl doctorDao = new DoctorVisitDaoImpl(this);
+          doctorDao.create(doctorVisit);
+
           finish();
         }
         break;
@@ -86,7 +101,7 @@ public class NewVisitActivity extends AppCompatActivity {
         .equals(getString(R.string.choose_doctor)) || doctor == null) {
       ToastUtil.toastError(root, getString(R.string.choose_doctor_is_required));
       return false;
-    } else if (TextUtils.isEmpty(dateValueTv.getText().toString())) {
+    } else if (cal == null) {
       ToastUtil.toastError(root, getString(R.string.choose_date_is_required));
       return false;
     } else if (TextUtils.isEmpty(timeValueTv.getText().toString())) {

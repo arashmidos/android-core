@@ -62,7 +62,7 @@ public class DoctorDetailActivity extends AppCompatActivity {
 
   private void setUpViewPager() {
     DrugsViewPagerAdapter viewPagerAdapter = new DrugsViewPagerAdapter(getSupportFragmentManager());
-    viewPagerAdapter.add(DoctorReminderFragment.newInstance(), getString(R.string.visit_time));
+    viewPagerAdapter.add(DoctorReminderFragment.newInstance(doctor), getString(R.string.visit_time));
     viewPagerAdapter
         .add(DoctorSpecificationFragment.newInstance(doctor), getString(R.string.specification));
     viewPager.setAdapter(viewPagerAdapter);
