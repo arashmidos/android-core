@@ -41,6 +41,10 @@
     <activity
       android:name=".ui.activity.DoctorDetailActivity"
       android:screenOrientation="portrait" />
+    <activity
+      android:name=".ui.activity.ChartDetailActivity"
+      android:screenOrientation="portrait" >
+    </activity>
   </application>
 
 </manifest>

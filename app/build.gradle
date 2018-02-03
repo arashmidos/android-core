@@ -78,7 +78,7 @@ dependencies {
     implementation 'com.android.support:design:26.1.0'
     implementation 'com.fasterxml.jackson.core:jackson-databind:2.8.2'
     implementation 'com.jakewharton:butterknife:8.4.0'
-    implementation 'com.alirezaafkar:sundatepicker:2.0.4'
+    implementation 'com.alirezaafkar:sundatepicker:2.0.8'
     implementation 'com.github.PhilJay:MPAndroidChart:v3.0.3'
     implementation 'com.squareup.retrofit2:retrofit:2.3.0'
     implementation 'com.squareup.retrofit2:converter-gson:2.1.0'

@@ -45,7 +45,7 @@ public class DateUtil {
   public static final SimpleDateFormat FULL_FORMATTER_GREGORIAN_WITH_TIME = new SimpleDateFormat(
       "yyyy-MM-dd - HH:mm:ss");
   public static final SimpleDateFormat TIME_24 = new SimpleDateFormat("HH:mm:ss");
-  static String[] monthNames = {"فروردین",
+  public static String[] monthNames = {"فروردین",
       "اردیبهشت",
       "خرداد",
       "تیر",

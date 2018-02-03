@@ -69,7 +69,7 @@ public class HomeFragment extends BaseFragment {
   @BindView(R.id.overlay)
   FrameLayout overlay;
   @BindView(R.id.right_labels)
-  FloatingActionsMenu rightLabels;
+  FloatingActionsMenu fabMenu;
 
   private MedicineAdapter medicineAdapter;
   private VisitAdapter visitAdapter;
@@ -99,7 +99,7 @@ public class HomeFragment extends BaseFragment {
   }
 
   private void setFABListener() {
-    rightLabels.setOnFloatingActionsMenuUpdateListener(new OnFloatingActionsMenuUpdateListener() {
+    fabMenu.setOnFloatingActionsMenuUpdateListener(new OnFloatingActionsMenuUpdateListener() {
       @Override
       public void onMenuExpanded() {
         overlay.setVisibility(View.VISIBLE);
@@ -189,7 +189,8 @@ public class HomeFragment extends BaseFragment {
         FragmentTransaction ft2 = mainActivity.getFragmentManager().beginTransaction();
         MeasureListDialogFragment dialogFragment = MeasureListDialogFragment
             .newInstance(mainActivity);
-        dialogFragment.show(ft2, "new measure");
+        dialogFragment.show(ft2, "measure list");
+        fabMenu.collapse();
         break;
       case R.id.add_reminder:
         Toast.makeText(mainActivity, "add reminder", Toast.LENGTH_SHORT).show();
@@ -203,7 +204,7 @@ public class HomeFragment extends BaseFragment {
         break;
       case R.id.overlay:
         overlay.setVisibility(View.GONE);
-        rightLabels.collapse();
+        fabMenu.collapse();
         break;
     }
   }
@@ -223,7 +224,7 @@ public class HomeFragment extends BaseFragment {
   @Subscribe
   public void getMessage(FabChangedEvent event) {
     if (event.getFabStatus() == FabStatus.COLLAPSED) {
-      rightLabels.collapse();
+      fabMenu.collapse();
     }
   }
 }

@@ -1,16 +1,16 @@
 package app.arash.androidcore.ui.adapter;
 
-import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.RecyclerView.Adapter;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 import app.arash.androidcore.R;
 import app.arash.androidcore.data.entity.MeasureDetailType;
+import app.arash.androidcore.ui.activity.MainActivity;
 import app.arash.androidcore.ui.adapter.MeasureListAdapter.ViewHolder;
+import app.arash.androidcore.ui.fragment.dialog.MeasureListDialogFragment;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -21,14 +21,17 @@ import butterknife.OnClick;
 
 public class MeasureListAdapter extends Adapter<ViewHolder> {
 
-  private Context context;
+  private final MeasureListDialogFragment parent;
+  private MainActivity context;
   private MeasureDetailType[] categories;
   private LayoutInflater layoutInflater;
 
-  public MeasureListAdapter(Context context, MeasureDetailType[] categories) {
+  public MeasureListAdapter(MainActivity context, MeasureDetailType[] categories,
+      MeasureListDialogFragment parent) {
     this.context = context;
     this.categories = categories;
     this.layoutInflater = LayoutInflater.from(context);
+    this.parent = parent;
   }
 
   @Override
@@ -53,6 +56,7 @@ public class MeasureListAdapter extends Adapter<ViewHolder> {
     TextView measureNameTv;
 
     private int position;
+    private MeasureDetailType measure;
 
     public ViewHolder(View itemView) {
       super(itemView);
@@ -61,12 +65,14 @@ public class MeasureListAdapter extends Adapter<ViewHolder> {
 
     public void setData(int position) {
       this.position = position;
-      measureNameTv.setText(categories[position].getType());
+      this.measure = categories[position];
+      measureNameTv.setText(measure.getType());
     }
 
-    @OnClick(R.id.measure_name_tv)
+    @OnClick({R.id.measure_name_tv, R.id.item_layout})
     public void onViewClicked() {
-      Toast.makeText(context, "boodi hala", Toast.LENGTH_SHORT).show();
+      context.addNewMeasure(measure);
+      parent.dismiss();
     }
   }
 }

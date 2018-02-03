@@ -1,6 +1,8 @@
 package app.arash.androidcore.data.entity;
 
+import app.arash.androidcore.util.DateUtil;
 import java.io.Serializable;
+import java.util.Date;
 
 /**
  * Created by arash on 1/28/18.
@@ -19,6 +21,15 @@ public class Measure extends BaseEntity<Long> implements Serializable {
   private int type;
   private int value;
   private String timestamp;
+
+  public Measure(int type, int value, Date date) {
+    this.type = type;
+    this.value = value;
+    timestamp = DateUtil.convertDate(date, DateUtil.FULL_FORMATTER_GREGORIAN_WITH_TIME, "EN");
+  }
+
+  public Measure() {
+  }
 
   public Long getId() {
     return id;
@@ -55,5 +66,15 @@ public class Measure extends BaseEntity<Long> implements Serializable {
   @Override
   public Long getPrimaryKey() {
     return id;
+  }
+
+  @Override
+  public String toString() {
+    return "Measure{" +
+        "id=" + id +
+        ", type=" + type +
+        ", value=" + value +
+        ", timestamp='" + timestamp + '\'' +
+        '}';
   }
 }

@@ -3,7 +3,6 @@ package app.arash.androidcore.ui.fragment.dialog;
 import android.app.DialogFragment;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -13,6 +12,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import app.arash.androidcore.R;
 import app.arash.androidcore.data.entity.MeasureDetailType;
+import app.arash.androidcore.ui.activity.MainActivity;
 import app.arash.androidcore.ui.adapter.MeasureListAdapter;
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -33,10 +33,10 @@ public class MeasureListDialogFragment extends DialogFragment {
   RecyclerView list;
 
   private Unbinder unbinder;
-  private AppCompatActivity context;
+  private MainActivity context;
   private MeasureListAdapter adapter;
 
-  public static MeasureListDialogFragment newInstance(AppCompatActivity context) {
+  public static MeasureListDialogFragment newInstance(MainActivity context) {
     MeasureListDialogFragment fragment = new MeasureListDialogFragment();
     fragment.context = context;
     return fragment;
@@ -62,7 +62,8 @@ public class MeasureListDialogFragment extends DialogFragment {
   }
 
   private void setupRecyclerView() {
-    adapter = new MeasureListAdapter(getActivity(), MeasureDetailType.values());
+
+    adapter = new MeasureListAdapter(context, MeasureDetailType.values(), this);
     list.setLayoutManager(new LinearLayoutManager(context));
     list.setAdapter(adapter);
   }
@@ -85,5 +86,10 @@ public class MeasureListDialogFragment extends DialogFragment {
         getDialog().dismiss();
         break;
     }
+  }
+
+  public interface OnNewMeasureSelected {
+
+    void addNewMeasure(MeasureDetailType type);
   }
 }

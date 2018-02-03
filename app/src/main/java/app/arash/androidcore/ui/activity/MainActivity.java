@@ -1,36 +1,40 @@
 package app.arash.androidcore.ui.activity;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
-import android.util.EventLog.Event;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 import app.arash.androidcore.R;
+import app.arash.androidcore.data.entity.Constant;
 import app.arash.androidcore.data.entity.FabChangedEvent;
 import app.arash.androidcore.data.entity.FabChangedEvent.FabStatus;
+import app.arash.androidcore.data.entity.Measure;
+import app.arash.androidcore.data.entity.MeasureDetailType;
 import app.arash.androidcore.ui.fragment.BaseFragment;
 import app.arash.androidcore.ui.fragment.DoctorListFragment;
 import app.arash.androidcore.ui.fragment.DrugsFragment;
 import app.arash.androidcore.ui.fragment.HomeFragment;
 import app.arash.androidcore.ui.fragment.MoreFragment;
-import app.arash.androidcore.util.ToastUtil;
+import app.arash.androidcore.ui.fragment.dialog.MeasureListDialogFragment.OnNewMeasureSelected;
+import app.arash.androidcore.ui.fragment.dialog.NewMeasureDialogFragment;
+import app.arash.androidcore.ui.fragment.dialog.NewMeasureDialogFragment.OnNewMeasureAdded;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import java.util.ArrayList;
 import java.util.List;
 import org.greenrobot.eventbus.EventBus;
-import org.greenrobot.eventbus.Subscribe;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements OnNewMeasureSelected,
+    OnNewMeasureAdded {
 
   public static final int HOME_FRAGMENT = 1;
   public static final int MORE_FRAGMENT = 2;
@@ -96,7 +100,8 @@ public class MainActivity extends AppCompatActivity {
     bottomBarTextView.add(R.id.more_tv);
   }
 
-  @OnClick({R.id.chart_lay, R.id.medicine_lay, R.id.home_lay, R.id.doctor_lay, R.id.more_lay,R.id.overlay})
+  @OnClick({R.id.chart_lay, R.id.medicine_lay, R.id.home_lay, R.id.doctor_lay, R.id.more_lay,
+      R.id.overlay})
   public void onViewClicked(View view) {
     switch (view.getId()) {
       case R.id.chart_lay:
@@ -173,8 +178,23 @@ public class MainActivity extends AppCompatActivity {
   public void showOverlay(boolean show) {
     if (show) {
       overlay.setVisibility(View.VISIBLE);
-    }else{
+    } else {
       overlay.setVisibility(View.GONE);
     }
+  }
+
+  @Override
+  public void addNewMeasure(MeasureDetailType type) {
+    android.app.FragmentTransaction ft2 = getFragmentManager().beginTransaction();
+    NewMeasureDialogFragment dialogFragment = NewMeasureDialogFragment
+        .newInstance(this, type);
+    dialogFragment.show(ft2, "new measure");
+  }
+
+  @Override
+  public void newMeasureAdded(Measure measure) {
+    Intent intent = new Intent(this, ChartDetailActivity.class);
+    intent.putExtra(Constant.MEASURE, measure);
+    startActivity(intent);
   }
 }

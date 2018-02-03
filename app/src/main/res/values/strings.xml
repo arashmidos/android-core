@@ -104,5 +104,10 @@
   <string name="click_add_time">جهت انتخاب زمان لمس کنید</string>
   <string name="hour">ساعت</string>
   <string name="add_health_measure">ثبت نمودار سلامت</string>
+  <string name="error_input_value_not_correct">مقدار وارد شده صحیح نیست</string>
+  <string name="choose_date_is_required">انتخاب تاریخ ضروری است</string>
+  <string name="data_inserted_successfully">اطلاعات شما با موفقیت ثبت شد</string>
+  <string name="chart">نمودار</string>
+  <string name="history">تاریخچه</string>
 
 </resources>
