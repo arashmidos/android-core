@@ -2,6 +2,7 @@ package app.arash.androidcore.ui.fragment;
 
 
 import android.app.FragmentTransaction;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
@@ -20,11 +21,11 @@ import app.arash.androidcore.data.entity.FabChangedEvent.FabStatus;
 import app.arash.androidcore.data.entity.Medicine;
 import app.arash.androidcore.data.entity.Visit;
 import app.arash.androidcore.ui.activity.MainActivity;
+import app.arash.androidcore.ui.activity.NewVisitActivity;
 import app.arash.androidcore.ui.adapter.MedicineAdapter;
 import app.arash.androidcore.ui.adapter.VisitAdapter;
 import app.arash.androidcore.ui.fragment.dialog.MeasureListDialogFragment;
 import app.arash.androidcore.ui.fragment.dialog.NewDoctorDialogFragment;
-import app.arash.androidcore.ui.fragment.dialog.NewVisitDialogFragment;
 import app.arash.androidcore.util.DateUtil;
 import app.arash.androidcore.util.NumberUtil;
 import butterknife.BindView;
@@ -179,10 +180,7 @@ public class HomeFragment extends BaseFragment {
   public void onViewClicked(View view) {
     switch (view.getId()) {
       case R.id.add_visit:
-        FragmentTransaction ftVisit = mainActivity.getFragmentManager().beginTransaction();
-        NewVisitDialogFragment newVisitDialogFragment= NewVisitDialogFragment
-            .newInstance(mainActivity);
-        newVisitDialogFragment.show(ftVisit, "new visit");
+        startActivity(new Intent(mainActivity, NewVisitActivity.class));
         break;
       case R.id.add_doctor:
         FragmentTransaction ft = mainActivity.getFragmentManager().beginTransaction();

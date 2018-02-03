@@ -106,6 +106,8 @@
   <string name="add_health_measure">ثبت نمودار سلامت</string>
   <string name="error_input_value_not_correct">مقدار وارد شده صحیح نیست</string>
   <string name="choose_date_is_required">انتخاب تاریخ ضروری است</string>
+  <string name="choose_time_is_required">انتخاب  ساعت ضروری است</string>
+  <string name="choose_doctor_is_required">انتخاب دکتر ضروری است</string>
   <string name="data_inserted_successfully">اطلاعات شما با موفقیت ثبت شد</string>
   <string name="chart">نمودار</string>
   <string name="history">تاریخچه</string>
@@ -113,5 +115,6 @@
   <string name="choose_doctor">پزشک مورد نظر را انتخاب نمایید</string>
   <string name="visit">وقت ویزیت</string>
   <string name="description">توضیحات</string>
+  <string name="search_in_doctors">جستجو در فهرست پزشکان</string>
 
 </resources>
