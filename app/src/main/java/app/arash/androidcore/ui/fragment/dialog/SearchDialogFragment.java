@@ -16,6 +16,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import app.arash.androidcore.R;
+import app.arash.androidcore.data.impl.DoctorDaoImpl;
 import app.arash.androidcore.data.impl.DrugDaoImpl;
 import app.arash.androidcore.data.impl.SearchDaoImpl;
 import app.arash.androidcore.ui.adapter.DrugSearchAdapter;
@@ -48,6 +49,7 @@ public class SearchDialogFragment extends DialogFragment {
   private String constraint;
   private boolean isDrug;
   private DrugDaoImpl drugDaoImpl;
+  private DoctorDaoImpl doctorDaoImpl;
 
   public static SearchDialogFragment newInstance(Context context, boolean isDrug) {
     SearchDialogFragment fragment = new SearchDialogFragment();
@@ -71,6 +73,7 @@ public class SearchDialogFragment extends DialogFragment {
     unbinder = ButterKnife.bind(this, view);
     searchDaoImpl = new SearchDaoImpl(context);
     drugDaoImpl = new DrugDaoImpl(context);
+    doctorDaoImpl = new DoctorDaoImpl(context);
 
     searchEdt.addTextChangedListener(new TextWatcher() {
       @Override
@@ -102,7 +105,7 @@ public class SearchDialogFragment extends DialogFragment {
     if (isDrug) {
       searchList = drugDaoImpl.searchByName(constraint);
     }else{
-      //searchList = doctorDaoImpl.searchByName(constraint);//TODO
+//      searchList = doctorDaoImpl.searchByName(constraint);
     }
     if (searchList.size() > 0) {
       recyclerView.setVisibility(View.VISIBLE);
