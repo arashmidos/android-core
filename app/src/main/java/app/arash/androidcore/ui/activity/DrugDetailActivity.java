@@ -50,7 +50,7 @@ public class DrugDetailActivity extends AppCompatActivity {
   private void getIntentData() {
     if (getIntent() != null && getIntent().getSerializableExtra(Constant.DRUG_OBJ) != null) {
       drug = (Drug) getIntent().getSerializableExtra(Constant.DRUG_OBJ);
-      drugNameTv.setText(drug.getNameFa());
+      drugNameTv.setText(drug.getNameFa().trim());
       if (drug.isStared()) {
         starImg.setVisibility(View.VISIBLE);
       }

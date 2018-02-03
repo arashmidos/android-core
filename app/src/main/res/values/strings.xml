@@ -109,5 +109,9 @@
   <string name="data_inserted_successfully">اطلاعات شما با موفقیت ثبت شد</string>
   <string name="chart">نمودار</string>
   <string name="history">تاریخچه</string>
+  <string name="register_visit">ثبت وقت ویزیت</string>
+  <string name="choose_doctor">پزشک مورد نظر را انتخاب نمایید</string>
+  <string name="visit">وقت ویزیت</string>
+  <string name="description">توضیحات</string>
 
 </resources>

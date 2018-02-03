@@ -24,6 +24,7 @@ import app.arash.androidcore.ui.adapter.MedicineAdapter;
 import app.arash.androidcore.ui.adapter.VisitAdapter;
 import app.arash.androidcore.ui.fragment.dialog.MeasureListDialogFragment;
 import app.arash.androidcore.ui.fragment.dialog.NewDoctorDialogFragment;
+import app.arash.androidcore.ui.fragment.dialog.NewVisitDialogFragment;
 import app.arash.androidcore.util.DateUtil;
 import app.arash.androidcore.util.NumberUtil;
 import butterknife.BindView;
@@ -178,6 +179,10 @@ public class HomeFragment extends BaseFragment {
   public void onViewClicked(View view) {
     switch (view.getId()) {
       case R.id.add_visit:
+        FragmentTransaction ftVisit = mainActivity.getFragmentManager().beginTransaction();
+        NewVisitDialogFragment newVisitDialogFragment= NewVisitDialogFragment
+            .newInstance(mainActivity);
+        newVisitDialogFragment.show(ftVisit, "new visit");
         break;
       case R.id.add_doctor:
         FragmentTransaction ft = mainActivity.getFragmentManager().beginTransaction();
