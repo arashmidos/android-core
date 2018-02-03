@@ -3,12 +3,8 @@ package app.arash.androidcore.data.impl;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
 import app.arash.androidcore.data.dao.DoctorDao;
 import app.arash.androidcore.data.entity.Doctor;
-import app.arash.androidcore.data.entity.Drug;
-import app.arash.androidcore.data.entity.MedicDatabaseHelper;
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -74,8 +70,8 @@ public class DoctorDaoImpl extends AbstractDao<Doctor, Long> implements DoctorDa
   }
 
   public List<Doctor> searchByName(String constraint) {
-    String[] args = {constraint};
-    String selection = Doctor.COL_NAME + " =? ";
+    String[] args = {"%" + constraint + "%"};
+    String selection = Doctor.COL_NAME + " LIKE ? ";
     return retrieveAll(selection, args, null, null, null);
   }
 }

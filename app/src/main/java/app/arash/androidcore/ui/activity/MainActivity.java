@@ -159,7 +159,7 @@ public class MainActivity extends AppCompatActivity implements OnNewMeasureSelec
         fragment = MoreFragment.newInstance();
         break;
       case DRUGS_FRAGMENT:
-        fragment = DrugsFragment.newInstance();
+        fragment =  DrugsFragment.newInstance();
         break;
       case DOCTORS_FRAGMENT:
         fragment = DoctorListFragment.newInstance();
