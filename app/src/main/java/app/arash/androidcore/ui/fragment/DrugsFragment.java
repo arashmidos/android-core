@@ -61,7 +61,8 @@ public class DrugsFragment extends BaseFragment {
 
   private void showSearchDialog() {
     FragmentTransaction ft = mainActivity.getFragmentManager().beginTransaction();
-    SearchDialogFragment searchDialogFragment = SearchDialogFragment.newInstance(mainActivity,true);
+    SearchDialogFragment searchDialogFragment = SearchDialogFragment
+        .newInstance(mainActivity, true, null);
     searchDialogFragment.show(ft, "search");
   }
 

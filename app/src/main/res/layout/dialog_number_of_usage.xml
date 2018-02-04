@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+  android:layout_width="match_parent"
+  android:layout_height="wrap_content"
+  android:background="@color/white"
+  android:orientation="vertical">
+
+  <TextView
+    style="@style/IranSans"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="24dp"
+    android:layout_marginBottom="31dp"
+    android:layout_marginRight="24dp"
+    android:layout_gravity="top"
+    android:gravity="right"
+    android:text="@string/number_of_use_each_time"
+    android:textColor="@color/black_21"
+    android:textSize="@dimen/text_large" />
+
+  <RadioGroup
+    android:id="@+id/radio_group"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginRight="24dp">
+
+    <RadioButton
+      android:id="@+id/one_radio"
+      style="@style/IranSans"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_marginBottom="31dp"
+      android:button="@null"
+      android:checked="true"
+      android:drawablePadding="24dp"
+      android:drawableRight="@drawable/custom_radio"
+      android:gravity="right|center"
+      android:tag="@string/one_item"
+      android:text="@string/one_item"
+      android:textColor="@color/black_de"
+      android:textSize="14sp" />
+
+    <RadioButton
+      android:id="@+id/two_radio"
+      style="@style/IranSans"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_marginBottom="31dp"
+      android:button="@null"
+      android:drawablePadding="24dp"
+      android:drawableRight="@drawable/custom_radio"
+      android:gravity="right|center"
+      android:tag="@string/two_item"
+      android:text="@string/two_item"
+      android:textColor="@color/black_de"
+      android:textSize="14sp" />
+
+    <RadioButton
+      android:id="@+id/three_radio"
+      style="@style/IranSans"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_marginBottom="31dp"
+      android:button="@null"
+      android:drawablePadding="24dp"
+      android:drawableRight="@drawable/custom_radio"
+      android:gravity="right|center"
+      android:tag="@string/three_item"
+      android:text="@string/three_item"
+      android:textColor="@color/black_de"
+      android:textSize="14sp" />
+
+    <RadioButton
+      android:id="@+id/four_radio"
+      style="@style/IranSans"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_marginBottom="31dp"
+      android:button="@null"
+      android:drawablePadding="24dp"
+      android:drawableRight="@drawable/custom_radio"
+      android:gravity="right|center"
+      android:tag="@string/four_item"
+      android:text="@string/four_item"
+      android:textColor="@color/black_de"
+      android:textSize="14sp" />
+    <RadioButton
+      android:id="@+id/five_radio"
+      style="@style/IranSans"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_marginBottom="31dp"
+      android:button="@null"
+      android:drawablePadding="24dp"
+      android:drawableRight="@drawable/custom_radio"
+      android:gravity="right|center"
+      android:tag="@string/five_item"
+      android:text="@string/five_item"
+      android:textColor="@color/black_de"
+      android:textSize="14sp" />
+    <RadioButton
+      android:id="@+id/six_radio"
+      style="@style/IranSans"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_marginBottom="31dp"
+      android:button="@null"
+      android:drawablePadding="24dp"
+      android:drawableRight="@drawable/custom_radio"
+      android:gravity="right|center"
+      android:tag="@string/six_item"
+      android:text="@string/six_item"
+      android:textColor="@color/black_de"
+      android:textSize="14sp" />
+    <RadioButton
+      android:id="@+id/seven_radio"
+      style="@style/IranSans"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_marginBottom="31dp"
+      android:button="@null"
+      android:drawablePadding="24dp"
+      android:drawableRight="@drawable/custom_radio"
+      android:gravity="right|center"
+      android:tag="@string/seven_item"
+      android:text="@string/seven_item"
+      android:textColor="@color/black_de"
+      android:textSize="14sp" />
+    <RadioButton
+      android:id="@+id/eight_radio"
+      style="@style/IranSans"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_marginBottom="31dp"
+      android:button="@null"
+      android:drawablePadding="24dp"
+      android:drawableRight="@drawable/custom_radio"
+      android:gravity="right|center"
+      android:tag="@string/eight_item"
+      android:text="@string/eight_item"
+      android:textColor="@color/black_de"
+      android:textSize="14sp" />
+  </RadioGroup>
+
+</LinearLayout>

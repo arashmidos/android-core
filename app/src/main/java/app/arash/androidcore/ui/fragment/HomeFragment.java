@@ -16,7 +16,6 @@ import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 import app.arash.androidcore.R;
 import app.arash.androidcore.data.entity.Doctor;
 import app.arash.androidcore.data.entity.DoctorVisit;
@@ -225,14 +224,12 @@ public class HomeFragment extends BaseFragment {
         fabMenu.collapse();
         break;
       case R.id.add_reminder:
-        FragmentTransaction ftAddDrug = mainActivity.getFragmentManager().beginTransaction();
-        AddDrugDialogFragment addDrugDialogFragment= AddDrugDialogFragment
-            .newInstance(mainActivity);
-        addDrugDialogFragment.show(ftAddDrug, "add drug");
         fabMenu.collapse();
-        break;
       case R.id.more_medicine_tv:
-        Toast.makeText(mainActivity, "بزودی در نسخه آینده", Toast.LENGTH_SHORT).show();
+        FragmentTransaction ftAddDrug = mainActivity.getFragmentManager().beginTransaction();
+        AddDrugDialogFragment addDrugDialogFragment = AddDrugDialogFragment
+            .newInstance(mainActivity,null);
+        addDrugDialogFragment.show(ftAddDrug, "add drug");
         break;
       case R.id.set_visit_tv:
         List<Doctor> doctors2 = new DoctorDaoImpl(mainActivity).retrieveAll();

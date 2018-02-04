@@ -23,7 +23,7 @@
   5% — 0D
   0% — 00-->
   <color name="light_orange">#fff69436</color>
-  <color name="color_accent">#ffcc33</color>
+  <color name="color_accent">#00838f</color>
   <color name="color_primary">#00838f</color>
   <color name="color_primary_dark">#006972</color>
   <color name="green_54">#546e7a</color>
@@ -32,6 +32,7 @@
   <color name="light_gray">#ffdbdcde</color>
   <color name="gray_bd">#bdbdbd</color>
   <color name="white">#ffffff</color>
+  <color name="yellow">#ffcc33</color>
   <color name="white30">#deffffff</color>
   <color name="white_fa">#fafafa</color>
   <color name="red">#ffdf2c42</color>
