@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+  android:layout_width="match_parent"
+  android:layout_height="wrap_content"
+  android:background="@color/white"
+  android:orientation="vertical">
+  <LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+    <TextView
+      style="@style/IranSans"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="24dp"
+      android:layout_marginBottom="24dp"
+      android:layout_marginRight="24dp"
+      android:layout_gravity="top"
+      android:gravity="right"
+      android:text="@string/select_day_of_week"
+      android:textColor="@color/black_21"
+      android:textSize="@dimen/text_large" />
+
+    <CheckBox
+      android:id="@+id/saturday_chb"
+      style="@style/CheckBox"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_marginBottom="24dp"
+      android:layout_marginEnd="16dp"
+      android:layout_marginRight="16dp"
+      android:button="@null"
+      android:drawablePadding="24dp"
+      android:drawableRight="?android:attr/listChoiceIndicatorMultiple"
+      android:gravity="right|center"
+      android:text="@string/saturday"
+      android:textColor="@color/black_85"
+      android:textSize="14sp" />
+    <CheckBox
+      android:id="@+id/sunday_chb"
+      style="@style/CheckBox"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_marginBottom="24dp"
+      android:layout_marginEnd="16dp"
+      android:layout_marginRight="16dp"
+      android:button="@null"
+      android:drawablePadding="24dp"
+      android:drawableRight="?android:attr/listChoiceIndicatorMultiple"
+      android:gravity="right|center"
+      android:text="@string/sunday"
+      android:textColor="@color/black_85"
+      android:textSize="14sp" />
+    <CheckBox
+      android:id="@+id/monday_chb"
+      style="@style/CheckBox"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_marginBottom="24dp"
+      android:layout_marginEnd="16dp"
+      android:layout_marginRight="16dp"
+      android:button="@null"
+      android:drawablePadding="24dp"
+      android:drawableRight="?android:attr/listChoiceIndicatorMultiple"
+      android:gravity="right|center"
+      android:text="@string/monday"
+      android:textColor="@color/black_85"
+      android:textSize="14sp" />
+    <CheckBox
+      android:id="@+id/tuesday_chb"
+      style="@style/CheckBox"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_marginBottom="24dp"
+      android:layout_marginEnd="16dp"
+      android:layout_marginRight="16dp"
+      android:button="@null"
+      android:drawablePadding="24dp"
+      android:drawableRight="?android:attr/listChoiceIndicatorMultiple"
+      android:gravity="right|center"
+      android:text="@string/tuesday"
+      android:textColor="@color/black_85"
+      android:textSize="14sp" />
+    <CheckBox
+      android:id="@+id/wednesday_chb"
+      style="@style/CheckBox"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_marginBottom="24dp"
+      android:layout_marginEnd="16dp"
+      android:layout_marginRight="16dp"
+      android:button="@null"
+      android:drawablePadding="24dp"
+      android:drawableRight="?android:attr/listChoiceIndicatorMultiple"
+      android:gravity="right|center"
+      android:text="@string/wednesday"
+      android:textColor="@color/black_85"
+      android:textSize="14sp" />
+    <CheckBox
+      android:id="@+id/thursday_chb"
+      style="@style/CheckBox"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_marginBottom="24dp"
+      android:layout_marginEnd="16dp"
+      android:layout_marginRight="16dp"
+      android:button="@null"
+      android:drawablePadding="24dp"
+      android:drawableRight="?android:attr/listChoiceIndicatorMultiple"
+      android:gravity="right|center"
+      android:text="@string/thursday"
+      android:textColor="@color/black_85"
+      android:textSize="14sp" />
+    <CheckBox
+      android:id="@+id/friday_chb"
+      style="@style/CheckBox"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_marginBottom="24dp"
+      android:layout_marginEnd="16dp"
+      android:layout_marginRight="16dp"
+      android:button="@null"
+      android:drawablePadding="24dp"
+      android:drawableRight="?android:attr/listChoiceIndicatorMultiple"
+      android:gravity="right|center"
+      android:text="@string/friday"
+      android:textColor="@color/black_85"
+      android:textSize="14sp" />
+    <LinearLayout
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:orientation="horizontal">
+      <android.support.v4.widget.Space
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        android:layout_weight="1" />
+      <TextView
+        android:id="@+id/cancel_tv"
+        style="@style/IranSans.Light"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="25dp"
+        android:paddingEnd="16dp"
+        android:paddingRight="16dp"
+        android:text="@string/cancel_btn"
+        android:textColor="@color/color_primary"
+        android:textSize="13dp" />
+      <TextView
+        android:id="@+id/register_tv"
+        style="@style/IranSans.Medium"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingBottom="25dp"
+        android:paddingLeft="16dp"
+        android:paddingRight="32dp"
+        android:text="@string/register"
+        android:textColor="@color/color_primary"
+        android:textSize="13dp" />
+
+    </LinearLayout>
+
+  </LinearLayout>
+</ScrollView>

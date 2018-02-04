@@ -126,6 +126,32 @@
   <string name="choose_drug">دارو مورد نظر را انتخاب نمایید</string>
   <string name="drug_reminder">یادآوری مصرف دارو</string>
   <string name="exit_text">برای خروج دوباره دکمه بازگشت را لمس کنید</string>
-
-
+  <string name="number_of_use_each_time">تعداد مصرف در وعده</string>
+  <string name="one_item">۱ عدد</string>
+  <string name="two_item">۲ عدد</string>
+  <string name="three_item">۳ عدد</string>
+  <string name="four_item">۴ عدد</string>
+  <string name="five_item">۵ عدد</string>
+  <string name="six_item">۶ عدد</string>
+  <string name="seven_item">۷ عدد</string>
+  <string name="eight_item">۸ عدد</string>
+  <string name="repeat_period">بازه زمانی تکرار</string>
+  <string name="every_day">هر روز</string>
+  <string name="specific_day">روز های خاصی از هفته</string>
+  <string name="select_day_of_week">انتخاب روز های هفته</string>
+  <string name="saturday">شنبه</string>
+  <string name="sunday">یکشنبه</string>
+  <string name="monday">دوشنبه</string>
+  <string name="tuesday">سه شنبه</string>
+  <string name="wednesday">چهارشنبه</string>
+  <string name="thursday">پنجشنبه</string>
+  <string name="friday">جمعه</string>
+  <string name="saturday_comma">شنبه,</string>
+  <string name="sunday_comma">یکشنبه,</string>
+  <string name="monday_comma">دوشنبه,</string>
+  <string name="tuesday_comma">سه شنبه,</string>
+  <string name="wednesday_comma">چهارشنبه,</string>
+  <string name="thursday_comma">پنجشنبه,</string>
+  <string name="friday_comma">جمعه,</string>
+  <string name="register">ثبت</string>
 </resources>

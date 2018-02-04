@@ -50,11 +50,14 @@ public class SearchDialogFragment extends DialogFragment {
   private boolean isDrug;
   private DrugDaoImpl drugDaoImpl;
   private DoctorDaoImpl doctorDaoImpl;
+  private AddDrugDialogFragment addDrugDialogFragment;
 
-  public static SearchDialogFragment newInstance(Context context, boolean isDrug) {
+  public static SearchDialogFragment newInstance(Context context, boolean isDrug,
+      AddDrugDialogFragment addDrugDialogFragment) {
     SearchDialogFragment fragment = new SearchDialogFragment();
     fragment.context = context;
     fragment.isDrug = isDrug;
+    fragment.addDrugDialogFragment = addDrugDialogFragment;
     return fragment;
   }
 
@@ -104,7 +107,7 @@ public class SearchDialogFragment extends DialogFragment {
     List<String> searchList = new ArrayList<>();
     if (isDrug) {
       searchList = drugDaoImpl.searchByName(constraint);
-    }else{
+    } else {
 //      searchList = doctorDaoImpl.searchByName(constraint);
     }
     if (searchList.size() > 0) {
@@ -119,7 +122,7 @@ public class SearchDialogFragment extends DialogFragment {
   }
 
   private void setUpRecyclerView() {
-    drugSearchAdapter = new DrugSearchAdapter(context, getSearchHistoryList());
+    drugSearchAdapter = new DrugSearchAdapter(context, getSearchHistoryList(), this,addDrugDialogFragment);
     LinearLayoutManager layoutManager = new LinearLayoutManager(context);
     DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(
         recyclerView.getContext(),

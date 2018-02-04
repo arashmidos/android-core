@@ -28,7 +28,7 @@ public class LabelValueArrayAdapterWithHint extends BaseAdapter {
     LabelValueViewHolder holder;
 
     if (convertView == null) {
-      convertView = mLayoutInflater.inflate(R.layout.row_layout_label_value_spinner, null);
+      convertView = mLayoutInflater.inflate(R.layout.row_layout_label_value_spinner, parent,false);
       holder = new LabelValueViewHolder();
       holder.text = (TextView) convertView.findViewById(R.id.labelTxt);
       convertView.setTag(holder);

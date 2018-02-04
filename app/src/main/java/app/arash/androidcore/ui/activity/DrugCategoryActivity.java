@@ -70,7 +70,7 @@ public class DrugCategoryActivity extends AppCompatActivity {
 
   private void showSearchDialog() {
     FragmentTransaction ft = getFragmentManager().beginTransaction();
-    SearchDialogFragment searchDialogFragment = SearchDialogFragment.newInstance(this, true);
+    SearchDialogFragment searchDialogFragment = SearchDialogFragment.newInstance(this, true,null);
     searchDialogFragment.show(ft, "search");
   }
 

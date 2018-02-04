@@ -1,13 +1,16 @@
 package app.arash.androidcore.ui.fragment;
 
 
+import android.app.FragmentTransaction;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 import app.arash.androidcore.R;
+import app.arash.androidcore.data.entity.Drug;
+import app.arash.androidcore.ui.activity.DrugDetailActivity;
+import app.arash.androidcore.ui.fragment.dialog.AddDrugDialogFragment;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
@@ -16,14 +19,17 @@ import butterknife.Unbinder;
 public class DrugReminderFragment extends Fragment {
 
   Unbinder unbinder;
+  private Drug drug;
 
   public DrugReminderFragment() {
     // Required empty public constructor
   }
 
 
-  public static DrugReminderFragment newInstance() {
-    return new DrugReminderFragment();
+  public static DrugReminderFragment newInstance(Drug drug) {
+    DrugReminderFragment drugReminderFragment = new DrugReminderFragment();
+    drugReminderFragment.drug = drug;
+    return drugReminderFragment;
   }
 
 
@@ -44,6 +50,9 @@ public class DrugReminderFragment extends Fragment {
 
   @OnClick(R.id.reminder)
   public void onViewClicked() {
-    Toast.makeText(getActivity(), "بزودی در نسخه آینده", Toast.LENGTH_SHORT).show();
+    FragmentTransaction ftAddDrug = getActivity().getFragmentManager().beginTransaction();
+    AddDrugDialogFragment addDrugDialogFragment = AddDrugDialogFragment
+        .newInstance(((DrugDetailActivity) getActivity()), drug);
+    addDrugDialogFragment.show(ftAddDrug, "add drug");
   }
 }
