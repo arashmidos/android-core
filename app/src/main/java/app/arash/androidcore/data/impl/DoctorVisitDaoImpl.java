@@ -5,6 +5,8 @@ import android.content.Context;
 import android.database.Cursor;
 import app.arash.androidcore.data.dao.DoctorVisitDao;
 import app.arash.androidcore.data.entity.DoctorVisit;
+import app.arash.androidcore.util.DateUtil;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -73,6 +75,18 @@ public class DoctorVisitDaoImpl extends AbstractDao<DoctorVisit, Long> implement
   public List<DoctorVisit> getAllVisitByDoctorId(long doctorId) {
     String[] args = {String.valueOf(doctorId)};
     String selection = DoctorVisit.COL_DOCTOR_ID + " =? ";
-    return retrieveAll(selection, args, null, null, null);
+    return retrieveAll(selection, args, null, null, DoctorVisit.COL_VISIT_DATE);
+  }
+
+  public List<DoctorVisit> retrieveAllByDate() {
+
+    String selection = DoctorVisit.COL_VISIT_DATE + " > ? ";
+
+    Date date = new Date();
+    date = DateUtil.startOfDay(date);
+    String select = DateUtil.convertDate(date, DateUtil.FULL_FORMATTER_GREGORIAN_WITH_TIME, "EN");
+
+    String[] args = {select};
+    return retrieveAll(selection, args, null, null, DoctorVisit.COL_VISIT_DATE);
   }
 }

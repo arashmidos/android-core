@@ -92,10 +92,8 @@ public class DoctorReminderFragment extends Fragment {
     EventBus.getDefault().register(this);
   }
 
-  private void setUpRecyclerView(
-      List<DoctorVisit> doctorVisits) {
-    doctorVisitAdapter = new DoctorVisitAdapter(getActivity(), doctorVisits,
-        doctor);
+  private void setUpRecyclerView(List<DoctorVisit> doctorVisits) {
+    doctorVisitAdapter = new DoctorVisitAdapter(getActivity(), doctorVisits, doctor);
     LayoutManager layoutManager = new LinearLayoutManager(getActivity());
     recyclerView.setAdapter(doctorVisitAdapter);
     recyclerView.setLayoutManager(layoutManager);

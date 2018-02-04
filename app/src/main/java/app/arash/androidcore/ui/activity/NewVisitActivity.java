@@ -18,13 +18,13 @@ import app.arash.androidcore.data.impl.DoctorVisitDaoImpl;
 import app.arash.androidcore.ui.fragment.dialog.DoctorSearchDialogFragment;
 import app.arash.androidcore.util.DateUtil;
 import app.arash.androidcore.util.NumberUtil;
-import app.arash.androidcore.util.SunDate;
 import app.arash.androidcore.util.ToastUtil;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import com.alirezaafkar.sundatepicker.DatePicker.Builder;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.Locale;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
@@ -74,16 +74,16 @@ public class NewVisitActivity extends AppCompatActivity {
         doctorTv.setText(doctor.getName());
       }
       doctorVisit = (DoctorVisit) getIntent().getSerializableExtra(Constant.VISIT_OBJ);
-      String[] dateDetail = doctorVisit.getVisitDate().split(" ");
-      SunDate sunDate = new SunDate(Integer.parseInt(dateDetail[0]),
-          DateUtil.getPersionMonthNum(dateDetail[1]),
-          Integer.parseInt(dateDetail[2]));
-      this.cal = sunDate.getCalendar();
+      Date date = DateUtil.convertStringToDate(doctorVisit.getVisitDate(),
+          DateUtil.FULL_FORMATTER_GREGORIAN_WITH_TIME, "EN");
+      Calendar calendar = Calendar.getInstance();
+      calendar.setTime(date);
+      this.cal = calendar;
       String[] timeDetail = doctorVisit.getVisitTime().split(":");
       hour = Integer.parseInt(timeDetail[0]);
       minute = Integer.parseInt(timeDetail[1]);
-      timeValueTv.setText(doctorVisit.getVisitTime());
-      dateValueTv.setText(doctorVisit.getVisitDate());
+      timeValueTv.setText(NumberUtil.digitsToPersian(doctorVisit.getVisitTime()));
+      dateValueTv.setText(NumberUtil.digitsToPersian(DateUtil.getPersianVisitDate(date)));
       if (!TextUtils.isEmpty(doctorVisit.getDescription())) {
         descriptionEdt.setText(doctorVisit.getDescription());
       }
@@ -102,14 +102,18 @@ public class NewVisitActivity extends AppCompatActivity {
       case R.id.done_img:
         if (isValid()) {
           String time = timeValueTv.getText().toString().trim();
-          String date = dateValueTv.getText().toString().trim();
+//          String date = dateValueTv.getText().toString().trim();
           String description = descriptionEdt.getText().toString().trim();
+          cal.set(Calendar.HOUR_OF_DAY, hour);
+          cal.set(Calendar.MINUTE, minute);
           long doctorId = doctor.getId();
           if (doctorVisit == null) {
-            doctorVisitDao.create(new DoctorVisit(date, time, description, doctorId));
+            doctorVisitDao.create(
+                new DoctorVisit(cal.getTime(), NumberUtil.digitsToEnglish(time), description,
+                    doctorId));
           } else {
-            doctorVisitDao
-                .update(new DoctorVisit(doctorVisit.getId(), date, time, description, doctorId));
+            doctorVisitDao.update(new DoctorVisit(doctorVisit.getId(),
+                cal.getTime(), time, description, doctorId));
           }
           finish();
         }
@@ -137,7 +141,7 @@ public class NewVisitActivity extends AppCompatActivity {
         .equals(getString(R.string.choose_doctor)) || doctor == null) {
       ToastUtil.toastError(root, getString(R.string.choose_doctor_is_required));
       return false;
-    } else if (TextUtils.isEmpty(dateValueTv.getText().toString())) {
+    } else if (cal == null) {
       ToastUtil.toastError(root, getString(R.string.choose_date_is_required));
       return false;
     } else if (TextUtils.isEmpty(timeValueTv.getText().toString())) {

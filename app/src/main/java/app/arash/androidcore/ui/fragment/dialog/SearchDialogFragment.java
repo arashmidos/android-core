@@ -69,7 +69,7 @@ public class SearchDialogFragment extends DialogFragment {
   @Override
   public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
       Bundle savedInstanceState) {
-    View view = inflater.inflate(R.layout.fragment_dialog_search, container, false);
+    View view = inflater.inflate(R.layout.fragment_dialog_search_drugs, container, false);
     unbinder = ButterKnife.bind(this, view);
     searchDaoImpl = new SearchDaoImpl(context);
     drugDaoImpl = new DrugDaoImpl(context);

@@ -103,6 +103,7 @@ public class DoctorBottomSheet extends BottomSheetDialogFragment {
             getString(R.string.delete),
             (dialogInterface, i) -> {
               doctorDao.delete(doctor.getId());
+              doctorVisitDao.deleteAll(DoctorVisit.COL_DOCTOR_ID, String.valueOf(doctor.getId()));
               EventBus.getDefault().post(new DoctorDeleteEvent(doctor));
             }, "انصراف", (dialogInterface, i) -> {
               dialogInterface.dismiss();

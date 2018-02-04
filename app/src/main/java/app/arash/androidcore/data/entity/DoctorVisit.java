@@ -1,6 +1,8 @@
 package app.arash.androidcore.data.entity;
 
+import app.arash.androidcore.util.DateUtil;
 import java.io.Serializable;
+import java.util.Date;
 
 /**
  * Created by arash on 1/28/18.
@@ -20,14 +22,16 @@ public class DoctorVisit extends BaseEntity<Long> implements Serializable {
   private String visitTime;
   private String description;
   private Long doctorId;
-  public DoctorVisit(String visitDate, String visitTime, String description, Long doctorId) {
-    this.visitDate = visitDate;
+
+  public DoctorVisit(Date visitDate, String visitTime, String description, Long doctorId) {
+    this.visitDate = DateUtil
+        .convertDate(visitDate, DateUtil.FULL_FORMATTER_GREGORIAN_WITH_TIME, "EN");
     this.visitTime = visitTime;
     this.description = description;
     this.doctorId = doctorId;
   }
 
-  public DoctorVisit(Long id, String visitDate, String visitTime, String description,
+  public DoctorVisit(Long id, Date visitDate, String visitTime, String description,
       Long doctorId) {
     this(visitDate, visitTime, description, doctorId);
     this.id = id;

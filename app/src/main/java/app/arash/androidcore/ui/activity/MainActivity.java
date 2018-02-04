@@ -1,5 +1,7 @@
 package app.arash.androidcore.ui.activity;
 
+import static android.view.View.GONE;
+
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -70,6 +72,10 @@ public class MainActivity extends AppCompatActivity implements OnNewMeasureSelec
   TextView moreTv;
   @BindView(R.id.overlay)
   FrameLayout overlay;
+  @BindView(R.id.devider_overlay)
+  View deviderOverlay;
+  @BindView(R.id.devider)
+  View devider;
 
   private List<Integer> bottomBarImageView;
   private List<Integer> bottomBarTextView;
@@ -160,7 +166,7 @@ public class MainActivity extends AppCompatActivity implements OnNewMeasureSelec
         fragment = MoreFragment.newInstance();
         break;
       case DRUGS_FRAGMENT:
-        fragment =  DrugsFragment.newInstance();
+        fragment = DrugsFragment.newInstance();
         break;
       case DOCTORS_FRAGMENT:
         fragment = DoctorListFragment.newInstance();
@@ -181,8 +187,12 @@ public class MainActivity extends AppCompatActivity implements OnNewMeasureSelec
   public void showOverlay(boolean show) {
     if (show) {
       overlay.setVisibility(View.VISIBLE);
+      devider.setVisibility(GONE);
+      deviderOverlay.setVisibility(View.VISIBLE);
     } else {
-      overlay.setVisibility(View.GONE);
+      overlay.setVisibility(GONE);
+      devider.setVisibility(View.VISIBLE);
+      deviderOverlay.setVisibility(GONE);
     }
   }
 
