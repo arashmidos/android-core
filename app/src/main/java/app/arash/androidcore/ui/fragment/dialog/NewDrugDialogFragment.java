@@ -177,7 +177,7 @@ public class NewDrugDialogFragment extends DialogFragment {
       timeValueTv.setTextColor(ContextCompat.getColor(context, R.color.color_primary));
       hour = i;
       minute = i1;
-    }, hour, minute, false);
+    }, hour, minute, true);
     dialog.show();
   }
 
