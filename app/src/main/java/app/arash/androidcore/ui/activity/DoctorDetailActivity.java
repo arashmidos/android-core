@@ -1,5 +1,6 @@
 package app.arash.androidcore.ui.activity;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
@@ -17,12 +18,12 @@ import app.arash.androidcore.ui.adapter.DrugsViewPagerAdapter;
 import app.arash.androidcore.ui.fragment.DoctorReminderFragment;
 import app.arash.androidcore.ui.fragment.DoctorSpecificationFragment;
 import app.arash.androidcore.ui.fragment.bottomsheet.DoctorBottomSheet;
-import app.arash.androidcore.ui.fragment.bottomsheet.DrugBottomSheet;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
+import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 public class DoctorDetailActivity extends AppCompatActivity {
 
@@ -62,7 +63,8 @@ public class DoctorDetailActivity extends AppCompatActivity {
 
   private void setUpViewPager() {
     DrugsViewPagerAdapter viewPagerAdapter = new DrugsViewPagerAdapter(getSupportFragmentManager());
-    viewPagerAdapter.add(DoctorReminderFragment.newInstance(), getString(R.string.visit_time));
+    viewPagerAdapter
+        .add(DoctorReminderFragment.newInstance(doctor), getString(R.string.visit_time));
     viewPagerAdapter
         .add(DoctorSpecificationFragment.newInstance(doctor), getString(R.string.specification));
     viewPager.setAdapter(viewPagerAdapter);
@@ -72,7 +74,7 @@ public class DoctorDetailActivity extends AppCompatActivity {
   public void onViewClicked(View view) {
     switch (view.getId()) {
       case R.id.more_img:
-        DoctorBottomSheet doctorBottomSheet = DoctorBottomSheet.newInstance(doctor);
+        DoctorBottomSheet doctorBottomSheet = DoctorBottomSheet.newInstance(doctor, null, false);
         doctorBottomSheet.show(getSupportFragmentManager(), "drug bottom sheet");
         break;
       case R.id.back_img:
@@ -105,5 +107,10 @@ public class DoctorDetailActivity extends AppCompatActivity {
   @Subscribe
   public void getMessage(DoctorDeleteEvent event) {
     finish();
+  }
+
+  @Override
+  protected void attachBaseContext(Context newBase) {
+    super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
   }
 }

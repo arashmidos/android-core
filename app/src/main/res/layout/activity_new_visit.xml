@@ -40,119 +40,131 @@
       android:src="@drawable/ic_close_24_dp"
       android:tint="@color/white" />
   </LinearLayout>
-  <TextView
-    android:id="@+id/doctor_tv"
-    style="@style/IranSans.Medium"
+  <ScrollView
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_marginTop="16dp"
-    android:layout_marginBottom="16dp"
-    android:padding="16dp"
-    android:text="@string/choose_doctor"
-    android:textColor="@color/color_primary"
-    android:textSize="16sp" />
-  <TextView
-    android:id="@+id/visit_time_label"
-    style="@style/IranSans.Bold"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:paddingTop="19dp"
-    android:paddingBottom="12dp"
-    android:paddingEnd="16dp"
-    android:paddingRight="16dp"
-    android:background="@color/gray_ec"
-    android:gravity="right"
-    android:text="@string/visit"
-    android:textColor="@color/green_54"
-    android:textSize="12sp" />
-  <LinearLayout
-    android:id="@+id/date_layout"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:background="?attr/selectableItemBackground"
-    android:clickable="true"
-    android:focusable="true"
-    android:gravity="right"
-    android:orientation="vertical">
-    <TextView
-      android:id="@+id/date_label_tv"
-      style="@style/IranSans"
-      android:layout_width="wrap_content"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+      android:layout_width="match_parent"
       android:layout_height="wrap_content"
-      android:layout_marginTop="14dp"
-      android:layout_marginEnd="16dp"
-      android:layout_marginRight="16dp"
-      android:text="@string/date"
-      android:textColor="@color/black_21"
-      android:textSize="14sp" />
-    <TextView
-      android:id="@+id/date_value_tv"
-      style="@style/IranSans.Medium"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:layout_marginTop="8dp"
-      android:layout_marginBottom="8dp"
-      android:layout_marginEnd="16dp"
-      android:layout_marginRight="16dp"
-      android:hint="@string/click_add_date"
-      android:textColor="@color/color_primary"
-      android:textColorHint="@color/gray_85"
-      android:textSize="12sp" />
-  </LinearLayout>
-  <View
-    android:layout_width="match_parent"
-    android:layout_height="1dp"
-    android:background="@color/gray_e0" />
-  <LinearLayout
-    android:id="@+id/time_layout"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:background="?attr/selectableItemBackground"
-    android:clickable="true"
-    android:focusable="true"
-    android:gravity="right"
-    android:orientation="vertical">
-    <TextView
-      android:id="@+id/time_label_tv"
-      style="@style/IranSans"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:layout_marginTop="14dp"
-      android:layout_marginEnd="16dp"
-      android:layout_marginRight="16dp"
-      android:text="@string/hour"
-      android:textColor="@color/black_21"
-      android:textSize="14sp" />
-    <TextView
-      android:id="@+id/time_value_tv"
-      style="@style/IranSans.Medium"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:layout_marginTop="8dp"
-      android:layout_marginBottom="8dp"
-      android:layout_marginEnd="16dp"
-      android:layout_marginRight="16dp"
-      android:hint="@string/click_add_time"
-      android:textColor="@color/color_primary"
-      android:textColorHint="@color/gray_85"
-      android:textSize="12sp" />
-  </LinearLayout>
-  <View
-    android:layout_width="match_parent"
-    android:layout_height="1dp"
-    android:background="@color/gray_e0" />
-  <EditText
-    android:id="@+id/description_edt"
-    style="@style/IranSans"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_marginTop="42dp"
-    android:layout_marginLeft="16dp"
-    android:layout_marginRight="16dp"
-    android:paddingBottom="8dp"
-    android:background="@drawable/edit_text_line_default"
-    android:hint="@string/description"
-    android:textColor="@color/black_21"
-    android:textColorHint="@color/gray_9e"
-    android:textSize="14sp" />
+      android:focusableInTouchMode="true"
+      android:orientation="vertical">
+      <TextView
+        android:id="@+id/doctor_tv"
+        style="@style/IranSans.Medium"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="16dp"
+        android:padding="16dp"
+        android:text="@string/choose_doctor"
+        android:textColor="@color/color_primary"
+        android:textSize="16sp" />
+      <TextView
+        android:id="@+id/visit_time_label"
+        style="@style/IranSans.Bold"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="19dp"
+        android:paddingBottom="12dp"
+        android:paddingEnd="16dp"
+        android:paddingRight="16dp"
+        android:background="@color/gray_ec"
+        android:gravity="right"
+        android:text="@string/visit"
+        android:textColor="@color/green_54"
+        android:textSize="12sp" />
+      <LinearLayout
+        android:id="@+id/date_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?attr/selectableItemBackground"
+        android:clickable="true"
+        android:focusable="true"
+        android:gravity="right"
+        android:orientation="vertical">
+        <TextView
+          android:id="@+id/date_label_tv"
+          style="@style/IranSans"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_marginTop="14dp"
+          android:layout_marginEnd="16dp"
+          android:layout_marginRight="16dp"
+          android:text="@string/date"
+          android:textColor="@color/black_21"
+          android:textSize="14sp" />
+        <TextView
+          android:id="@+id/date_value_tv"
+          style="@style/IranSans.Medium"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_marginTop="8dp"
+          android:layout_marginBottom="8dp"
+          android:layout_marginEnd="16dp"
+          android:layout_marginRight="16dp"
+          android:hint="@string/click_add_date"
+          android:textColor="@color/color_primary"
+          android:textColorHint="@color/gray_85"
+          android:textSize="12sp" />
+      </LinearLayout>
+      <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/gray_e0" />
+      <LinearLayout
+        android:id="@+id/time_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?attr/selectableItemBackground"
+        android:clickable="true"
+        android:focusable="true"
+        android:gravity="right"
+        android:orientation="vertical">
+        <TextView
+          android:id="@+id/time_label_tv"
+          style="@style/IranSans"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_marginTop="14dp"
+          android:layout_marginEnd="16dp"
+          android:layout_marginRight="16dp"
+          android:text="@string/hour"
+          android:textColor="@color/black_21"
+          android:textSize="14sp" />
+        <TextView
+          android:id="@+id/time_value_tv"
+          style="@style/IranSans.Medium"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_marginTop="8dp"
+          android:layout_marginBottom="8dp"
+          android:layout_marginEnd="16dp"
+          android:layout_marginRight="16dp"
+          android:hint="@string/click_add_time"
+          android:textColor="@color/color_primary"
+          android:textColorHint="@color/gray_85"
+          android:textSize="12sp" />
+      </LinearLayout>
+      <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/gray_e0" />
+      <EditText
+        android:id="@+id/description_edt"
+        style="@style/IranSans"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="42dp"
+        android:layout_marginBottom="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:paddingBottom="8dp"
+        android:background="@drawable/edit_text_line_default"
+        android:hint="@string/description"
+        android:textColor="@color/black_21"
+        android:textColorHint="@color/gray_9e"
+        android:textSize="14sp" />
+    </LinearLayout>
+  </ScrollView>
 </LinearLayout>

@@ -11,7 +11,10 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import app.arash.androidcore.R;
+import app.arash.androidcore.data.entity.Constant;
 import app.arash.androidcore.data.entity.Doctor;
+import app.arash.androidcore.data.entity.DoctorVisit;
+import app.arash.androidcore.data.impl.DoctorVisitDaoImpl;
 import app.arash.androidcore.ui.fragment.dialog.DoctorSearchDialogFragment;
 import app.arash.androidcore.util.DateUtil;
 import app.arash.androidcore.util.NumberUtil;
@@ -41,6 +44,7 @@ public class NewVisitActivity extends AppCompatActivity {
   private int hour = -1;
   private Calendar cal;
   private int minute = -1;
+  private DoctorVisitDaoImpl doctorVisitDao;
   private Doctor doctor = null;
 
   @Override
@@ -48,6 +52,39 @@ public class NewVisitActivity extends AppCompatActivity {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_new_visit);
     ButterKnife.bind(this);
+    doctorVisitDao = new DoctorVisitDaoImpl(this);
+    getIntentData();
+    setData();
+  }
+
+  private void setData() {
+    if (hour == -1 || minute == -1) {
+      final Calendar c = Calendar.getInstance();
+      hour = c.get(Calendar.HOUR_OF_DAY);
+      minute = c.get(Calendar.MINUTE);
+    }
+  }
+
+  private void getIntentData() {
+    if (getIntent() != null && getIntent().getSerializableExtra(Constant.VISIT_OBJ) != null
+        && getIntent().getSerializableExtra(Constant.DOCTOR_OBJ) != null) {
+      this.doctor = (Doctor) getIntent().getSerializableExtra(Constant.DOCTOR_OBJ);
+      doctorTv.setText(doctor.getName());
+      DoctorVisit doctorVisit = (DoctorVisit) getIntent().getSerializableExtra(Constant.VISIT_OBJ);
+      String[] dateDetail = doctorVisit.getVisitDate().split(" ");
+      SunDate sunDate = new SunDate(Integer.parseInt(dateDetail[0]),
+          DateUtil.getPersionMonthNum(dateDetail[1]),
+          Integer.parseInt(dateDetail[2]));
+      this.cal = sunDate.getCalendar();
+      String[] timeDetail = doctorVisit.getVisitTime().split(":");
+      hour = Integer.parseInt(timeDetail[0]);
+      minute = Integer.parseInt(timeDetail[1]);
+      timeValueTv.setText(doctorVisit.getVisitTime());
+      dateValueTv.setText(doctorVisit.getVisitDate());
+      if (!TextUtils.isEmpty(doctorVisit.getDescription())) {
+        descriptionEdt.setText(doctorVisit.getDescription());
+      }
+    }
   }
 
   @OnClick({R.id.done_img, R.id.close_img, R.id.doctor_tv, R.id.date_layout, R.id.time_layout})
@@ -59,7 +96,7 @@ public class NewVisitActivity extends AppCompatActivity {
           String date = dateValueTv.getText().toString().trim();
           String description = descriptionEdt.getText().toString().trim();
           long doctorId = doctor.getId();
-          //TODO:CALL SAVE VISIT SERVICE
+          doctorVisitDao.create(new DoctorVisit(date, time, description, doctorId));
           finish();
         }
         break;
@@ -98,7 +135,6 @@ public class NewVisitActivity extends AppCompatActivity {
 
   private void showDatePicker() {
     Builder builder = new Builder().id(1);
-    builder.future(false);
     if (cal != null) {
       builder.date(cal);
     }

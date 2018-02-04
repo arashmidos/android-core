@@ -1,10 +1,10 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
   xmlns:app="http://schemas.android.com/apk/res-auto"
   xmlns:card_view="http://schemas.android.com/apk/res-auto"
+  xmlns:fab="http://schemas.android.com/apk/res-auto"
   xmlns:tools="http://schemas.android.com/tools"
   android:layout_width="match_parent"
   android:layout_height="match_parent"
-  xmlns:fab="http://schemas.android.com/apk/res-auto"
   tools:context="app.arash.androidcore.ui.fragment.HomeFragment">
 
   <LinearLayout
@@ -15,6 +15,7 @@
     android:elevation="5dp"
     android:orientation="horizontal">
     <TextView
+      android:id="@+id/toolbar_date"
       style="@style/IranSans.Ultra"
       android:layout_width="0dp"
       android:layout_height="match_parent"
@@ -22,7 +23,6 @@
       android:layout_marginStart="16dp"
       android:layout_marginLeft="16dp"
       android:gravity="left|center"
-      android:id="@+id/toolbar_date"
       android:textColor="@color/white"
       android:textSize="16sp" />
     <TextView
@@ -37,12 +37,14 @@
       android:textSize="16sp" />
   </LinearLayout>
   <android.support.v4.widget.NestedScrollView
+    android:id="@+id/nested_lay"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_below="@id/toolbar">
     <LinearLayout
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
+      android:descendantFocusability="blocksDescendants"
       android:orientation="vertical">
 
       <TextView
@@ -88,6 +90,7 @@
               android:layout_marginBottom="18dp"
               android:layout_gravity="center"
               android:src="@drawable/ic_bell_56_dp" />
+
             <TextView
               style="@style/IranSans"
               android:layout_width="match_parent"
@@ -214,60 +217,60 @@
     </LinearLayout>
   </android.support.v4.widget.NestedScrollView>
   <FrameLayout
-    android:visibility="gone"
     android:id="@+id/overlay"
     android:layout_width="match_parent"
+    android:layout_height="match_parent"
     android:background="#80000000"
-    android:layout_height="match_parent" />
+    android:visibility="gone" />
   <com.getbase.floatingactionbutton.FloatingActionsMenu
     android:id="@+id/right_labels"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:layout_alignParentLeft="true"
-    android:layout_alignParentStart="true"
     android:layout_margin="16dp"
     android:layout_alignParentBottom="true"
+    android:layout_alignParentLeft="true"
+    android:layout_alignParentStart="true"
     fab:fab_addButtonColorNormal="@color/color_accent"
     fab:fab_addButtonColorPressed="@color/color_accent"
     fab:fab_addButtonPlusIconColor="@color/black"
     fab:fab_addButtonSize="normal"
-      fab:fab_labelStyle="@style/menu_labels_style"
+    fab:fab_labelStyle="@style/menu_labels_style"
     fab:fab_labelsPosition="right">
 
     <com.getbase.floatingactionbutton.FloatingActionButton
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      fab:fab_colorNormal="@color/white"
-      app:fab_size="mini"
       android:id="@+id/add_visit"
-      app:fab_icon="@drawable/ic_time_calendar_24_dp"
-      fab:fab_labelsPosition="left"
-      fab:fab_title="ثبت وقت ویزیت"/>
-
-    <com.getbase.floatingactionbutton.FloatingActionButton
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
+      app:fab_icon="@drawable/ic_time_calendar_24_dp"
+      app:fab_size="mini"
       fab:fab_colorNormal="@color/white"
-      app:fab_icon="@drawable/ic_stethoscope_green_24_dp"
-      fab:fab_size="mini"
-      android:id="@+id/add_doctor"
-      fab:fab_title="ثبت پزشک"/>
+      fab:fab_labelsPosition="left"
+      fab:fab_title="ثبت وقت ویزیت" />
 
     <com.getbase.floatingactionbutton.FloatingActionButton
+      android:id="@+id/add_doctor"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      app:fab_icon="@drawable/ic_stethoscope_green_24_dp"
+      fab:fab_colorNormal="@color/white"
+      fab:fab_size="mini"
+      fab:fab_title="ثبت پزشک" />
+
+    <com.getbase.floatingactionbutton.FloatingActionButton
+      android:id="@+id/add_chart"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       app:fab_icon="@drawable/ic_chart__green_24_dp"
       app:fab_size="mini"
-      android:id="@+id/add_chart"
       fab:fab_colorNormal="@color/white"
       fab:fab_labelsPosition="left"
       fab:fab_title="ثبت نمودار سلامت" />
 
     <com.getbase.floatingactionbutton.FloatingActionButton
+      android:id="@+id/add_reminder"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       app:fab_icon="@drawable/ic_drug_24_dp"
-      android:id="@+id/add_reminder"
       fab:fab_colorNormal="@color/white"
       fab:fab_size="mini"
       fab:fab_title="ثبت یادآور دارو" />

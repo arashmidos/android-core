@@ -11,11 +11,18 @@ import android.view.ViewGroup;
 import android.widget.RelativeLayout.LayoutParams;
 import android.widget.TextView;
 import app.arash.androidcore.R;
-import app.arash.androidcore.data.entity.Visit;
+import app.arash.androidcore.data.entity.Doctor;
+import app.arash.androidcore.data.entity.DoctorVisit;
+import app.arash.androidcore.data.impl.DoctorDaoImpl;
 import app.arash.androidcore.ui.adapter.VisitAdapter.ViewHolder;
+import app.arash.androidcore.util.DateUtil;
+import app.arash.androidcore.util.NumberUtil;
+import app.arash.androidcore.util.SunDate;
 import app.arash.androidcore.util.Utils;
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -25,12 +32,14 @@ import java.util.List;
 public class VisitAdapter extends Adapter<ViewHolder> {
 
   private Context context;
-  private List<Visit> visits;
+  private List<DoctorVisit> visits;
+  private DoctorDaoImpl doctorDao;
   private LayoutInflater layoutInflater;
 
-  public VisitAdapter(Context context, List<Visit> visits) {
+  public VisitAdapter(Context context, List<DoctorVisit> visits) {
     this.context = context;
     this.visits = visits;
+    this.doctorDao = new DoctorDaoImpl(context);
     layoutInflater = LayoutInflater.from(context);
   }
 
@@ -63,7 +72,8 @@ public class VisitAdapter extends Adapter<ViewHolder> {
     @BindView(R.id.expertise_tv)
     TextView expertiseTv;
 
-    private Visit visit;
+    private DoctorVisit visit;
+    private Doctor doctor;
     private int position;
 
     public ViewHolder(View itemView) {
@@ -74,19 +84,26 @@ public class VisitAdapter extends Adapter<ViewHolder> {
     public void setData(int position) {
       this.visit = visits.get(position);
       this.position = position;
+      this.doctor = doctorDao.retrieve(visit.getDoctorId());
       setMargin();
-      if (!TextUtils.isEmpty(visit.getDoctorName())) {
-        doctorNameTv.setText(visit.getDoctorName());
+      if (!TextUtils.isEmpty(doctor.getName())) {
+        doctorNameTv.setText(doctor.getName());
       }
-      if (!TextUtils.isEmpty(visit.getFiled())) {
-        expertiseTv.setText(visit.getFiled());
+      if (!TextUtils.isEmpty(doctor.getExpertise())) {
+        expertiseTv.setText(doctor.getExpertise());
       }
-      if (!TextUtils.isEmpty(visit.getLeftTime())) {
-        leftTimeTv.setText(visit.getLeftTime());
-      }
-      if (!TextUtils.isEmpty(visit.getTime())) {
-        visitTimeTv.setText(visit.getTime());
-      }
+      String[] dateDetail = visit.getVisitDate().split(" ");
+      SunDate sunDate = new SunDate(Integer.parseInt(dateDetail[0]),
+          DateUtil.getPersionMonthNum(dateDetail[1]),
+          Integer.parseInt(dateDetail[2]));
+      Calendar calendar = sunDate.getCalendar();
+      visitTimeTv.setText(String
+          .format("%s %s , %s", DateUtil.getPersianDayOfWeek(calendar.get(Calendar.DAY_OF_WEEK)),
+              visit.getVisitDate().substring(0, visit.getVisitDate().length() - 4),
+              visit.getVisitTime()));
+      leftTimeTv.setText(NumberUtil.digitsToPersian(
+          String.format("%d روز دیگر",
+              DateUtil.getDifferenceDateDayCount(new Date(), calendar.getTime()))));
     }
 
     private void setMargin() {

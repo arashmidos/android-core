@@ -354,6 +354,12 @@ public class DateUtil {
     return Integer.parseInt(String.valueOf((difference) / (1000 * 60 * 60 * 24)));
   }
 
+  public static Integer getDifferenceDateDayCount(Date date1, Date date2) {
+    Long difference =
+        date2.getTime() - date1.getTime();
+    return Integer.parseInt(String.valueOf((difference) / (1000 * 60 * 60 * 24)));
+  }
+
   public static String getPersianDayOfWeek(int day) {
     switch (day) {
       case Calendar.SATURDAY:
@@ -369,6 +375,26 @@ public class DateUtil {
       case Calendar.THURSDAY:
         return THURSDAY;
       case Calendar.FRIDAY:
+        return FRIDAY;
+    }
+    return "";
+  }
+
+  public static String getIranDayOfWeek(int day) {
+    switch (day) {
+      case 0:
+        return SATURDAY;
+      case 1:
+        return SUNDAY;
+      case 2:
+        return MONDAY;
+      case 3:
+        return TUESDAY;
+      case 4:
+        return WEDNESDAY;
+      case 5:
+        return THURSDAY;
+      case 6:
         return FRIDAY;
     }
     return "";
@@ -448,4 +474,12 @@ public class DateUtil {
   }
 
 
+  public static int getPersionMonthNum(String month) {
+    for (int i = 0; i < monthNames.length; i++) {
+      if (month.equals(monthNames[i])) {
+        return i + 1;
+      }
+    }
+    return -1;
+  }
 }

@@ -82,7 +82,7 @@ public class DoctorListAdapter extends Adapter<ViewHolder> {
     public void onViewClicked(View view) {
       switch (view.getId()) {
         case R.id.more_img:
-          DoctorBottomSheet doctorBottomSheet = DoctorBottomSheet.newInstance(doctor);
+          DoctorBottomSheet doctorBottomSheet = DoctorBottomSheet.newInstance(doctor, null, false);
           doctorBottomSheet.show(context.getSupportFragmentManager(), "drug bottom sheet");
           break;
         case R.id.doctor_layout:

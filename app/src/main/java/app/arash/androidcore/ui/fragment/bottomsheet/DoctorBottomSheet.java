@@ -1,6 +1,7 @@
 package app.arash.androidcore.ui.fragment.bottomsheet;
 
 import android.app.FragmentTransaction;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.BottomSheetDialogFragment;
@@ -9,11 +10,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 import app.arash.androidcore.R;
+import app.arash.androidcore.data.entity.Constant;
 import app.arash.androidcore.data.entity.Doctor;
 import app.arash.androidcore.data.entity.DoctorDeleteEvent;
+import app.arash.androidcore.data.entity.DoctorVisit;
 import app.arash.androidcore.data.impl.DoctorDaoImpl;
+import app.arash.androidcore.ui.activity.NewVisitActivity;
 import app.arash.androidcore.ui.fragment.dialog.NewDoctorDialogFragment;
 import app.arash.androidcore.util.DialogUtil;
 import butterknife.BindView;
@@ -31,14 +34,20 @@ public class DoctorBottomSheet extends BottomSheetDialogFragment {
   TextView editVisit;
   @BindView(R.id.delete_visit)
   TextView deleteVisit;
+
   private AppCompatActivity activity;
   private Doctor doctor;
   private DoctorDaoImpl doctorDao;
+  private DoctorVisit doctorVisit;
+  private boolean isFromVisit;
 
 
-  public static DoctorBottomSheet newInstance(Doctor doctor) {
+  public static DoctorBottomSheet newInstance(Doctor doctor, DoctorVisit doctorVisit,
+      boolean isFromVisit) {
     DoctorBottomSheet drugBottomSheet = new DoctorBottomSheet();
     drugBottomSheet.doctor = doctor;
+    drugBottomSheet.doctorVisit = doctorVisit;
+    drugBottomSheet.isFromVisit = isFromVisit;
     return drugBottomSheet;
   }
 
@@ -49,7 +58,22 @@ public class DoctorBottomSheet extends BottomSheetDialogFragment {
     View view = inflater.inflate(R.layout.bottom_sheet_doctor, container, false);
     ButterKnife.bind(this, view);
     init();
+    setData();
     return view;
+  }
+
+  private void setData() {
+    if (isFromVisit) {
+      deleteDoctorTv.setVisibility(View.GONE);
+      editDoctorTv.setVisibility(View.GONE);
+      editVisit.setVisibility(View.VISIBLE);
+      deleteVisit.setVisibility(View.VISIBLE);
+    } else {
+      deleteDoctorTv.setVisibility(View.VISIBLE);
+      editDoctorTv.setVisibility(View.VISIBLE);
+      editVisit.setVisibility(View.GONE);
+      deleteVisit.setVisibility(View.GONE);
+    }
   }
 
   /**
@@ -81,12 +105,14 @@ public class DoctorBottomSheet extends BottomSheetDialogFragment {
             }, R.drawable.ic_info_outline_24dp);
         break;
       case R.id.edit_visit:
-        Toast.makeText(activity, "ویرایش وقت ویزیت", Toast.LENGTH_SHORT).show();
+        Intent intent = new Intent(getActivity(), NewVisitActivity.class);
+        intent.putExtra(Constant.DOCTOR_OBJ, doctor);
+        intent.putExtra(Constant.VISIT_OBJ, doctorVisit);
+        getActivity().startActivity(intent);
         break;
       case R.id.delete_visit:
-        Toast.makeText(activity, "حذف وقت ویزیت", Toast.LENGTH_SHORT).show();
+        //TODO:delete visit
         break;
-
     }
     dismiss();
   }

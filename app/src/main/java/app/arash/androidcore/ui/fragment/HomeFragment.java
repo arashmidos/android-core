@@ -4,6 +4,7 @@ package app.arash.androidcore.ui.fragment;
 import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.widget.NestedScrollView;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -16,10 +17,11 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 import app.arash.androidcore.R;
+import app.arash.androidcore.data.entity.DoctorVisit;
 import app.arash.androidcore.data.entity.FabChangedEvent;
 import app.arash.androidcore.data.entity.FabChangedEvent.FabStatus;
 import app.arash.androidcore.data.entity.Medicine;
-import app.arash.androidcore.data.entity.Visit;
+import app.arash.androidcore.data.impl.DoctorVisitDaoImpl;
 import app.arash.androidcore.ui.activity.MainActivity;
 import app.arash.androidcore.ui.activity.NewVisitActivity;
 import app.arash.androidcore.ui.adapter.MedicineAdapter;
@@ -72,10 +74,13 @@ public class HomeFragment extends BaseFragment {
   FrameLayout overlay;
   @BindView(R.id.right_labels)
   FloatingActionsMenu fabMenu;
+  @BindView(R.id.nested_lay)
+  NestedScrollView nestedLay;
 
   private MedicineAdapter medicineAdapter;
   private VisitAdapter visitAdapter;
   private MainActivity mainActivity;
+  private DoctorVisitDaoImpl doctorVisitDao;
 
   public HomeFragment() {
     // Required empty public constructor
@@ -95,7 +100,6 @@ public class HomeFragment extends BaseFragment {
     mainActivity = (MainActivity) getActivity();
     setDate();
     setUpMedicineRecyclerView();
-    setUpVisitRecyclerView();
     setFABListener();
     return view;
   }
@@ -118,6 +122,7 @@ public class HomeFragment extends BaseFragment {
 
   private void setDate() {
     String dateString = DateUtil.getFullPersianDate(new Date());
+    doctorVisitDao = new DoctorVisitDaoImpl(mainActivity);
     toolbarDate.setText(String.format("امروز، %s", NumberUtil.digitsToPersian(dateString)));
   }
 
@@ -150,7 +155,7 @@ public class HomeFragment extends BaseFragment {
   }
 
   private void setUpVisitRecyclerView() {
-    List<Visit> visits = Visit.getVisitList();
+    List<DoctorVisit> visits = doctorVisitDao.retrieveAll();
     if (visits.size() != 0) {
       visitRecyclerView.setVisibility(View.VISIBLE);
       visitEmptyView.setVisibility(View.GONE);
@@ -203,7 +208,7 @@ public class HomeFragment extends BaseFragment {
         Toast.makeText(mainActivity, "more", Toast.LENGTH_SHORT).show();
         break;
       case R.id.set_visit_tv:
-        Toast.makeText(mainActivity, "set visit tv", Toast.LENGTH_SHORT).show();
+        startActivity(new Intent(mainActivity, NewVisitActivity.class));
         break;
       case R.id.overlay:
         overlay.setVisibility(View.GONE);
@@ -222,6 +227,7 @@ public class HomeFragment extends BaseFragment {
   public void onResume() {
     super.onResume();
     EventBus.getDefault().register(this);
+    setUpVisitRecyclerView();
   }
 
   @Subscribe
