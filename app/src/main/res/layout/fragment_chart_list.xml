@@ -1,76 +1,85 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
   xmlns:tools="http://schemas.android.com/tools"
   android:layout_width="match_parent"
-  android:layout_height="match_parent"
-  android:orientation="vertical"
-  tools:context="app.arash.androidcore.ui.fragment.DoctorListFragment">
+  android:layout_height="match_parent">
   <LinearLayout
-    android:id="@+id/toolbar"
     android:layout_width="match_parent"
-    android:layout_height="56dp"
-    android:background="@color/color_primary"
-    android:elevation="5dp"
-    android:orientation="horizontal">
-
-    <TextView
-      style="@style/IranSans.Medium"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    tools:context="app.arash.androidcore.ui.fragment.ChartListFragment">
+    <LinearLayout
+      android:id="@+id/toolbar"
       android:layout_width="match_parent"
-      android:layout_height="match_parent"
-      android:layout_marginEnd="16dp"
-      android:layout_marginRight="16dp"
-      android:gravity="right|center_vertical"
-      android:text="نمودار سلامت"
-      android:textColor="@color/white"
-      android:textSize="16sp" />
-  </LinearLayout>
-  <LinearLayout
-    android:layout_width="match_parent"
-    android:layout_height="42dp"
-    android:visibility="gone"
-    android:background="@color/gray_ec"
-    android:gravity="right">
-    <TextView
-      android:id="@+id/my_chart_label"
-      style="@style/IranSans.Bold"
-      android:visibility="gone"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:layout_marginTop="17dp"
-      android:layout_marginEnd="16dp"
-      android:layout_marginRight="16dp"
-      android:text="نمودار های من"
-      android:textColor="@color/green_54"
-      android:textSize="12sp" />
-  </LinearLayout>
-  <android.support.v7.widget.RecyclerView
-    android:id="@+id/my_list"
-    android:layout_width="match_parent"
-    android:layout_weight="1"
-    android:layout_height="0dp"
-    android:visibility="gone"
-    android:background="@color/white" />
-  <LinearLayout
-    android:layout_width="match_parent"
-    android:layout_height="42dp"
-    android:background="@color/gray_ec"
-    android:gravity="right">
-    <TextView
-      android:id="@+id/add_chart_label"
-      style="@style/IranSans.Bold"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:layout_marginTop="17dp"
-      android:layout_marginEnd="16dp"
-      android:layout_marginRight="16dp"
-      android:text="نمودار های خود را ثبت کنید"
-      android:textColor="@color/green_54"
-      android:textSize="12sp" />
-  </LinearLayout>
-  <android.support.v7.widget.RecyclerView
-    android:id="@+id/chart_list"
-    android:layout_width="match_parent"
-    android:layout_height="0dp"
-    android:layout_weight="1"
-    android:background="@color/white" />
+      android:layout_height="56dp"
+      android:background="@color/color_primary"
+      android:elevation="5dp"
+      android:orientation="horizontal">
 
-</LinearLayout>
+      <TextView
+        style="@style/IranSans.Medium"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginEnd="16dp"
+        android:layout_marginRight="16dp"
+        android:gravity="right|center_vertical"
+        android:text="نمودار سلامت"
+        android:textColor="@color/white"
+        android:textSize="16sp" />
+    </LinearLayout>
+    <LinearLayout
+      android:id="@+id/my_chart_layout"
+      android:layout_width="match_parent"
+      android:layout_height="42dp"
+      android:background="@color/gray_ec"
+      android:gravity="right">
+      <TextView
+        android:id="@+id/my_chart_label"
+        style="@style/IranSans.Bold"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="17dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginRight="16dp"
+        android:text="نمودار های من"
+        android:textColor="@color/green_54"
+        android:textSize="12sp" />
+    </LinearLayout>
+    <android.support.v4.widget.NestedScrollView
+      android:layout_width="match_parent"
+      android:layout_height="match_parent">
+      <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+        <android.support.v7.widget.RecyclerView
+          android:id="@+id/my_list"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:background="@color/white" />
+        <LinearLayout
+          android:id="@+id/all_chart_layout"
+          android:layout_width="match_parent"
+          android:layout_height="42dp"
+          android:background="@color/gray_ec"
+          android:gravity="right">
+          <TextView
+            android:id="@+id/add_chart_label"
+            style="@style/IranSans.Bold"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="17dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginRight="16dp"
+            android:text="نمودار های خود را ثبت کنید"
+            android:textColor="@color/green_54"
+            android:textSize="12sp" />
+        </LinearLayout>
+        <android.support.v7.widget.RecyclerView
+          android:id="@+id/chart_list"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:background="@color/white" />
+      </LinearLayout>
+    </android.support.v4.widget.NestedScrollView>
+  </LinearLayout>
+</ScrollView>
