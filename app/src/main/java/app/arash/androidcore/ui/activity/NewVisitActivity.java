@@ -15,6 +15,7 @@ import app.arash.androidcore.data.entity.Constant;
 import app.arash.androidcore.data.entity.Doctor;
 import app.arash.androidcore.data.entity.DoctorVisit;
 import app.arash.androidcore.data.impl.DoctorVisitDaoImpl;
+import app.arash.androidcore.receiver.BootReceiver;
 import app.arash.androidcore.ui.fragment.dialog.DoctorSearchDialogFragment;
 import app.arash.androidcore.util.DateUtil;
 import app.arash.androidcore.util.NumberUtil;
@@ -115,6 +116,7 @@ public class NewVisitActivity extends AppCompatActivity {
             doctorVisitDao.update(new DoctorVisit(doctorVisit.getId(),
                 cal.getTime(), time, description, doctorId));
           }
+          new BootReceiver().setAlarm(this);
           finish();
         }
         break;

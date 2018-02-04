@@ -484,7 +484,7 @@ public class DateUtil {
    * @return Start time of given date, 5:00 A.M
    */
   public static Date startOfDay(Calendar cal) {
-    cal.set(Calendar.HOUR_OF_DAY, 5);
+    cal.set(Calendar.HOUR_OF_DAY, 1);
     cal.set(Calendar.MINUTE, 0);
     return cal.getTime();
   }
