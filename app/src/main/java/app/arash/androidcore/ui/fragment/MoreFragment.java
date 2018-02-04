@@ -11,6 +11,7 @@ import android.widget.Toast;
 import app.arash.androidcore.BuildConfig;
 import app.arash.androidcore.R;
 import app.arash.androidcore.ui.activity.AboutUsActivity;
+import app.arash.androidcore.ui.activity.ContactUsActivity;
 import app.arash.androidcore.ui.activity.MainActivity;
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -61,7 +62,7 @@ public class MoreFragment extends BaseFragment {
         startActivity(new Intent(mainActivity, AboutUsActivity.class));
         break;
       case R.id.contact_us_tv:
-        Toast.makeText(mainActivity, "تماس با ما", Toast.LENGTH_SHORT).show();
+        startActivity(new Intent(mainActivity, ContactUsActivity.class));
         break;
       case R.id.log_out_tv:
         Toast.makeText(mainActivity, "خروج", Toast.LENGTH_SHORT).show();

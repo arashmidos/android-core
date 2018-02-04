@@ -1,11 +1,19 @@
 package app.arash.androidcore.ui.activity;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import app.arash.androidcore.R;
+import app.arash.androidcore.chart.MeasureValueFormatter;
+import app.arash.androidcore.chart.XAxisValueFormatter;
+import app.arash.androidcore.data.entity.Constant;
+import app.arash.androidcore.data.entity.Measure;
+import app.arash.androidcore.data.entity.MeasureDetailType;
+import app.arash.androidcore.data.impl.MeasureDaoImpl;
+import app.arash.androidcore.util.NumberUtil;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -14,39 +22,71 @@ import com.github.mikephil.charting.components.Legend;
 import com.github.mikephil.charting.components.Legend.LegendForm;
 import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.components.YAxis;
-import com.github.mikephil.charting.components.YAxis.AxisDependency;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
-import com.github.mikephil.charting.utils.ColorTemplate;
+import com.github.mikephil.charting.formatter.IAxisValueFormatter;
+import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.Locale;
 
 public class ChartDetailActivity extends AppCompatActivity {
 
   @BindView(R.id.latest_measure_title)
   TextView latestMeasureTitle;
+  @BindView(R.id.latest_measure_value)
+  TextView latestMeasureValue;
   @BindView(R.id.measure_label)
   TextView measureLabel;
   @BindView(R.id.chart)
   LineChart chart;
   @BindView(R.id.root)
   LinearLayout root;
+  @BindView(R.id.title)
+  TextView title;
+  private Measure measure;
+  private MeasureDetailType type;
+  private MeasureDaoImpl measureDaoImpl;
+  private List<Measure> list;
+  private int max = 100;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_chart_detail);
     ButterKnife.bind(this);
-
-    setData();
-    setChart();
+    measureDaoImpl = new MeasureDaoImpl(this);
+    Intent intent = getIntent();
+    if (intent != null) {
+      measure = (Measure) intent.getSerializableExtra(Constant.MEASURE);
+      setData();
+      setChart();
+    }
   }
 
   private void setData() {
-
+    type = MeasureDetailType.getByTypeId(measure.getType());
+    String title = getString(type.getType());
+    this.title.setText(title);
+    latestMeasureTitle.setText(String.format(Locale.US, "آخرین %s ثبت شده", title));
+    latestMeasureValue
+        .setText(String.format(Locale.US, "%s %s", NumberUtil.digitsToPersian(measure.getValue()),
+            getString(type.getUnit())));
   }
 
   private void setChart() {
+    list = measureDaoImpl.retriveAllByType(measure.getType());
+    Collections.reverse(list);
+
+    for (int i = 0; i < list.size(); i++) {
+
+      int value = list.get(i).getValue();
+      if (value >= max) {
+        max = (int) (value + value*0.4);
+      }
+    }
 //    chart.setOnChartValueSelectedListener(this);
 
     // no description text
@@ -67,10 +107,10 @@ public class ChartDetailActivity extends AppCompatActivity {
     chart.setPinchZoom(true);
 
     // set an alternative background color
-    chart.setBackgroundColor(Color.LTGRAY);
+    chart.setBackgroundColor(Color.WHITE);
 
     // add data
-    setData(20, 30);
+    setChartData();
 
     chart.animateX(2500);
 
@@ -88,97 +128,79 @@ public class ChartDetailActivity extends AppCompatActivity {
     l.setDrawInside(false);
 //        l.setYOffset(11f);
 
+    IAxisValueFormatter xAxisFormatter = new XAxisValueFormatter(list);
+
     XAxis xAxis = chart.getXAxis();
 //    xAxis.setTypeface(mTfLight);
     xAxis.setTextSize(11f);
     xAxis.setTextColor(Color.WHITE);
     xAxis.setDrawGridLines(false);
     xAxis.setDrawAxisLine(false);
+    xAxis.setValueFormatter(xAxisFormatter);
+    xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
+    xAxis.setTextColor(Color.GRAY);
+    xAxis.setLabelRotationAngle(45);
 
     YAxis leftAxis = chart.getAxisLeft();
 //    leftAxis.setTypeface(mTfLight);
-    leftAxis.setTextColor(ColorTemplate.getHoloBlue());
-    leftAxis.setAxisMaximum(200f);
+    leftAxis.setTextColor(Color.GRAY);
+    leftAxis.setAxisMaximum(max);
     leftAxis.setAxisMinimum(0f);
     leftAxis.setDrawGridLines(true);
     leftAxis.setGranularityEnabled(true);
 
     YAxis rightAxis = chart.getAxisRight();
 //    rightAxis.setTypeface(mTfLight);
-    rightAxis.setTextColor(Color.RED);
-    rightAxis.setAxisMaximum(900);
-    rightAxis.setAxisMinimum(-200);
+    rightAxis.setTextColor(Color.GRAY);
+    rightAxis.setAxisMaximum(max);
+    rightAxis.setAxisMinimum(0);
     rightAxis.setDrawGridLines(false);
     rightAxis.setDrawZeroLine(false);
     rightAxis.setGranularityEnabled(false);
   }
 
-  private void setData(int count, float range) {
+  private void setChartData() {
+    ArrayList<Entry> values = new ArrayList<>();
 
-    ArrayList<Entry> yVals1 = new ArrayList<>();
-
-    for (int i = 0; i < count; i++) {
-      float mult = range / 2f;
-      float val = (float) (Math.random() * mult) + 50;
-      yVals1.add(new Entry(i, val));
+    for (int i = 0; i < list.size(); i++) {
+      values.add(new Entry(i, list.get(i).getValue()));
     }
 
-    ArrayList<Entry> yVals2 = new ArrayList<>();
-
-    for (int i = 0; i < count - 1; i++) {
-      float mult = range;
-      float val = (float) (Math.random() * mult) + 450;
-      yVals2.add(new Entry(i, val));
-//            if(i == 10) {
-//                yVals2.add(new Entry(i, val + 50));
-//            }
-    }
-
-    ArrayList<Entry> yVals3 = new ArrayList<Entry>();
-
-    for (int i = 0; i < count; i++) {
-      float mult = range;
-      float val = (float) (Math.random() * mult) + 500;
-      yVals3.add(new Entry(i, val));
-    }
-
-    LineDataSet set1, set2, set3;
+    LineDataSet set1;
 
     if (chart.getData() != null &&
         chart.getData().getDataSetCount() > 0) {
       set1 = (LineDataSet) chart.getData().getDataSetByIndex(0);
-      set2 = (LineDataSet) chart.getData().getDataSetByIndex(1);
-      set3 = (LineDataSet) chart.getData().getDataSetByIndex(2);
-      set1.setValues(yVals1);
-      set2.setValues(yVals2);
-      set3.setValues(yVals3);
+      set1.setValues(values);
       chart.getData().notifyDataChanged();
       chart.notifyDataSetChanged();
     } else {
       // create a dataset and give it a type
-      set1 = new LineDataSet(yVals1, "DataSet 1");
+      set1 = new LineDataSet(values, "");
 
-      set1.setAxisDependency(AxisDependency.LEFT);
-      set1.setColor(ColorTemplate.getHoloBlue());
-      set1.setCircleColor(Color.WHITE);
-      set1.setLineWidth(2f);
-      set1.setCircleRadius(3f);
-      set1.setFillAlpha(65);
-      set1.setFillColor(ColorTemplate.getHoloBlue());
-      set1.setHighLightColor(Color.rgb(244, 117, 117));
+      set1.setDrawIcons(false);
+
+      // set the line to be drawn like this "- - - - - -"
+//      set1.enableDashedLine(10f, 5f, 0f);
+//      set1.enableDashedHighlightLine(10f, 5f, 0f);
+      set1.setColor(Color.rgb(0, 131, 143));
+      set1.setCircleColor(Color.rgb(0, 131, 143));
+      set1.setLineWidth(1f);
+      set1.setCircleRadius(1f);
       set1.setDrawCircleHole(false);
-      //set1.setFillFormatter(new MyFillFormatter(0f));
-      //set1.setDrawHorizontalHighlightIndicator(false);
-      //set1.setVisible(false);
-      //set1.setCircleHoleColor(Color.WHITE);
+      set1.setValueTextSize(9f);
+      set1.setDrawFilled(false);
+      set1.setFormLineWidth(1f);
+//      set1.setFormLineDashEffect(new DashPathEffect(new float[]{10f, 5f}, 0f));
+      set1.setFormSize(15.f);
 
-      // create a dataset and give it a type
-
+      set1.setFillColor(Color.BLACK);
+      set1.setValueFormatter(new MeasureValueFormatter());
+      ArrayList<ILineDataSet> dataSets = new ArrayList<>();
+      dataSets.add(set1); // add the datasets
 
       // create a data object with the datasets
-      LineData data = new LineData(set1);
-      data.setValueTextColor(Color.WHITE);
-      data.setValueTextSize(9f);
+      LineData data = new LineData(dataSets);
 
       // set data
       chart.setData(data);

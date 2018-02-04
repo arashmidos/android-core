@@ -186,12 +186,14 @@ public class HomeFragment extends BaseFragment {
     switch (view.getId()) {
       case R.id.add_visit:
         startActivity(new Intent(mainActivity, NewVisitActivity.class));
+        fabMenu.collapse();
         break;
       case R.id.add_doctor:
         FragmentTransaction ft = mainActivity.getFragmentManager().beginTransaction();
         NewDoctorDialogFragment newDoctorDialogFragment = NewDoctorDialogFragment
             .newInstance(mainActivity, null);
         newDoctorDialogFragment.show(ft, "new doctor");
+        fabMenu.collapse();
         break;
       case R.id.add_chart:
         FragmentTransaction ft2 = mainActivity.getFragmentManager().beginTransaction();

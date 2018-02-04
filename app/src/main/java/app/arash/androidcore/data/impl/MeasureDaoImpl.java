@@ -3,14 +3,8 @@ package app.arash.androidcore.data.impl;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
-import app.arash.androidcore.data.dao.DoctorDao;
 import app.arash.androidcore.data.dao.MeasureDao;
-import app.arash.androidcore.data.entity.Doctor;
-import app.arash.androidcore.data.entity.Drug;
 import app.arash.androidcore.data.entity.Measure;
-import app.arash.androidcore.data.entity.MedicDatabaseHelper;
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -70,5 +64,11 @@ public class MeasureDaoImpl extends AbstractDao<Measure, Long> implements Measur
     measure.setTimestamp(cursor.getString(3));
 
     return measure;
+  }
+
+  public List<Measure> retriveAllByType(long typeId) {
+    String[] args = {String.valueOf(typeId)};
+    String selection = Measure.COL_TYPE + " =? ";
+    return retrieveAll(selection, args, null, null, Measure.COL_ID + " DESC ", "30");
   }
 }
