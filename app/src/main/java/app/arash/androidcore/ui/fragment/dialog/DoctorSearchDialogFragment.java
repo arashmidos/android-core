@@ -108,8 +108,9 @@ public class DoctorSearchDialogFragment extends DialogFragment {
   }
 
   private void setUpRecyclerView() {
+    List<Doctor> doctors = doctorDaoImpl.retrieveAll();
     doctorSearchAdapter = new DoctorSearchAdapter(newVisitActivity, this,
-        doctorDaoImpl.retrieveAll());
+        doctors);
     LinearLayoutManager layoutManager = new LinearLayoutManager(newVisitActivity);
     DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(
         recyclerView.getContext(),
@@ -117,6 +118,14 @@ public class DoctorSearchDialogFragment extends DialogFragment {
     recyclerView.addItemDecoration(dividerItemDecoration);
     recyclerView.setAdapter(doctorSearchAdapter);
     recyclerView.setLayoutManager(layoutManager);
+
+    if (doctors.size() > 0) {
+      recyclerView.setVisibility(View.VISIBLE);
+      noItemLayout.setVisibility(View.GONE);
+    } else {
+      recyclerView.setVisibility(View.GONE);
+      noItemLayout.setVisibility(View.VISIBLE);
+    }
   }
 
   @Override

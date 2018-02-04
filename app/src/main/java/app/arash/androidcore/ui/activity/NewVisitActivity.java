@@ -165,7 +165,7 @@ public class NewVisitActivity extends AppCompatActivity {
       timeValueTv.setText(NumberUtil.digitsToPersian(String.format(Locale.US, "%s:%s", i, i1)));
       hour = i;
       minute = i1;
-    }, hour, minute, false);
+    }, hour, minute, true);
     dialog.show();
   }
 

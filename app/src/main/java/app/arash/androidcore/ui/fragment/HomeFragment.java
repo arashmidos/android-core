@@ -17,10 +17,12 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 import app.arash.androidcore.R;
+import app.arash.androidcore.data.entity.Doctor;
 import app.arash.androidcore.data.entity.DoctorVisit;
 import app.arash.androidcore.data.entity.FabChangedEvent;
 import app.arash.androidcore.data.entity.FabChangedEvent.FabStatus;
 import app.arash.androidcore.data.entity.Medicine;
+import app.arash.androidcore.data.impl.DoctorDaoImpl;
 import app.arash.androidcore.data.impl.DoctorVisitDaoImpl;
 import app.arash.androidcore.ui.activity.MainActivity;
 import app.arash.androidcore.ui.activity.NewVisitActivity;
@@ -30,6 +32,7 @@ import app.arash.androidcore.ui.fragment.dialog.MeasureListDialogFragment;
 import app.arash.androidcore.ui.fragment.dialog.NewDoctorDialogFragment;
 import app.arash.androidcore.util.DateUtil;
 import app.arash.androidcore.util.NumberUtil;
+import app.arash.androidcore.util.ToastUtil;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -185,7 +188,14 @@ public class HomeFragment extends BaseFragment {
   public void onViewClicked(View view) {
     switch (view.getId()) {
       case R.id.add_visit:
-        startActivity(new Intent(mainActivity, NewVisitActivity.class));
+        List<Doctor> doctors = new DoctorDaoImpl(mainActivity).retrieveAll();
+        if (doctors.size() > 0) {
+
+          startActivity(new Intent(mainActivity, NewVisitActivity.class));
+        } else {
+          ToastUtil.toastError(mainActivity, "هیچ پزشکی یافت نشد. ابتدا پزشک خود را ثبت کنید");
+        }
+
         fabMenu.collapse();
         break;
       case R.id.add_doctor:
@@ -214,7 +224,12 @@ public class HomeFragment extends BaseFragment {
         Toast.makeText(mainActivity, "بزودی در نسخه آینده", Toast.LENGTH_SHORT).show();
         break;
       case R.id.set_visit_tv:
-        startActivity(new Intent(mainActivity, NewVisitActivity.class));
+        List<Doctor> doctors2 = new DoctorDaoImpl(mainActivity).retrieveAll();
+        if (doctors2.size() > 0) {
+          startActivity(new Intent(mainActivity, NewVisitActivity.class));
+        } else {
+          ToastUtil.toastError(mainActivity, "هیچ پزشکی یافت نشد. ابتدا پزشک خود را ثبت کنید");
+        }
         fabMenu.collapse();
         break;
       case R.id.overlay:
