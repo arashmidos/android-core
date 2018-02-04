@@ -17,13 +17,13 @@ import app.arash.androidcore.data.impl.DoctorDaoImpl;
 import app.arash.androidcore.ui.adapter.VisitAdapter.ViewHolder;
 import app.arash.androidcore.util.DateUtil;
 import app.arash.androidcore.util.NumberUtil;
-import app.arash.androidcore.util.SunDate;
 import app.arash.androidcore.util.Utils;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 /**
  * Created by shkbhbb on 1/23/18.
@@ -92,18 +92,15 @@ public class VisitAdapter extends Adapter<ViewHolder> {
       if (!TextUtils.isEmpty(doctor.getExpertise())) {
         expertiseTv.setText(doctor.getExpertise());
       }
-      String[] dateDetail = visit.getVisitDate().split(" ");
-      SunDate sunDate = new SunDate(Integer.parseInt(dateDetail[0]),
-          DateUtil.getPersionMonthNum(dateDetail[1]),
-          Integer.parseInt(dateDetail[2]));
-      Calendar calendar = sunDate.getCalendar();
-      visitTimeTv.setText(String
-          .format("%s %s , %s", DateUtil.getPersianDayOfWeek(calendar.get(Calendar.DAY_OF_WEEK)),
-              visit.getVisitDate().substring(0, visit.getVisitDate().length() - 4),
-              visit.getVisitTime()));
+      String dateDetail = visit.getVisitDate();
+      Date date = DateUtil
+          .convertStringToDate(dateDetail, DateUtil.FULL_FORMATTER_GREGORIAN_WITH_TIME, "EN");
+
+      visitTimeTv.setText(NumberUtil.digitsToPersian(String
+          .format("%s %s", DateUtil.getFullPersianDate(date), visit.getVisitTime())));
       leftTimeTv.setText(NumberUtil.digitsToPersian(
-          String.format("%d روز دیگر",
-              DateUtil.getDifferenceDateDayCount(new Date(), calendar.getTime()))));
+          String.format(Locale.US, "%d روز دیگر",
+              DateUtil.getDifferenceDateDayCount(new Date(), date))));
     }
 
     private void setMargin() {

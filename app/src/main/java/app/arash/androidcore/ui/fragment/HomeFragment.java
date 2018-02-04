@@ -169,7 +169,7 @@ public class HomeFragment extends BaseFragment {
   }
 
   private void setUpVisitRecyclerView() {
-    List<DoctorVisit> visits = doctorVisitDao.retrieveAll();
+    List<DoctorVisit> visits = doctorVisitDao.retrieveAllByDate();
     if (visits.size() != 0) {
       visitRecyclerView.setVisibility(View.VISIBLE);
       visitEmptyView.setVisibility(View.GONE);

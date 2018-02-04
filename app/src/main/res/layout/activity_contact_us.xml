@@ -19,7 +19,7 @@
       android:paddingEnd="16dp"
       android:paddingRight="16dp"
       android:gravity="right|center"
-      android:text="@string/about_us"
+      android:text="@string/contact_us"
       android:textColor="@color/white"
       android:textSize="16sp" />
     <ImageView

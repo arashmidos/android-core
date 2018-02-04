@@ -15,11 +15,12 @@ import app.arash.androidcore.ui.activity.DoctorDetailActivity;
 import app.arash.androidcore.ui.adapter.DoctorVisitAdapter.ViewHolder;
 import app.arash.androidcore.ui.fragment.bottomsheet.DoctorBottomSheet;
 import app.arash.androidcore.util.DateUtil;
-import app.arash.androidcore.util.SunDate;
+import app.arash.androidcore.util.NumberUtil;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -80,19 +81,20 @@ public class DoctorVisitAdapter extends Adapter<ViewHolder> {
 
     public void setData(int position) {
       doctorVisit = doctorVisits.get(position);
-      dateTimeTv.setText(
-          String.format("%s , %s", doctorVisit.getVisitDate(), doctorVisit.getVisitTime()));
+      Date date = DateUtil.convertStringToDate(doctorVisit.getVisitDate(),
+          DateUtil.FULL_FORMATTER_GREGORIAN_WITH_TIME, "EN");
+
+      dateTimeTv.setText(NumberUtil.digitsToPersian(String
+          .format("%s %s", DateUtil.getPersianVisitDate(date), doctorVisit.getVisitTime())));
+
       if (!TextUtils.isEmpty(doctorVisit.getDescription())) {
         descriptionTv.setText(doctorVisit.getDescription());
         descriptionTv.setVisibility(View.VISIBLE);
       } else {
         descriptionTv.setVisibility(View.GONE);
       }
-      String[] dateDetail = doctorVisit.getVisitDate().split(" ");
-      SunDate sunDate = new SunDate(Integer.parseInt(dateDetail[0]),
-          DateUtil.getPersionMonthNum(dateDetail[1]),
-          Integer.parseInt(dateDetail[2]));
-      Calendar calendar = sunDate.getCalendar();
+      Calendar calendar = Calendar.getInstance();
+      calendar.setTime(date);
       dayTv.setText(DateUtil.getPersianDayOfWeek(calendar.get(Calendar.DAY_OF_WEEK)));
     }
 

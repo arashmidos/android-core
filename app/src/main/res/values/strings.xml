@@ -125,6 +125,7 @@
   <string name="register_drug">ثبت دارو</string>
   <string name="choose_drug">دارو مورد نظر را انتخاب نمایید</string>
   <string name="drug_reminder">یادآوری مصرف دارو</string>
+  <string name="search_in_drugs">جستجو در داروها</string>
   <string name="exit_text">برای خروج دوباره دکمه بازگشت را لمس کنید</string>
   <string name="number_of_use_each_time">تعداد مصرف در وعده</string>
   <string name="one_item">۱ عدد</string>
