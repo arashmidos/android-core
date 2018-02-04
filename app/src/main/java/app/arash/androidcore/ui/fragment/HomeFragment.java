@@ -203,14 +203,19 @@ public class HomeFragment extends BaseFragment {
         fabMenu.collapse();
         break;
       case R.id.add_reminder:
-        Toast.makeText(mainActivity, "add reminder", Toast.LENGTH_SHORT).show();
-
+//        FragmentTransaction ftAddDrug = mainActivity.getFragmentManager().beginTransaction();
+//        AddDrugDialogFragment addDrugDialogFragment= AddDrugDialogFragment
+//            .newInstance(mainActivity);
+//        addDrugDialogFragment.show(ftAddDrug, "add drug");
+        Toast.makeText(mainActivity, "بزودی در نسخه آینده", Toast.LENGTH_SHORT).show();
+        fabMenu.collapse();
         break;
       case R.id.more_medicine_tv:
-        Toast.makeText(mainActivity, "more", Toast.LENGTH_SHORT).show();
+        Toast.makeText(mainActivity, "بزودی در نسخه آینده", Toast.LENGTH_SHORT).show();
         break;
       case R.id.set_visit_tv:
         startActivity(new Intent(mainActivity, NewVisitActivity.class));
+        fabMenu.collapse();
         break;
       case R.id.overlay:
         overlay.setVisibility(View.GONE);

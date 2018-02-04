@@ -69,7 +69,9 @@ public class NewVisitActivity extends AppCompatActivity {
     if (getIntent() != null && getIntent().getSerializableExtra(Constant.VISIT_OBJ) != null
         && getIntent().getSerializableExtra(Constant.DOCTOR_OBJ) != null) {
       this.doctor = (Doctor) getIntent().getSerializableExtra(Constant.DOCTOR_OBJ);
-      doctorTv.setText(doctor.getName());
+      if (!TextUtils.isEmpty(doctor.getName())) {
+        doctorTv.setText(doctor.getName());
+      }
       DoctorVisit doctorVisit = (DoctorVisit) getIntent().getSerializableExtra(Constant.VISIT_OBJ);
       String[] dateDetail = doctorVisit.getVisitDate().split(" ");
       SunDate sunDate = new SunDate(Integer.parseInt(dateDetail[0]),
@@ -83,6 +85,12 @@ public class NewVisitActivity extends AppCompatActivity {
       dateValueTv.setText(doctorVisit.getVisitDate());
       if (!TextUtils.isEmpty(doctorVisit.getDescription())) {
         descriptionEdt.setText(doctorVisit.getDescription());
+      }
+    } else if (getIntent() != null
+        && getIntent().getSerializableExtra(Constant.DOCTOR_OBJ) != null) {
+      this.doctor = (Doctor) getIntent().getSerializableExtra(Constant.DOCTOR_OBJ);
+      if (!TextUtils.isEmpty(doctor.getName())) {
+        doctorTv.setText(doctor.getName());
       }
     }
   }

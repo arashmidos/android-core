@@ -114,6 +114,7 @@
   <string name="register_visit">ثبت وقت ویزیت</string>
   <string name="choose_doctor">پزشک مورد نظر را انتخاب نمایید</string>
   <string name="visit">وقت ویزیت</string>
+  <string name="number_of_usage">دفعات مصرف در روز</string>
   <string name="description">توضیحات</string>
   <string name="search_in_doctors">جستجو در فهرست پزشکان</string>
   <string name="contact_us_detail">
@@ -121,6 +122,9 @@
 تلفن: ۰۲۱۲۲۸۵۴۲۸۵\n\n
 ایمیل: info@inotek.ir
   </string>
+  <string name="register_drug">ثبت دارو</string>
+  <string name="choose_drug">دارو مورد نظر را انتخاب نمایید</string>
+  <string name="drug_reminder">یادآوری مصرف دارو</string>
 
 
 </resources>

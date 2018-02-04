@@ -11,12 +11,10 @@ import android.view.ViewGroup;
 import app.arash.androidcore.R;
 import app.arash.androidcore.data.entity.MeasureDetailType;
 import app.arash.androidcore.ui.activity.MainActivity;
-import app.arash.androidcore.ui.adapter.MeasureListAdapter;
 import app.arash.androidcore.ui.adapter.MeasureListAdapter2;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
-import org.greenrobot.eventbus.EventBus;
 
 
 public class ChartListFragment extends BaseFragment {
@@ -50,9 +48,6 @@ public class ChartListFragment extends BaseFragment {
   private void setUpRecyclerView() {
     MeasureListAdapter2 adapter = new MeasureListAdapter2(mainActivity, MeasureDetailType.values());
     LinearLayoutManager layoutManager = new LinearLayoutManager(mainActivity);
-    DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(
-        chartList.getContext(),        layoutManager.getOrientation());
-    chartList.addItemDecoration(dividerItemDecoration);
     chartList.setAdapter(adapter);
     chartList.setLayoutManager(layoutManager);
   }

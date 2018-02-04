@@ -13,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import app.arash.androidcore.R;
+import app.arash.androidcore.data.entity.Constant;
 import app.arash.androidcore.data.entity.Doctor;
 import app.arash.androidcore.data.entity.DoctorVisit;
 import app.arash.androidcore.data.impl.DoctorVisitDaoImpl;
@@ -97,8 +98,15 @@ public class DoctorReminderFragment extends Fragment {
     unbinder.unbind();
   }
 
-  @OnClick(R.id.add_fab)
-  public void onViewClicked() {
-    startActivity(new Intent(getActivity(), NewVisitActivity.class));
+  @OnClick({R.id.add_visit, R.id.add_fab})
+  public void onViewClicked(View view) {
+    switch (view.getId()) {
+      case R.id.add_visit:
+      case R.id.add_fab:
+        Intent intent = new Intent(getActivity(), NewVisitActivity.class);
+        intent.putExtra(Constant.DOCTOR_OBJ, doctor);
+        startActivity(intent);
+        break;
+    }
   }
 }
