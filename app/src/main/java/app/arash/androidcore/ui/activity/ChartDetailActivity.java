@@ -1,5 +1,6 @@
 package app.arash.androidcore.ui.activity;
 
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -31,6 +32,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
+import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 public class ChartDetailActivity extends AppCompatActivity {
 
@@ -84,7 +86,7 @@ public class ChartDetailActivity extends AppCompatActivity {
 
       int value = list.get(i).getValue();
       if (value >= max) {
-        max = (int) (value + value*0.4);
+        max = (int) (value + value * 0.4);
       }
     }
 //    chart.setOnChartValueSelectedListener(this);
@@ -211,6 +213,11 @@ public class ChartDetailActivity extends AppCompatActivity {
   @OnClick(R.id.back_img)
   public void onViewClicked() {
     onBackPressed();
+  }
+
+  @Override
+  protected void attachBaseContext(Context newBase) {
+    super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
   }
 
 }

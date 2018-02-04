@@ -15,7 +15,9 @@ import app.arash.androidcore.data.entity.Constant;
 import app.arash.androidcore.data.entity.Doctor;
 import app.arash.androidcore.data.entity.DoctorDeleteEvent;
 import app.arash.androidcore.data.entity.DoctorVisit;
+import app.arash.androidcore.data.entity.RefreshEvent;
 import app.arash.androidcore.data.impl.DoctorDaoImpl;
+import app.arash.androidcore.data.impl.DoctorVisitDaoImpl;
 import app.arash.androidcore.ui.activity.NewVisitActivity;
 import app.arash.androidcore.ui.fragment.dialog.NewDoctorDialogFragment;
 import app.arash.androidcore.util.DialogUtil;
@@ -38,6 +40,7 @@ public class DoctorBottomSheet extends BottomSheetDialogFragment {
   private AppCompatActivity activity;
   private Doctor doctor;
   private DoctorDaoImpl doctorDao;
+  private DoctorVisitDaoImpl doctorVisitDao;
   private DoctorVisit doctorVisit;
   private boolean isFromVisit;
 
@@ -83,6 +86,7 @@ public class DoctorBottomSheet extends BottomSheetDialogFragment {
   private void init() {
     activity = (AppCompatActivity) getActivity();
     doctorDao = new DoctorDaoImpl(activity);
+    doctorVisitDao = new DoctorVisitDaoImpl(activity);
   }
 
   @OnClick({R.id.edit_doctor_tv, R.id.delete_doctor_tv, R.id.edit_visit, R.id.delete_visit})
@@ -111,7 +115,8 @@ public class DoctorBottomSheet extends BottomSheetDialogFragment {
         getActivity().startActivity(intent);
         break;
       case R.id.delete_visit:
-        //TODO:delete visit
+        doctorVisitDao.delete(doctorVisit.getId());
+        EventBus.getDefault().post(new RefreshEvent());
         break;
     }
     dismiss();

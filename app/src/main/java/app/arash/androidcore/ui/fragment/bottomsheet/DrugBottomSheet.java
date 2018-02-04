@@ -116,7 +116,7 @@ public class DrugBottomSheet extends BottomSheetDialogFragment {
         Toast.makeText(activity, "حذف از یادآور", Toast.LENGTH_SHORT).show();
         break;
       case R.id.set_reminder_tv:
-        Toast.makeText(activity, "ثبت یادآور", Toast.LENGTH_SHORT).show();
+        Toast.makeText(activity, "بزودی در نسخه آینده", Toast.LENGTH_SHORT).show();
         break;
       case R.id.reminder_setting_tv:
         Toast.makeText(activity, "تنظیمات یادآور", Toast.LENGTH_SHORT).show();

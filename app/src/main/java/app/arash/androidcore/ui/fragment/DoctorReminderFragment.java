@@ -16,6 +16,7 @@ import app.arash.androidcore.R;
 import app.arash.androidcore.data.entity.Constant;
 import app.arash.androidcore.data.entity.Doctor;
 import app.arash.androidcore.data.entity.DoctorVisit;
+import app.arash.androidcore.data.entity.RefreshEvent;
 import app.arash.androidcore.data.impl.DoctorVisitDaoImpl;
 import app.arash.androidcore.ui.activity.NewVisitActivity;
 import app.arash.androidcore.ui.adapter.DoctorVisitAdapter;
@@ -24,6 +25,8 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
 import java.util.List;
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
 
 /**
  * @author arash
@@ -40,6 +43,7 @@ public class DoctorReminderFragment extends Fragment {
   private Unbinder unbinder;
   private DoctorVisitDaoImpl doctorVisitDao;
   private Doctor doctor;
+  private DoctorVisitAdapter doctorVisitAdapter;
 
   public DoctorReminderFragment() {
     // Required empty public constructor
@@ -73,7 +77,11 @@ public class DoctorReminderFragment extends Fragment {
       recyclerView.setVisibility(View.VISIBLE);
       visitEmptyView.setVisibility(View.GONE);
       addFab.setVisibility(View.VISIBLE);
-      setUpRecyclerView(doctorVisits);
+      if (doctorVisitAdapter != null) {
+        doctorVisitAdapter.update(doctorVisits);
+      } else {
+        setUpRecyclerView(doctorVisits);
+      }
     }
   }
 
@@ -81,11 +89,12 @@ public class DoctorReminderFragment extends Fragment {
   public void onResume() {
     super.onResume();
     setData();
+    EventBus.getDefault().register(this);
   }
 
   private void setUpRecyclerView(
       List<DoctorVisit> doctorVisits) {
-    DoctorVisitAdapter doctorVisitAdapter = new DoctorVisitAdapter(getActivity(), doctorVisits,
+    doctorVisitAdapter = new DoctorVisitAdapter(getActivity(), doctorVisits,
         doctor);
     LayoutManager layoutManager = new LinearLayoutManager(getActivity());
     recyclerView.setAdapter(doctorVisitAdapter);
@@ -108,5 +117,16 @@ public class DoctorReminderFragment extends Fragment {
         startActivity(intent);
         break;
     }
+  }
+
+  @Override
+  public void onPause() {
+    super.onPause();
+    EventBus.getDefault().unregister(this);
+  }
+
+  @Subscribe
+  public void getMessage(RefreshEvent event) {
+    setData();
   }
 }

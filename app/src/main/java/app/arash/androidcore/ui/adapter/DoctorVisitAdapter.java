@@ -57,6 +57,11 @@ public class DoctorVisitAdapter extends Adapter<ViewHolder> {
     return doctorVisits.size();
   }
 
+  public void update(List<DoctorVisit> doctorVisits) {
+    this.doctorVisits = doctorVisits;
+    notifyDataSetChanged();
+  }
+
   public class ViewHolder extends RecyclerView.ViewHolder {
 
     @BindView(R.id.day_tv)

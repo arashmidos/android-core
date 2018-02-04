@@ -46,6 +46,7 @@ public class NewVisitActivity extends AppCompatActivity {
   private int minute = -1;
   private DoctorVisitDaoImpl doctorVisitDao;
   private Doctor doctor = null;
+  private DoctorVisit doctorVisit = null;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
@@ -72,7 +73,7 @@ public class NewVisitActivity extends AppCompatActivity {
       if (!TextUtils.isEmpty(doctor.getName())) {
         doctorTv.setText(doctor.getName());
       }
-      DoctorVisit doctorVisit = (DoctorVisit) getIntent().getSerializableExtra(Constant.VISIT_OBJ);
+      doctorVisit = (DoctorVisit) getIntent().getSerializableExtra(Constant.VISIT_OBJ);
       String[] dateDetail = doctorVisit.getVisitDate().split(" ");
       SunDate sunDate = new SunDate(Integer.parseInt(dateDetail[0]),
           DateUtil.getPersionMonthNum(dateDetail[1]),
@@ -104,7 +105,12 @@ public class NewVisitActivity extends AppCompatActivity {
           String date = dateValueTv.getText().toString().trim();
           String description = descriptionEdt.getText().toString().trim();
           long doctorId = doctor.getId();
-          doctorVisitDao.create(new DoctorVisit(date, time, description, doctorId));
+          if (doctorVisit == null) {
+            doctorVisitDao.create(new DoctorVisit(date, time, description, doctorId));
+          } else {
+            doctorVisitDao
+                .update(new DoctorVisit(doctorVisit.getId(), date, time, description, doctorId));
+          }
           finish();
         }
         break;

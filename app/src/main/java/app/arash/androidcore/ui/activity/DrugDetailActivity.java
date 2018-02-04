@@ -1,5 +1,6 @@
 package app.arash.androidcore.ui.activity;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
@@ -22,6 +23,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
+import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 public class DrugDetailActivity extends AppCompatActivity {
 
@@ -109,5 +111,10 @@ public class DrugDetailActivity extends AppCompatActivity {
     if (event.getDrug() != null) {
       refresh(event.getDrug());
     }
+  }
+
+  @Override
+  protected void attachBaseContext(Context newBase) {
+    super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
   }
 }

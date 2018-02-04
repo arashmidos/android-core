@@ -12,6 +12,9 @@ public class RefreshEvent {
     this.drug = drug;
   }
 
+  public RefreshEvent() {
+  }
+
   public Drug getDrug() {
     return drug;
   }

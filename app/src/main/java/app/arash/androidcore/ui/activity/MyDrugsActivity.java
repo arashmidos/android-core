@@ -1,6 +1,7 @@
 package app.arash.androidcore.ui.activity;
 
 import android.app.FragmentTransaction;
+import android.content.Context;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DividerItemDecoration;
@@ -20,6 +21,7 @@ import butterknife.OnClick;
 import java.util.List;
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
+import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 public class MyDrugsActivity extends AppCompatActivity {
 
@@ -89,5 +91,10 @@ public class MyDrugsActivity extends AppCompatActivity {
   @Subscribe
   public void getMessage(RefreshEvent event) {
     drugListAdapter.updateList(getMyDrugs());
+  }
+
+  @Override
+  protected void attachBaseContext(Context newBase) {
+    super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
   }
 }
