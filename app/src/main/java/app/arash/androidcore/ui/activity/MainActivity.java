@@ -3,6 +3,7 @@ package app.arash.androidcore.ui.activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
@@ -11,6 +12,7 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 import app.arash.androidcore.R;
 import app.arash.androidcore.data.entity.Constant;
 import app.arash.androidcore.data.entity.FabChangedEvent;
@@ -73,6 +75,7 @@ public class MainActivity extends AppCompatActivity implements OnNewMeasureSelec
 
   private List<Integer> bottomBarImageView;
   private List<Integer> bottomBarTextView;
+  private boolean doubleBackToExitPressedOnce = false;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
@@ -160,7 +163,7 @@ public class MainActivity extends AppCompatActivity implements OnNewMeasureSelec
         fragment = MoreFragment.newInstance();
         break;
       case DRUGS_FRAGMENT:
-        fragment =  DrugsFragment.newInstance();
+        fragment = DrugsFragment.newInstance();
         break;
       case DOCTORS_FRAGMENT:
         fragment = DoctorListFragment.newInstance();
@@ -199,5 +202,26 @@ public class MainActivity extends AppCompatActivity implements OnNewMeasureSelec
     Intent intent = new Intent(this, ChartDetailActivity.class);
     intent.putExtra(Constant.MEASURE, measure);
     startActivity(intent);
+  }
+
+  /**
+   * handle on back pressed
+   */
+
+  @Override
+  public void onBackPressed() {
+    if (doubleBackToExitPressedOnce) {
+      finishAffinity();
+      return;
+    }
+    this.doubleBackToExitPressedOnce = true;
+    Toast.makeText(this, R.string.exit_text, Toast.LENGTH_SHORT).show();
+    new Handler().postDelayed(new Runnable() {
+      @Override
+      public void run() {
+        doubleBackToExitPressedOnce = false;
+      }
+    }, 2000);
+
   }
 }

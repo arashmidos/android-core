@@ -5,6 +5,7 @@ import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.widget.NestedScrollView;
+import android.support.v4.widget.NestedScrollView.OnScrollChangeListener;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -26,6 +27,7 @@ import app.arash.androidcore.ui.activity.MainActivity;
 import app.arash.androidcore.ui.activity.NewVisitActivity;
 import app.arash.androidcore.ui.adapter.MedicineAdapter;
 import app.arash.androidcore.ui.adapter.VisitAdapter;
+import app.arash.androidcore.ui.fragment.dialog.AddDrugDialogFragment;
 import app.arash.androidcore.ui.fragment.dialog.MeasureListDialogFragment;
 import app.arash.androidcore.ui.fragment.dialog.NewDoctorDialogFragment;
 import app.arash.androidcore.util.DateUtil;
@@ -101,6 +103,16 @@ public class HomeFragment extends BaseFragment {
     setDate();
     setUpMedicineRecyclerView();
     setFABListener();
+    nestedLay.setOnScrollChangeListener(
+        (OnScrollChangeListener) (v, scrollX, scrollY, oldScrollX, oldScrollY) -> {
+
+          if (scrollY > oldScrollY) {
+            fabMenu.setVisibility(View.GONE);
+          }
+          if (scrollY < oldScrollY) {
+            fabMenu.setVisibility(View.VISIBLE);
+          }
+        });
     return view;
   }
 
@@ -203,11 +215,10 @@ public class HomeFragment extends BaseFragment {
         fabMenu.collapse();
         break;
       case R.id.add_reminder:
-//        FragmentTransaction ftAddDrug = mainActivity.getFragmentManager().beginTransaction();
-//        AddDrugDialogFragment addDrugDialogFragment= AddDrugDialogFragment
-//            .newInstance(mainActivity);
-//        addDrugDialogFragment.show(ftAddDrug, "add drug");
-        Toast.makeText(mainActivity, "بزودی در نسخه آینده", Toast.LENGTH_SHORT).show();
+        FragmentTransaction ftAddDrug = mainActivity.getFragmentManager().beginTransaction();
+        AddDrugDialogFragment addDrugDialogFragment= AddDrugDialogFragment
+            .newInstance(mainActivity);
+        addDrugDialogFragment.show(ftAddDrug, "add drug");
         fabMenu.collapse();
         break;
       case R.id.more_medicine_tv:

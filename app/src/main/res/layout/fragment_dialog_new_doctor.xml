@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+  android:id="@+id/root"
   android:layout_width="match_parent"
   android:layout_height="match_parent"
   android:background="@color/white"
-  android:id="@+id/root"
   android:orientation="vertical">
   <LinearLayout
     android:layout_width="match_parent"
@@ -25,11 +25,11 @@
       android:layout_width="0dp"
       android:layout_height="match_parent"
       android:layout_weight="1"
+      android:layout_marginEnd="16dp"
+      android:layout_marginRight="16dp"
       android:gravity="center|right"
       android:text="@string/register_doctor"
       android:textColor="@color/white"
-      android:layout_marginRight="16dp"
-      android:layout_marginEnd="16dp"
       android:textSize="16sp" />
     <ImageView
       android:id="@+id/close_img"
@@ -40,83 +40,97 @@
       android:src="@drawable/ic_close_24_dp"
       android:tint="@color/white" />
   </LinearLayout>
-
-  <android.support.design.widget.TextInputLayout
+  <ScrollView
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_marginTop="32dp"
-    android:layout_marginLeft="16dp"
-    android:layout_marginRight="16dp"
-    android:hint="@string/doctor_name"
-    android:textColorHint="@color/gray_9e">
-    <EditText
-      android:id="@+id/doctor_name_edt"
-      style="@style/IranSans"
+    android:layout_height="match_parent">
+    <LinearLayout
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
-      android:paddingTop="6dp"
-      android:paddingBottom="6dp"
-      android:background="@drawable/edit_text_state_background"
-      android:textSize="14sp" />
-    <requestFocus />
-  </android.support.design.widget.TextInputLayout>
+      android:orientation="vertical">
+      <android.support.design.widget.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:hint="@string/doctor_name"
+        android:textColorHint="@color/gray_9e">
+        <EditText
+          android:id="@+id/doctor_name_edt"
+          style="@style/IranSans"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:paddingTop="6dp"
+          android:paddingBottom="6dp"
+          android:background="@drawable/edit_text_state_background"
+          android:gravity="right"
+          android:textSize="14sp" />
+        <requestFocus />
+      </android.support.design.widget.TextInputLayout>
 
-  <android.support.design.widget.TextInputLayout
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_marginTop="32dp"
-    android:layout_marginLeft="16dp"
-    android:layout_marginRight="16dp"
-    android:hint="@string/filed"
-    android:textColorHint="@color/gray_9e">
-    <EditText
-      android:id="@+id/field_edt"
-      style="@style/IranSans"
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      android:paddingTop="6dp"
-      android:paddingBottom="6dp"
-      android:background="@drawable/edit_text_state_background"
-      android:textSize="14sp" />
-  </android.support.design.widget.TextInputLayout>
+      <android.support.design.widget.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:hint="@string/filed"
+        android:textColorHint="@color/gray_9e">
+        <EditText
+          android:id="@+id/field_edt"
+          style="@style/IranSans"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:paddingTop="6dp"
+          android:paddingBottom="6dp"
+          android:background="@drawable/edit_text_state_background"
+          android:gravity="right"
+          android:textSize="14sp" />
+      </android.support.design.widget.TextInputLayout>
 
-  <android.support.design.widget.TextInputLayout
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_marginTop="32dp"
-    android:layout_marginLeft="16dp"
-    android:layout_marginRight="16dp"
-    android:hint="@string/phone_number"
-    android:textColorHint="@color/gray_9e">
-    <EditText
-      android:id="@+id/phone_number_edt"
-      style="@style/IranSans"
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      android:paddingTop="6dp"
-      android:paddingBottom="6dp"
-      android:background="@drawable/edit_text_state_background"
-      android:inputType="phone"
-      android:textSize="14sp" />
-  </android.support.design.widget.TextInputLayout>
+      <android.support.design.widget.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:hint="@string/phone_number"
+        android:textColorHint="@color/gray_9e">
+        <EditText
+          android:id="@+id/phone_number_edt"
+          style="@style/IranSans"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:paddingTop="6dp"
+          android:paddingBottom="6dp"
+          android:background="@drawable/edit_text_state_background"
+          android:gravity="right"
+          android:inputType="phone"
+          android:textSize="14sp" />
+      </android.support.design.widget.TextInputLayout>
 
-  <android.support.design.widget.TextInputLayout
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_marginTop="32dp"
-    android:layout_marginLeft="16dp"
-    android:layout_marginRight="16dp"
-    android:hint="@string/address"
-    android:textColorHint="@color/gray_9e">
-    <EditText
-      android:id="@+id/address_edt"
-      style="@style/IranSans"
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      android:paddingTop="6dp"
-      android:paddingBottom="6dp"
-      android:background="@drawable/edit_text_state_background"
-      android:inputType="text"
-      android:textSize="14sp" />
-  </android.support.design.widget.TextInputLayout>
+      <android.support.design.widget.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:hint="@string/address"
+        android:textColorHint="@color/gray_9e">
+        <EditText
+          android:id="@+id/address_edt"
+          style="@style/IranSans"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:paddingTop="6dp"
+          android:paddingBottom="6dp"
+          android:background="@drawable/edit_text_state_background"
+          android:gravity="right"
+          android:inputType="text"
+          android:textSize="14sp" />
+      </android.support.design.widget.TextInputLayout>
+
+    </LinearLayout>
+  </ScrollView>
+
 </LinearLayout>
