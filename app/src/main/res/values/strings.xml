@@ -155,4 +155,10 @@
   <string name="thursday_comma">پنجشنبه,</string>
   <string name="friday_comma">جمعه,</string>
   <string name="register">ثبت</string>
+  <string name="number_of_use_in_day">دفعات مصرف در روز</string>
+  <string name="usage_instruction">دستور العمل مصرف </string>
+  <string name="last_usage_time">آخرین زمان مصرف:</string>
+  <string name="in_day">در روز</string>
+  <string name="usage_hour">ساعت مصرف</string>
+  <string name="in_each_meal">در هر وعده</string>
 </resources>

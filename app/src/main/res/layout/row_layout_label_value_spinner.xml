@@ -5,13 +5,13 @@
 
   <TextView
     android:id="@+id/labelTxt"
+    style="@style/IranSans"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:gravity="right"
-    style="@style/IranSans"
     android:padding="8dp"
+    android:gravity="right"
     android:textColor="@color/black_21"
-    android:textSize="14sp"
-    android:textColorHint="@color/black_21"/>
+    android:textColorHint="@color/gray_75"
+    android:textSize="14sp" />
 
 </LinearLayout>

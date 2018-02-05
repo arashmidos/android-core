@@ -93,8 +93,8 @@
         android:id="@+id/reminder_detail_lay"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:visibility="gone"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:visibility="visible">
         <RelativeLayout
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
@@ -106,17 +106,9 @@
             android:id="@+id/spinner"
             style="@style/IranSans"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:paddingBottom="12dp"
+            android:layout_height="wrap_content"
             android:background="@color/white"
-            android:gravity="right"
-            android:prompt="@string/number_of_usage" />
-
-          <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_alignParentBottom="true"
-            android:background="@color/gray_e0" />
+            android:gravity="right" />
 
           <ImageView
             android:layout_width="wrap_content"
@@ -124,21 +116,27 @@
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
             android:layout_centerVertical="true"
-            android:paddingBottom="12dp"
+            android:id="@+id/drop_down_img"
             android:src="@drawable/ic_arrow_drop_down"
             android:tint="@color/login_gray" />
 
+          <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_alignParentBottom="true"
+            android:background="@color/gray_e0" />
         </RelativeLayout>
         <RelativeLayout
+          android:id="@+id/usage_detail_lay"
           android:layout_width="match_parent"
-          android:layout_height="wrap_content">
+          android:layout_height="wrap_content"
+          android:layout_marginTop="24dp"
+          android:visibility="gone">
           <TextView
             android:id="@+id/time_tv"
             style="@style/IranSans.Medium"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="27dp"
-            android:layout_marginBottom="24dp"
             android:layout_marginEnd="14dp"
             android:layout_marginRight="14dp"
             android:layout_alignParentEnd="true"
@@ -151,18 +149,19 @@
             style="@style/IranSans"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="30dp"
             android:layout_marginStart="16dp"
             android:layout_marginLeft="16dp"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
             android:text="@string/one_item"
+            android:layout_centerVertical="true"
             android:textColor="@color/color_primary"
             android:textSize="14sp" />
         </RelativeLayout>
         <View
           android:layout_width="match_parent"
           android:layout_height="1dp"
+          android:layout_marginTop="24dp"
           android:background="@color/gray_e0" />
         <TextView
           style="@style/IranSans"
@@ -236,8 +235,7 @@
             android:id="@+id/instruction_spinner"
             style="@style/IranSans"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:paddingBottom="12dp"
+            android:layout_height="wrap_content"
             android:background="@color/white"
             android:gravity="right"
             android:prompt="@string/number_of_usage" />
@@ -254,7 +252,6 @@
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
             android:layout_centerVertical="true"
-            android:paddingBottom="12dp"
             android:src="@drawable/ic_arrow_drop_down"
             android:tint="@color/login_gray" />
 

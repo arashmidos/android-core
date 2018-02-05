@@ -2,14 +2,17 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
   android:layout_width="match_parent"
   android:layout_height="match_parent"
-  android:background="@color/gray_ee"
+  android:background="@color/white"
   android:orientation="vertical">
   <LinearLayout
+    android:id="@+id/empty_view"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_gravity="center"
+    android:background="@color/gray_ee"
     android:gravity="center"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:visibility="gone">
     <ImageView
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
@@ -24,12 +27,12 @@
       android:textColor="@color/gray_75"
       android:textSize="14sp" />
     <TextView
+      android:id="@+id/reminder"
       style="@style/IranSans"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:layout_marginTop="41dp"
       android:paddingTop="10dp"
-      android:id="@+id/reminder"
       android:paddingBottom="10dp"
       android:paddingLeft="16dp"
       android:paddingRight="16dp"
@@ -38,4 +41,162 @@
       android:textColor="@color/white"
       android:textSize="14sp" />
   </LinearLayout>
+  <ScrollView
+    android:id="@+id/detail_lay"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <LinearLayout
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:background="@color/white"
+      android:orientation="vertical">
+      <LinearLayout
+        android:id="@+id/time_lay"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="23dp"
+        android:paddingBottom="16dp"
+        android:background="@color/white_fa"
+        android:gravity="center">
+        <TextView
+          style="@style/IranSans"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:text=" 28 دی 96 ، ساعت 20:30"
+          android:textColor="@color/gray_75"
+          android:textSize="14sp" />
+        <TextView
+          style="@style/IranSans"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:text="@string/last_usage_time"
+          android:textColor="@color/color_primary"
+          android:textSize="14sp" />
+      </LinearLayout>
+
+      <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/gray_e0" />
+      <TextView
+        android:id="@+id/number_tv"
+        style="@style/IranSans"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="17dp"
+        android:gravity="center"
+        android:text="1 بار "
+        android:textColor="@color/black_42"
+        android:textSize="18sp" />
+      <TextView
+        style="@style/IranSans.Light"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="14dp"
+        android:gravity="center"
+        android:text="@string/in_day"
+        android:textColor="@color/gray_75"
+        android:textSize="14sp" />
+      <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/gray_e0" />
+
+      <TextView
+        android:id="@+id/usage_hour_tv"
+        style="@style/IranSans"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="17dp"
+        android:gravity="center"
+        android:text="20:30"
+        android:textColor="@color/black_42"
+        android:textSize="18sp" />
+      <TextView
+        style="@style/IranSans.Light"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="14dp"
+        android:gravity="center"
+        android:text="@string/usage_hour"
+        android:textColor="@color/gray_75"
+        android:textSize="14sp" />
+      <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/gray_e0" />
+      <TextView
+        android:id="@+id/meal_tv"
+        style="@style/IranSans"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="17dp"
+        android:gravity="center"
+        android:text="2 عدد"
+        android:textColor="@color/black_42"
+        android:textSize="18sp" />
+      <TextView
+        style="@style/IranSans.Light"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="14dp"
+        android:gravity="center"
+        android:text="@string/in_each_meal"
+        android:textColor="@color/gray_75"
+        android:textSize="14sp" />
+      <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/gray_e0" />
+      <TextView
+        style="@style/IranSans"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="17dp"
+        android:gravity="center"
+        android:text="هر روز"
+        android:textColor="@color/black_42"
+        android:textSize="18sp" />
+      <TextView
+        style="@style/IranSans.Light"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="14dp"
+        android:gravity="center"
+        android:text="@string/repeat_period"
+        android:textColor="@color/gray_75"
+        android:textSize="14sp" />
+      <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/gray_e0" />
+      <TextView
+        style="@style/IranSans"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="17dp"
+        android:gravity="center"
+        android:text="همراه با غذا"
+        android:textColor="@color/black_42"
+        android:textSize="18sp" />
+      <TextView
+        style="@style/IranSans.Light"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="14dp"
+        android:gravity="center"
+        android:text="@string/usage_instruction"
+        android:textColor="@color/gray_75"
+        android:textSize="14sp" />
+      <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/gray_e0" />
+    </LinearLayout>
+  </ScrollView>
 </LinearLayout>

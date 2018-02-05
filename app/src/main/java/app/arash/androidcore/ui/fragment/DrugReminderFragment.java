@@ -18,7 +18,6 @@ import butterknife.Unbinder;
 
 public class DrugReminderFragment extends Fragment {
 
-  Unbinder unbinder;
   private Drug drug;
 
   public DrugReminderFragment() {
@@ -38,14 +37,8 @@ public class DrugReminderFragment extends Fragment {
       Bundle savedInstanceState) {
     // Inflate the layout for this fragment
     View view = inflater.inflate(R.layout.fragment_drug_reminder, container, false);
-    unbinder = ButterKnife.bind(this, view);
+    ButterKnife.bind(this, view);
     return view;
-  }
-
-  @Override
-  public void onDestroyView() {
-    super.onDestroyView();
-    unbinder.unbind();
   }
 
   @OnClick(R.id.reminder)

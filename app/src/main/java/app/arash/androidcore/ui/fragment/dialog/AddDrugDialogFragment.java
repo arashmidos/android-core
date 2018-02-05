@@ -10,24 +10,24 @@ import android.support.v7.app.AlertDialog.Builder;
 import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.CheckBox;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.Switch;
 import android.widget.TextView;
 import app.arash.androidcore.R;
 import app.arash.androidcore.data.entity.Drug;
+import app.arash.androidcore.ui.adapter.CustomSpinnerAdapter;
 import app.arash.androidcore.util.NumberUtil;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Locale;
 
 /**
@@ -59,6 +59,8 @@ public class AddDrugDialogFragment extends DialogFragment {
   LinearLayout reminderDetailLay;
   @BindView(R.id.reminder_sw)
   Switch reminderSw;
+  @BindView(R.id.usage_detail_lay)
+  RelativeLayout usageDetailLay;
 
   private AppCompatActivity context;
   private String numberInEachTime;
@@ -91,37 +93,67 @@ public class AddDrugDialogFragment extends DialogFragment {
   }
 
   private void setData() {
-    ArrayAdapter<String> adapter = new ArrayAdapter<String>(context,
-        android.R.layout.simple_spinner_item, getNumberOfUse());
-    spinner.setAdapter(adapter);
-    ArrayAdapter<String> instructionAdapter = new ArrayAdapter<String>(context,
-        android.R.layout.simple_spinner_item, getInstruction());
-    instructionSpinner.setAdapter(instructionAdapter);
+    spinner.setAdapter(
+        new CustomSpinnerAdapter(getActivity(), R.layout.row_layout_label_value_spinner,
+            getNumberOfUse(), getString(R.string.number_of_use_in_day)));
+
+    spinner.setOnItemSelectedListener(new OnItemSelectedListener() {
+      @Override
+      public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+        if (!spinner.getSelectedItem().equals(getString(R.string.number_of_use_in_day))) {
+          usageDetailLay.setVisibility(View.VISIBLE);
+        }
+      }
+
+      @Override
+      public void onNothingSelected(AdapterView<?> adapterView) {
+
+      }
+    });
+
+    instructionSpinner.setAdapter(
+        new CustomSpinnerAdapter(getActivity(), R.layout.row_layout_label_value_spinner,
+            getInstruction(), getString(R.string.usage_instruction)));
+
     numberInEachTime = getActivity().getString(R.string.one_item);
     hour = 8;
     minute = 0;
     timeTv.setText(NumberUtil.digitsToPersian("8:00"));
+
     if (drug != null) {
       drugTv.setText(drug.getNameFa().trim());
     }
+    reminderSw.setOnCheckedChangeListener((compoundButton, b) -> {
+      if (b) {
+        reminderDetailLay.setVisibility(View.VISIBLE);
+      } else {
+        reminderDetailLay.setVisibility(View.GONE);
+      }
+    });
   }
 
-  private List<String> getNumberOfUse() {
-    List<String> item = new ArrayList<>();
-    item.add("۱ بار در روز");
-    item.add("۲ بار در روز");
-    item.add("۳ بار در روز");
-    item.add("۴ بار در روز");
-    item.add("۵ بار در روز");
+  @Override
+  public void onResume() {
+    super.onResume();
+    reminderDetailLay.setVisibility(View.GONE);
+  }
+
+  private String[] getNumberOfUse() {
+    String[] item = new String[5];
+    item[0] = "۱ بار در روز";
+    item[1] = "۲ بار در روز";
+    item[2] = "۳ بار در روز";
+    item[3] = "۴ بار در روز";
+    item[4] = "۵ بار در روز";
     return item;
   }
 
-  private List<String> getInstruction() {
-    List<String> item = new ArrayList<>();
-    item.add("قبل از وعده غذایی");
-    item.add("همراه با وعده غذایی");
-    item.add("بعد از وعده غذایی");
-    item.add("دستورالعمل خاصی وجود ندارد");
+  private String[] getInstruction() {
+    String[] item = new String[4];
+    item[0] = "قبل از وعده غذایی";
+    item[1] = "همراه با وعده غذایی";
+    item[2] = "بعد از وعده غذایی";
+    item[3] = "دستورالعمل خاصی وجود ندارد";
     return item;
   }
 
@@ -163,48 +195,34 @@ public class AddDrugDialogFragment extends DialogFragment {
     AlertDialog alertDialog = dialogBuilder.create();
 
     alertDialog.show();
-    cancelTv.setOnClickListener(new OnClickListener() {
-      @Override
-      public void onClick(View view) {
-        alertDialog.dismiss();
+    cancelTv.setOnClickListener(view -> alertDialog.dismiss());
+    registerTv.setOnClickListener(view -> {
+      String days = "";
+      if (saturdayChb.isChecked()) {
+        days += getString(R.string.saturday_comma);
       }
-    });
-    registerTv.setOnClickListener(new OnClickListener() {
-      @Override
-      public void onClick(View view) {
-        String days = "";
-        if (saturdayChb.isChecked()) {
-          days += getString(R.string.saturday_comma);
-        }
-        if (sundayChb.isChecked()) {
-          days += getString(R.string.sunday_comma);
-        }
-        if (mondayChb.isChecked()) {
-          days += getString(R.string.monday_comma);
-        }
-        if (tuesdayChb.isChecked()) {
-          days += getString(R.string.tuesday_comma);
-        }
-        if (wednesdayChb.isChecked()) {
-          days += getString(R.string.wednesday_comma);
-        }
-        if (thursdayChb.isChecked()) {
-          days += getString(R.string.thursday_comma);
-        }
-        if (fridayChb.isChecked()) {
-          days += getString(R.string.friday_comma);
-        }
-        days = days.substring(0, days.length() - 1);
-        daysTv.setText(days);
-        alertDialog.dismiss();
+      if (sundayChb.isChecked()) {
+        days += getString(R.string.sunday_comma);
       }
+      if (mondayChb.isChecked()) {
+        days += getString(R.string.monday_comma);
+      }
+      if (tuesdayChb.isChecked()) {
+        days += getString(R.string.tuesday_comma);
+      }
+      if (wednesdayChb.isChecked()) {
+        days += getString(R.string.wednesday_comma);
+      }
+      if (thursdayChb.isChecked()) {
+        days += getString(R.string.thursday_comma);
+      }
+      if (fridayChb.isChecked()) {
+        days += getString(R.string.friday_comma);
+      }
+      days = days.substring(0, days.length() - 1);
+      daysTv.setText(days);
+      alertDialog.dismiss();
     });
-//    radioGroup.setOnCheckedChangeListener((group, checkedId) -> {
-//      RadioButton selectedRadio = (RadioButton) dialogView.findViewById(checkedId);
-//      numberInEachTime = (String) selectedRadio.getTag();
-//      numberTv.setText(numberInEachTime);
-//      alertDialog.cancel();
-//    });
   }
 
   private void showTimePicker() {
@@ -269,4 +287,5 @@ public class AddDrugDialogFragment extends DialogFragment {
     this.drug = drug;
     drugTv.setText(drug.getNameFa().trim());
   }
+
 }
