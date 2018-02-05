@@ -87,7 +87,7 @@ public class DrugBottomSheet extends BottomSheetDialogFragment {
     } else {
       reminderSettingTv.setVisibility(View.GONE);
       removeReminderTv.setVisibility(View.GONE);
-      setReminderTv.setVisibility(View.VISIBLE);
+//      setReminderTv.setVisibility(View.VISIBLE);
     }
   }
 

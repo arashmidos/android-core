@@ -68,6 +68,7 @@
     android:layout_width="match_parent"
     android:layout_height="1dp"
     android:layout_marginTop="10dp"
+    android:visibility="gone"
     android:layout_marginBottom="7dp"
     android:background="@color/gray_e0" />
 
@@ -114,10 +115,12 @@
     android:drawableRight="@drawable/ic_bell_24_gray"
     android:gravity="center|right"
     android:text="@string/set_new_reminder"
+    android:visibility="gone"
     android:textColor="@color/black_21"
     android:textSize="14sp" />
   <View
     android:layout_width="match_parent"
     android:layout_height="12dp"
+    android:visibility="gone"
     android:background="@color/white" />
 </LinearLayout>

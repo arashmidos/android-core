@@ -4,7 +4,9 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import app.arash.androidcore.data.dao.DoctorVisitDao;
+import app.arash.androidcore.data.entity.Doctor;
 import app.arash.androidcore.data.entity.DoctorVisit;
+import app.arash.androidcore.data.entity.DoctorVisitDto;
 import app.arash.androidcore.util.DateUtil;
 import java.util.Date;
 import java.util.List;
@@ -88,5 +90,29 @@ public class DoctorVisitDaoImpl extends AbstractDao<DoctorVisit, Long> implement
 
     String[] args = {select};
     return retrieveAll(selection, args, null, null, DoctorVisit.COL_VISIT_DATE);
+  }
+
+  public DoctorVisitDto getLatestDoctorVisit() {
+
+    String selection = DoctorVisit.COL_VISIT_DATE + " > ? ";
+
+    Date date = new Date();
+    date = DateUtil.startOfDay(date);
+    String select = DateUtil.convertDate(date, DateUtil.FULL_FORMATTER_GREGORIAN_WITH_TIME, "EN");
+
+    String[] args = {select};
+    List<DoctorVisit> list = retrieveAll(selection, args, null, null, DoctorVisit.COL_VISIT_DATE,
+        "1");
+    DoctorVisitDto doctorVisitDto = null;
+    if (list.size() > 0) {
+      DoctorVisit visit = list.get(0);
+      doctorVisitDto = new DoctorVisitDto(visit.getId(), visit.getVisitDate(), visit.getVisitTime(),
+          visit.getDescription());
+      DoctorDaoImpl doctorDao = new DoctorDaoImpl(context);
+      Doctor doctor = doctorDao.retrieve(visit.getDoctorId());
+      doctorVisitDto.setDoctor(doctor);
+    }
+
+    return doctorVisitDto;
   }
 }

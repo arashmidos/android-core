@@ -21,6 +21,7 @@ import app.arash.androidcore.data.entity.FabChangedEvent;
 import app.arash.androidcore.data.entity.FabChangedEvent.FabStatus;
 import app.arash.androidcore.data.entity.Measure;
 import app.arash.androidcore.data.entity.MeasureDetailType;
+import app.arash.androidcore.receiver.BootReceiver;
 import app.arash.androidcore.ui.fragment.BaseFragment;
 import app.arash.androidcore.ui.fragment.ChartListFragment;
 import app.arash.androidcore.ui.fragment.DoctorListFragment;
@@ -93,6 +94,8 @@ public class MainActivity extends AppCompatActivity implements OnNewMeasureSelec
     if (savedInstanceState == null) {
       setupFragment(HOME_FRAGMENT);
     }
+
+    new BootReceiver().setAlarm(this);
   }
 
   private void initBottomBarList() {

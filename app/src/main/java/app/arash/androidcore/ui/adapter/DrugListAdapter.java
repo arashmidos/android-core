@@ -72,6 +72,8 @@ public class DrugListAdapter extends Adapter<ViewHolder> {
     ImageView starImg;
     @BindView(R.id.alarm_img)
     ImageView alarmImg;
+    @BindView(R.id.my_img)
+    ImageView myImg;
 
     private Drug drug;
 
@@ -94,6 +96,11 @@ public class DrugListAdapter extends Adapter<ViewHolder> {
         starImg.setVisibility(View.VISIBLE);
       } else {
         starImg.setVisibility(View.GONE);
+      }
+      if (drug.isMyDrug()) {
+        myImg.setVisibility(View.VISIBLE);
+      }else{
+        myImg.setVisibility(View.GONE);
       }
     }
 

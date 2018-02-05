@@ -10,11 +10,11 @@ import app.arash.androidcore.R;
 import app.arash.androidcore.data.entity.MeasureDetailType;
 import app.arash.androidcore.ui.activity.MainActivity;
 import app.arash.androidcore.ui.adapter.MeasureListAdapter2.ViewHolder;
-import app.arash.androidcore.ui.fragment.dialog.MeasureListDialogFragment;
 import app.arash.androidcore.ui.fragment.dialog.NewMeasureDialogFragment;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import java.util.ArrayList;
 
 /**
  * Created by Arash on 1/23/18.
@@ -23,10 +23,10 @@ import butterknife.OnClick;
 public class MeasureListAdapter2 extends Adapter<ViewHolder> {
 
   private MainActivity context;
-  private MeasureDetailType[] categories;
+  private ArrayList<MeasureDetailType> categories;
   private LayoutInflater layoutInflater;
 
-  public MeasureListAdapter2(MainActivity context, MeasureDetailType[] categories) {
+  public MeasureListAdapter2(MainActivity context, ArrayList<MeasureDetailType> categories) {
     this.context = context;
     this.categories = categories;
     this.layoutInflater = LayoutInflater.from(context);
@@ -45,7 +45,7 @@ public class MeasureListAdapter2 extends Adapter<ViewHolder> {
 
   @Override
   public int getItemCount() {
-    return categories.length;
+    return categories.size();
   }
 
   public class ViewHolder extends RecyclerView.ViewHolder {
@@ -63,7 +63,7 @@ public class MeasureListAdapter2 extends Adapter<ViewHolder> {
 
     public void setData(int position) {
       this.position = position;
-      this.measure = categories[position];
+      this.measure = categories.get(position);
       measureNameTv.setText(measure.getType());
     }
 

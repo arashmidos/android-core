@@ -5,6 +5,7 @@ import android.content.Context;
 import android.database.Cursor;
 import app.arash.androidcore.data.dao.MeasureDao;
 import app.arash.androidcore.data.entity.Measure;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -70,5 +71,17 @@ public class MeasureDaoImpl extends AbstractDao<Measure, Long> implements Measur
     String[] args = {String.valueOf(typeId)};
     String selection = Measure.COL_TYPE + " =? ";
     return retrieveAll(selection, args, null, null, Measure.COL_ID + " DESC ", "30");
+  }
+
+  public List<Integer> getAllUserCharts() {
+
+    List<Measure> measureList = retrieveAll(null, null, Measure.COL_TYPE, null,
+        null);
+    List<Integer> retVal = new ArrayList<>();
+    for (int i = 0; i < measureList.size(); i++) {
+      retVal.add(measureList.get(i).getType());
+    }
+
+    return retVal;
   }
 }
