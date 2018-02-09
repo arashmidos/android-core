@@ -13,16 +13,26 @@ public class DoctorVisitDto implements Serializable {
   private String visitTime;
   private String description;
   private Doctor doctor;
+  private int status;
 
   public DoctorVisitDto() {
   }
 
-  public DoctorVisitDto(Long id, String visitDate, String visitTime, String description) {
+  public DoctorVisitDto(Long id, String visitDate, String visitTime, String description,
+      int status) {
     this.id = id;
     this.visitDate = visitDate;
     this.visitTime = visitTime;
     this.description = description;
+    this.status = status;
+  }
 
+  public int getStatus() {
+    return status;
+  }
+
+  public void setStatus(int status) {
+    this.status = status;
   }
 
   public Long getId() {

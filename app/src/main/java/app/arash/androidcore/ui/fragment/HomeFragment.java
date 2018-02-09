@@ -168,12 +168,12 @@ public class HomeFragment extends BaseFragment {
     }
   }
 
-  private void setUpVisitRecyclerView() {
+  public void setUpVisitRecyclerView() {
     List<DoctorVisit> visits = doctorVisitDao.retrieveAllByDate();
     if (visits.size() != 0) {
       visitRecyclerView.setVisibility(View.VISIBLE);
       visitEmptyView.setVisibility(View.GONE);
-      visitAdapter = new VisitAdapter(mainActivity, visits);
+      visitAdapter = new VisitAdapter(mainActivity, visits,this);
       LayoutManager layoutManager = new LinearLayoutManager(mainActivity);
       visitRecyclerView.setAdapter(visitAdapter);
       visitRecyclerView.setLayoutManager(layoutManager);

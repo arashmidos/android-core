@@ -17,11 +17,13 @@ public class DoctorVisit extends BaseEntity<Long> implements Serializable {
   public static final String COL_VISIT_TIME = "visit_time";
   public static final String COL_DESCRIPTION = "description";
   public static final String COL_DOCTOR_ID = "doctor_id";
+  public static final String COL_STATUS = "status";
   private Long id;
   private String visitDate;
   private String visitTime;
   private String description;
   private Long doctorId;
+  private int status;
 
   public DoctorVisit(Date visitDate, String visitTime, String description, Long doctorId) {
     this.visitDate = DateUtil
@@ -29,6 +31,7 @@ public class DoctorVisit extends BaseEntity<Long> implements Serializable {
     this.visitTime = visitTime;
     this.description = description;
     this.doctorId = doctorId;
+    status = Constant.STATUS_PENDING;
   }
 
   public DoctorVisit(Long id, Date visitDate, String visitTime, String description,
@@ -38,6 +41,14 @@ public class DoctorVisit extends BaseEntity<Long> implements Serializable {
   }
 
   public DoctorVisit() {
+  }
+
+  public int getStatus() {
+    return status;
+  }
+
+  public void setStatus(int status) {
+    this.status = status;
   }
 
   public Long getId() {

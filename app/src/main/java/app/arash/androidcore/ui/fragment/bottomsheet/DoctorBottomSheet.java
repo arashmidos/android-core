@@ -100,8 +100,7 @@ public class DoctorBottomSheet extends BottomSheetDialogFragment {
         break;
       case R.id.delete_doctor_tv:
         DialogUtil.showCustomDialog(activity, "", getString(R.string.message_confirm_delete_doctor),
-            getString(R.string.delete),
-            (dialogInterface, i) -> {
+            getString(R.string.delete), (dialogInterface, i) -> {
               doctorDao.delete(doctor.getId());
               doctorVisitDao.deleteAll(DoctorVisit.COL_DOCTOR_ID, String.valueOf(doctor.getId()));
               EventBus.getDefault().post(new DoctorDeleteEvent(doctor));

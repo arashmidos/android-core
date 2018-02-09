@@ -20,4 +20,11 @@ public class Constant {
   public static final String SEARCH_DOCTOR = "2";
   public static final String MEASURE = "measure";
   public static final String DOCTOR = "doctor";
+  public static final String REMINDER_TYPE = "reminder.type";
+  public static final String REMINDER_ID = "reminder.id";
+  public static final int REMINDER_TYPE_VISIT = 1;
+  public static final int REMINDER_TYPE_DRUG = 2;
+  public static final int STATUS_PENDING = 0;
+  public static final int STATUS_ALARM_SET = 1;
+  public static final int STATUS_ALARM_RINGED = 2;
 }

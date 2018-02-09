@@ -109,9 +109,8 @@ public class NewVisitActivity extends AppCompatActivity {
           cal.set(Calendar.MINUTE, minute);
           long doctorId = doctor.getId();
           if (doctorVisit == null) {
-            doctorVisitDao.create(
-                new DoctorVisit(cal.getTime(), NumberUtil.digitsToEnglish(time), description,
-                    doctorId));
+            doctorVisitDao.create(new DoctorVisit(cal.getTime(), NumberUtil.digitsToEnglish(time),
+                description, doctorId));
           } else {
             doctorVisitDao.update(new DoctorVisit(doctorVisit.getId(),
                 cal.getTime(), time, description, doctorId));

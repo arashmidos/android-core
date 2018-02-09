@@ -14,13 +14,14 @@ import app.arash.androidcore.R;
 import app.arash.androidcore.data.entity.Doctor;
 import app.arash.androidcore.data.entity.DoctorVisit;
 import app.arash.androidcore.data.impl.DoctorDaoImpl;
+import app.arash.androidcore.data.impl.DoctorVisitDaoImpl;
 import app.arash.androidcore.ui.adapter.VisitAdapter.ViewHolder;
+import app.arash.androidcore.ui.fragment.HomeFragment;
 import app.arash.androidcore.util.DateUtil;
 import app.arash.androidcore.util.NumberUtil;
 import app.arash.androidcore.util.Utils;
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
@@ -31,16 +32,18 @@ import java.util.Locale;
 
 public class VisitAdapter extends Adapter<ViewHolder> {
 
+  private final HomeFragment parent;
   private Context context;
   private List<DoctorVisit> visits;
   private DoctorDaoImpl doctorDao;
   private LayoutInflater layoutInflater;
 
-  public VisitAdapter(Context context, List<DoctorVisit> visits) {
+  public VisitAdapter(Context context, List<DoctorVisit> visits, HomeFragment homeFragment) {
     this.context = context;
     this.visits = visits;
     this.doctorDao = new DoctorDaoImpl(context);
     layoutInflater = LayoutInflater.from(context);
+    this.parent = homeFragment;
   }
 
   @Override
@@ -85,6 +88,13 @@ public class VisitAdapter extends Adapter<ViewHolder> {
       this.visit = visits.get(position);
       this.position = position;
       this.doctor = doctorDao.retrieve(visit.getDoctorId());
+      if (doctor == null) {
+        new DoctorVisitDaoImpl(context)
+            .deleteAll(DoctorVisit.COL_DOCTOR_ID, String.valueOf(visit.getDoctorId()));
+
+        parent.setUpVisitRecyclerView();
+        return;
+      }
       setMargin();
       if (!TextUtils.isEmpty(doctor.getName())) {
         doctorNameTv.setText(doctor.getName());

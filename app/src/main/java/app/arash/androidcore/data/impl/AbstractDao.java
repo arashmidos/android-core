@@ -5,6 +5,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteDatabaseLockedException;
+import android.util.Log;
 import app.arash.androidcore.data.entity.BaseEntity;
 import app.arash.androidcore.data.entity.MedicDatabaseHelper;
 import java.util.ArrayList;
@@ -67,6 +68,17 @@ public abstract class AbstractDao<T extends BaseEntity, PK extends Long> {
     String whereClause = getPrimaryKeyColumnName() + " = ?";
     String[] args = {String.valueOf(entity.getPrimaryKey())};
     db.update(getTableName(), getContentValues(entity), whereClause, args);
+    db.setTransactionSuccessful();
+    db.endTransaction();
+  }
+
+  public void update(String where, String[] args, String updateColumn, String newValue) {
+    SQLiteDatabase db = MedicDatabaseHelper.getInstance(getContext()).openDataBase();
+    db.beginTransaction();
+    ContentValues contentValues = new ContentValues();
+    contentValues.put(updateColumn, newValue);
+    int rows = db.update(getTableName(), contentValues, where, args);
+    Log.d(getTableName(), ": row updated " + rows);
     db.setTransactionSuccessful();
     db.endTransaction();
   }
