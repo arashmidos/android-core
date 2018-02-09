@@ -138,7 +138,7 @@ public class NewDrugDialogFragment extends DialogFragment {
           Long id = dao.create(measure);
           if (id != null) {
             ToastUtil.toastMessage(context, getString(R.string.data_inserted_successfully));
-            ((OnNewMeasureAdded) context).newMeasureAdded(measure);
+
             dismiss();
           }
         }
@@ -179,10 +179,5 @@ public class NewDrugDialogFragment extends DialogFragment {
       minute = i1;
     }, hour, minute, true);
     dialog.show();
-  }
-
-  public interface OnNewMeasureAdded {
-
-    void newMeasureAdded(Measure measure);
   }
 }

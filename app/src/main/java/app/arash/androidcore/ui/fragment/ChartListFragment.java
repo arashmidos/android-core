@@ -66,8 +66,8 @@ public class ChartListFragment extends BaseFragment {
         allCharts.add(values[i]);
       }
     }
-    MeasureListAdapter2 myChartAdapter = new MeasureListAdapter2(mainActivity, myCharts);
-    MeasureListAdapter2 allChartAdapter = new MeasureListAdapter2(mainActivity, allCharts);
+    MeasureListAdapter2 myChartAdapter = new MeasureListAdapter2(mainActivity, myCharts,true);
+    MeasureListAdapter2 allChartAdapter = new MeasureListAdapter2(mainActivity, allCharts,false);
     LinearLayoutManager layoutManager = new LinearLayoutManager(mainActivity);
     LinearLayoutManager layoutManager2 = new LinearLayoutManager(mainActivity);
     if (myCharts.size() == 0) {

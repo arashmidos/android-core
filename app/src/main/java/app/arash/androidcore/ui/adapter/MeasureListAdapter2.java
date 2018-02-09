@@ -1,5 +1,6 @@
 package app.arash.androidcore.ui.adapter;
 
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.RecyclerView.Adapter;
 import android.view.LayoutInflater;
@@ -7,7 +8,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 import app.arash.androidcore.R;
+import app.arash.androidcore.data.entity.Constant;
+import app.arash.androidcore.data.entity.Measure;
 import app.arash.androidcore.data.entity.MeasureDetailType;
+import app.arash.androidcore.data.impl.MeasureDaoImpl;
+import app.arash.androidcore.ui.activity.ChartDetailActivity;
 import app.arash.androidcore.ui.activity.MainActivity;
 import app.arash.androidcore.ui.adapter.MeasureListAdapter2.ViewHolder;
 import app.arash.androidcore.ui.fragment.dialog.NewMeasureDialogFragment;
@@ -15,6 +20,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by Arash on 1/23/18.
@@ -22,14 +28,17 @@ import java.util.ArrayList;
 
 public class MeasureListAdapter2 extends Adapter<ViewHolder> {
 
+  private final boolean isMyChart;
   private MainActivity context;
   private ArrayList<MeasureDetailType> categories;
   private LayoutInflater layoutInflater;
 
-  public MeasureListAdapter2(MainActivity context, ArrayList<MeasureDetailType> categories) {
+  public MeasureListAdapter2(MainActivity context, ArrayList<MeasureDetailType> categories,
+      boolean isMyChart) {
     this.context = context;
     this.categories = categories;
     this.layoutInflater = LayoutInflater.from(context);
+    this.isMyChart = isMyChart;
   }
 
   @Override
@@ -69,10 +78,17 @@ public class MeasureListAdapter2 extends Adapter<ViewHolder> {
 
     @OnClick({R.id.measure_name_tv, R.id.item_layout})
     public void onViewClicked() {
-      android.app.FragmentTransaction ft2 = context.getFragmentManager().beginTransaction();
-      NewMeasureDialogFragment dialogFragment = NewMeasureDialogFragment
-          .newInstance(context, measure);
-      dialogFragment.show(ft2, "new measure");
+      if (isMyChart) {
+        List<Measure> measureList = new MeasureDaoImpl(context).retriveAllByType(measure.getId());
+        Intent intent = new Intent(context, ChartDetailActivity.class);
+        intent.putExtra(Constant.MEASURE, measureList.get(0));
+        context.startActivity(intent);
+      } else {
+        android.app.FragmentTransaction ft2 = context.getFragmentManager().beginTransaction();
+        NewMeasureDialogFragment dialogFragment = NewMeasureDialogFragment
+            .newInstance(context, measure);
+        dialogFragment.show(ft2, "new measure");
+      }
     }
   }
 }

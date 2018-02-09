@@ -5,8 +5,10 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 import app.arash.androidcore.R;
 import app.arash.androidcore.chart.MeasureValueFormatter;
 import app.arash.androidcore.chart.XAxisValueFormatter;
@@ -14,6 +16,9 @@ import app.arash.androidcore.data.entity.Constant;
 import app.arash.androidcore.data.entity.Measure;
 import app.arash.androidcore.data.entity.MeasureDetailType;
 import app.arash.androidcore.data.impl.MeasureDaoImpl;
+import app.arash.androidcore.ui.fragment.dialog.NewMeasureDialogFragment;
+import app.arash.androidcore.ui.fragment.dialog.NewMeasureDialogFragment.OnNewMeasureAdded;
+import app.arash.androidcore.util.MeasureComparator;
 import app.arash.androidcore.util.NumberUtil;
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -34,7 +39,7 @@ import java.util.List;
 import java.util.Locale;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
-public class ChartDetailActivity extends AppCompatActivity {
+public class ChartDetailActivity extends AppCompatActivity implements OnNewMeasureAdded {
 
   @BindView(R.id.latest_measure_title)
   TextView latestMeasureTitle;
@@ -48,11 +53,13 @@ public class ChartDetailActivity extends AppCompatActivity {
   LinearLayout root;
   @BindView(R.id.title)
   TextView title;
+
   private Measure measure;
   private MeasureDetailType type;
   private MeasureDaoImpl measureDaoImpl;
   private List<Measure> list;
   private int max = 100;
+  private int min = 0;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
@@ -73,22 +80,20 @@ public class ChartDetailActivity extends AppCompatActivity {
     String title = getString(type.getType());
     this.title.setText(title);
     latestMeasureTitle.setText(String.format(Locale.US, "آخرین %s ثبت شده", title));
-    latestMeasureValue
-        .setText(String.format(Locale.US, "%s %s", NumberUtil.digitsToPersian(measure.getValue()),
-            getString(type.getUnit())));
+    latestMeasureValue.setText(String.format(Locale.US,
+        "%s %s", NumberUtil.digitsToPersian(measure.getValue()), getString(type.getUnit())));
   }
 
   private void setChart() {
     list = measureDaoImpl.retriveAllByType(measure.getType());
-    Collections.reverse(list);
 
-    for (int i = 0; i < list.size(); i++) {
+    Measure maxMeasure = Collections.max(list, new MeasureComparator());
+    max = maxMeasure.getValue();
+    max = (int) (max + max * 0.1 + 1);
+    Measure minMeasure = Collections.min(list, new MeasureComparator());
+    min = minMeasure.getValue();
+    min = (int) (min - min * 0.1);
 
-      int value = list.get(i).getValue();
-      if (value >= max) {
-        max = (int) (value + value * 0.4);
-      }
-    }
 //    chart.setOnChartValueSelectedListener(this);
 
     // no description text
@@ -147,7 +152,7 @@ public class ChartDetailActivity extends AppCompatActivity {
 //    leftAxis.setTypeface(mTfLight);
     leftAxis.setTextColor(Color.GRAY);
     leftAxis.setAxisMaximum(max);
-    leftAxis.setAxisMinimum(0f);
+    leftAxis.setAxisMinimum(min);
     leftAxis.setDrawGridLines(true);
     leftAxis.setGranularityEnabled(true);
 
@@ -155,7 +160,7 @@ public class ChartDetailActivity extends AppCompatActivity {
 //    rightAxis.setTypeface(mTfLight);
     rightAxis.setTextColor(Color.GRAY);
     rightAxis.setAxisMaximum(max);
-    rightAxis.setAxisMinimum(0);
+    rightAxis.setAxisMinimum(min);
     rightAxis.setDrawGridLines(false);
     rightAxis.setDrawZeroLine(false);
     rightAxis.setGranularityEnabled(false);
@@ -176,6 +181,7 @@ public class ChartDetailActivity extends AppCompatActivity {
       set1.setValues(values);
       chart.getData().notifyDataChanged();
       chart.notifyDataSetChanged();
+      chart.invalidate();
     } else {
       // create a dataset and give it a type
       set1 = new LineDataSet(values, "");
@@ -210,9 +216,22 @@ public class ChartDetailActivity extends AppCompatActivity {
   }
 
 
-  @OnClick(R.id.back_img)
-  public void onViewClicked() {
-    onBackPressed();
+  @OnClick({R.id.back_img, R.id.add, R.id.measure_history_label})
+  public void onViewClicked(View view) {
+    switch (view.getId()) {
+      case R.id.back_img:
+        onBackPressed();
+        break;
+      case R.id.add:
+        android.app.FragmentTransaction ft2 = getFragmentManager().beginTransaction();
+        NewMeasureDialogFragment dialogFragment = NewMeasureDialogFragment
+            .newInstance(this, type);
+        dialogFragment.show(ft2, "new measure");
+        break;
+      case R.id.measure_history_label:
+        Toast.makeText(this, "Hello history", Toast.LENGTH_SHORT).show();
+        break;
+    }
   }
 
   @Override
@@ -220,4 +239,11 @@ public class ChartDetailActivity extends AppCompatActivity {
     super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
   }
 
+  @Override
+  public void newMeasureAdded(Measure measure) {
+    this.measure=measure;
+    chart.setData(null);
+    setData();
+    setChart();
+  }
 }

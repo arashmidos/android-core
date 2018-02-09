@@ -70,7 +70,7 @@ public class MeasureDaoImpl extends AbstractDao<Measure, Long> implements Measur
   public List<Measure> retriveAllByType(long typeId) {
     String[] args = {String.valueOf(typeId)};
     String selection = Measure.COL_TYPE + " =? ";
-    return retrieveAll(selection, args, null, null, Measure.COL_ID + " DESC ", "30");
+    return retrieveAll(selection, args, null, null, Measure.COL_TIMESTAMP, "30");
   }
 
   public List<Integer> getAllUserCharts() {
