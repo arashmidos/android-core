@@ -279,7 +279,6 @@
       app:fab_icon="@drawable/ic_drug_24_dp"
       fab:fab_colorNormal="@color/white"
       fab:fab_size="mini"
-      android:visibility="gone"
       fab:fab_title="ثبت یادآور دارو" />
 
   </com.getbase.floatingactionbutton.FloatingActionsMenu>

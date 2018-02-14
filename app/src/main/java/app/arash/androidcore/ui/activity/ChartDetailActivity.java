@@ -1,5 +1,6 @@
 package app.arash.androidcore.ui.activity;
 
+import android.app.FragmentTransaction;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
@@ -16,6 +17,8 @@ import app.arash.androidcore.data.entity.Constant;
 import app.arash.androidcore.data.entity.Measure;
 import app.arash.androidcore.data.entity.MeasureDetailType;
 import app.arash.androidcore.data.impl.MeasureDaoImpl;
+import app.arash.androidcore.ui.fragment.dialog.MeasureHistoryListDialogFragment;
+import app.arash.androidcore.ui.fragment.dialog.MeasureListDialogFragment;
 import app.arash.androidcore.ui.fragment.dialog.NewMeasureDialogFragment;
 import app.arash.androidcore.ui.fragment.dialog.NewMeasureDialogFragment.OnNewMeasureAdded;
 import app.arash.androidcore.util.MeasureComparator;
@@ -224,12 +227,13 @@ public class ChartDetailActivity extends AppCompatActivity implements OnNewMeasu
         break;
       case R.id.add:
         android.app.FragmentTransaction ft2 = getFragmentManager().beginTransaction();
-        NewMeasureDialogFragment dialogFragment = NewMeasureDialogFragment
-            .newInstance(this, type);
+        NewMeasureDialogFragment dialogFragment = NewMeasureDialogFragment.newInstance(this, type);
         dialogFragment.show(ft2, "new measure");
         break;
       case R.id.measure_history_label:
-        Toast.makeText(this, "Hello history", Toast.LENGTH_SHORT).show();
+        FragmentTransaction ft3 = getFragmentManager().beginTransaction();
+        MeasureHistoryListDialogFragment dialogFragment2 = MeasureHistoryListDialogFragment.newInstance(this,type);
+        dialogFragment2.show(ft3, "history list");
         break;
     }
   }

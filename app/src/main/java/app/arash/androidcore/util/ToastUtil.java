@@ -3,10 +3,12 @@ package app.arash.androidcore.util;
 import android.app.Activity;
 import android.graphics.Color;
 import android.support.design.widget.Snackbar;
+import android.support.design.widget.Snackbar.SnackbarLayout;
 import android.view.Gravity;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.FrameLayout.LayoutParams;
+import android.widget.TextView;
 import app.arash.androidcore.R;
 import de.mateware.snacky.Snacky;
 import java.text.MessageFormat;
@@ -141,6 +143,7 @@ public class ToastUtil {
       params.width = LayoutParams.MATCH_PARENT;
       snackView.setLayoutParams(params);
     }
+
     snack.setAction(okButton, v -> {
       snack.dismiss();
       if (listener!=null) {

@@ -204,7 +204,7 @@ public class HomeFragment extends BaseFragment {
 
           startActivity(new Intent(mainActivity, NewVisitActivity.class));
         } else {
-          ToastUtil.toastError(mainActivity, "هیچ پزشکی یافت نشد. ابتدا پزشک خود را ثبت کنید");
+          ToastUtil.toastError(mainActivity, "هیچ پزشکی یافت نشد.");
         }
 
         fabMenu.collapse();
@@ -224,6 +224,7 @@ public class HomeFragment extends BaseFragment {
         fabMenu.collapse();
         break;
       case R.id.add_reminder:
+
         fabMenu.collapse();
       case R.id.more_medicine_tv:
         FragmentTransaction ftAddDrug = mainActivity.getFragmentManager().beginTransaction();
@@ -236,7 +237,7 @@ public class HomeFragment extends BaseFragment {
         if (doctors2.size() > 0) {
           startActivity(new Intent(mainActivity, NewVisitActivity.class));
         } else {
-          ToastUtil.toastError(mainActivity, "هیچ پزشکی یافت نشد. ابتدا پزشک خود را ثبت کنید");
+          ToastUtil.toastError(mainActivity, "هیچ پزشکی یافت نشد.");
         }
         fabMenu.collapse();
         break;
