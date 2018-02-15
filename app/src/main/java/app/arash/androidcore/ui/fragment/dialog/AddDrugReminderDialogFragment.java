@@ -8,6 +8,8 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AlertDialog.Builder;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,17 +19,20 @@ import android.widget.CheckBox;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
-import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.Switch;
 import android.widget.TextView;
 import app.arash.androidcore.R;
 import app.arash.androidcore.data.entity.Drug;
+import app.arash.androidcore.data.entity.ReminderDetail;
 import app.arash.androidcore.ui.adapter.CustomSpinnerAdapter;
+import app.arash.androidcore.ui.adapter.ReminderDetailAdapter;
 import app.arash.androidcore.util.NumberUtil;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Locale;
 
 /**
@@ -38,10 +43,8 @@ public class AddDrugReminderDialogFragment extends DialogFragment {
 
   @BindView(R.id.spinner)
   Spinner spinner;
-  @BindView(R.id.time_tv)
-  TextView timeTv;
-  @BindView(R.id.number_tv)
-  TextView numberTv;
+  @BindView(R.id.usage_recycler_view)
+  RecyclerView usageRecyclerView;
   @BindView(R.id.every_day_radio)
   RadioButton everyDayRadio;
   @BindView(R.id.specific_day_radio)
@@ -58,11 +61,10 @@ public class AddDrugReminderDialogFragment extends DialogFragment {
   LinearLayout reminderDetailLay;
   @BindView(R.id.reminder_sw)
   Switch reminderSw;
-  @BindView(R.id.usage_detail_lay)
-  RelativeLayout usageDetailLay;
 
   private AppCompatActivity context;
   private String numberInEachTime;
+  private ReminderDetailAdapter reminderDetailAdapter;
   private int hour;
   private Drug drug;
   private int minute;
@@ -100,13 +102,17 @@ public class AddDrugReminderDialogFragment extends DialogFragment {
       @Override
       public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
         if (!spinner.getSelectedItem().equals(getString(R.string.number_of_use_in_day))) {
-          usageDetailLay.setVisibility(View.VISIBLE);
+          usageRecyclerView.setVisibility(View.VISIBLE);
+          List<ReminderDetail> reminderDetails = new ArrayList<>();
+          for (int j = 0; j < i + 1; j++) {
+            reminderDetails.add(new ReminderDetail());
+          }
+          reminderDetailAdapter.updateAll(reminderDetails);
         }
       }
 
       @Override
       public void onNothingSelected(AdapterView<?> adapterView) {
-
       }
     });
 
@@ -117,7 +123,12 @@ public class AddDrugReminderDialogFragment extends DialogFragment {
     numberInEachTime = getActivity().getString(R.string.one_item);
     hour = 8;
     minute = 0;
-    timeTv.setText(NumberUtil.digitsToPersian("8:00"));
+    reminderDetailAdapter = new ReminderDetailAdapter(getActivity(),
+        new ArrayList<>(), this);
+    LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
+    usageRecyclerView.setLayoutManager(linearLayoutManager);
+    usageRecyclerView.setAdapter(reminderDetailAdapter);
+//    timeTv.setText(NumberUtil.digitsToPersian("8:00"));
 
     if (drug != null) {
       drugTv.setText(drug.getNameFa().trim());
@@ -138,19 +149,19 @@ public class AddDrugReminderDialogFragment extends DialogFragment {
   }
 
   private String[] getNumberOfUse() {
-    String[] item = new String[5];
+    String[] item = new String[12];
     item[0] = "۱ بار در روز";
     item[1] = "۲ بار در روز";
     item[2] = "۳ بار در روز";
     item[3] = "۴ بار در روز";
     item[4] = "۵ بار در روز";
-    item[4] = "۶ بار در روز";
-    item[4] = "۷ بار در روز";
-    item[4] = "۸ بار در روز";
-    item[4] = "۹ بار در روز";
-    item[4] = "۱۰ بار در روز";
-    item[4] = "۱۱ بار در روز";
-    item[4] = "۱۲ بار در روز";
+    item[5] = "۶ بار در روز";
+    item[6] = "۷ بار در روز";
+    item[7] = "۸ بار در روز";
+    item[8] = "۹ بار در روز";
+    item[9] = "۱۰ بار در روز";
+    item[10] = "۱۱ بار در روز";
+    item[11] = "۱۲ بار در روز";
     return item;
   }
 
@@ -163,7 +174,7 @@ public class AddDrugReminderDialogFragment extends DialogFragment {
     return item;
   }
 
-  private void showNumberDialog() {
+  public void showNumberDialog(int pos, String numberInDay) {
     Builder dialogBuilder = new Builder(getActivity());
     LayoutInflater inflater = getActivity().getLayoutInflater();
     View dialogView = inflater.inflate(R.layout.dialog_number_of_usage, null);
@@ -172,13 +183,13 @@ public class AddDrugReminderDialogFragment extends DialogFragment {
     RadioGroup radioGroup = dialogView.findViewById(R.id.radio_group);
     AlertDialog alertDialog = dialogBuilder.create();
 
-    RadioButton selectedItem = radioGroup.findViewWithTag(numberInEachTime);
+    RadioButton selectedItem = radioGroup.findViewWithTag(numberInDay);
     selectedItem.setChecked(true);
     alertDialog.show();
     radioGroup.setOnCheckedChangeListener((group, checkedId) -> {
       RadioButton selectedRadio = (RadioButton) dialogView.findViewById(checkedId);
       numberInEachTime = (String) selectedRadio.getTag();
-      numberTv.setText(numberInEachTime);
+      reminderDetailAdapter.updateNumber(pos, numberInEachTime);
       alertDialog.cancel();
     });
   }
@@ -231,17 +242,20 @@ public class AddDrugReminderDialogFragment extends DialogFragment {
     });
   }
 
-  private void showTimePicker() {
+  public void showTimePicker(int position, String time) {
+    String[] timeDetail = time.split(":");
 // Get Current Time
     TimePickerDialog dialog = new TimePickerDialog(context, (timePicker, i, i1) -> {
-      timeTv.setText(NumberUtil.digitsToPersian(String.format(Locale.US, "%d:%02d", i, i1)));
+      reminderDetailAdapter
+          .updateTime(position,
+              NumberUtil.digitsToPersian(String.format(Locale.US, "%d:%02d", i, i1)));
       hour = i;
       minute = i1;
-    }, hour, minute, true);
+    }, Integer.parseInt(timeDetail[0]), Integer.parseInt(timeDetail[1]), true);
     dialog.show();
   }
 
-  @OnClick({R.id.done_img, R.id.close_img, R.id.reminder_sw, R.id.time_tv, R.id.number_tv,
+  @OnClick({R.id.done_img, R.id.close_img, R.id.reminder_sw,
       R.id.every_day_radio, R.id.specific_day_radio, R.id.drug_tv})
   public void onViewClicked(View view) {
     switch (view.getId()) {
@@ -260,12 +274,6 @@ public class AddDrugReminderDialogFragment extends DialogFragment {
         } else {
           reminderDetailLay.setVisibility(View.GONE);
         }
-        break;
-      case R.id.time_tv:
-        showTimePicker();
-        break;
-      case R.id.number_tv:
-        showNumberDialog();
         break;
       case R.id.every_day_radio:
         everyDayRadio.setChecked(true);
