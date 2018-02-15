@@ -50,14 +50,14 @@ public class SearchDialogFragment extends DialogFragment {
   private boolean isDrug;
   private DrugDaoImpl drugDaoImpl;
   private DoctorDaoImpl doctorDaoImpl;
-  private AddDrugDialogFragment addDrugDialogFragment;
+  private AddDrugReminderDialogFragment addDrugReminderDialogFragment;
 
   public static SearchDialogFragment newInstance(Context context, boolean isDrug,
-      AddDrugDialogFragment addDrugDialogFragment) {
+      AddDrugReminderDialogFragment addDrugReminderDialogFragment) {
     SearchDialogFragment fragment = new SearchDialogFragment();
     fragment.context = context;
     fragment.isDrug = isDrug;
-    fragment.addDrugDialogFragment = addDrugDialogFragment;
+    fragment.addDrugReminderDialogFragment = addDrugReminderDialogFragment;
     return fragment;
   }
 
@@ -122,7 +122,8 @@ public class SearchDialogFragment extends DialogFragment {
   }
 
   private void setUpRecyclerView() {
-    drugSearchAdapter = new DrugSearchAdapter(context, getSearchHistoryList(), this,addDrugDialogFragment);
+    drugSearchAdapter = new DrugSearchAdapter(context, getSearchHistoryList(), this,
+        addDrugReminderDialogFragment);
     LinearLayoutManager layoutManager = new LinearLayoutManager(context);
     DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(
         recyclerView.getContext(),

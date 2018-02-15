@@ -1,0 +1,10 @@
+package app.arash.androidcore.data.dao;
+
+import app.arash.androidcore.data.entity.DrugAlarmDetail;
+
+/**
+ * Created by Arash 2018-02-15
+ */
+public interface DrugAlarmDetailDao extends BaseDao<DrugAlarmDetail, Long> {
+
+}

@@ -28,7 +28,7 @@ import app.arash.androidcore.ui.activity.MainActivity;
 import app.arash.androidcore.ui.activity.NewVisitActivity;
 import app.arash.androidcore.ui.adapter.MedicineAdapter;
 import app.arash.androidcore.ui.adapter.VisitAdapter;
-import app.arash.androidcore.ui.fragment.dialog.AddDrugDialogFragment;
+import app.arash.androidcore.ui.fragment.dialog.AddDrugReminderDialogFragment;
 import app.arash.androidcore.ui.fragment.dialog.MeasureListDialogFragment;
 import app.arash.androidcore.ui.fragment.dialog.NewDoctorDialogFragment;
 import app.arash.androidcore.util.DateUtil;
@@ -228,9 +228,9 @@ public class HomeFragment extends BaseFragment {
         fabMenu.collapse();
       case R.id.more_medicine_tv:
         FragmentTransaction ftAddDrug = mainActivity.getFragmentManager().beginTransaction();
-        AddDrugDialogFragment addDrugDialogFragment = AddDrugDialogFragment
+        AddDrugReminderDialogFragment addDrugReminderDialogFragment = AddDrugReminderDialogFragment
             .newInstance(mainActivity,null);
-        addDrugDialogFragment.show(ftAddDrug, "add drug");
+        addDrugReminderDialogFragment.show(ftAddDrug, "add drug reminder");
         break;
       case R.id.set_visit_tv:
         List<Doctor> doctors2 = new DoctorDaoImpl(mainActivity).retrieveAll();

@@ -16,7 +16,7 @@ import app.arash.androidcore.data.entity.Drug;
 import app.arash.androidcore.data.impl.DrugDaoImpl;
 import app.arash.androidcore.ui.activity.DrugDetailActivity;
 import app.arash.androidcore.ui.adapter.DrugSearchAdapter.ViewHolder;
-import app.arash.androidcore.ui.fragment.dialog.AddDrugDialogFragment;
+import app.arash.androidcore.ui.fragment.dialog.AddDrugReminderDialogFragment;
 import app.arash.androidcore.ui.fragment.dialog.SearchDialogFragment;
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -35,15 +35,15 @@ public class DrugSearchAdapter extends Adapter<ViewHolder> {
   private LayoutInflater inflater;
   private boolean isHistory = true;
   private SearchDialogFragment searchDialogFragment;
-  private AddDrugDialogFragment addDrugDialogFragment;
+  private AddDrugReminderDialogFragment addDrugReminderDialogFragment;
 
   public DrugSearchAdapter(Context context, List<String> searchHistoryList,
-      SearchDialogFragment searchDialogFragment, AddDrugDialogFragment addDrugDialogFragment) {
+      SearchDialogFragment searchDialogFragment, AddDrugReminderDialogFragment addDrugReminderDialogFragment) {
     this.context = context;
     this.historyList = searchHistoryList;
     this.inflater = LayoutInflater.from(context);
     this.drugDaoImpl = new DrugDaoImpl(context);
-    this.addDrugDialogFragment = addDrugDialogFragment;
+    this.addDrugReminderDialogFragment = addDrugReminderDialogFragment;
     this.searchDialogFragment = searchDialogFragment;
   }
 
@@ -101,12 +101,12 @@ public class DrugSearchAdapter extends Adapter<ViewHolder> {
         case R.id.search_layout:
           Drug drug = drugDaoImpl.retriveByName(drugNameTv.getText().toString().trim());
           if (drug != null) {
-            if (addDrugDialogFragment == null) {
+            if (addDrugReminderDialogFragment == null) {
               Intent intent = new Intent(context, DrugDetailActivity.class);
               intent.putExtra(Constant.DRUG_OBJ, drug);
               context.startActivity(intent);
             } else {
-              addDrugDialogFragment.setSelectedDrug(drug);
+              addDrugReminderDialogFragment.setSelectedDrug(drug);
               searchDialogFragment.dismiss();
             }
           }

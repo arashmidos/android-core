@@ -34,8 +34,7 @@ import java.util.Locale;
  * Created by Arash on 1/24/18.
  */
 
-public class AddDrugDialogFragment extends DialogFragment {
-
+public class AddDrugReminderDialogFragment extends DialogFragment {
 
   @BindView(R.id.spinner)
   Spinner spinner;
@@ -68,8 +67,8 @@ public class AddDrugDialogFragment extends DialogFragment {
   private Drug drug;
   private int minute;
 
-  public static AddDrugDialogFragment newInstance(AppCompatActivity context, Drug drug) {
-    AddDrugDialogFragment fragment = new AddDrugDialogFragment();
+  public static AddDrugReminderDialogFragment newInstance(AppCompatActivity context, Drug drug) {
+    AddDrugReminderDialogFragment fragment = new AddDrugReminderDialogFragment();
     fragment.context = context;
     fragment.drug = drug;
     return fragment;
@@ -145,6 +144,13 @@ public class AddDrugDialogFragment extends DialogFragment {
     item[2] = "۳ بار در روز";
     item[3] = "۴ بار در روز";
     item[4] = "۵ بار در روز";
+    item[4] = "۶ بار در روز";
+    item[4] = "۷ بار در روز";
+    item[4] = "۸ بار در روز";
+    item[4] = "۹ بار در روز";
+    item[4] = "۱۰ بار در روز";
+    item[4] = "۱۱ بار در روز";
+    item[4] = "۱۲ بار در روز";
     return item;
   }
 
