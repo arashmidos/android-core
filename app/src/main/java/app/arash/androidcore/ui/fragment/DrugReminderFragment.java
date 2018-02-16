@@ -12,11 +12,14 @@ import android.widget.ScrollView;
 import android.widget.TextView;
 import app.arash.androidcore.R;
 import app.arash.androidcore.data.entity.Drug;
+import app.arash.androidcore.data.entity.RefreshEvent;
 import app.arash.androidcore.ui.activity.DrugDetailActivity;
 import app.arash.androidcore.ui.fragment.dialog.AddDrugReminderDialogFragment;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
 
 public class DrugReminderFragment extends Fragment {
 
@@ -61,6 +64,9 @@ public class DrugReminderFragment extends Fragment {
     if (!drug.isHasAlarmSet()) {
       emptyView.setVisibility(View.VISIBLE);
       detailLay.setVisibility(View.GONE);
+    }else{
+      detailLay.setVisibility(View.VISIBLE);
+      emptyView.setVisibility(View.GONE);
     }
   }
 
@@ -76,4 +82,24 @@ public class DrugReminderFragment extends Fragment {
   public void onDestroyView() {
     super.onDestroyView();
   }
+
+  @Override
+  public void onPause() {
+    super.onPause();
+    EventBus.getDefault().unregister(this);
+  }
+
+  @Override
+  public void onResume() {
+    super.onResume();
+    EventBus.getDefault().register(this);
+//    drugListAdapter.update(getDrugListByCategory());
+  }
+
+  @Subscribe
+  public void getMessage(RefreshEvent event) {
+    this.drug = event.getDrug();
+    setData();
+  }
+
 }

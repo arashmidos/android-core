@@ -21,11 +21,11 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
 import app.arash.androidcore.R;
 import app.arash.androidcore.data.entity.Drug;
 import app.arash.androidcore.data.entity.DrugAlarm;
 import app.arash.androidcore.data.entity.DrugAlarmDetail;
+import app.arash.androidcore.data.entity.RefreshEvent;
 import app.arash.androidcore.data.entity.ReminderDetail;
 import app.arash.androidcore.data.impl.DrugAlarmDaoImpl;
 import app.arash.androidcore.data.impl.DrugAlarmDetailDaoImpl;
@@ -40,6 +40,7 @@ import butterknife.OnClick;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
+import org.greenrobot.eventbus.EventBus;
 
 /**
  * Created by Arash on 1/24/18.
@@ -380,8 +381,9 @@ public class AddDrugReminderDialogFragment extends DialogFragment {
     DrugDaoImpl drugDao = new DrugDaoImpl(context);
     drug.setHasAlarmSet(true);
     drugDao.update(drug);
-    ToastUtil.toastMessage(context,"یادآور با موفقیت ثبت شد");
+    ToastUtil.toastMessage(context, "یادآور با موفقیت ثبت شد");
     dismiss();
+    EventBus.getDefault().post(new RefreshEvent(drug));
   }
 
   private void showSearchDialog() {
