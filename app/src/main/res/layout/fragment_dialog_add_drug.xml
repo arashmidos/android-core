@@ -60,40 +60,17 @@
         android:text="@string/choose_drug"
         android:textColor="@color/color_primary"
         android:textSize="16sp" />
-      <LinearLayout
+      <View
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/gray_f5"
-        android:gravity="center"
-        android:orientation="horizontal">
-        <Switch
-          android:id="@+id/reminder_sw"
-          android:layout_width="wrap_content"
-          android:layout_height="wrap_content"
-          android:layout_marginStart="16dp"
-          android:layout_marginLeft="16dp" />
+        android:layout_height="1dp"
+        android:background="@color/gray_f5">
 
-        <TextView
-          android:id="@+id/reminder_tv"
-          style="@style/IranSans.Medium"
-          android:layout_width="0dp"
-          android:layout_height="wrap_content"
-          android:layout_weight="1"
-          android:paddingTop="22dp"
-          android:paddingBottom="22dp"
-          android:paddingEnd="16dp"
-          android:paddingRight="16dp"
-          android:gravity="right"
-          android:text="@string/drug_reminder"
-          android:textColor="@color/black_21"
-          android:textSize="16sp" />
-      </LinearLayout>
+      </View>
       <LinearLayout
         android:id="@+id/reminder_detail_lay"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:visibility="visible">
+        android:orientation="vertical">
         <RelativeLayout
           android:layout_width="match_parent"
           android:layout_height="wrap_content"

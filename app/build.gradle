@@ -92,6 +92,7 @@ dependencies {
     implementation 'uk.co.chrisjenx:calligraphy:2.3.0'
     implementation 'com.android.support:multidex:1.0.2'
     compile 'com.getbase:floatingactionbutton:1.10.1'
+    debugCompile 'com.amitshekhar.android:debug-db:1.0.3'
 
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.4.0'
     annotationProcessor 'com.google.dagger:dagger-compiler:2.0'

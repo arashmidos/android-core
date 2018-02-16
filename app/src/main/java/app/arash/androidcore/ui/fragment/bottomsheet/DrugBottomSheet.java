@@ -1,5 +1,6 @@
 package app.arash.androidcore.ui.fragment.bottomsheet;
 
+import android.app.FragmentTransaction;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.BottomSheetDialogFragment;
@@ -11,8 +12,13 @@ import android.widget.TextView;
 import android.widget.Toast;
 import app.arash.androidcore.R;
 import app.arash.androidcore.data.entity.Drug;
+import app.arash.androidcore.data.entity.DrugAlarm;
+import app.arash.androidcore.data.entity.DrugAlarmDetail;
 import app.arash.androidcore.data.entity.RefreshEvent;
+import app.arash.androidcore.data.impl.DrugAlarmDaoImpl;
+import app.arash.androidcore.data.impl.DrugAlarmDetailDaoImpl;
 import app.arash.androidcore.data.impl.DrugDaoImpl;
+import app.arash.androidcore.ui.fragment.dialog.AddDrugReminderDialogFragment;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -87,7 +93,7 @@ public class DrugBottomSheet extends BottomSheetDialogFragment {
     } else {
       reminderSettingTv.setVisibility(View.GONE);
       removeReminderTv.setVisibility(View.GONE);
-//      setReminderTv.setVisibility(View.VISIBLE);
+      setReminderTv.setVisibility(View.VISIBLE);
     }
   }
 
@@ -113,10 +119,23 @@ public class DrugBottomSheet extends BottomSheetDialogFragment {
         drugDaoImpl.update(drug);
         break;
       case R.id.remove_reminder_tv:
-        Toast.makeText(activity, "حذف از یادآور", Toast.LENGTH_SHORT).show();
+        //Unset alarm for drug
+        drug.setHasAlarmSet(false);
+        new DrugDaoImpl(activity).update(drug);
+
+        DrugAlarmDaoImpl drugAlarmDao = new DrugAlarmDaoImpl(activity);
+        DrugAlarm alarm = drugAlarmDao.getAlarm(drug.getId());
+        drugAlarmDao.delete(alarm.getId());
+
+        //Delete details
+        new DrugAlarmDetailDaoImpl(activity).deleteAll(DrugAlarmDetail.COL_ALARM_ID,
+            String.valueOf(alarm.getId()));
         break;
       case R.id.set_reminder_tv:
-        Toast.makeText(activity, "بزودی در نسخه آینده", Toast.LENGTH_SHORT).show();
+        FragmentTransaction ftAddDrug = activity.getFragmentManager().beginTransaction();
+        AddDrugReminderDialogFragment addDrugReminderDialogFragment = AddDrugReminderDialogFragment
+            .newInstance(activity, drug);
+        addDrugReminderDialogFragment.show(ftAddDrug, "add drug reminder");
         break;
       case R.id.reminder_setting_tv:
         Toast.makeText(activity, "تنظیمات یادآور", Toast.LENGTH_SHORT).show();

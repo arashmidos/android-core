@@ -8,7 +8,7 @@ import java.io.Serializable;
 
 public class DrugAlarmDetail extends BaseEntity<Long> implements Serializable {
 
-  public static final String TABLE_NAME = "drug_alarm";
+  public static final String TABLE_NAME = "drug_alarm_detail";
 
   public static final String COL_ID = "_id";
   public static final String COL_ALARM_ID = "alarm_id";

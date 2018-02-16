@@ -20,14 +20,20 @@ import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
-import android.widget.Switch;
 import android.widget.TextView;
+import android.widget.Toast;
 import app.arash.androidcore.R;
 import app.arash.androidcore.data.entity.Drug;
+import app.arash.androidcore.data.entity.DrugAlarm;
+import app.arash.androidcore.data.entity.DrugAlarmDetail;
 import app.arash.androidcore.data.entity.ReminderDetail;
+import app.arash.androidcore.data.impl.DrugAlarmDaoImpl;
+import app.arash.androidcore.data.impl.DrugAlarmDetailDaoImpl;
+import app.arash.androidcore.data.impl.DrugDaoImpl;
 import app.arash.androidcore.ui.adapter.CustomSpinnerAdapter;
 import app.arash.androidcore.ui.adapter.ReminderDetailAdapter;
 import app.arash.androidcore.util.NumberUtil;
+import app.arash.androidcore.util.ToastUtil;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -59,8 +65,9 @@ public class AddDrugReminderDialogFragment extends DialogFragment {
   TextView drugTv;
   @BindView(R.id.reminder_detail_lay)
   LinearLayout reminderDetailLay;
-  @BindView(R.id.reminder_sw)
-  Switch reminderSw;
+  @BindView(R.id.root)
+  LinearLayout root;
+
 
   private AppCompatActivity context;
   private String numberInEachTime;
@@ -68,6 +75,7 @@ public class AddDrugReminderDialogFragment extends DialogFragment {
   private int hour;
   private Drug drug;
   private int minute;
+  private boolean[] dayArray = {true, true, true, true, true, true, true};
 
   public static AddDrugReminderDialogFragment newInstance(AppCompatActivity context, Drug drug) {
     AddDrugReminderDialogFragment fragment = new AddDrugReminderDialogFragment();
@@ -133,19 +141,11 @@ public class AddDrugReminderDialogFragment extends DialogFragment {
     if (drug != null) {
       drugTv.setText(drug.getNameFa().trim());
     }
-    reminderSw.setOnCheckedChangeListener((compoundButton, b) -> {
-      if (b) {
-        reminderDetailLay.setVisibility(View.VISIBLE);
-      } else {
-        reminderDetailLay.setVisibility(View.GONE);
-      }
-    });
   }
 
   @Override
   public void onResume() {
     super.onResume();
-    reminderDetailLay.setVisibility(View.GONE);
   }
 
   private String[] getNumberOfUse() {
@@ -215,28 +215,42 @@ public class AddDrugReminderDialogFragment extends DialogFragment {
     cancelTv.setOnClickListener(view -> alertDialog.dismiss());
     registerTv.setOnClickListener(view -> {
       String days = "";
+      //Clear all days
+      for (int i = 0; i < dayArray.length; i++) {
+        dayArray[i] = false;
+      }
+
       if (saturdayChb.isChecked()) {
         days += getString(R.string.saturday_comma);
+        dayArray[0] = true;
       }
       if (sundayChb.isChecked()) {
         days += getString(R.string.sunday_comma);
+        dayArray[1] = true;
       }
       if (mondayChb.isChecked()) {
         days += getString(R.string.monday_comma);
+        dayArray[2] = true;
       }
       if (tuesdayChb.isChecked()) {
         days += getString(R.string.tuesday_comma);
+        dayArray[3] = true;
       }
       if (wednesdayChb.isChecked()) {
         days += getString(R.string.wednesday_comma);
+        dayArray[4] = true;
       }
       if (thursdayChb.isChecked()) {
         days += getString(R.string.thursday_comma);
+        dayArray[5] = true;
       }
       if (fridayChb.isChecked()) {
         days += getString(R.string.friday_comma);
+        dayArray[6] = true;
       }
-      days = days.substring(0, days.length() - 1);
+      if (!days.isEmpty()) {
+        days = days.substring(0, days.length() - 1);
+      }
       daysTv.setText(days);
       alertDialog.dismiss();
     });
@@ -255,12 +269,16 @@ public class AddDrugReminderDialogFragment extends DialogFragment {
     dialog.show();
   }
 
-  @OnClick({R.id.done_img, R.id.close_img, R.id.reminder_sw,
-      R.id.every_day_radio, R.id.specific_day_radio, R.id.drug_tv})
+  @OnClick({R.id.done_img, R.id.close_img, R.id.every_day_radio, R.id.specific_day_radio,
+      R.id.drug_tv})
   public void onViewClicked(View view) {
     switch (view.getId()) {
       case R.id.done_img:
-        getDialog().dismiss();
+        if (validate()) {
+          saveReminder();
+//          getDialog().dismiss();
+        }
+
         break;
       case R.id.drug_tv:
         showSearchDialog();
@@ -268,17 +286,13 @@ public class AddDrugReminderDialogFragment extends DialogFragment {
       case R.id.close_img:
         getDialog().dismiss();
         break;
-      case R.id.reminder_sw:
-        if (reminderSw.isChecked()) {
-          reminderDetailLay.setVisibility(View.VISIBLE);
-        } else {
-          reminderDetailLay.setVisibility(View.GONE);
-        }
-        break;
       case R.id.every_day_radio:
         everyDayRadio.setChecked(true);
         specificDayRadio.setChecked(false);
         daysTv.setVisibility(View.GONE);
+        for (int i = 0; i < dayArray.length; i++) {
+          dayArray[i] = true;
+        }
         break;
       case R.id.specific_day_radio:
         everyDayRadio.setChecked(false);
@@ -288,6 +302,86 @@ public class AddDrugReminderDialogFragment extends DialogFragment {
         showDaysDialog();
         break;
     }
+  }
+
+  private boolean validate() {
+    if (drug == null) {
+      ToastUtil.toastError(root, getString(R.string.error_no_drug_selected));
+      return false;
+    }
+    if (spinner.getSelectedItem().equals(getString(R.string.number_of_use_in_day))) {
+      ToastUtil.toastError(root, "تعداد دفعات را انتخاب کنید");
+      return false;
+    }
+
+    if (!everyDayRadio.isChecked() && daysTv.getText().toString().isEmpty()) {
+      ToastUtil.toastError(root, "هیچ روزی انتخاب نشده است");
+      return false;
+    }
+
+    if (instructionSpinner.getSelectedItem().equals(getString(R.string.usage_instruction))) {
+      ToastUtil.toastError(root, "دستورالعمل مصرف انتخاب نشده است");
+      return false;
+    }
+
+    return true;
+  }
+
+  private void saveReminder() {
+
+    DrugAlarm alarm = new DrugAlarm();
+    alarm.setDrugId(drug.getId());
+
+    alarm.setTimesInDay(spinner.getSelectedItemPosition() + 1);
+
+    String days;
+    if (everyDayRadio.isChecked()) {
+      days = "هر روز";
+    } else {
+      days = daysTv.getText().toString();
+    }
+
+    alarm.setDays(days);
+    alarm.setLastServed("");
+    alarm.setInstruction(instructionSpinner.getSelectedItem().toString());
+
+    DrugAlarmDaoImpl drugAlarmDao = new DrugAlarmDaoImpl(context);
+    Long alarmId = drugAlarmDao.create(alarm);
+
+    //Set Details
+    DrugAlarmDetailDaoImpl detailDao = new DrugAlarmDetailDaoImpl(context);
+
+    List<ReminderDetail> details = reminderDetailAdapter.getReminderDetails();
+    if (everyDayRadio.isChecked()) {
+      for (int i = 0; i < 7; i++) {
+        for (int j = 0; j < details.size(); j++) {
+          DrugAlarmDetail alarmDetail = new DrugAlarmDetail();
+          alarmDetail.setAlarmId(alarmId);
+          alarmDetail.setDay(i);
+          alarmDetail.setTime(details.get(j).getTime());
+          alarmDetail.setNumber(details.get(j).getNumberInDay());
+          detailDao.create(alarmDetail);
+        }
+      }
+    } else {
+      for (int i = 0; i < 7; i++) {
+        if (dayArray[i]) {
+          for (int j = 0; j < details.size(); j++) {
+            DrugAlarmDetail alarmDetail = new DrugAlarmDetail();
+            alarmDetail.setAlarmId(alarmId);
+            alarmDetail.setDay(i);
+            alarmDetail.setTime(details.get(j).getTime());
+            alarmDetail.setNumber(details.get(j).getNumberInDay());
+            detailDao.create(alarmDetail);
+          }
+        }
+      }
+    }
+    DrugDaoImpl drugDao = new DrugDaoImpl(context);
+    drug.setHasAlarmSet(true);
+    drugDao.update(drug);
+    ToastUtil.toastMessage(context,"یادآور با موفقیت ثبت شد");
+    dismiss();
   }
 
   private void showSearchDialog() {
@@ -302,4 +396,8 @@ public class AddDrugReminderDialogFragment extends DialogFragment {
     drugTv.setText(drug.getNameFa().trim());
   }
 
+  @Override
+  public void onDestroyView() {
+    super.onDestroyView();
+  }
 }

@@ -126,8 +126,7 @@ public class SearchDialogFragment extends DialogFragment {
         addDrugReminderDialogFragment);
     LinearLayoutManager layoutManager = new LinearLayoutManager(context);
     DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(
-        recyclerView.getContext(),
-        layoutManager.getOrientation());
+        recyclerView.getContext(),        layoutManager.getOrientation());
     recyclerView.addItemDecoration(dividerItemDecoration);
     recyclerView.setAdapter(drugSearchAdapter);
     recyclerView.setLayoutManager(layoutManager);

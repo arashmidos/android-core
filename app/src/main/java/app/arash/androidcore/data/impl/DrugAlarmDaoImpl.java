@@ -5,6 +5,7 @@ import android.content.Context;
 import android.database.Cursor;
 import app.arash.androidcore.data.dao.DrugAlarmDao;
 import app.arash.androidcore.data.entity.DrugAlarm;
+import java.util.List;
 
 /**
  * Created by Arash on 1/16/2018.
@@ -69,5 +70,15 @@ public class DrugAlarmDaoImpl extends AbstractDao<DrugAlarm, Long> implements Dr
     drugAlarm.setInstruction(cursor.getString(5));
 
     return drugAlarm;
+  }
+
+  public DrugAlarm getAlarm(Long drugId) {
+    String[] args = {String.valueOf(drugId)};
+    String selection = DrugAlarm.COL_DRUG_ID + "=?";
+    List<DrugAlarm> list = retrieveAll(selection, args, null, null, null, "1");
+    if (list.size() > 0) {
+      return list.get(0);
+    }
+    return null;
   }
 }

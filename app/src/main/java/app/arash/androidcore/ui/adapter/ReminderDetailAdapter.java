@@ -26,7 +26,6 @@ public class ReminderDetailAdapter extends Adapter<ViewHolder> {
   private List<ReminderDetail> reminderDetails;
   private AddDrugReminderDialogFragment addDrugReminderDialogFragment;
   private LayoutInflater inflater;
-
   public ReminderDetailAdapter(Context context,
       List<ReminderDetail> reminderDetails,
       AddDrugReminderDialogFragment addDrugReminderDialogFragment) {
@@ -34,6 +33,10 @@ public class ReminderDetailAdapter extends Adapter<ViewHolder> {
     this.reminderDetails = reminderDetails;
     this.addDrugReminderDialogFragment = addDrugReminderDialogFragment;
     this.inflater = LayoutInflater.from(context);
+  }
+
+  public List<ReminderDetail> getReminderDetails() {
+    return reminderDetails;
   }
 
   @Override
@@ -93,10 +96,10 @@ public class ReminderDetailAdapter extends Adapter<ViewHolder> {
     public void onViewClicked(View view) {
       switch (view.getId()) {
         case R.id.time_tv:
-          addDrugReminderDialogFragment.showTimePicker(pos,reminderDetail.getTime());
+          addDrugReminderDialogFragment.showTimePicker(pos, reminderDetail.getTime());
           break;
         case R.id.number_tv:
-          addDrugReminderDialogFragment.showNumberDialog(pos,reminderDetail.getNumberInDay());
+          addDrugReminderDialogFragment.showNumberDialog(pos, reminderDetail.getNumberInDay());
           break;
       }
     }

@@ -99,7 +99,7 @@ public class DrugSearchAdapter extends Adapter<ViewHolder> {
     public void onViewClicked(View view) {
       switch (view.getId()) {
         case R.id.search_layout:
-          Drug drug = drugDaoImpl.retriveByName(drugNameTv.getText().toString().trim());
+          Drug drug = drugDaoImpl.retriveByName(drugNameTv.getText().toString());
           if (drug != null) {
             if (addDrugReminderDialogFragment == null) {
               Intent intent = new Intent(context, DrugDetailActivity.class);

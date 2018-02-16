@@ -160,4 +160,5 @@
   <string name="in_day">در روز</string>
   <string name="usage_hour">ساعت مصرف</string>
   <string name="in_each_meal">در هر وعده</string>
+  <string name="error_no_drug_selected">هیچ دارویی انتخاب نشده است</string>
 </resources>
