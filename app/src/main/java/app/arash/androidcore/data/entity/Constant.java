@@ -24,6 +24,7 @@ public class Constant {
   public static final String REMINDER_ID = "reminder.id";
   public static final int REMINDER_TYPE_VISIT = 1;
   public static final int REMINDER_TYPE_DRUG = 2;
+  public static final int REMINDER_REPEAT = 3;
   public static final int STATUS_PENDING = 0;
   public static final int STATUS_ALARM_SET = 1;
   public static final int STATUS_ALARM_RINGED = 2;

@@ -8,6 +8,7 @@ import app.arash.androidcore.data.dao.DrugAlarmDao;
 import app.arash.androidcore.data.entity.DrugAlarm;
 import app.arash.androidcore.data.entity.DrugAlarmModel;
 import app.arash.androidcore.data.entity.MedicDatabaseHelper;
+import app.arash.androidcore.util.DateUtil;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -101,7 +102,11 @@ public class DrugAlarmDaoImpl extends AbstractDao<DrugAlarm, Long> implements Dr
         " INNER JOIN drug d on da.drug_id = d._id " +
         " where dd.day = ?";
 
-    String[] args = {"0"};
+    int today = DateUtil.getToday();
+    if (today == 7) {
+      today = 0;
+    }
+    String[] args = {String.valueOf(today)};
     Cursor cursor = db.rawQuery(sql, args);
 
     ArrayList<DrugAlarmModel> returnList = new ArrayList<>();

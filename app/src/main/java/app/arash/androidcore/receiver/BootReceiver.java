@@ -17,11 +17,17 @@ import android.util.Log;
 import app.arash.androidcore.R;
 import app.arash.androidcore.data.entity.Constant;
 import app.arash.androidcore.data.entity.DoctorVisitDto;
+import app.arash.androidcore.data.entity.DrugAlarmModel;
 import app.arash.androidcore.data.impl.DoctorVisitDaoImpl;
+import app.arash.androidcore.data.impl.DrugAlarmDaoImpl;
 import app.arash.androidcore.ui.activity.MainActivity;
 import app.arash.androidcore.util.DateUtil;
+import app.arash.androidcore.util.NumberUtil;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
 
 public class BootReceiver extends BroadcastReceiver {
@@ -30,7 +36,7 @@ public class BootReceiver extends BroadcastReceiver {
   private AlarmManager alarmMgr;
   private PendingIntent visitAlarmIntent;
 
-  public void showNotification(Context context, Intent intent) {
+  public void showNotification(Context context, Intent intent) throws ParseException {
     Uri alarmSound = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
 
     Intent notificationIntent = new Intent(context, MainActivity.class);
@@ -53,7 +59,10 @@ public class BootReceiver extends BroadcastReceiver {
       title = String.format(Locale.US, "قرار ملاقات با دکتر %s", visit.getDoctor().getName());
       content = String.format(Locale.US, "ساعت %s", visit.getVisitTime());
     } else if (type == Constant.REMINDER_TYPE_DRUG) {
-
+      title = "یادآور دارو";
+    } else if (type == Constant.REMINDER_REPEAT) {
+      setReminderAlarm(context);
+      return;
     } else {
       return;
     }
@@ -69,8 +78,12 @@ public class BootReceiver extends BroadcastReceiver {
         context.getSystemService(Context.NOTIFICATION_SERVICE);
     notificationManager.notify(101, notification);
 
-    visitDao.changeVisitStatus(id, Constant.STATUS_ALARM_RINGED);
-    setVisitAlarm(context);
+    if (type == Constant.REMINDER_TYPE_VISIT) {
+      visitDao.changeVisitStatus(id, Constant.STATUS_ALARM_RINGED);
+      setVisitAlarm(context);
+    } else {
+      setReminderAlarm(context);
+    }
   }
 
   @Override
@@ -89,6 +102,75 @@ public class BootReceiver extends BroadcastReceiver {
 
   public void setAlarm(Context context) {
     setVisitAlarm(context);
+
+    try {
+      setReminderAlarm(context);
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
+  }
+
+  public void setReminderAlarm(Context context) throws ParseException {
+
+    DrugAlarmDaoImpl alarmDao = new DrugAlarmDaoImpl(context);
+
+    List<DrugAlarmModel> todayList = alarmDao.getTodayDrugList();
+
+    if (todayList.size() > 0) {
+      SimpleDateFormat sdf = new SimpleDateFormat("HH:mm");
+      String current = sdf.format(new Date());
+      Date currentDate = sdf.parse(current);
+      for (int i = 0; i < todayList.size(); i++) {
+        //find first
+        String alarmTime = NumberUtil.digitsToEnglish(todayList.get(i).getTime());
+        Date alarmDate = sdf.parse(alarmTime);
+        if (alarmDate.after(currentDate)) {
+          //find it
+          String[] times = alarmTime.split(":");
+          Calendar cal = Calendar.getInstance();
+          cal.set(Calendar.HOUR_OF_DAY, Integer.parseInt(times[0]));
+          cal.set(Calendar.MINUTE, Integer.parseInt(times[1]));
+          Log.i(TAG, "required information is available. trying to set alarm");
+          alarmMgr = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
+          Intent intent = new Intent(context, BootReceiver.class);
+
+          intent.putExtra(Constant.REMINDER_TYPE, Constant.REMINDER_TYPE_DRUG);
+
+          visitAlarmIntent = PendingIntent
+              .getBroadcast(context.getApplicationContext(), 1364, intent,
+                  PendingIntent.FLAG_UPDATE_CURRENT);
+          alarmMgr.set(AlarmManager.RTC_WAKEUP, cal.getTimeInMillis(), visitAlarmIntent);
+          Log.d(TAG, "Alarm set successfully!");
+
+          ComponentName receiver = new ComponentName(context, BootReceiver.class);
+          PackageManager pm = context.getPackageManager();
+
+          pm.setComponentEnabledSetting(receiver,
+              PackageManager.COMPONENT_ENABLED_STATE_ENABLED, PackageManager.DONT_KILL_APP);
+          break;
+        }
+      }
+
+    } else {
+      //Reحeat for next 24 hours
+      Calendar cal = Calendar.getInstance();
+      cal.add(Calendar.HOUR, 24);
+      Log.i(TAG, "required information is available. trying to set alarm");
+      alarmMgr = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
+      Intent intent = new Intent(context, BootReceiver.class);
+      intent.putExtra(Constant.REMINDER_TYPE, Constant.REMINDER_REPEAT);
+
+      visitAlarmIntent = PendingIntent.getBroadcast(context.getApplicationContext(), 1364, intent,
+          PendingIntent.FLAG_UPDATE_CURRENT);
+      alarmMgr.set(AlarmManager.RTC_WAKEUP, cal.getTimeInMillis(), visitAlarmIntent);
+      Log.d(TAG, "Alarm set successfully!");
+
+      ComponentName receiver = new ComponentName(context, BootReceiver.class);
+      PackageManager pm = context.getPackageManager();
+
+      pm.setComponentEnabledSetting(receiver,
+          PackageManager.COMPONENT_ENABLED_STATE_ENABLED, PackageManager.DONT_KILL_APP);
+    }
   }
 
   private void setVisitAlarm(Context context) {
@@ -108,8 +190,7 @@ public class BootReceiver extends BroadcastReceiver {
       intent.putExtra(Constant.REMINDER_TYPE, Constant.REMINDER_TYPE_VISIT);
       visitAlarmIntent = PendingIntent.getBroadcast(context.getApplicationContext(), 1364, intent,
           PendingIntent.FLAG_UPDATE_CURRENT);
-//TODO: change this to calendar.getTimeInMillis
-      alarmMgr.set(AlarmManager.RTC_WAKEUP, System.currentTimeMillis(), visitAlarmIntent);
+      alarmMgr.set(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), visitAlarmIntent);
       Log.d(TAG, "Alarm set successfully!");
 
       ComponentName receiver = new ComponentName(context, BootReceiver.class);

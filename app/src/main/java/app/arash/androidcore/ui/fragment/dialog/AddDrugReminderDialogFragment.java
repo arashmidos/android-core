@@ -31,6 +31,7 @@ import app.arash.androidcore.data.entity.ReminderDetail;
 import app.arash.androidcore.data.impl.DrugAlarmDaoImpl;
 import app.arash.androidcore.data.impl.DrugAlarmDetailDaoImpl;
 import app.arash.androidcore.data.impl.DrugDaoImpl;
+import app.arash.androidcore.receiver.BootReceiver;
 import app.arash.androidcore.ui.adapter.CustomSpinnerAdapter;
 import app.arash.androidcore.ui.adapter.ReminderDetailAdapter;
 import app.arash.androidcore.util.NumberUtil;
@@ -38,6 +39,7 @@ import app.arash.androidcore.util.ToastUtil;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -435,6 +437,11 @@ public class AddDrugReminderDialogFragment extends DialogFragment {
     ToastUtil.toastMessage(context, "یادآور با موفقیت ثبت شد");
     dismiss();
     EventBus.getDefault().post(new RefreshEvent(drug));
+    try {
+      new BootReceiver().setReminderAlarm(context);
+    } catch (ParseException e) {
+      e.printStackTrace();
+    }
   }
 
   private void showSearchDialog() {
