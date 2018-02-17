@@ -21,8 +21,8 @@ public class DialogUtil {
 
   public static void showConfirmDialog(Context context, String title, String message,
       DialogInterface.OnClickListener positiveBtnOnClickListener) {
-    showCustomDialog(context, title, message, "", positiveBtnOnClickListener, "",
-        (dialog, i) -> dialog.dismiss(), R.drawable.ic_info_outline_24dp);
+    showCustomDialog(context, title, message, "تایید", positiveBtnOnClickListener, "",
+        null, R.drawable.ic_info_outline_24dp);
   }
 
   public static void showCustomDialog(Context context, String title, String message,
@@ -53,6 +53,7 @@ public class DialogUtil {
     }
 
     AlertDialog alertDialog = dialogBuilder.create();
+    alertDialog.setCancelable(false);
     alertDialog.show();
 
     negativeTv.setOnClickListener(v -> {

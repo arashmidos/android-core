@@ -31,6 +31,8 @@ import app.arash.androidcore.ui.fragment.MoreFragment;
 import app.arash.androidcore.ui.fragment.dialog.MeasureListDialogFragment.OnNewMeasureSelected;
 import app.arash.androidcore.ui.fragment.dialog.NewMeasureDialogFragment;
 import app.arash.androidcore.ui.fragment.dialog.NewMeasureDialogFragment.OnNewMeasureAdded;
+import app.arash.androidcore.util.DialogUtil;
+import app.arash.androidcore.util.NetworkUtil;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -229,12 +231,25 @@ public class MainActivity extends AppCompatActivity implements OnNewMeasureSelec
     }
     this.doubleBackToExitPressedOnce = true;
     Toast.makeText(this, R.string.exit_text, Toast.LENGTH_SHORT).show();
-    new Handler().postDelayed(new Runnable() {
-      @Override
-      public void run() {
-        doubleBackToExitPressedOnce = false;
-      }
-    }, 2000);
+    new Handler().postDelayed(() -> doubleBackToExitPressedOnce = false, 2000);
 
+  }
+
+  @Override
+  protected void onResume() {
+    super.onResume();
+    checkInternetConnection();
+  }
+
+  private void checkInternetConnection() {
+    if (!NetworkUtil.isNetworkAvailable(this)) {
+      showGpsOffDialog();
+    }
+  }
+
+  private void showGpsOffDialog() {
+    DialogUtil.showConfirmDialog(this, "دسترسی به اینترنت امکان پذیر نمی باشد",
+        "لطفا جهت بهره مندی از برنامه، دستگاه خود را به اینترنت متصل نمایید!",
+        (dialog, which) -> finish());
   }
 }
