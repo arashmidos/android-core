@@ -5,6 +5,7 @@ import android.content.Context;
 import android.database.Cursor;
 import app.arash.androidcore.data.dao.DrugAlarmDetailDao;
 import app.arash.androidcore.data.entity.DrugAlarmDetail;
+import java.util.List;
 
 /**
  * Created by Arash on 1/16/2018.
@@ -67,5 +68,11 @@ public class DrugAlarmDetailDaoImpl extends AbstractDao<DrugAlarmDetail, Long> i
     drugAlarmDetail.setNumber(cursor.getString(4));
 
     return drugAlarmDetail;
+  }
+
+  public List<DrugAlarmDetail> getDetailGrouped(Long alarmId) {
+    String[] args = {String.valueOf(alarmId)};
+    String selection = DrugAlarmDetail.COL_ALARM_ID + "=?";
+    return retrieveAll(selection, args, DrugAlarmDetail.COL_TIME, null, null);
   }
 }

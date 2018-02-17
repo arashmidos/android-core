@@ -16,13 +16,13 @@ import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 import app.arash.androidcore.R;
 import app.arash.androidcore.data.entity.Doctor;
 import app.arash.androidcore.data.entity.DoctorVisit;
 import app.arash.androidcore.data.entity.DrugAlarmModel;
 import app.arash.androidcore.data.entity.FabChangedEvent;
 import app.arash.androidcore.data.entity.FabChangedEvent.FabStatus;
+import app.arash.androidcore.data.entity.RefreshEvent;
 import app.arash.androidcore.data.impl.DoctorDaoImpl;
 import app.arash.androidcore.data.impl.DoctorVisitDaoImpl;
 import app.arash.androidcore.data.impl.DrugAlarmDaoImpl;
@@ -31,6 +31,7 @@ import app.arash.androidcore.ui.activity.NewVisitActivity;
 import app.arash.androidcore.ui.adapter.MedicineAdapter;
 import app.arash.androidcore.ui.adapter.VisitAdapter;
 import app.arash.androidcore.ui.fragment.dialog.AddDrugReminderDialogFragment;
+import app.arash.androidcore.ui.fragment.dialog.DrugReminderListDialogFragment;
 import app.arash.androidcore.ui.fragment.dialog.MeasureListDialogFragment;
 import app.arash.androidcore.ui.fragment.dialog.NewDoctorDialogFragment;
 import app.arash.androidcore.util.DateUtil;
@@ -235,7 +236,10 @@ public class HomeFragment extends BaseFragment {
         if (moreMedicineTv.getText().toString().equals(getString(R.string.set_drug_alarm))) {
           showAddReminderDialog();
         } else {
-          Toast.makeText(mainActivity, "MORE", Toast.LENGTH_SHORT).show();
+          FragmentTransaction ft3 = mainActivity.getFragmentManager().beginTransaction();
+          DrugReminderListDialogFragment reminderList = DrugReminderListDialogFragment
+              .newInstance(mainActivity);
+          reminderList.show(ft3, "reminder list");
         }
         break;
       case R.id.set_visit_tv:
@@ -271,6 +275,7 @@ public class HomeFragment extends BaseFragment {
   public void onResume() {
     super.onResume();
     EventBus.getDefault().register(this);
+    setUpMedicineRecyclerView();
     setUpVisitRecyclerView();
   }
 
@@ -280,4 +285,12 @@ public class HomeFragment extends BaseFragment {
       fabMenu.collapse();
     }
   }
+
+  @Subscribe
+  public void getMessage(RefreshEvent event) {
+    setUpMedicineRecyclerView();
+    setUpVisitRecyclerView();
+  }
+
+
 }

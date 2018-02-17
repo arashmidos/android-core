@@ -47,8 +47,8 @@ public class DrugCategoryActivity extends AppCompatActivity {
     if (getIntent() != null && getIntent().getExtras() != null
         && getIntent().getExtras().getString(Constant.DRUG_CATEGORY) != null) {
 
-      drugCategory = getIntent().getExtras().getString(Constant.DRUG_CATEGORY);
-      toolbarTitleTv.setText(drugCategory);
+      drugCategory = getIntent().getExtras().getString(Constant.DRUG_CATEGORY, "");
+      toolbarTitleTv.setText(drugCategory.trim());
     }
   }
 
@@ -70,7 +70,7 @@ public class DrugCategoryActivity extends AppCompatActivity {
 
   private void showSearchDialog() {
     FragmentTransaction ft = getFragmentManager().beginTransaction();
-    SearchDialogFragment searchDialogFragment = SearchDialogFragment.newInstance(this, true,null);
+    SearchDialogFragment searchDialogFragment = SearchDialogFragment.newInstance(this, true, null);
     searchDialogFragment.show(ft, "search");
   }
 

@@ -31,4 +31,5 @@
     android:text="@string/one_item"
     android:textColor="@color/color_primary"
     android:textSize="14sp" />
+
 </RelativeLayout>

@@ -131,14 +131,12 @@ public class DrugBottomSheet extends BottomSheetDialogFragment {
         new DrugAlarmDetailDaoImpl(activity).deleteAll(DrugAlarmDetail.COL_ALARM_ID,
             String.valueOf(alarm.getId()));
         break;
+      case R.id.reminder_setting_tv:
       case R.id.set_reminder_tv:
         FragmentTransaction ftAddDrug = activity.getFragmentManager().beginTransaction();
         AddDrugReminderDialogFragment addDrugReminderDialogFragment = AddDrugReminderDialogFragment
             .newInstance(activity, drug);
         addDrugReminderDialogFragment.show(ftAddDrug, "add drug reminder");
-        break;
-      case R.id.reminder_setting_tv:
-        Toast.makeText(activity, "تنظیمات یادآور", Toast.LENGTH_SHORT).show();
         break;
     }
     dismiss();

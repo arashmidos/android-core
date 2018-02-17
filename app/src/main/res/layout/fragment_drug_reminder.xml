@@ -57,7 +57,8 @@
         android:paddingTop="23dp"
         android:paddingBottom="16dp"
         android:background="@color/white_fa"
-        android:gravity="center">
+        android:gravity="center"
+        android:visibility="gone">
         <TextView
           style="@style/IranSans"
           android:layout_width="wrap_content"
@@ -152,12 +153,16 @@
         android:layout_height="1dp"
         android:background="@color/gray_e0" />
       <TextView
+        android:id="@+id/days_tv"
         style="@style/IranSans"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="17dp"
         android:gravity="center"
         android:text="هر روز"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:maxLines="2"
         android:textColor="@color/black_42"
         android:textSize="18sp" />
       <TextView
@@ -175,6 +180,7 @@
         android:layout_height="1dp"
         android:background="@color/gray_e0" />
       <TextView
+        android:id="@+id/instruction_tv"
         style="@style/IranSans"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

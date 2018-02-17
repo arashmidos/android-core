@@ -7,7 +7,7 @@ package app.arash.androidcore.data.entity;
 public class ReminderDetail {
 
   private String numberInDay = "۱ عدد";
-  private String time = "۰۸:۰۰";
+  private String time = "۸:۰۰";
 
   public ReminderDetail(String numberInDay, String time) {
     this.numberInDay = numberInDay;

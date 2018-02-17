@@ -21,6 +21,7 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 import app.arash.androidcore.R;
 import app.arash.androidcore.data.entity.Drug;
 import app.arash.androidcore.data.entity.DrugAlarm;
@@ -38,8 +39,10 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Locale;
+import java.util.Set;
 import org.greenrobot.eventbus.EventBus;
 
 /**
@@ -77,6 +80,11 @@ public class AddDrugReminderDialogFragment extends DialogFragment {
   private Drug drug;
   private int minute;
   private boolean[] dayArray = {true, true, true, true, true, true, true};
+  private DrugAlarmDaoImpl alarmDao;
+  private DrugAlarmDetailDaoImpl drugAlarmDetail;
+  private boolean loading;
+  private ArrayList<ReminderDetail> loadingReminderDetails;
+  private DrugAlarm alarm;
 
   public static AddDrugReminderDialogFragment newInstance(AppCompatActivity context, Drug drug) {
     AddDrugReminderDialogFragment fragment = new AddDrugReminderDialogFragment();
@@ -98,8 +106,28 @@ public class AddDrugReminderDialogFragment extends DialogFragment {
       Bundle savedInstanceState) {
     View view = inflater.inflate(R.layout.fragment_dialog_add_drug, container, false);
     ButterKnife.bind(this, view);
+    alarmDao = new DrugAlarmDaoImpl(context);
+    drugAlarmDetail = new DrugAlarmDetailDaoImpl(context);
     setData();
+    if (drug != null && drug.isHasAlarmSet()) {
+      loadData();
+    }
     return view;
+  }
+
+  private void loadData() {
+    loading = true;
+    alarm = alarmDao.getAlarm(drug.getId());
+    List<DrugAlarmDetail> alarmDetail = drugAlarmDetail.getDetailGrouped(alarm.getId());
+    spinner.setSelection(alarm.getTimesInDay());
+
+    usageRecyclerView.setVisibility(View.VISIBLE);
+    loadingReminderDetails = new ArrayList<>();
+    for (int j = 0; j < alarmDetail.size(); j++) {
+      loadingReminderDetails
+          .add(new ReminderDetail(alarmDetail.get(j).getNumber(), alarmDetail.get(j).getTime()));
+    }
+    reminderDetailAdapter.updateAll(loadingReminderDetails);
   }
 
   private void setData() {
@@ -111,12 +139,17 @@ public class AddDrugReminderDialogFragment extends DialogFragment {
       @Override
       public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
         if (!spinner.getSelectedItem().equals(getString(R.string.number_of_use_in_day))) {
+          if (loading && spinner.getSelectedItemPosition() == alarm.getTimesInDay()) {
+            return;
+          }
           usageRecyclerView.setVisibility(View.VISIBLE);
           List<ReminderDetail> reminderDetails = new ArrayList<>();
-          for (int j = 0; j < i + 1; j++) {
+          for (int j = 0; j < i; j++) {
             reminderDetails.add(new ReminderDetail());
           }
+
           reminderDetailAdapter.updateAll(reminderDetails);
+          loading = false;
         }
       }
 
@@ -150,19 +183,20 @@ public class AddDrugReminderDialogFragment extends DialogFragment {
   }
 
   private String[] getNumberOfUse() {
-    String[] item = new String[12];
-    item[0] = "۱ بار در روز";
-    item[1] = "۲ بار در روز";
-    item[2] = "۳ بار در روز";
-    item[3] = "۴ بار در روز";
-    item[4] = "۵ بار در روز";
-    item[5] = "۶ بار در روز";
-    item[6] = "۷ بار در روز";
-    item[7] = "۸ بار در روز";
-    item[8] = "۹ بار در روز";
-    item[9] = "۱۰ بار در روز";
-    item[10] = "۱۱ بار در روز";
-    item[11] = "۱۲ بار در روز";
+    String[] item = new String[13];
+    item[0] = "دفعات مصرف در روز";
+    item[1] = "۱ بار در روز";
+    item[2] = "۲ بار در روز";
+    item[3] = "۳ بار در روز";
+    item[4] = "۴ بار در روز";
+    item[5] = "۵ بار در روز";
+    item[6] = "۶ بار در روز";
+    item[7] = "۷ بار در روز";
+    item[8] = "۸ بار در روز";
+    item[9] = "۹ بار در روز";
+    item[10] = "۱۰ بار در روز";
+    item[11] = "۱۱ بار در روز";
+    item[12] = "۱۲ بار در روز";
     return item;
   }
 
@@ -194,6 +228,7 @@ public class AddDrugReminderDialogFragment extends DialogFragment {
       alertDialog.cancel();
     });
   }
+
 
   private void showDaysDialog() {
     Builder dialogBuilder = new Builder(getActivity());
@@ -302,6 +337,9 @@ public class AddDrugReminderDialogFragment extends DialogFragment {
         daysTv.setText("");
         showDaysDialog();
         break;
+      case R.id.spinner:
+        Toast.makeText(context, "SPINNER", Toast.LENGTH_SHORT).show();
+        break;
     }
   }
 
@@ -325,15 +363,30 @@ public class AddDrugReminderDialogFragment extends DialogFragment {
       return false;
     }
 
+    List<ReminderDetail> details = reminderDetailAdapter.getReminderDetails();
+    Set<String> uniques = new HashSet<>();
+    for (int i = 0; i < details.size(); i++) {
+      uniques.add(details.get(i).getTime());
+    }
+    if (uniques.size() != details.size()) {
+      ToastUtil.toastError(root, "ساعت ها نمی توانند تکراری باشند");
+      return false;
+    }
+
     return true;
   }
 
   private void saveReminder() {
 
+    //Remove old data
+    if (drug.isHasAlarmSet()) {
+      alarmDao.deleteAll(DrugAlarm.COL_DRUG_ID, String.valueOf(drug.getId()));
+      drugAlarmDetail.deleteAll(DrugAlarmDetail.COL_ALARM_ID, String.valueOf(alarm.getId()));
+    }
     DrugAlarm alarm = new DrugAlarm();
     alarm.setDrugId(drug.getId());
 
-    alarm.setTimesInDay(spinner.getSelectedItemPosition() + 1);
+    alarm.setTimesInDay(spinner.getSelectedItemPosition());
 
     String days;
     if (everyDayRadio.isChecked()) {
@@ -346,11 +399,9 @@ public class AddDrugReminderDialogFragment extends DialogFragment {
     alarm.setLastServed("");
     alarm.setInstruction(instructionSpinner.getSelectedItem().toString());
 
-    DrugAlarmDaoImpl drugAlarmDao = new DrugAlarmDaoImpl(context);
-    Long alarmId = drugAlarmDao.create(alarm);
+    Long alarmId = alarmDao.create(alarm);
 
     //Set Details
-    DrugAlarmDetailDaoImpl detailDao = new DrugAlarmDetailDaoImpl(context);
 
     List<ReminderDetail> details = reminderDetailAdapter.getReminderDetails();
     if (everyDayRadio.isChecked()) {
@@ -361,7 +412,7 @@ public class AddDrugReminderDialogFragment extends DialogFragment {
           alarmDetail.setDay(i);
           alarmDetail.setTime(details.get(j).getTime());
           alarmDetail.setNumber(details.get(j).getNumberInDay());
-          detailDao.create(alarmDetail);
+          drugAlarmDetail.create(alarmDetail);
         }
       }
     } else {
@@ -373,7 +424,7 @@ public class AddDrugReminderDialogFragment extends DialogFragment {
             alarmDetail.setDay(i);
             alarmDetail.setTime(details.get(j).getTime());
             alarmDetail.setNumber(details.get(j).getNumberInDay());
-            detailDao.create(alarmDetail);
+            drugAlarmDetail.create(alarmDetail);
           }
         }
       }

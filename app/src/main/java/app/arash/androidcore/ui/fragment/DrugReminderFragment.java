@@ -12,12 +12,18 @@ import android.widget.ScrollView;
 import android.widget.TextView;
 import app.arash.androidcore.R;
 import app.arash.androidcore.data.entity.Drug;
+import app.arash.androidcore.data.entity.DrugAlarm;
+import app.arash.androidcore.data.entity.DrugAlarmDetail;
 import app.arash.androidcore.data.entity.RefreshEvent;
+import app.arash.androidcore.data.impl.DrugAlarmDaoImpl;
+import app.arash.androidcore.data.impl.DrugAlarmDetailDaoImpl;
 import app.arash.androidcore.ui.activity.DrugDetailActivity;
 import app.arash.androidcore.ui.fragment.dialog.AddDrugReminderDialogFragment;
+import app.arash.androidcore.util.NumberUtil;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import java.util.List;
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
@@ -35,7 +41,13 @@ public class DrugReminderFragment extends Fragment {
   TextView mealTv;
   @BindView(R.id.detail_lay)
   ScrollView detailLay;
+  @BindView(R.id.days_tv)
+  TextView daysTv;
+  @BindView(R.id.instruction_tv)
+  TextView instructionTv;
   private Drug drug;
+  private DrugAlarm alarm;
+  private List<DrugAlarmDetail> details;
 
   public DrugReminderFragment() {
     // Required empty public constructor
@@ -64,9 +76,41 @@ public class DrugReminderFragment extends Fragment {
     if (!drug.isHasAlarmSet()) {
       emptyView.setVisibility(View.VISIBLE);
       detailLay.setVisibility(View.GONE);
-    }else{
+    } else {
       detailLay.setVisibility(View.VISIBLE);
       emptyView.setVisibility(View.GONE);
+
+      DrugAlarmDaoImpl drugAlarmDao = new DrugAlarmDaoImpl(getActivity());
+      alarm = drugAlarmDao.getAlarm(drug.getId());
+
+      if (alarm == null) {
+        emptyView.setVisibility(View.VISIBLE);
+        detailLay.setVisibility(View.GONE);
+        return;
+      }
+
+      DrugAlarmDetailDaoImpl detailDao = new DrugAlarmDetailDaoImpl(getActivity());
+      details = detailDao.getDetailGrouped(alarm.getId());
+
+      numberTv.setText(NumberUtil
+          .digitsToPersian(String.format("%s بار", String.valueOf(alarm.getTimesInDay()))));
+      daysTv.setText(alarm.getDays());
+      instructionTv.setText(alarm.getInstruction());
+      StringBuilder usage = new StringBuilder();
+      String number = details.get(0).getNumber();
+      boolean isEqual = true;
+      for (int i = 0; i < details.size(); i++) {
+        usage.append(details.get(i).getTime());
+        if (i < details.size() - 1) {
+          usage.append("\n");
+        }
+        if (!details.get(i).getNumber().equals(number)) {
+          isEqual = false;
+        }
+      }
+      usageHourTv.setText(usage.toString());
+
+      mealTv.setText(isEqual ? number : "تعداد گوناگون");
     }
   }
 
