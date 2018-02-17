@@ -20,11 +20,12 @@ import android.widget.Toast;
 import app.arash.androidcore.R;
 import app.arash.androidcore.data.entity.Doctor;
 import app.arash.androidcore.data.entity.DoctorVisit;
+import app.arash.androidcore.data.entity.DrugAlarmModel;
 import app.arash.androidcore.data.entity.FabChangedEvent;
 import app.arash.androidcore.data.entity.FabChangedEvent.FabStatus;
-import app.arash.androidcore.data.entity.Medicine;
 import app.arash.androidcore.data.impl.DoctorDaoImpl;
 import app.arash.androidcore.data.impl.DoctorVisitDaoImpl;
+import app.arash.androidcore.data.impl.DrugAlarmDaoImpl;
 import app.arash.androidcore.ui.activity.MainActivity;
 import app.arash.androidcore.ui.activity.NewVisitActivity;
 import app.arash.androidcore.ui.adapter.MedicineAdapter;
@@ -86,6 +87,7 @@ public class HomeFragment extends BaseFragment {
   private VisitAdapter visitAdapter;
   private MainActivity mainActivity;
   private DoctorVisitDaoImpl doctorVisitDao;
+  private DrugAlarmDaoImpl drugAlarmDao;
 
   public HomeFragment() {
     // Required empty public constructor
@@ -139,11 +141,12 @@ public class HomeFragment extends BaseFragment {
     String dateString = DateUtil.getFullPersianDate(new Date());
     doctorVisitDao = new DoctorVisitDaoImpl(mainActivity);
     toolbarDate.setText(String.format("امروز، %s", NumberUtil.digitsToPersian(dateString)));
+    drugAlarmDao = new DrugAlarmDaoImpl(mainActivity);
   }
 
   private void setUpMedicineRecyclerView() {
-    List<Medicine> medicines = Medicine.getMedicineList();
-    if (medicines.size() == 0) {
+    List<DrugAlarmModel> alarms = drugAlarmDao.getTodayDrugList();
+    if (alarms.size() == 0) {
       medicineRecyclerView.setVisibility(View.GONE);
       medicineEmptyView.setVisibility(View.VISIBLE);
       moreMedicineTv.setVisibility(View.VISIBLE);
@@ -152,17 +155,17 @@ public class HomeFragment extends BaseFragment {
     } else {
       visitEmptyView.setVisibility(View.GONE);
       medicineRecyclerView.setVisibility(View.VISIBLE);
-      if (medicines.size() > 3) {
+      if (alarms.size() > 3) {
         moreMedicineTv.setVisibility(View.VISIBLE);
         medicineMoreDivider.setVisibility(View.VISIBLE);
-        medicines = medicines.subList(0, 3);
+        alarms = alarms.subList(0, 3);
       } else {
         moreMedicineTv.setVisibility(View.GONE);
         medicineMoreDivider.setVisibility(View.GONE);
       }
       medicinesTv.setVisibility(View.VISIBLE);
       medicineCard.setVisibility(View.VISIBLE);
-      medicineAdapter = new MedicineAdapter(mainActivity, medicines);
+      medicineAdapter = new MedicineAdapter(mainActivity, alarms);
       LayoutManager layoutManager = new LinearLayoutManager(mainActivity);
       medicineRecyclerView.setAdapter(medicineAdapter);
       medicineRecyclerView.setLayoutManager(layoutManager);
@@ -174,7 +177,7 @@ public class HomeFragment extends BaseFragment {
     if (visits.size() != 0) {
       visitRecyclerView.setVisibility(View.VISIBLE);
       visitEmptyView.setVisibility(View.GONE);
-      visitAdapter = new VisitAdapter(mainActivity, visits,this);
+      visitAdapter = new VisitAdapter(mainActivity, visits, this);
       LayoutManager layoutManager = new LinearLayoutManager(mainActivity);
       visitRecyclerView.setAdapter(visitAdapter);
       visitRecyclerView.setLayoutManager(layoutManager);
@@ -225,12 +228,15 @@ public class HomeFragment extends BaseFragment {
         fabMenu.collapse();
         break;
       case R.id.add_reminder:
-      case R.id.more_medicine_tv:
-        FragmentTransaction ftAddDrug = mainActivity.getFragmentManager().beginTransaction();
-        AddDrugReminderDialogFragment addDrugReminderDialogFragment = AddDrugReminderDialogFragment
-            .newInstance(mainActivity,null);
-        addDrugReminderDialogFragment.show(ftAddDrug, "add drug reminder");
+        showAddReminderDialog();
         fabMenu.collapse();
+        break;
+      case R.id.more_medicine_tv:
+        if (moreMedicineTv.getText().toString().equals(getString(R.string.set_drug_alarm))) {
+          showAddReminderDialog();
+        } else {
+          Toast.makeText(mainActivity, "MORE", Toast.LENGTH_SHORT).show();
+        }
         break;
       case R.id.set_visit_tv:
         List<Doctor> doctors2 = new DoctorDaoImpl(mainActivity).retrieveAll();
@@ -246,6 +252,13 @@ public class HomeFragment extends BaseFragment {
         fabMenu.collapse();
         break;
     }
+  }
+
+  private void showAddReminderDialog() {
+    FragmentTransaction ftAddDrug = mainActivity.getFragmentManager().beginTransaction();
+    AddDrugReminderDialogFragment addDrugReminderDialogFragment = AddDrugReminderDialogFragment
+        .newInstance(mainActivity, null);
+    addDrugReminderDialogFragment.show(ftAddDrug, "add drug reminder");
   }
 
   @Override

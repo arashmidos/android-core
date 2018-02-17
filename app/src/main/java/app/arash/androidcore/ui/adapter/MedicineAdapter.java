@@ -1,7 +1,6 @@
 package app.arash.androidcore.ui.adapter;
 
 import android.content.Context;
-import android.content.Intent;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.RecyclerView.Adapter;
@@ -11,12 +10,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 import app.arash.androidcore.R;
-import app.arash.androidcore.data.entity.Constant;
-import app.arash.androidcore.data.entity.Medicine;
-import app.arash.androidcore.ui.activity.DrugDetailActivity;
+import app.arash.androidcore.data.entity.DrugAlarmModel;
 import app.arash.androidcore.ui.adapter.MedicineAdapter.ViewHolder;
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -31,11 +27,10 @@ import java.util.Locale;
 public class MedicineAdapter extends Adapter<ViewHolder> {
 
   private Context context;
-  private List<Medicine> medicines;
+  private List<DrugAlarmModel> medicines;
   private LayoutInflater inflater;
 
-  public MedicineAdapter(Context context,
-      List<Medicine> medicines) {
+  public MedicineAdapter(Context context, List<DrugAlarmModel> medicines) {
     this.context = context;
     this.medicines = medicines;
     this.inflater = LayoutInflater.from(context);
@@ -78,7 +73,7 @@ public class MedicineAdapter extends Adapter<ViewHolder> {
     @BindView(R.id.main_lay)
     LinearLayout mainLay;
 
-    private Medicine medicine;
+    private DrugAlarmModel alarmModel;
     private int position;
 
     public ViewHolder(View itemView) {
@@ -87,7 +82,7 @@ public class MedicineAdapter extends Adapter<ViewHolder> {
     }
 
     public void setData(int position) {
-      this.medicine = medicines.get(position);
+      this.alarmModel = medicines.get(position);
       this.position = position;
       setItemsBackground();
       setLinesVisibility();
@@ -96,22 +91,22 @@ public class MedicineAdapter extends Adapter<ViewHolder> {
     }
 
     private void setText() {
-      if (!TextUtils.isEmpty(medicine.getTime())) {
-        medicineTimeTv.setText(medicine.getTime());
+      if (!TextUtils.isEmpty(alarmModel.getTime())) {
+        medicineTimeTv.setText(alarmModel.getTime());
       }
-      if (!TextUtils.isEmpty(medicine.getName())) {
-        medicineNameTv.setText(medicine.getName());
+      if (!TextUtils.isEmpty(alarmModel.getDrugName())) {
+        medicineNameTv.setText(alarmModel.getDrugName());
       }
-      medicineNumberTv.setText(String.format(Locale.US, "%s عدد", medicine.getNumber()));
+      medicineNumberTv.setText(String.format(Locale.US, "%s", alarmModel.getNumber()));
     }
 
     private void setTimeStatusImg() {
-      switch (medicine.getStatus()) {
+      switch (alarmModel.getStatus()) {
         case 0:
-          timeStatusImg.setImageResource(R.drawable.ic_sun_24_dp);
+          timeStatusImg.setImageResource(R.drawable.ic_sunset_24_dp);
           break;
         case 1:
-          timeStatusImg.setImageResource(R.drawable.ic_sunset_24_dp);
+          timeStatusImg.setImageResource(R.drawable.ic_sun_24_dp);
           break;
         case 2:
           timeStatusImg.setImageResource(R.drawable.ic_moon_24_dp);
@@ -165,7 +160,7 @@ public class MedicineAdapter extends Adapter<ViewHolder> {
 
     @OnClick(R.id.main_lay)
     public void onViewClicked() {
-      //TODO
+
     }
   }
 }
