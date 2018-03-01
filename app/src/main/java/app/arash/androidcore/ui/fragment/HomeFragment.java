@@ -28,6 +28,7 @@ import app.arash.androidcore.data.impl.DoctorVisitDaoImpl;
 import app.arash.androidcore.data.impl.DrugAlarmDaoImpl;
 import app.arash.androidcore.ui.activity.MainActivity;
 import app.arash.androidcore.ui.activity.NewVisitActivity;
+import app.arash.androidcore.ui.activity.VideoListActivity;
 import app.arash.androidcore.ui.adapter.MedicineAdapter;
 import app.arash.androidcore.ui.adapter.VisitAdapter;
 import app.arash.androidcore.ui.fragment.dialog.AddDrugReminderDialogFragment;
@@ -73,16 +74,16 @@ public class HomeFragment extends BaseFragment {
   TextView visitTv;
   @BindView(R.id.set_visit_tv)
   TextView setVisitTv;
-  @BindView(R.id.charts_tv)
-  TextView chartsTv;
-  @BindView(R.id.healthy_chart_recycler_view)
-  RecyclerView healthyChartRecyclerView;
   @BindView(R.id.overlay)
   FrameLayout overlay;
   @BindView(R.id.right_labels)
   FloatingActionsMenu fabMenu;
   @BindView(R.id.nested_lay)
   NestedScrollView nestedLay;
+  @BindView(R.id.videos_tv)
+  TextView videosTv;
+  @BindView(R.id.video_recycler_view)
+  RecyclerView videoRecyclerView;
 
   private MedicineAdapter medicineAdapter;
   private VisitAdapter visitAdapter;
@@ -200,7 +201,7 @@ public class HomeFragment extends BaseFragment {
   }
 
   @OnClick({R.id.add_visit, R.id.add_doctor, R.id.add_chart, R.id.add_reminder,
-      R.id.more_medicine_tv, R.id.set_visit_tv, R.id.overlay})
+      R.id.more_medicine_tv, R.id.set_visit_tv, R.id.overlay, R.id.show_video_list_btn})
   public void onViewClicked(View view) {
     switch (view.getId()) {
       case R.id.add_visit:
@@ -209,7 +210,7 @@ public class HomeFragment extends BaseFragment {
 
           startActivity(new Intent(mainActivity, NewVisitActivity.class));
         } else {
-          ToastUtil.toastError(mainActivity, "هیچ پزشکی یافت نشد.");
+          ToastUtil.toastError(mainActivity, getString(R.string.message_no_doctor_found));
         }
 
         fabMenu.collapse();
@@ -247,13 +248,16 @@ public class HomeFragment extends BaseFragment {
         if (doctors2.size() > 0) {
           startActivity(new Intent(mainActivity, NewVisitActivity.class));
         } else {
-          ToastUtil.toastError(mainActivity, "هیچ پزشکی یافت نشد.");
+          ToastUtil.toastError(mainActivity, getString(R.string.message_no_doctor_found));
         }
         fabMenu.collapse();
         break;
       case R.id.overlay:
         overlay.setVisibility(View.GONE);
         fabMenu.collapse();
+        break;
+      case R.id.show_video_list_btn:
+        startActivity(new Intent(mainActivity, VideoListActivity.class));
         break;
     }
   }
@@ -291,6 +295,4 @@ public class HomeFragment extends BaseFragment {
     setUpMedicineRecyclerView();
     setUpVisitRecyclerView();
   }
-
-
 }

@@ -1,7 +1,7 @@
 package app.arash.androidcore.service;
 
+import app.arash.androidcore.data.entity.Category;
 import java.util.List;
-import java.util.Locale.Category;
 import retrofit2.Call;
 import retrofit2.http.GET;
 

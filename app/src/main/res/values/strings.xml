@@ -160,4 +160,7 @@
   <string name="usage_hour">ساعت مصرف</string>
   <string name="in_each_meal">در هر وعده</string>
   <string name="error_no_drug_selected">هیچ دارویی انتخاب نشده است</string>
+  <string name="newest_video">جدیدترین ویدیوها</string>
+  <string name="videos_category">دسته بندی ویدیوها</string>
+  <string name="message_no_doctor_found">هیچ پزشکی یافت نشد.</string>
 </resources>

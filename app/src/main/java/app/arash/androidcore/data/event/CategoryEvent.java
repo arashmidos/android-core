@@ -1,7 +1,7 @@
 package app.arash.androidcore.data.event;
 
+import app.arash.androidcore.data.entity.Category;
 import java.util.List;
-import java.util.Locale.Category;
 
 /**
  * Created by arash on 3/1/18.
@@ -9,9 +9,17 @@ import java.util.Locale.Category;
 
 public class CategoryEvent {
 
-  private final List<Category> categoryList;
+  private List<Category> categoryList;
 
   public CategoryEvent(List<Category> categoryList) {
+    this.categoryList = categoryList;
+  }
+
+  public List<Category> getCategoryList() {
+    return categoryList;
+  }
+
+  public void setCategoryList(List<Category> categoryList) {
     this.categoryList = categoryList;
   }
 }

@@ -194,7 +194,7 @@
         </LinearLayout>
       </android.support.v7.widget.CardView>
       <TextView
-        android:id="@+id/charts_tv"
+        android:id="@+id/videos_tv"
         style="@style/IranSans.Bold"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -203,20 +203,33 @@
         android:layout_marginEnd="16dp"
         android:layout_marginRight="16dp"
         android:gravity="right"
-        android:text="@string/healthy_chart"
+        android:text="@string/newest_video"
         android:textColor="@color/green_54"
-        android:textSize="16sp"
-        android:visibility="gone" />
+        android:textSize="16sp" />
+      <!--TODO: 1 new video goes here-->
 
       <android.support.v7.widget.RecyclerView
-        android:id="@+id/healthy_chart_recycler_view"
+        android:id="@+id/video_recycler_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="40dp"
         android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp"
-        android:layout_marginRight="8dp"
-        android:visibility="gone" />
+        android:layout_marginRight="8dp" />
+
+      <Button
+        style="@style/IranSans.Medium"
+        android:id="@+id/show_video_list_btn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="88dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:text="@string/videos_category"
+        android:background="@drawable/rec_green_primary"
+        android:textColor="@color/white"
+        android:textSize="13sp" />
     </LinearLayout>
   </android.support.v4.widget.NestedScrollView>
   <FrameLayout
