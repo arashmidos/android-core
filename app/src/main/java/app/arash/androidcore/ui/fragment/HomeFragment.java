@@ -28,7 +28,7 @@ import app.arash.androidcore.data.impl.DoctorVisitDaoImpl;
 import app.arash.androidcore.data.impl.DrugAlarmDaoImpl;
 import app.arash.androidcore.ui.activity.MainActivity;
 import app.arash.androidcore.ui.activity.NewVisitActivity;
-import app.arash.androidcore.ui.activity.VideoListActivity;
+import app.arash.androidcore.ui.activity.VideoCategoryListActivity;
 import app.arash.androidcore.ui.adapter.MedicineAdapter;
 import app.arash.androidcore.ui.adapter.VisitAdapter;
 import app.arash.androidcore.ui.fragment.dialog.AddDrugReminderDialogFragment;
@@ -257,7 +257,7 @@ public class HomeFragment extends BaseFragment {
         fabMenu.collapse();
         break;
       case R.id.show_video_list_btn:
-        startActivity(new Intent(mainActivity, VideoListActivity.class));
+        startActivity(new Intent(mainActivity, VideoCategoryListActivity.class));
         break;
     }
   }

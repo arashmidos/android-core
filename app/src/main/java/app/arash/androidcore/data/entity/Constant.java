@@ -28,4 +28,5 @@ public class Constant {
   public static final int STATUS_PENDING = 0;
   public static final int STATUS_ALARM_SET = 1;
   public static final int STATUS_ALARM_RINGED = 2;
+  public static final String VIDEO_CATEGORY = "VIDEO_CATEGORY";
 }

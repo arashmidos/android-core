@@ -1,22 +1,16 @@
 package app.arash.androidcore.ui.activity;
 
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
-import android.widget.TextView;
 import app.arash.androidcore.R;
-import app.arash.androidcore.data.entity.Category;
-import app.arash.androidcore.data.entity.Constant;
 import app.arash.androidcore.data.event.CategoryEvent;
-import app.arash.androidcore.data.event.VideoEvent;
 import app.arash.androidcore.service.VideoService;
 import app.arash.androidcore.ui.adapter.VideoCategoryListAdapter;
-import app.arash.androidcore.ui.adapter.VideoListAdapter;
 import app.arash.androidcore.util.DialogUtil;
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -25,30 +19,17 @@ import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
-public class VideoListActivity extends AppCompatActivity {
+public class VideoCategoryListActivity extends AppCompatActivity {
 
   @BindView(R.id.recycler_view)
   RecyclerView recyclerView;
-  @BindView(R.id.toolbar_title_tv)
-  TextView toolbarTitleTv;
-  private VideoListAdapter listAdapter;
-  private Category category;
+  private VideoCategoryListAdapter listAdapter;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_video_list);
     ButterKnife.bind(this);
-
-    Intent intent = getIntent();
-    if (intent == null || intent.getSerializableExtra(Constant.VIDEO_CATEGORY) == null) {
-      setContentView(R.layout.view_error_page);
-      return;
-    }
-
-    category = (Category) intent.getSerializableExtra(Constant.VIDEO_CATEGORY);
-    toolbarTitleTv.setText(category.getName().trim());
-
     setUpRecyclerView();
   }
 
@@ -78,14 +59,14 @@ public class VideoListActivity extends AppCompatActivity {
   protected void onResume() {
     super.onResume();
     EventBus.getDefault().register(this);
-    DialogUtil.showProgressDialog(this, "در حال دریافت لیست ویدیو ها");
-    new VideoService().getVideoList(category.getId());
+    DialogUtil.showProgressDialog(this, "در حال دریافت لیست دسته بندی ها");
+    new VideoService().getCategoryList();
   }
 
   @Subscribe
-  public void getMessage(VideoEvent event) {
+  public void getMessage(CategoryEvent event) {
     DialogUtil.dismissProgressDialog();
-    listAdapter = new VideoListAdapter(this, event.getVideoList());
+    listAdapter = new VideoCategoryListAdapter(this, event.getCategoryList());
     recyclerView.setAdapter(listAdapter);
   }
 

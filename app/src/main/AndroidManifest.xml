@@ -55,6 +55,9 @@
       android:name=".ui.activity.ContactUsActivity"
       android:screenOrientation="portrait" />
     <activity
+      android:name=".ui.activity.VideoCategoryListActivity"
+      android:screenOrientation="portrait" />
+    <activity
       android:name=".ui.activity.VideoListActivity"
       android:screenOrientation="portrait" />
 
