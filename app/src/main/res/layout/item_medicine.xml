@@ -4,6 +4,9 @@
   android:id="@+id/main_lay"
   android:layout_width="match_parent"
   android:layout_height="wrap_content"
+  android:clickable="true"
+  android:focusable="true"
+  android:foreground="?android:attr/selectableItemBackground"
   android:orientation="vertical">
   <View
     android:id="@+id/first_view"

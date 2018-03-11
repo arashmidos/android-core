@@ -8,7 +8,6 @@ import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
-import android.widget.Toast;
 import app.arash.androidcore.R;
 import app.arash.androidcore.data.entity.Drug;
 import app.arash.androidcore.data.entity.RefreshEvent;
@@ -55,11 +54,11 @@ public class MyDrugsActivity extends AppCompatActivity {
 
   private void showSearchDialog() {
     FragmentTransaction ft = getFragmentManager().beginTransaction();
-    SearchDialogFragment searchDialogFragment = SearchDialogFragment.newInstance(this, true,null);
+    SearchDialogFragment searchDialogFragment = SearchDialogFragment.newInstance(this, true, null);
     searchDialogFragment.show(ft, "search");
   }
 
-  @OnClick({R.id.search_img, R.id.back_img, R.id.add_fab})
+  @OnClick({R.id.search_img, R.id.back_img})
   public void onViewClicked(View view) {
     switch (view.getId()) {
       case R.id.search_img:
@@ -68,12 +67,8 @@ public class MyDrugsActivity extends AppCompatActivity {
       case R.id.back_img:
         onBackPressed();
         break;
-      case R.id.add_fab:
-        Toast.makeText(this, "add", Toast.LENGTH_SHORT).show();
-        break;
     }
   }
-
 
   @Override
   protected void onPause() {

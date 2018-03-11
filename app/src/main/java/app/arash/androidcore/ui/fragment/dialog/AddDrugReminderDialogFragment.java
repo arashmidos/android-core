@@ -120,6 +120,9 @@ public class AddDrugReminderDialogFragment extends DialogFragment {
   private void loadData() {
     loading = true;
     alarm = alarmDao.getAlarm(drug.getId());
+    if (alarm == null) {
+      return;
+    }
     List<DrugAlarmDetail> alarmDetail = drugAlarmDetail.getDetailGrouped(alarm.getId());
     spinner.setSelection(alarm.getTimesInDay());
 
@@ -383,7 +386,9 @@ public class AddDrugReminderDialogFragment extends DialogFragment {
     //Remove old data
     if (drug.isHasAlarmSet()) {
       alarmDao.deleteAll(DrugAlarm.COL_DRUG_ID, String.valueOf(drug.getId()));
-      drugAlarmDetail.deleteAll(DrugAlarmDetail.COL_ALARM_ID, String.valueOf(alarm.getId()));
+      if( alarm!=null) {
+        drugAlarmDetail.deleteAll(DrugAlarmDetail.COL_ALARM_ID, String.valueOf(alarm.getId()));
+      }
     }
     DrugAlarm alarm = new DrugAlarm();
     alarm.setDrugId(drug.getId());

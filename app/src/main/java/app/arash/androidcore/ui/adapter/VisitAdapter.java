@@ -1,6 +1,7 @@
 package app.arash.androidcore.ui.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.RecyclerView.Adapter;
@@ -11,10 +12,12 @@ import android.view.ViewGroup;
 import android.widget.RelativeLayout.LayoutParams;
 import android.widget.TextView;
 import app.arash.androidcore.R;
+import app.arash.androidcore.data.entity.Constant;
 import app.arash.androidcore.data.entity.Doctor;
 import app.arash.androidcore.data.entity.DoctorVisit;
 import app.arash.androidcore.data.impl.DoctorDaoImpl;
 import app.arash.androidcore.data.impl.DoctorVisitDaoImpl;
+import app.arash.androidcore.ui.activity.DoctorDetailActivity;
 import app.arash.androidcore.ui.adapter.VisitAdapter.ViewHolder;
 import app.arash.androidcore.ui.fragment.HomeFragment;
 import app.arash.androidcore.util.DateUtil;
@@ -22,6 +25,7 @@ import app.arash.androidcore.util.NumberUtil;
 import app.arash.androidcore.util.Utils;
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
@@ -33,6 +37,7 @@ import java.util.Locale;
 public class VisitAdapter extends Adapter<ViewHolder> {
 
   private final HomeFragment parent;
+
   private Context context;
   private List<DoctorVisit> visits;
   private DoctorDaoImpl doctorDao;
@@ -61,6 +66,7 @@ public class VisitAdapter extends Adapter<ViewHolder> {
   public int getItemCount() {
     return visits.size();
   }
+
 
   public class ViewHolder extends RecyclerView.ViewHolder {
 
@@ -127,6 +133,14 @@ public class VisitAdapter extends Adapter<ViewHolder> {
             Utils.dpToPx(context, 8), Utils.dpToPx(context, 0));
         mainLay.setLayoutParams(params);
       }
+    }
+
+    @OnClick(R.id.main_lay)
+    public void onViewClicked() {
+      Intent intent = new Intent(context, DoctorDetailActivity.class);
+      intent.putExtra(Constant.DOCTOR_OBJ, doctor);
+      intent.putExtra(Constant.VIEW_TYPE, Constant.EDIT);
+      context.startActivity(intent);
     }
   }
 }

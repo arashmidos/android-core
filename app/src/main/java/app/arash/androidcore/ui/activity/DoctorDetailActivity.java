@@ -18,6 +18,7 @@ import app.arash.androidcore.ui.adapter.DrugsViewPagerAdapter;
 import app.arash.androidcore.ui.fragment.DoctorReminderFragment;
 import app.arash.androidcore.ui.fragment.DoctorSpecificationFragment;
 import app.arash.androidcore.ui.fragment.bottomsheet.DoctorBottomSheet;
+import app.arash.androidcore.util.Empty;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -35,6 +36,7 @@ public class DoctorDetailActivity extends AppCompatActivity {
   ViewPager viewPager;
 
   private Doctor doctor;
+  private String type;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
@@ -44,15 +46,22 @@ public class DoctorDetailActivity extends AppCompatActivity {
     getIntentData();
     tabLayout.setupWithViewPager(viewPager);
     setUpViewPager();
-    viewPager.setCurrentItem(1);
+    if (Empty.isNotEmpty(type)) {
+      viewPager.setCurrentItem(0);
+    } else {
+      viewPager.setCurrentItem(1);
+    }
   }
 
   private void getIntentData() {
-    if (getIntent() != null && getIntent().getSerializableExtra(Constant.DRUG_OBJ) != null) {
-      doctor = (Doctor) getIntent().getSerializableExtra(Constant.DRUG_OBJ);
+    if (getIntent() != null && getIntent().getSerializableExtra(Constant.DOCTOR_OBJ) != null) {
+      doctor = (Doctor) getIntent().getSerializableExtra(Constant.DOCTOR_OBJ);
       doctorNameTv.setText(doctor.getName());
 
       addDoctorToHistory(doctor);
+      type = getIntent().getStringExtra(Constant.VIEW_TYPE);
+    } else {
+      //return error
     }
   }
 

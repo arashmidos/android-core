@@ -1,5 +1,6 @@
 package app.arash.androidcore.ui.adapter;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.RecyclerView.Adapter;
@@ -9,9 +10,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 import app.arash.androidcore.R;
+import app.arash.androidcore.data.entity.Constant;
 import app.arash.androidcore.data.entity.Video;
+import app.arash.androidcore.ui.activity.VideoDetailActivity;
 import app.arash.androidcore.ui.adapter.VideoListAdapter.ViewHolder;
 import app.arash.androidcore.util.NumberUtil;
 import butterknife.BindView;
@@ -84,13 +86,11 @@ public class VideoListAdapter extends Adapter<ViewHolder> {
     @OnClick({R.id.root_layout, R.id.video_title_tv})
     public void onViewClicked(View view) {
       switch (view.getId()) {
-        case R.id.category_name_tv:
-
+        case R.id.video_title_tv:
         case R.id.root_layout:
-          Toast.makeText(context, "TIME" + video.getLength(), Toast.LENGTH_SHORT).show();
-//          Intent intent = new Intent(context, VideoListActivity.class);
-//          intent.putExtra(Constant.VIDEO_CATEGORY, video);
-//          context.startActivity(intent);
+          Intent intent = new Intent(context, VideoDetailActivity.class);
+          intent.putExtra(Constant.VIDEO, video);
+          context.startActivity(intent);
           break;
       }
     }

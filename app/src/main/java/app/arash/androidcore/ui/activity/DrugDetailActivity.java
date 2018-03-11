@@ -1,6 +1,7 @@
 package app.arash.androidcore.ui.activity;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
@@ -18,6 +19,7 @@ import app.arash.androidcore.ui.adapter.DrugsViewPagerAdapter;
 import app.arash.androidcore.ui.fragment.DrugReminderFragment;
 import app.arash.androidcore.ui.fragment.DrugSpecificationFragment;
 import app.arash.androidcore.ui.fragment.bottomsheet.DrugBottomSheet;
+import app.arash.androidcore.util.Empty;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -37,6 +39,7 @@ public class DrugDetailActivity extends AppCompatActivity {
   ViewPager viewPager;
 
   private Drug drug;
+  private String type;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
@@ -46,17 +49,23 @@ public class DrugDetailActivity extends AppCompatActivity {
     getIntentData();
     tabLayout.setupWithViewPager(viewPager);
     setUpViewPager();
-    viewPager.setCurrentItem(1);
+    if (Empty.isNotEmpty(type)) {
+      viewPager.setCurrentItem(0);
+    } else {
+      viewPager.setCurrentItem(1);
+    }
   }
 
   private void getIntentData() {
-    if (getIntent() != null && getIntent().getSerializableExtra(Constant.DRUG_OBJ) != null) {
-      drug = (Drug) getIntent().getSerializableExtra(Constant.DRUG_OBJ);
+    Intent intent = getIntent();
+    if (intent != null && intent.getSerializableExtra(Constant.DRUG_OBJ) != null) {
+      drug = (Drug) intent.getSerializableExtra(Constant.DRUG_OBJ);
       drugNameTv.setText(drug.getNameFa().trim());
       if (drug.isStared()) {
         starImg.setVisibility(View.VISIBLE);
       }
       addDrugToHistory(drug);
+      type = intent.getStringExtra(Constant.VIEW_TYPE);
     }
   }
 

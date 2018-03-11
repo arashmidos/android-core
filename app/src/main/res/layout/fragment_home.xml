@@ -206,28 +206,69 @@
         android:text="@string/newest_video"
         android:textColor="@color/green_54"
         android:textSize="16sp" />
-      <!--TODO: 1 new video goes here-->
+      <LinearLayout
+        android:id="@+id/new_video_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:visibility="gone">
 
+        <ImageView
+          android:id="@+id/new_video"
+          android:layout_width="match_parent"
+          android:layout_height="180dp"
+          android:layout_margin="16dp"
+          tools:src="@drawable/sample_bg" />
+
+        <TextView
+          android:id="@+id/new_video_body"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_marginBottom="16dp"
+          android:layout_marginLeft="16dp"
+          android:layout_marginRight="16dp"
+          android:gravity="right"
+          android:textColor="#212121"
+          android:textSize="16sp"
+          tools:text="انواع مشکلاتی که ممکن است با عمل جراحی و
+تکامل انسانی متوجه شما میشود" />
+
+        <TextView
+          android:id="@+id/new_video_time"
+          style="@style/IranSans.Light"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_marginBottom="16dp"
+          android:layout_marginLeft="16dp"
+          android:layout_marginRight="16dp"
+          android:gravity="right"
+          android:textColor="#757575"
+          android:textSize="14sp"
+          tools:text="1:56" />
+
+        <View
+          android:id="@+id/new_video_devider"
+          android:layout_width="match_parent"
+          android:layout_height="1dp"
+          android:layout_marginRight="16dp"
+          android:background="@color/black_10" />
+      </LinearLayout>
       <android.support.v7.widget.RecyclerView
         android:id="@+id/video_recycler_view"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="40dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginRight="8dp" />
+        android:layout_height="wrap_content" />
 
       <Button
-        style="@style/IranSans.Medium"
         android:id="@+id/show_video_list_btn"
+        style="@style/IranSans.Medium"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:layout_marginBottom="88dp"
         android:layout_marginLeft="16dp"
         android:layout_marginRight="16dp"
-        android:text="@string/videos_category"
         android:background="@drawable/rec_green_primary"
+        android:text="@string/videos_category"
         android:textColor="@color/white"
         android:textSize="13sp" />
     </LinearLayout>

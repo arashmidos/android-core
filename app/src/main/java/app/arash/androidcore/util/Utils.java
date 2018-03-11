@@ -14,6 +14,7 @@ import android.text.TextUtils;
 import android.util.DisplayMetrics;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
+import app.arash.androidcore.R;
 import java.util.List;
 
 
@@ -105,4 +106,13 @@ public class Utils {
     return false;
   }
 
+
+  public static void shareContent(Context context, String content) {
+    Intent shareIntent = new Intent(Intent.ACTION_SEND);
+    shareIntent
+        .putExtra(Intent.EXTRA_SUBJECT, context.getResources().getString(R.string.app_name));
+    shareIntent.putExtra(Intent.EXTRA_TEXT, content);
+    shareIntent.setType("text/plain");
+    context.startActivity(shareIntent);
+  }
 }

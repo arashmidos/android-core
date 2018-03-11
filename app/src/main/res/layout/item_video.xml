@@ -5,8 +5,7 @@
   android:id="@+id/root_layout"
   android:layout_width="match_parent"
   android:layout_height="wrap_content"
-  android:gravity="center"
-  android:orientation="horizontal">
+  android:gravity="center">
 
   <TextView
     android:id="@+id/video_title_tv"
@@ -47,4 +46,11 @@
     android:textColor="@color/gray_75"
     android:textSize="11sp"
     tools:text="2:36" />
+  <View
+    android:layout_width="match_parent"
+    android:layout_height="1dp"
+    android:layout_marginTop="16dp"
+    android:layout_marginRight="16dp"
+    android:layout_below="@id/video_time"
+    android:background="@color/black_10" />
 </RelativeLayout>

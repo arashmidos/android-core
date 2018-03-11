@@ -54,13 +54,17 @@ public class VideoService {
   }
 
   public void getVideoList(int categoryId) {
+    getVideoList(categoryId, null);
+  }
+
+  public void getVideoList(Integer categoryId, Integer count) {
     if (!NetworkUtil.isNetworkAvailable(MedicApplication.getInstance())) {
       EventBus.getDefault().post(new ErrorEvent(StatusCodes.NO_NETWORK));
       return;
     }
     RestService restService = ServiceGenerator.createService(RestService.class);
 
-    Call<List<Video>> call = restService.getVideoList(categoryId);
+    Call<List<Video>> call = restService.getVideoList(categoryId, count);
 
     call.enqueue(new Callback<List<Video>>() {
       @Override

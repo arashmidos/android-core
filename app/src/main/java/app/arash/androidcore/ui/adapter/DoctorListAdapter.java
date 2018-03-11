@@ -87,7 +87,7 @@ public class DoctorListAdapter extends Adapter<ViewHolder> {
           break;
         case R.id.doctor_layout:
           Intent intent = new Intent(context, DoctorDetailActivity.class);
-          intent.putExtra(Constant.DRUG_OBJ, doctor);
+          intent.putExtra(Constant.DOCTOR_OBJ, doctor);
           context.startActivity(intent);
       }
     }

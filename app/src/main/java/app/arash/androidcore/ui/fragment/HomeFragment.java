@@ -14,22 +14,29 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import app.arash.androidcore.R;
+import app.arash.androidcore.data.entity.Constant;
 import app.arash.androidcore.data.entity.Doctor;
 import app.arash.androidcore.data.entity.DoctorVisit;
 import app.arash.androidcore.data.entity.DrugAlarmModel;
 import app.arash.androidcore.data.entity.FabChangedEvent;
 import app.arash.androidcore.data.entity.FabChangedEvent.FabStatus;
 import app.arash.androidcore.data.entity.RefreshEvent;
+import app.arash.androidcore.data.entity.Video;
+import app.arash.androidcore.data.event.VideoEvent;
 import app.arash.androidcore.data.impl.DoctorDaoImpl;
 import app.arash.androidcore.data.impl.DoctorVisitDaoImpl;
 import app.arash.androidcore.data.impl.DrugAlarmDaoImpl;
+import app.arash.androidcore.service.VideoService;
 import app.arash.androidcore.ui.activity.MainActivity;
 import app.arash.androidcore.ui.activity.NewVisitActivity;
 import app.arash.androidcore.ui.activity.VideoCategoryListActivity;
+import app.arash.androidcore.ui.activity.VideoDetailActivity;
 import app.arash.androidcore.ui.adapter.MedicineAdapter;
+import app.arash.androidcore.ui.adapter.VideoListAdapter;
 import app.arash.androidcore.ui.adapter.VisitAdapter;
 import app.arash.androidcore.ui.fragment.dialog.AddDrugReminderDialogFragment;
 import app.arash.androidcore.ui.fragment.dialog.DrugReminderListDialogFragment;
@@ -42,10 +49,13 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
+import com.bumptech.glide.Glide;
 import com.getbase.floatingactionbutton.FloatingActionsMenu;
 import com.getbase.floatingactionbutton.FloatingActionsMenu.OnFloatingActionsMenuUpdateListener;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
@@ -80,16 +90,28 @@ public class HomeFragment extends BaseFragment {
   FloatingActionsMenu fabMenu;
   @BindView(R.id.nested_lay)
   NestedScrollView nestedLay;
-  @BindView(R.id.videos_tv)
-  TextView videosTv;
   @BindView(R.id.video_recycler_view)
   RecyclerView videoRecyclerView;
+  @BindView(R.id.videos_tv)
+  TextView videosTv;
+  @BindView(R.id.new_video)
+  ImageView newVideo;
+  @BindView(R.id.new_video_body)
+  TextView newVideoBody;
+  @BindView(R.id.new_video_time)
+  TextView newVideoTime;
+  @BindView(R.id.new_video_devider)
+  View newVideoDevider;
+  @BindView(R.id.new_video_layout)
+  LinearLayout newVideoLayout;
 
   private MedicineAdapter medicineAdapter;
   private VisitAdapter visitAdapter;
   private MainActivity mainActivity;
   private DoctorVisitDaoImpl doctorVisitDao;
   private DrugAlarmDaoImpl drugAlarmDao;
+  private List<Video> videoList;
+  private VideoListAdapter videoAdapter;
 
   public HomeFragment() {
     // Required empty public constructor
@@ -201,7 +223,8 @@ public class HomeFragment extends BaseFragment {
   }
 
   @OnClick({R.id.add_visit, R.id.add_doctor, R.id.add_chart, R.id.add_reminder,
-      R.id.more_medicine_tv, R.id.set_visit_tv, R.id.overlay, R.id.show_video_list_btn})
+      R.id.more_medicine_tv, R.id.set_visit_tv, R.id.overlay, R.id.show_video_list_btn,
+      R.id.new_video_layout})
   public void onViewClicked(View view) {
     switch (view.getId()) {
       case R.id.add_visit:
@@ -259,6 +282,10 @@ public class HomeFragment extends BaseFragment {
       case R.id.show_video_list_btn:
         startActivity(new Intent(mainActivity, VideoCategoryListActivity.class));
         break;
+      case R.id.new_video_layout:
+        Intent intent = new Intent(mainActivity, VideoDetailActivity.class);
+        intent.putExtra(Constant.VIDEO, videoList.get(0));
+        mainActivity.startActivity(intent);
     }
   }
 
@@ -281,6 +308,7 @@ public class HomeFragment extends BaseFragment {
     EventBus.getDefault().register(this);
     setUpMedicineRecyclerView();
     setUpVisitRecyclerView();
+    new VideoService().getVideoList(null, 5);
   }
 
   @Subscribe
@@ -295,4 +323,29 @@ public class HomeFragment extends BaseFragment {
     setUpMedicineRecyclerView();
     setUpVisitRecyclerView();
   }
+
+  @Subscribe
+  public void getMessage(VideoEvent event) {
+    setupVideoRecycler(event.getVideoList());
+  }
+
+  private void setupVideoRecycler(List<Video> videoList) {
+    this.videoList = new ArrayList<>();
+    this.videoList.addAll(videoList);
+    if (videoList.size() > 0) {
+      Video promoVideo = videoList.get(0);
+      newVideoLayout.setVisibility(View.VISIBLE);
+      Glide.with(mainActivity).load(promoVideo.getImagePreview()).into(newVideo);
+      newVideoBody.setText(promoVideo.getTitle());
+      newVideoTime.setText(NumberUtil.digitsToPersian(String.format(Locale.US, "%02d:%02d",
+          promoVideo.getLength() / 60, promoVideo.getLength() % 60)));
+    }
+    if (videoList.size() > 1) {
+      videoList.remove(0);
+      videoAdapter = new VideoListAdapter(mainActivity, videoList);
+      videoRecyclerView.setLayoutManager(new LinearLayoutManager(mainActivity));
+      videoRecyclerView.setAdapter(videoAdapter);
+    }
+  }
+
 }

@@ -1,6 +1,7 @@
 package app.arash.androidcore.ui.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.RecyclerView.Adapter;
@@ -12,7 +13,11 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import app.arash.androidcore.R;
+import app.arash.androidcore.data.entity.Constant;
+import app.arash.androidcore.data.entity.Drug;
 import app.arash.androidcore.data.entity.DrugAlarmModel;
+import app.arash.androidcore.data.impl.DrugDaoImpl;
+import app.arash.androidcore.ui.activity.DrugDetailActivity;
 import app.arash.androidcore.ui.adapter.MedicineAdapter.ViewHolder;
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -160,7 +165,11 @@ public class MedicineAdapter extends Adapter<ViewHolder> {
 
     @OnClick(R.id.main_lay)
     public void onViewClicked() {
-
+      Intent intent = new Intent(context, DrugDetailActivity.class);
+      Drug drug = new DrugDaoImpl(context).retriveByName(alarmModel.getDrugName());
+      intent.putExtra(Constant.DRUG_OBJ, drug);
+      intent.putExtra(Constant.VIEW_TYPE, Constant.EDIT);
+      context.startActivity(intent);
     }
   }
 }

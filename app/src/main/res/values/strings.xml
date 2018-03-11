@@ -164,5 +164,6 @@
   <string name="videos_category">دسته بندی ویدیوها</string>
   <string name="message_no_doctor_found">هیچ پزشکی یافت نشد.</string>
   <string name="error_page_txt">در حال حاظر امکان مشاهده این صفحه وجود ندارد</string>
+  <string name="video">ویدیو</string>
 
 </resources>

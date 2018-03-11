@@ -13,6 +13,7 @@ import app.arash.androidcore.R;
 import app.arash.androidcore.ui.activity.AboutUsActivity;
 import app.arash.androidcore.ui.activity.ContactUsActivity;
 import app.arash.androidcore.ui.activity.MainActivity;
+import app.arash.androidcore.ui.activity.VideoCategoryListActivity;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -55,7 +56,8 @@ public class MoreFragment extends BaseFragment {
     unbinder.unbind();
   }
 
-  @OnClick({R.id.about_us_tv, R.id.contact_us_tv, R.id.log_out_tv, R.id.upgrade_app})
+  @OnClick({R.id.about_us_tv, R.id.contact_us_tv, R.id.log_out_tv, R.id.upgrade_app,
+      R.id.videos_tv})
   public void onViewClicked(View view) {
     switch (view.getId()) {
       case R.id.about_us_tv:
@@ -63,6 +65,9 @@ public class MoreFragment extends BaseFragment {
         break;
       case R.id.contact_us_tv:
         startActivity(new Intent(mainActivity, ContactUsActivity.class));
+        break;
+      case R.id.videos_tv:
+        startActivity(new Intent(mainActivity, VideoCategoryListActivity.class));
         break;
       case R.id.log_out_tv:
         Toast.makeText(mainActivity, "خروج", Toast.LENGTH_SHORT).show();
