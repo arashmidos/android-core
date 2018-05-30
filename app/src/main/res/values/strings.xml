@@ -106,6 +106,7 @@
   <string name="error_input_value_not_correct">مقدار وارد شده صحیح نیست</string>
   <string name="choose_date_is_required">انتخاب تاریخ ضروری است</string>
   <string name="choose_time_is_required">انتخاب  ساعت ضروری است</string>
+  <string name="enter_phone_is_required">وارد کردن شماره تلفن ضروری است</string>
   <string name="choose_doctor_is_required">انتخاب دکتر ضروری است</string>
   <string name="data_inserted_successfully">اطلاعات شما با موفقیت ثبت شد</string>
   <string name="chart">نمودار</string>
@@ -166,6 +167,8 @@
   <string name="error_page_txt">در حال حاظر امکان مشاهده این صفحه وجود ندارد</string>
   <string name="video">ویدیو</string>
   <string name="mobile_number">شماره تلفن همراه</string>
+  <string name="error_no_network">خطا در اتصال به اینترنت</string>
+  <string name="error_connect_to_server">خطا در ارتباط با سرور</string>
   <string name="enter_phone_description">برای وارد شدن به برنامه،‌لطفا شماره تلفن همراه خود را وارد نمایید تا کد ورود برای شما ارسال گردد</string>
   <string name="get_code">دریافت کد ورود</string>
   <string name="please_enter_valid_number">لطفا شماره معتبر وارد کنید!</string>
@@ -174,5 +177,18 @@
   <string name="resend_code">ارسال مجدد کد ورود</string>
   <string name="code_sent_to_numer_x">کد ورود به شماره %s ارسال گردید</string>
   <string name="retry_code_in">امکان ارسال مجدد کد در</string>
+  <string name="register_code">کد تایید</string>
+  <string name="code_has_sent">کد از طریق پیامک به تلفن همراه شما ارسال شد.</string>
+  <string name="stars">****</string>
+  <string name="invalid_code">کد وارد شده معتبر نمی باشد</string>
+  <string name="resend">ارسال مجدد کد ورود</string>
+  <string name="retry_code_in_1">امکان ارسال مجدد کد تا </string>
+  <string name="submit">تایید</string>
+  <string name="enter">ورود</string>
+  <string name="enter_desc">برای دریافت کد از طریق پیامک، شماره ی خود را وارد نمائید.</string>
+  <string name="get_code_1">دریافت کد</string>
+  <string name="error_in_connecting_to_server">خطا در ارتباط با سرور</string>
+  <string name="entered_code_in_wrong">کد وارد شده غلط می باشد</string>
+
 
 </resources>

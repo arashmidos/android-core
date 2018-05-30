@@ -3,7 +3,10 @@ package app.arash.androidcore.service;
 import app.arash.androidcore.MedicApplication;
 import app.arash.androidcore.data.constant.StatusCodes;
 import app.arash.androidcore.data.entity.Category;
+import app.arash.androidcore.data.entity.SendSmsRequest;
+import app.arash.androidcore.data.entity.VerifyCodeRequest;
 import app.arash.androidcore.data.entity.Video;
+import app.arash.androidcore.data.event.ActionEvent;
 import app.arash.androidcore.data.event.CategoryEvent;
 import app.arash.androidcore.data.event.ErrorEvent;
 import app.arash.androidcore.data.event.VideoEvent;
@@ -48,6 +51,58 @@ public class VideoService {
 
       @Override
       public void onFailure(Call<List<Category>> call, Throwable t) {
+        EventBus.getDefault().post(new ErrorEvent(StatusCodes.NETWORK_ERROR));
+      }
+    });
+  }
+
+  public void sendSms(String phone) {
+    if (!NetworkUtil.isNetworkAvailable(MedicApplication.getInstance())) {
+      EventBus.getDefault().post(new ErrorEvent(StatusCodes.NO_NETWORK));
+      return;
+    }
+    RestService restService = ServiceGenerator.createService(RestService.class);
+
+    Call<String> call = restService.sendSms(new SendSmsRequest(phone));
+
+    call.enqueue(new Callback<String>() {
+      @Override
+      public void onResponse(Call<String> call, Response<String> response) {
+        if (response.code() == 204) {
+          EventBus.getDefault().post(new ActionEvent(StatusCodes.SUCCESS));
+        } else {
+          EventBus.getDefault().post(new ErrorEvent(StatusCodes.SERVER_ERROR));
+        }
+      }
+
+      @Override
+      public void onFailure(Call<String> call, Throwable t) {
+        EventBus.getDefault().post(new ErrorEvent(StatusCodes.NETWORK_ERROR));
+      }
+    });
+  }
+
+  public void verifyCode(String phone,String code) {
+    if (!NetworkUtil.isNetworkAvailable(MedicApplication.getInstance())) {
+      EventBus.getDefault().post(new ErrorEvent(StatusCodes.NO_NETWORK));
+      return;
+    }
+    RestService restService = ServiceGenerator.createService(RestService.class);
+
+    Call<String> call = restService.verifyCode(new VerifyCodeRequest(phone,code));
+
+    call.enqueue(new Callback<String>() {
+      @Override
+      public void onResponse(Call<String> call, Response<String> response) {
+        if (response.isSuccessful()) {
+          EventBus.getDefault().post(new ActionEvent(StatusCodes.SUCCESS));
+        } else {
+          EventBus.getDefault().post(new ErrorEvent(StatusCodes.SERVER_ERROR));
+        }
+      }
+
+      @Override
+      public void onFailure(Call<String> call, Throwable t) {
         EventBus.getDefault().post(new ErrorEvent(StatusCodes.NETWORK_ERROR));
       }
     });

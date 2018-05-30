@@ -5,21 +5,26 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.support.v7.app.AppCompatActivity;
-import android.text.Editable;
 import android.text.TextUtils;
-import android.text.TextWatcher;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import app.arash.androidcore.R;
+import app.arash.androidcore.data.constant.StatusCodes;
+import app.arash.androidcore.data.event.ActionEvent;
+import app.arash.androidcore.data.event.Event;
+import app.arash.androidcore.service.VideoService;
 import app.arash.androidcore.util.Constants;
+import app.arash.androidcore.util.DialogUtil;
 import app.arash.androidcore.util.NumberUtil;
 import app.arash.androidcore.util.PreferenceHelper;
+import app.arash.androidcore.util.ToastUtil;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import java.util.Locale;
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 public class CodeActivity extends AppCompatActivity {
@@ -28,108 +33,107 @@ public class CodeActivity extends AppCompatActivity {
   EditText codeEdt;
   @BindView(R.id.error_tv)
   TextView errorTv;
+  @BindView(R.id.timer_tv)
+  TextView timerTv;
   @BindView(R.id.resend_tv)
   TextView resendTv;
-  @BindView(R.id.resend_btn)
-  Button resendBtn;
-  @BindView(R.id.desc_tv)
-  TextView descTv;
+  @BindView(R.id.title)
+  TextView title;
 
-  private String phoneNumber;
+  private VideoService videoService;
+  private String mobile;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_code);
     ButterKnife.bind(this);
-    getIntentData();
+    videoService = new VideoService();
     countDown();
-    codeEditTextWatcher();
   }
-
-  private void getIntentData() {
-    if (!TextUtils.isEmpty(getIntent().getExtras().getString(Constants.PHONE_NUMBER))) {
-      phoneNumber = getIntent().getExtras().getString(Constants.PHONE_NUMBER);
-      descTv.setText(NumberUtil
-          .digitsToPersian(String.format(getString(R.string.code_sent_to_numer_x), phoneNumber)));
-    }
-  }
-
-  /**
-   * set the count down for the text below edit text
-   */
 
   private void countDown() {
-    resendBtn.setVisibility(View.GONE);
-    resendTv.setVisibility(View.VISIBLE);
+    resendTv.setVisibility(View.GONE);
+    timerTv.setVisibility(View.VISIBLE);
     new CountDownTimer(Constants.SMS_WAITING_TOTAL, Constants.INTERVAL) {
       public void onTick(long millisUntilFinished) {
         int minuteLeft = (int) (millisUntilFinished / 60000);
         int secondLeft = (int) ((millisUntilFinished - minuteLeft * 60000) / Constants.INTERVAL);
         String leftTime = String.format(Locale.US, "%02d:%02d", minuteLeft, secondLeft);
-        resendTv.setText(NumberUtil
-            .digitsToPersian(String.format("%s%s", getString(R.string.retry_code_in), leftTime)));
+        timerTv.setText(NumberUtil
+            .digitsToPersian(String.format("%s %s", getString(R.string.retry_code_in), leftTime)));
       }
 
       public void onFinish() {
-        resendBtn.setVisibility(View.VISIBLE);
-        resendTv.setVisibility(View.GONE);
+        resendTv.setVisibility(View.VISIBLE);
+        timerTv.setVisibility(View.GONE);
       }
 
     }.start();
   }
 
-  /**
-   * on text changed show/hide submit button
-   */
-
-  private void codeEditTextWatcher() {
-    codeEdt.addTextChangedListener(new TextWatcher() {
-      @Override
-      public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-      }
-
-      @Override
-      public void onTextChanged(CharSequence s, int start, int before, int count) {
-        if (s.length() == 3) {
-          errorTv.setVisibility(View.VISIBLE);
-          codeEdt.setBackgroundResource(R.drawable.edit_text_line_error);
-        } else if (s.length() == 4) {
-          PreferenceHelper.setPhoneNumber(phoneNumber);
-          PreferenceHelper.setSeenIntro(true);
-          Intent intent = new Intent(CodeActivity.this, MainActivity.class);
-          intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP
-              | Intent.FLAG_ACTIVITY_SINGLE_TOP);
-          startActivity(intent);
-          finishAffinity();
-        } else {
-          errorTv.setVisibility(View.GONE);
-          codeEdt.setBackgroundResource(R.drawable.edit_text_line_focus);
-        }
-      }
-
-      @Override
-      public void afterTextChanged(Editable s) {
-
-      }
-    });
+  private boolean isValid() {
+    if (TextUtils.isEmpty(codeEdt.getText().toString().trim())
+        || codeEdt.getText().toString().length() != 4) {
+      errorTv.setVisibility(View.VISIBLE);
+      codeEdt.setBackgroundResource(R.drawable.edit_text_line_error);
+      return false;
+    }
+    return true;
   }
 
-  @OnClick({R.id.back_img, R.id.resend_btn})
+  @OnClick({R.id.back_btn, R.id.resend_tv, R.id.next_btn})
   public void onViewClicked(View view) {
     switch (view.getId()) {
-      case R.id.back_img:
+      case R.id.back_btn:
         onBackPressed();
         break;
-      case R.id.resend_btn:
+      case R.id.resend_tv:
         countDown();
+        videoService.sendSms(PreferenceHelper.getPhoneNumber());
+        break;
+      case R.id.next_btn:
+        if (isValid()) {
+          DialogUtil.showProgressDialog(this, getString(R.string.message_please_wait));
+          videoService
+              .verifyCode(PreferenceHelper.getPhoneNumber(), codeEdt.getText().toString().trim());
+        }
         break;
     }
   }
 
   @Override
+  protected void onPause() {
+    super.onPause();
+    EventBus.getDefault().unregister(this);
+    DialogUtil.dismissProgressDialog();
+  }
+
+  @Override
+  protected void onResume() {
+    super.onResume();
+    EventBus.getDefault().register(this);
+  }
+
+  @Override
   protected void attachBaseContext(Context newBase) {
     super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
+  }
+
+  @Subscribe
+  public void getMessage(Event event) {
+    DialogUtil.dismissProgressDialog();
+    if (event instanceof ActionEvent) {
+      PreferenceHelper.setLogIn(true);
+      Intent intent = new Intent(this, MainActivity.class);
+      startActivity(intent);
+      finishAffinity();
+    } else {
+      if (event.getStatusCode() == StatusCodes.NO_NETWORK) {
+        ToastUtil.toastError(this, R.string.error_no_network);
+      } else {
+        ToastUtil.toastError(this, getString(R.string.entered_code_in_wrong));
+      }
+    }
   }
 }

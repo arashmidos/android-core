@@ -13,6 +13,7 @@ public class PreferenceHelper {
   private static final String HAS_SEEN = "HAS_SEEN";
   private static final String PHONE_NUMBER = "PHONE_NUMBER";
   private static final String RECENT_SEARCH = "RECENT_SEARCH";
+  private static final String HAS_LOGGED_IN = "HAS_LOGGED_IN";
 
   public static void setSeenIntro(boolean hasSeen) {
     MedicApplication.getPreference().edit().putBoolean(HAS_SEEN, hasSeen).apply();
@@ -20,6 +21,14 @@ public class PreferenceHelper {
 
   public static boolean hasSeenIntro() {
     return MedicApplication.getPreference().getBoolean(HAS_SEEN, false);
+  }
+
+  public static void setLogIn(boolean hasLoggedIn) {
+    MedicApplication.getPreference().edit().putBoolean(HAS_LOGGED_IN, hasLoggedIn).apply();
+  }
+
+  public static boolean hasLoggedIn() {
+    return MedicApplication.getPreference().getBoolean(HAS_LOGGED_IN, false);
   }
 
   public static String getPhoneNumber() {

@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:tools="http://schemas.android.com/tools"
+  android:layout_width="match_parent"
+  android:layout_height="match_parent"
+  android:background="@color/white"
+  android:orientation="vertical"
+  android:id="@+id/root"
+  tools:context="app.arash.androidcore.ui.activity.NewPhoneActivity">
+  <TextView
+    style="@style/IranSans.Medium"
+    android:layout_width="match_parent"
+    android:layout_height="56dp"
+    android:paddingRight="32dp"
+    android:background="@color/color_primary"
+    android:gravity="center|right"
+    android:text="@string/enter"
+    android:textColor="@color/white"
+    android:textSize="16sp" />
+  <TextView
+    style="@style/IranSans.Light"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="40dp"
+    android:layout_marginBottom="47dp"
+    android:layout_marginLeft="36dp"
+    android:layout_marginRight="36dp"
+    android:gravity="center"
+    android:text="@string/enter_desc"
+    android:textColor="@color/black_21"
+    android:textSize="14sp" />
+  <RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center">
+    <EditText
+      android:id="@+id/phone_edt"
+      style="@style/IranSans"
+      android:layout_width="220dp"
+      android:layout_height="wrap_content"
+      android:paddingBottom="12dp"
+      android:background="@drawable/edit_text_state_background"
+      android:gravity="left"
+      android:hint="093045806532"
+      android:inputType="phone"
+      android:textColorHint="@color/gray_e0"
+      android:textColor="@color/black_21"
+      android:textSize="20sp" />
+    <ImageView
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginLeft="16dp"
+      android:id="@+id/phone_iv"
+      android:layout_centerVertical="true"
+      android:layout_toRightOf="@id/phone_edt"
+      android:rotation="270"
+      android:src="@drawable/ic_phone" />
+  </RelativeLayout>
+  <Space
+    android:layout_width="match_parent"
+    android:layout_height="0dp"
+    android:layout_weight="1" />
+  <Button
+    android:id="@+id/submit_btn"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingTop="15dp"
+    android:paddingBottom="15dp"
+    android:background="@color/color_primary"
+    android:gravity="center"
+    android:text="@string/get_code_1"
+    android:textColor="@color/white"
+    android:textSize="16sp" />
+</LinearLayout>

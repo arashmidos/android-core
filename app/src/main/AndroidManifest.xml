@@ -70,20 +70,27 @@
     </receiver>
 
     <activity android:name=".ui.activity.TestActivity">
-      <!--<intent-filter>-->
-      <!--<action android:name="android.intent.action.MAIN" />-->
 
-      <!--<category android:name="android.intent.category.LAUNCHER" />-->
-      <!--</intent-filter>-->
+      <!-- <intent-filter> -->
+      <!-- <action android:name="android.intent.action.MAIN" /> -->
+
+
+      <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
+      <!-- </intent-filter> -->
     </activity>
     <activity
       android:name=".ui.activity.CodeActivity"
       android:screenOrientation="portrait" />
-
     <activity
       android:name=".ui.activity.PhoneActivity"
+      android:windowSoftInputMode="adjustResize"
       android:screenOrientation="portrait" />
-
+    <activity
+      android:name=".ui.activity.SplashActivity"
+      android:screenOrientation="portrait" />
+    <activity
+      android:name=".ui.activity.NewPhoneActivity"
+      android:screenOrientation="portrait" />
   </application>
 
 </manifest>

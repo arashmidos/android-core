@@ -1,65 +1,116 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-  xmlns:app="http://schemas.android.com/apk/res-auto"
-  xmlns:tools="http://schemas.android.com/tools"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
   android:layout_width="match_parent"
   android:layout_height="match_parent"
-  android:background="@color/colorPrimaryDark">
-
+  android:background="@color/white"
+  android:orientation="vertical">
+  <LinearLayout
+    android:id="@+id/toolbar"
+    android:layout_width="match_parent"
+    android:layout_height="?attr/actionBarSize"
+    android:background="@color/color_primary"
+    android:elevation="5dp"
+    android:orientation="horizontal">
+    <TextView
+      android:id="@+id/title"
+      style="@style/IranSans.Medium"
+      android:layout_width="0dp"
+      android:layout_height="match_parent"
+      android:layout_weight="1"
+      android:layout_marginEnd="16dp"
+      android:layout_marginRight="16dp"
+      android:gravity="center|right"
+      android:text="@string/register_code"
+      android:textColor="@color/white"
+      android:textSize="16sp" />
+    <ImageView
+      android:id="@+id/back_btn"
+      android:layout_width="wrap_content"
+      android:layout_height="match_parent"
+      android:layout_gravity="center"
+      android:paddingLeft="16dp"
+      android:paddingRight="16dp"
+      android:src="@drawable/ic_back_24_dp" />
+  </LinearLayout>
   <TextView
-    android:id="@+id/toolbar_title"
-    style="@style/ToolbarTitle"
-    android:text="@string/enter_code"
-    app:layout_constraintLeft_toLeftOf="parent"
-    app:layout_constraintRight_toRightOf="parent"
-    app:layout_constraintTop_toTopOf="parent" />
+    style="@style/IranSans.Light"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="40dp"
+    android:layout_marginBottom="60dp"
+    android:layout_marginLeft="48dp"
+    android:layout_marginRight="48dp"
+    android:layout_gravity="center"
+    android:gravity="center"
+    android:text="@string/code_has_sent"
+    android:textColor="@color/black_21"
+    android:textSize="14sp" />
 
-  <ImageView
-    android:id="@+id/back_img"
-    style="@style/PhoneBack"
-    app:layout_constraintTop_toTopOf="parent"
-    app:layout_constraintRight_toRightOf="parent"/>
-
-  <ScrollView
+  <EditText
+    android:id="@+id/code_edt"
+    style="@style/IranSans.Light"
+    android:layout_width="250dp"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center"
+    android:paddingBottom="16dp"
+    android:background="@drawable/edit_text_state_background"
+    android:gravity="center"
+    android:hint="@string/stars"
+    android:imeOptions="actionDone"
+    android:inputType="number"
+    android:letterSpacing="0.39"
+    android:maxLength="4"
+    android:textColor="@color/black_21"
+    android:textColorHint="@color/gray_e0"
+    android:textSize="36sp" />
+  <TextView
+    android:id="@+id/error_tv"
+    style="@style/IranSans.Medium"
+    android:layout_width="250dp"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="8dp"
+    android:layout_gravity="center"
+    android:gravity="right"
+    android:text="@string/invalid_code"
+    android:textColor="@color/red_e5"
+    android:textSize="12sp"
+    android:visibility="gone" />
+  <TextView
+    android:id="@+id/timer_tv"
+    style="@style/IranSans.Medium"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="32dp"
+    android:gravity="center"
+    android:textColor="@color/gray_75"
+    android:textSize="14sp" />
+  <TextView
+    android:id="@+id/resend_tv"
+    style="@style/IranSans.Medium"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="32dp"
+    android:layout_gravity="center"
+    android:padding="8dp"
+    android:gravity="center"
+    android:text="@string/resend"
+    android:textColor="@color/color_primary"
+    android:textSize="14sp"
+    android:visibility="gone" />
+  <Space
     android:layout_width="match_parent"
     android:layout_height="0dp"
-    android:paddingBottom="16dp"
-    app:layout_constraintLeft_toLeftOf="parent"
-    app:layout_constraintRight_toRightOf="parent"
-    app:layout_constraintBottom_toBottomOf="parent"
-    app:layout_constraintTop_toBottomOf="@id/back_img">
+    android:layout_weight="1" />
+  <Button
+    android:id="@+id/next_btn"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingTop="15dp"
+    android:paddingBottom="15dp"
+    android:background="@color/color_primary"
+    android:gravity="center"
+    android:text="@string/submit"
+    android:textColor="@color/white"
+    android:textSize="16sp" />
 
-    <android.support.constraint.ConstraintLayout
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      android:layout_marginTop="32dp"
-      android:layout_marginLeft="32dp"
-      android:layout_marginRight="32dp">
-
-      <TextView
-        android:id="@+id/desc_tv"
-        style="@style/CodeDesc"
-        tools:text="کد ورود به شماره ۰۹۳۸۰۰۶۷۸۵۴ ارسال گردید" />
-
-      <EditText
-        android:id="@+id/code_edt"
-        style="@style/CodeEditText" />
-
-      <TextView
-        android:id="@+id/error_tv"
-        style="@style/CodeError"
-        android:visibility="gone" />
-      <TextView
-        android:id="@+id/resend_tv"
-        style="@style/CodeResend"
-        tools:text="امکان ارسال مجدد کد در ۱:۲۹" />
-      <Button
-        android:id="@+id/resend_btn"
-        style="@style/CodeResendBtn"
-        android:text="@string/resend_code"
-        android:visibility="visible"
-        android:layout_marginBottom="16dp"/>
-    </android.support.constraint.ConstraintLayout>
-  </ScrollView>
-
-</android.support.constraint.ConstraintLayout>
+</LinearLayout>
