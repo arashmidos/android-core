@@ -85,13 +85,11 @@ public class CodeActivity extends AppCompatActivity {
   @OnClick({R.id.back_btn, R.id.resend_tv, R.id.next_btn})
   public void onViewClicked(View view) {
     switch (view.getId()) {
-      case R.id.back_btn:
-        onBackPressed();
-        break;
       case R.id.resend_tv:
         countDown();
         videoService.sendSms(PreferenceHelper.getPhoneNumber());
         break;
+      case R.id.back_btn:
       case R.id.next_btn:
         if (isValid()) {
           DialogUtil.showProgressDialog(this, getString(R.string.message_please_wait));
@@ -124,10 +122,14 @@ public class CodeActivity extends AppCompatActivity {
   public void getMessage(Event event) {
     DialogUtil.dismissProgressDialog();
     if (event instanceof ActionEvent) {
-      PreferenceHelper.setLogIn(true);
-      Intent intent = new Intent(this, MainActivity.class);
-      startActivity(intent);
-      finishAffinity();
+      if (event.getStatusCode() == StatusCodes.SMS_SUCCESS) {
+        ToastUtil.toastMessage(this, "کد تایید با موفقیت ارسال شد");
+      } else if (event.getStatusCode() == StatusCodes.SUCCESS) {
+        PreferenceHelper.setLogIn(true);
+        Intent intent = new Intent(this, MainActivity.class);
+        startActivity(intent);
+        finishAffinity();
+      }
     } else {
       if (event.getStatusCode() == StatusCodes.NO_NETWORK) {
         ToastUtil.toastError(this, R.string.error_no_network);

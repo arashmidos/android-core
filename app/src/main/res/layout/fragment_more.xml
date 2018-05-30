@@ -6,6 +6,7 @@
   android:orientation="vertical"
   tools:context="app.arash.androidcore.ui.fragment.MoreFragment">
   <TextView
+    android:id="@+id/phone"
     style="@style/IranSans"
     android:layout_width="match_parent"
     android:layout_height="56dp"
@@ -104,8 +105,7 @@
     android:gravity="right|center"
     android:text="@string/log_out"
     android:textColor="@color/red_f4"
-    android:textSize="14sp"
-    android:visibility="gone" />
+    android:textSize="14sp" />
 
   <View
     android:layout_width="match_parent"

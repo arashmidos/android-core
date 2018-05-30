@@ -14,6 +14,9 @@ import app.arash.androidcore.ui.activity.AboutUsActivity;
 import app.arash.androidcore.ui.activity.ContactUsActivity;
 import app.arash.androidcore.ui.activity.MainActivity;
 import app.arash.androidcore.ui.activity.VideoCategoryListActivity;
+import app.arash.androidcore.util.DialogUtil;
+import app.arash.androidcore.util.NumberUtil;
+import app.arash.androidcore.util.PreferenceHelper;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -23,6 +26,8 @@ public class MoreFragment extends BaseFragment {
 
   @BindView(R.id.version_name)
   TextView versionName;
+  @BindView(R.id.phone)
+  TextView phone;
   private Unbinder unbinder;
   private MainActivity mainActivity;
 
@@ -47,7 +52,9 @@ public class MoreFragment extends BaseFragment {
   }
 
   private void setData() {
-    versionName.setText(String.format("version %s", BuildConfig.VERSION_NAME));
+    versionName
+        .setText(NumberUtil.digitsToPersian(String.format("نسخه %s", BuildConfig.VERSION_NAME)));
+    phone.setText(NumberUtil.digitsToPersian(PreferenceHelper.getPhoneNumber()));
   }
 
   @Override
@@ -70,7 +77,13 @@ public class MoreFragment extends BaseFragment {
         startActivity(new Intent(mainActivity, VideoCategoryListActivity.class));
         break;
       case R.id.log_out_tv:
-        Toast.makeText(mainActivity, "خروج", Toast.LENGTH_SHORT).show();
+        DialogUtil
+            .showCustomDialog(mainActivity, "خروج از حساب کاربری", getString(R.string.message_confirm_exit),
+                getString(R.string.exit), (dialogInterface, i) -> {
+                  PreferenceHelper.setPhoneNumber("");
+                  mainActivity.finish();
+                }, "انصراف", (dialogInterface, i) -> dialogInterface.dismiss(),
+                R.drawable.ic_info_outline_24dp);
         break;
       case R.id.upgrade_app:
         Toast.makeText(mainActivity, "ارتقا نرم افزار", Toast.LENGTH_SHORT).show();

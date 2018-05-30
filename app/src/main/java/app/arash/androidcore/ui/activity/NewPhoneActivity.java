@@ -6,9 +6,11 @@ import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
+import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 import app.arash.androidcore.R;
 import app.arash.androidcore.data.constant.StatusCodes;
 import app.arash.androidcore.data.event.ActionEvent;
@@ -33,6 +35,8 @@ public class NewPhoneActivity extends AppCompatActivity {
   LinearLayout root;
   @BindView(R.id.phone_iv)
   ImageView phoneIv;
+  @BindView(R.id.enter_button)
+  TextView enterButton;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
@@ -52,13 +56,17 @@ public class NewPhoneActivity extends AppCompatActivity {
     });
   }
 
-  @OnClick(R.id.submit_btn)
-  public void onViewClicked() {
-    if (!TextUtils.isEmpty(phoneEdt.getText().toString().trim())) {
-      DialogUtil.showProgressDialog(this, getString(R.string.message_please_wait));
-      new VideoService().sendSms(phoneEdt.getText().toString().trim());
-    } else {
-      ToastUtil.toastError(root, R.string.enter_phone_is_required);
+  @OnClick({R.id.submit_btn, R.id.enter_button})
+  public void onViewClicked(View view) {
+    switch (view.getId()) {
+      case R.id.submit_btn:
+      case R.id.enter_button:
+        if (!TextUtils.isEmpty(phoneEdt.getText().toString().trim())) {
+          DialogUtil.showProgressDialog(this, getString(R.string.message_please_wait));
+          new VideoService().sendSms(phoneEdt.getText().toString().trim());
+        } else {
+          ToastUtil.toastError(root, R.string.enter_phone_is_required);
+        }
     }
   }
 

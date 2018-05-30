@@ -94,6 +94,7 @@
   <string name="edit_visit">ویرایش وقت ویزیت</string>
   <string name="delete_visit">حذف وقت ویزیت</string>
   <string name="message_confirm_delete_doctor">آیا از حذف پزشک اطمینان دارید؟</string>
+  <string name="message_confirm_exit">آیا میخواهید از حساب کاربری خود خارج شوید؟</string>
   <string name="delete">حذف</string>
   <string name="register_weight_title">ثبت وزن</string>
   <string name="new_weight">وزن جدید</string>
@@ -126,6 +127,7 @@
   <string name="drug_reminder">یادآوری مصرف دارو</string>
   <string name="search_in_drugs">جستجو در داروها</string>
   <string name="exit_text">برای خروج دوباره دکمه بازگشت را لمس کنید</string>
+  <string name="exit">خروج</string>
   <string name="number_of_use_each_time">تعداد مصرف در وعده</string>
   <string name="one_item">۱ عدد</string>
   <string name="two_item">۲ عدد</string>
@@ -188,7 +190,7 @@
   <string name="enter_desc">برای دریافت کد از طریق پیامک، شماره ی خود را وارد نمائید.</string>
   <string name="get_code_1">دریافت کد</string>
   <string name="error_in_connecting_to_server">خطا در ارتباط با سرور</string>
-  <string name="entered_code_in_wrong">کد وارد شده غلط می باشد</string>
+  <string name="entered_code_in_wrong">کد وارد شده صحیح نیست</string>
 
 
 </resources>

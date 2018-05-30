@@ -69,7 +69,7 @@ public class VideoService {
       @Override
       public void onResponse(Call<String> call, Response<String> response) {
         if (response.code() == 204) {
-          EventBus.getDefault().post(new ActionEvent(StatusCodes.SUCCESS));
+          EventBus.getDefault().post(new ActionEvent(StatusCodes.SMS_SUCCESS));
         } else {
           EventBus.getDefault().post(new ErrorEvent(StatusCodes.SERVER_ERROR));
         }

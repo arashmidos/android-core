@@ -47,13 +47,6 @@ public class PreferenceHelper {
     MedicApplication.getPreference().edit().putInt(LATEST_VERSION, latestVersion).apply();
   }
 
-  public static int isSetIntro() {
-    return MedicApplication.getPreference().getInt(SHOW_INTRO, 0);
-  }
-
-  public static void setIntro(int intro) {
-    MedicApplication.getPreference().edit().putInt(SHOW_INTRO, intro).apply();
-  }
 
   public static boolean isForceExit() {
     return MedicApplication.getPreference().getBoolean(FORCE_EXIT, false);
