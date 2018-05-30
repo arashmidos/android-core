@@ -8,6 +8,7 @@ import android.support.v7.app.AppCompatActivity;
 import app.arash.androidcore.R;
 import app.arash.androidcore.ui.adapter.IntroPagerAdapter;
 import app.arash.androidcore.util.DepthPageTransformer;
+import app.arash.androidcore.util.Empty;
 import app.arash.androidcore.util.PreferenceHelper;
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -27,8 +28,14 @@ public class IntroActivity extends AppCompatActivity {
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
+    Intent intent;
     if (PreferenceHelper.isSetIntro() == 1) {
-      onClick();
+      if (Empty.isEmpty(PreferenceHelper.getPhoneNumber())) {
+        intent = new Intent(this, PhoneActivity.class);
+      } else {
+        intent = new Intent(this, MainActivity.class);
+      }
+//      onClick();
       finish();
     } else {
       setContentView(R.layout.activity_intro);
@@ -68,7 +75,7 @@ public class IntroActivity extends AppCompatActivity {
   @OnClick(R.id.enter_tv)
   public void onClick() {
     PreferenceHelper.setIntro(1);
-    Intent intent = new Intent(this, MainActivity.class);
+    Intent intent = new Intent(this, PhoneActivity.class);
     intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
     startActivity(intent);
     finish();

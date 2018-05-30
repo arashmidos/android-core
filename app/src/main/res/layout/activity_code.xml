@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
+  xmlns:tools="http://schemas.android.com/tools"
+  android:layout_width="match_parent"
+  android:layout_height="match_parent"
+  android:background="@color/colorPrimaryDark">
+
+  <TextView
+    android:id="@+id/toolbar_title"
+    style="@style/ToolbarTitle"
+    android:text="@string/enter_code"
+    app:layout_constraintLeft_toLeftOf="parent"
+    app:layout_constraintRight_toRightOf="parent"
+    app:layout_constraintTop_toTopOf="parent" />
+
+  <ImageView
+    android:id="@+id/back_img"
+    style="@style/PhoneBack"
+    app:layout_constraintTop_toTopOf="parent"
+    app:layout_constraintRight_toRightOf="parent"/>
+
+  <ScrollView
+    android:layout_width="match_parent"
+    android:layout_height="0dp"
+    android:paddingBottom="16dp"
+    app:layout_constraintLeft_toLeftOf="parent"
+    app:layout_constraintRight_toRightOf="parent"
+    app:layout_constraintBottom_toBottomOf="parent"
+    app:layout_constraintTop_toBottomOf="@id/back_img">
+
+    <android.support.constraint.ConstraintLayout
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="32dp"
+      android:layout_marginLeft="32dp"
+      android:layout_marginRight="32dp">
+
+      <TextView
+        android:id="@+id/desc_tv"
+        style="@style/CodeDesc"
+        tools:text="کد ورود به شماره ۰۹۳۸۰۰۶۷۸۵۴ ارسال گردید" />
+
+      <EditText
+        android:id="@+id/code_edt"
+        style="@style/CodeEditText" />
+
+      <TextView
+        android:id="@+id/error_tv"
+        style="@style/CodeError"
+        android:visibility="gone" />
+      <TextView
+        android:id="@+id/resend_tv"
+        style="@style/CodeResend"
+        tools:text="امکان ارسال مجدد کد در ۱:۲۹" />
+      <Button
+        android:id="@+id/resend_btn"
+        style="@style/CodeResendBtn"
+        android:text="@string/resend_code"
+        android:visibility="visible"
+        android:layout_marginBottom="16dp"/>
+    </android.support.constraint.ConstraintLayout>
+  </ScrollView>
+
+</android.support.constraint.ConstraintLayout>

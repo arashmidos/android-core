@@ -4,7 +4,6 @@
   xmlns:tools="http://schemas.android.com/tools"
   android:layout_width="match_parent"
   android:layout_height="match_parent"
-  xmlns:app="http://schemas.android.com/apk/res-auto"
   android:orientation="vertical"
   tools:context="app.arash.androidcore.ui.activity.VideoCategoryListActivity">
   <LinearLayout
@@ -47,9 +46,8 @@
     android:id="@+id/video_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-    <com.google.android.exoplayer2.ui.SimpleExoPlayerView
+    <VideoView
       android:id="@+id/video_view"
-      app:controller_layout_id="@layout/custom_audio_control"
       android:layout_width="match_parent"
       android:layout_height="match_parent"
       android:layout_gravity="center" />

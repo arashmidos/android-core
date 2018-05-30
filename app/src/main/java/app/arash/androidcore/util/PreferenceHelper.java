@@ -10,6 +10,25 @@ public class PreferenceHelper {
   private static final String LATEST_VERSION = "LATEST_VERSION";
   private static final String UPDATE_URI = "UPDATE_URI";
   private static final String SHOW_INTRO = "SHOW_INTRO";
+  private static final String HAS_SEEN = "HAS_SEEN";
+  private static final String PHONE_NUMBER = "PHONE_NUMBER";
+  private static final String RECENT_SEARCH = "RECENT_SEARCH";
+
+  public static void setSeenIntro(boolean hasSeen) {
+    MedicApplication.getPreference().edit().putBoolean(HAS_SEEN, hasSeen).apply();
+  }
+
+  public static boolean hasSeenIntro() {
+    return MedicApplication.getPreference().getBoolean(HAS_SEEN, false);
+  }
+
+  public static String getPhoneNumber() {
+    return MedicApplication.getPreference().getString(PHONE_NUMBER, "");
+  }
+
+  public static void setPhoneNumber(String phoneNumber) {
+    MedicApplication.getPreference().edit().putString(PHONE_NUMBER, phoneNumber).apply();
+  }
 
   public static int getLatestVersion() {
     return MedicApplication.getPreference().getInt(LATEST_VERSION, 0);

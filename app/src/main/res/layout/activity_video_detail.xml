@@ -4,7 +4,6 @@
   xmlns:tools="http://schemas.android.com/tools"
   android:layout_width="match_parent"
   android:layout_height="wrap_content"
-  xmlns:app="http://schemas.android.com/apk/res-auto"
   android:orientation="vertical"
   tools:context="app.arash.androidcore.ui.activity.VideoCategoryListActivity">
   <LinearLayout
@@ -55,20 +54,17 @@
         android:id="@+id/video_layout"
         android:layout_width="match_parent"
         android:layout_height="200dp">
-        <com.google.android.exoplayer2.ui.SimpleExoPlayerView
+        <VideoView
           android:id="@+id/video_view"
           android:layout_gravity="center"
-          app:controller_layout_id="@layout/custom_audio_control"
           android:layout_width="match_parent"
           android:layout_height="match_parent" />
         <RelativeLayout
-          tools:visibility="gone"
           android:id="@+id/preview_layout"
           android:layout_width="match_parent"
           android:layout_height="match_parent"
           android:orientation="vertical">
           <ImageView
-            tools:visibility="gone"
             android:id="@+id/image_preview"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -79,7 +75,6 @@
             android:layout_height="match_parent"
             android:background="#4d000000" />
           <ImageView
-            tools:visibility="gone"
             android:id="@+id/image_play"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

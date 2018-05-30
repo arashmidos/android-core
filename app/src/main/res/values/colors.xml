@@ -80,6 +80,7 @@
   <color name="black_85">#d9000000</color>
   <color name="black_10">#1a000000</color>
   <color name="black_21">#212121</color>
+  <color name="green_primary">#03a9f4</color>
 
   <color name="register_order">#558b2f</color>
   <color name="register_payment">#009688</color>

@@ -70,7 +70,7 @@ public class ServiceGenerator {
       httpClient.addInterceptor(logging);
     }
 
-    String baseUrl = "http://behrooyanclinic.com:8087";
+    String baseUrl = "http://91.121.179.217:8087";
 //    if (Empty.isEmpty(baseUrl)) {
 //      baseUrl = "http://www.google.com";
 //    }

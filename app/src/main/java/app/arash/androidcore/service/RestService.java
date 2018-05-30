@@ -19,7 +19,5 @@ public interface RestService {
   @GET("video_list")
   Call<List<Video>> getVideoList(@Query("category_id") Integer categoryId,
       @Query("count") Integer count);
-
-
 }
 

@@ -25,7 +25,14 @@
     <item name="colorAccent">@color/color_primary</item>
     <item name="fontPath">fonts/IRANSansMobile.ttf</item>
   </style>
-
+  <style name="PhoneBack">
+    <item name="android:layout_width">wrap_content</item>
+    <item name="android:layout_height">48dp</item>
+    <item name="android:paddingLeft">16dp</item>
+    <item name="android:paddingRight">16dp</item>
+    <item name="android:tint">@color/white</item>
+    <item name="android:src">@drawable/ic_back_24_dp</item>
+  </style>
   <!--fonts-->
   <style name="IranSans">
     <item name="fontPath">fonts/IRANSansMobile.ttf</item>
@@ -46,10 +53,128 @@
   <style name="IranSans.Ultra">
     <item name="fontPath">fonts/IRANSansMobile_UltraLight.ttf</item>
   </style>
-
+  <style name="ToolbarTitle">
+    <item name="android:layout_width">match_parent</item>
+    <item name="android:layout_height">48dp</item>
+    <item name="android:paddingLeft">16dp</item>
+    <item name="android:background">@color/red</item>
+    <item name="android:gravity">center</item>
+    <item name="android:textSize">16sp</item>
+    <item name="fontPath">fonts/IRANSansMobile_Bold.ttf</item>
+    <item name="android:textColor">@color/white</item>
+  </style>
 
   <style name="menu_labels_style">
     <item name="android:background">@drawable/fab_label_background</item>
     <item name="android:textColor">@color/black</item>
   </style>
+
+  <style name="PhoneDesc">
+    <item name="android:layout_width">match_parent</item>
+    <item name="android:layout_height">wrap_content</item>
+    <item name="android:textColor">@color/white</item>
+    <item name="android:textSize">14sp</item>
+    <item name="android:layout_marginBottom">32dp</item>
+    <item name="fontPath">fonts/IRANSansMobile_Light.ttf</item>
+    <item name="android:gravity">center</item>
+  </style>
+
+  <style name="PhoneImage">
+    <item name="android:layout_width">wrap_content</item>
+    <item name="android:layout_height">wrap_content</item>
+    <item name="android:src">@drawable/ic_phone_42_dp</item>
+    <item name="android:layout_marginTop">32dp</item>
+    <item name="android:rotation">270</item>
+    <item name="android:layout_marginBottom">32dp</item>
+    <item name="layout_constraintRight_toRightOf">parent</item>
+    <item name="layout_constraintTop_toBottomOf">@id/desc_tv</item>
+  </style>
+
+  <style name="PhoneEditText">
+    <item name="android:layout_width">0dp</item>
+    <item name="android:layout_height">wrap_content</item>
+    <item name="android:layout_marginTop">32dp</item>
+    <item name="android:layout_marginRight">16dp</item>
+    <item name="android:layout_marginEnd">16dp</item>
+    <item name="android:paddingBottom">9dp</item>
+    <item name="android:background">@drawable/edit_text_state_background</item>
+    <item name="android:gravity">center|right</item>
+    <item name="android:hint">@string/mobile_number</item>
+    <item name="android:imeOptions">actionDone</item>
+    <item name="android:inputType">phone</item>
+    <item name="android:textColor">@color/white</item>
+    <item name="android:textColorHint">@color/gray_75</item>
+    <item name="android:textSize">14sp</item>
+    <item name="fontPath">fonts/IRANSansMobile.ttf</item>
+    <item name="layout_constraintLeft_toLeftOf">parent</item>
+    <item name="layout_constraintRight_toLeftOf">@id/phone_iv</item>
+    <item name="layout_constraintTop_toBottomOf">@id/desc_tv</item>
+  </style>
+
+  <style name="IntroButton">
+    <item name="android:layout_width">match_parent</item>
+    <item name="android:layout_height">wrap_content</item>
+    <item name="android:paddingTop">12dp</item>
+    <item name="android:paddingBottom">12dp</item>
+    <item name="android:gravity">center</item>
+    <item name="android:textColor">@color/white</item>
+    <item name="android:textSize">14sp</item>
+    <item name="fontPath">fonts/IRANSansMobile_Medium.ttf</item>
+    <item name="android:layout_margin">16dp</item>
+    <item name="android:background">@drawable/intro_btn_bg</item>
+  </style>
+
+  <style name="CodeResendBtn">
+    <item name="android:layout_height">wrap_content</item>
+    <item name="android:layout_width">wrap_content</item>
+    <item name="android:layout_marginTop">40dp</item>
+    <item name="android:includeFontPadding">false</item>
+    <item name="android:gravity">center</item>
+    <item name="android:paddingTop">8dp</item>
+    <item name="android:paddingBottom">8dp</item>
+    <item name="android:paddingLeft">16dp</item>
+    <item name="android:paddingRight">16dp</item>
+    <item name="android:background">@drawable/resend_bg</item>
+    <item name="android:elevation">4dp</item>
+    <item name="android:textColor">@color/black_21</item>
+    <item name="android:textSize">12sp</item>
+    <item name="fontPath">fonts/IRANSansMobile_Medium.ttf</item>
+    <item name="layout_constraintLeft_toLeftOf">parent</item>
+    <item name="layout_constraintRight_toRightOf">parent</item>
+    <item name="layout_constraintTop_toBottomOf">@id/code_edt</item>
+    <item name="layout_constraintBottom_toBottomOf">parent</item>
+  </style>
+
+  <style name="CodeDesc" parent="PhoneDesc">
+    <item name="android:textColor">@color/green_primary</item>
+    <item name="fontPath">fonts/IRANSansMobile_Bold.ttf</item>
+  </style>
+
+  <style name="CodeError">
+    <item name="android:layout_height">wrap_content</item>
+    <item name="android:layout_width">match_parent</item>
+    <item name="android:textColor">@color/red</item>
+    <item name="android:text">@string/please_enter_code</item>
+    <item name="android:gravity">center</item>
+    <item name="android:layout_marginTop">8dp</item>
+    <item name="android:textSize">10sp</item>
+    <item name="fontPath">fonts/IRANSansMobile.ttf</item>
+    <item name="layout_constraintLeft_toLeftOf">parent</item>
+    <item name="layout_constraintRight_toRightOf">parent</item>
+    <item name="layout_constraintTop_toBottomOf">@id/code_edt</item>
+  </style>
+
+  <style name="CodeResend">
+    <item name="android:layout_height">wrap_content</item>
+    <item name="android:layout_width">match_parent</item>
+    <item name="android:textColor">@color/gray_75</item>
+    <item name="android:gravity">center</item>
+    <item name="android:layout_marginTop">62dp</item>
+    <item name="android:textSize">12sp</item>
+    <item name="fontPath">fonts/IRANSansMobile.ttf</item>
+    <item name="layout_constraintLeft_toLeftOf">parent</item>
+    <item name="layout_constraintRight_toRightOf">parent</item>
+    <item name="layout_constraintTop_toBottomOf">@id/code_edt</item>
+  </style>
+
 </resources>

@@ -31,9 +31,7 @@ public enum StatusCodes {
   ACTION_START_CAMERA(904),
   ACTION_REFRESH_DATA(905),
   ACTION_FINISH_TRANSFER(906),
-  ACTION_CANCEL_TRANSFER(907),
-  ACTION_PLAYER_FAILED(908);
-
+  ACTION_CANCEL_TRANSFER(907);
 
   private int statusCode;
   private int message;
