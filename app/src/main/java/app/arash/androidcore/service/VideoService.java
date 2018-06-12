@@ -96,8 +96,9 @@ public class VideoService {
     }
     RestService restService = ServiceGenerator.createService(RestService.class);
 //TODO:
-//    Call<String> call = restService.verifyCode(new VerifyCodeRequest(phone,code));
-    Call<TokenResponse> call = restService.testGetToken(new VerifyCodeRequest(phone, code));
+//    phone = phone.replace("0", "1");
+    Call<TokenResponse> call = restService.verifyCode(new VerifyCodeRequest(phone,code));
+//    Call<TokenResponse> call = restService.testGetToken(new VerifyCodeRequest(phone, code));
 
     call.enqueue(new Callback<TokenResponse>() {
       @Override
