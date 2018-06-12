@@ -26,12 +26,14 @@ import app.arash.androidcore.data.entity.FabChangedEvent;
 import app.arash.androidcore.data.entity.FabChangedEvent.FabStatus;
 import app.arash.androidcore.data.entity.RefreshEvent;
 import app.arash.androidcore.data.entity.Video;
+import app.arash.androidcore.data.event.ErrorEvent;
 import app.arash.androidcore.data.event.VideoEvent;
 import app.arash.androidcore.data.impl.DoctorDaoImpl;
 import app.arash.androidcore.data.impl.DoctorVisitDaoImpl;
 import app.arash.androidcore.data.impl.DrugAlarmDaoImpl;
 import app.arash.androidcore.service.VideoService;
 import app.arash.androidcore.ui.activity.MainActivity;
+import app.arash.androidcore.ui.activity.NewPhoneActivity;
 import app.arash.androidcore.ui.activity.NewVisitActivity;
 import app.arash.androidcore.ui.activity.VideoCategoryListActivity;
 import app.arash.androidcore.ui.activity.VideoDetailActivity;
@@ -44,6 +46,7 @@ import app.arash.androidcore.ui.fragment.dialog.MeasureListDialogFragment;
 import app.arash.androidcore.ui.fragment.dialog.NewDoctorDialogFragment;
 import app.arash.androidcore.util.DateUtil;
 import app.arash.androidcore.util.NumberUtil;
+import app.arash.androidcore.util.PreferenceHelper;
 import app.arash.androidcore.util.ToastUtil;
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -324,6 +327,30 @@ public class HomeFragment extends BaseFragment {
     setUpVisitRecyclerView();
   }
 
+  @Subscribe
+  public void getMessage(ErrorEvent event) {
+    switch (event.getStatusCode()) {
+      case NO_NETWORK:
+        ToastUtil.toastError(mainActivity, R.string.error_no_network);
+        break;
+      case AUTHENTICATE_ERROR:
+        ToastUtil.toastError(mainActivity, getString(R.string.credit_low));
+        Intent intent = new Intent(mainActivity, NewPhoneActivity.class);
+        PreferenceHelper.setToken("");
+        startActivity(intent);
+        mainActivity.finish();
+        break;
+      case NETWORK_ERROR:
+        ToastUtil.toastError(mainActivity, getString(R.string.error_in_connecting_to_server));
+        break;
+      case NO_DATA_ERROR:
+        ToastUtil.toastError(mainActivity, getString(R.string.no_data_found));
+        break;
+      case SERVER_ERROR:
+        ToastUtil.toastError(mainActivity, getString(R.string.error_server));
+        break;
+    }
+  }
   @Subscribe
   public void getMessage(VideoEvent event) {
     setupVideoRecycler(event.getVideoList());

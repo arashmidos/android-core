@@ -4,13 +4,16 @@ import app.arash.androidcore.MedicApplication;
 import app.arash.androidcore.data.constant.StatusCodes;
 import app.arash.androidcore.data.entity.Category;
 import app.arash.androidcore.data.entity.SendSmsRequest;
+import app.arash.androidcore.data.entity.TokenResponse;
 import app.arash.androidcore.data.entity.VerifyCodeRequest;
 import app.arash.androidcore.data.entity.Video;
 import app.arash.androidcore.data.event.ActionEvent;
 import app.arash.androidcore.data.event.CategoryEvent;
 import app.arash.androidcore.data.event.ErrorEvent;
 import app.arash.androidcore.data.event.VideoEvent;
+import app.arash.androidcore.util.Empty;
 import app.arash.androidcore.util.NetworkUtil;
+import app.arash.androidcore.util.PreferenceHelper;
 import java.util.List;
 import org.greenrobot.eventbus.EventBus;
 import retrofit2.Call;
@@ -45,7 +48,11 @@ public class VideoService {
             EventBus.getDefault().post(new ErrorEvent(StatusCodes.NO_DATA_ERROR));
           }
         } else {
-          EventBus.getDefault().post(new ErrorEvent(StatusCodes.SERVER_ERROR));
+          if (response.code() == 401 || response.code() == 403) {
+            EventBus.getDefault().post(new ErrorEvent(StatusCodes.AUTHENTICATE_ERROR));
+          } else {
+            EventBus.getDefault().post(new ErrorEvent(StatusCodes.SERVER_ERROR));
+          }
         }
       }
 
@@ -82,27 +89,35 @@ public class VideoService {
     });
   }
 
-  public void verifyCode(String phone,String code) {
+  public void verifyCode(String phone, String code) {
     if (!NetworkUtil.isNetworkAvailable(MedicApplication.getInstance())) {
       EventBus.getDefault().post(new ErrorEvent(StatusCodes.NO_NETWORK));
       return;
     }
     RestService restService = ServiceGenerator.createService(RestService.class);
+//TODO:
+//    Call<String> call = restService.verifyCode(new VerifyCodeRequest(phone,code));
+    Call<TokenResponse> call = restService.testGetToken(new VerifyCodeRequest(phone, code));
 
-    Call<String> call = restService.verifyCode(new VerifyCodeRequest(phone,code));
-
-    call.enqueue(new Callback<String>() {
+    call.enqueue(new Callback<TokenResponse>() {
       @Override
-      public void onResponse(Call<String> call, Response<String> response) {
+      public void onResponse(Call<TokenResponse> call, Response<TokenResponse> response) {
         if (response.isSuccessful()) {
-          EventBus.getDefault().post(new ActionEvent(StatusCodes.SUCCESS));
+          TokenResponse tokenResponse = response.body();
+          String accessToken = tokenResponse.getAccessToken();
+          if (Empty.isNotEmpty(accessToken)) {
+            PreferenceHelper.setToken(accessToken);
+            EventBus.getDefault().post(new ActionEvent(StatusCodes.SUCCESS));
+          } else {
+            EventBus.getDefault().post(new ErrorEvent(StatusCodes.AUTHENTICATE_ERROR));
+          }
         } else {
           EventBus.getDefault().post(new ErrorEvent(StatusCodes.SERVER_ERROR));
         }
       }
 
       @Override
-      public void onFailure(Call<String> call, Throwable t) {
+      public void onFailure(Call<TokenResponse> call, Throwable t) {
         EventBus.getDefault().post(new ErrorEvent(StatusCodes.NETWORK_ERROR));
       }
     });
@@ -133,7 +148,11 @@ public class VideoService {
             EventBus.getDefault().post(new ErrorEvent(StatusCodes.NO_DATA_ERROR));
           }
         } else {
-          EventBus.getDefault().post(new ErrorEvent(StatusCodes.SERVER_ERROR));
+          if (response.code() == 401 || response.code() == 403) {
+            EventBus.getDefault().post(new ErrorEvent(StatusCodes.AUTHENTICATE_ERROR));
+          } else {
+            EventBus.getDefault().post(new ErrorEvent(StatusCodes.SERVER_ERROR));
+          }
         }
       }
 

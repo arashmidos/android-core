@@ -115,18 +115,18 @@ public class ServiceGenerator {
     public Response intercept(Chain chain) throws IOException {
       Request original = chain.request();
 
-//      String encodedRequest = original.url().toString();
+      String encodedRequest = original.url().toString();
 //      encodedRequest = encodedRequest.replace("|", "%7c");
 //
-//      Request.Builder builder;
-      /*if (Empty.isEmpty(authToken)) {
+     Request.Builder builder;
+      if (Empty.isEmpty(authToken)) {
         String token = PreferenceHelper.getToken();
         builder = original.newBuilder().addHeader("Authorization", "Bearer " + token);
       } else {
         builder = original.newBuilder().header("Authorization", authToken);
-      }*/
-//      Request request = builder.url(encodedRequest).build();
-      return chain.proceed(original);
+      }
+      Request request = builder.url(encodedRequest).build();
+      return chain.proceed(request);
 
     }
   }

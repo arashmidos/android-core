@@ -30,13 +30,12 @@ public class IntroActivity extends AppCompatActivity {
     super.onCreate(savedInstanceState);
     Intent intent;
     if (PreferenceHelper.hasSeenIntro()) {
-      if (Empty.isEmpty(PreferenceHelper.getPhoneNumber())) {
+      if (Empty.isEmpty(PreferenceHelper.getPhoneNumber()) || Empty.isEmpty(PreferenceHelper.getToken())) {
         intent = new Intent(this, NewPhoneActivity.class);
       } else {
         intent = new Intent(this, MainActivity.class);
       }
       startActivity(intent);
-//      onClick();
       finish();
     } else {
       setContentView(R.layout.activity_intro);

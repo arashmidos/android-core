@@ -170,7 +170,7 @@
   <string name="video">ویدیو</string>
   <string name="mobile_number">شماره تلفن همراه</string>
   <string name="error_no_network">خطا در اتصال به اینترنت</string>
-  <string name="error_connect_to_server">خطا در ارتباط با سرور</string>
+  <string name="error_server">خطا در سرور</string>
   <string name="enter_phone_description">برای وارد شدن به برنامه،‌لطفا شماره تلفن همراه خود را وارد نمایید تا کد ورود برای شما ارسال گردد</string>
   <string name="get_code">دریافت کد ورود</string>
   <string name="please_enter_valid_number">لطفا شماره معتبر وارد کنید!</string>
@@ -191,6 +191,12 @@
   <string name="get_code_1">دریافت کد</string>
   <string name="error_in_connecting_to_server">خطا در ارتباط با سرور</string>
   <string name="entered_code_in_wrong">کد وارد شده صحیح نیست</string>
+  <string name="credit_low">اعتبار شما کافی نیست</string>
+  <string name="cancel">انصراف</string>
+  <string name="logout_account">خروج از حساب کاربری</string>
+  <string name="no_data_found">هیچ اطلاعاتی یافت نشد</string>
+  <string name="getting_video_list">در حال دریافت لیست ویدیو ها</string>
+  <string name="getting_video_detail">در حال دریافت اطلاعات ویدیو</string>
 
 
 </resources>

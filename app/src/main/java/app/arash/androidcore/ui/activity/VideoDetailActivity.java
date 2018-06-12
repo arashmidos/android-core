@@ -20,11 +20,14 @@ import android.widget.VideoView;
 import app.arash.androidcore.R;
 import app.arash.androidcore.data.entity.Constant;
 import app.arash.androidcore.data.entity.Video;
+import app.arash.androidcore.data.event.ErrorEvent;
 import app.arash.androidcore.data.event.VideoEvent;
 import app.arash.androidcore.service.VideoService;
 import app.arash.androidcore.ui.adapter.VideoListAdapter;
 import app.arash.androidcore.util.DialogUtil;
 import app.arash.androidcore.util.NumberUtil;
+import app.arash.androidcore.util.PreferenceHelper;
+import app.arash.androidcore.util.ToastUtil;
 import app.arash.androidcore.util.Utils;
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -171,7 +174,7 @@ public class VideoDetailActivity extends AppCompatActivity {
   protected void onResume() {
     super.onResume();
     EventBus.getDefault().register(this);
-    DialogUtil.showProgressDialog(this, "در حال دریافت اطلاعات ویدیو");
+    DialogUtil.showProgressDialog(this, getString(R.string.getting_video_detail));
     if (!loaded) {
       new VideoService().getVideoList(video.getCategoryId(), 5);
       loaded = true;
@@ -192,6 +195,31 @@ public class VideoDetailActivity extends AppCompatActivity {
     if (recyclerView != null) {
 
       recyclerView.setAdapter(listAdapter);
+    }
+  }
+
+  @Subscribe
+  public void getMessage(ErrorEvent event) {
+    switch (event.getStatusCode()) {
+      case NO_NETWORK:
+        ToastUtil.toastError(this, R.string.error_no_network);
+        break;
+      case AUTHENTICATE_ERROR:
+        ToastUtil.toastError(this, getString(R.string.credit_low));
+        Intent intent = new Intent(this, NewPhoneActivity.class);
+        PreferenceHelper.setToken("");
+        startActivity(intent);
+        finish();
+        break;
+      case NETWORK_ERROR:
+        ToastUtil.toastError(this, getString(R.string.error_in_connecting_to_server));
+        break;
+      case NO_DATA_ERROR:
+        ToastUtil.toastError(this, getString(R.string.no_data_found));
+        break;
+      case SERVER_ERROR:
+        ToastUtil.toastError(this, getString(R.string.error_server));
+        break;
     }
   }
 

@@ -78,11 +78,12 @@ public class MoreFragment extends BaseFragment {
         break;
       case R.id.log_out_tv:
         DialogUtil
-            .showCustomDialog(mainActivity, "خروج از حساب کاربری", getString(R.string.message_confirm_exit),
+            .showCustomDialog(mainActivity, getString(R.string.logout_account), getString(R.string.message_confirm_exit),
                 getString(R.string.exit), (dialogInterface, i) -> {
                   PreferenceHelper.setPhoneNumber("");
+                  PreferenceHelper.setToken("");
                   mainActivity.finish();
-                }, "انصراف", (dialogInterface, i) -> dialogInterface.dismiss(),
+                }, getString(R.string.cancel), (dialogInterface, i) -> dialogInterface.dismiss(),
                 R.drawable.ic_info_outline_24dp);
         break;
       case R.id.upgrade_app:

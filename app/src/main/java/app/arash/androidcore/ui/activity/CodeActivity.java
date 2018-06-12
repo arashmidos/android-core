@@ -133,6 +133,8 @@ public class CodeActivity extends AppCompatActivity {
     } else {
       if (event.getStatusCode() == StatusCodes.NO_NETWORK) {
         ToastUtil.toastError(this, R.string.error_no_network);
+      } else if (event.getStatusCode() == StatusCodes.AUTHENTICATE_ERROR) {
+        ToastUtil.toastError(this, getString(R.string.credit_low));
       } else {
         ToastUtil.toastError(this, getString(R.string.entered_code_in_wrong));
       }

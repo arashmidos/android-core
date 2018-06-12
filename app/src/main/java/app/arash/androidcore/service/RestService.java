@@ -2,6 +2,7 @@ package app.arash.androidcore.service;
 
 import app.arash.androidcore.data.entity.Category;
 import app.arash.androidcore.data.entity.SendSmsRequest;
+import app.arash.androidcore.data.entity.TokenResponse;
 import app.arash.androidcore.data.entity.VerifyCodeRequest;
 import app.arash.androidcore.data.entity.Video;
 import java.util.List;
@@ -17,16 +18,20 @@ import retrofit2.http.Query;
 
 public interface RestService {
 
-  @POST("/medic/send_verification_code")
+  @POST("medic/send_verification_code")
   Call<String> sendSms(@Body SendSmsRequest sendSmsRequest);
 
-  @POST("/medic/verify_token")
-  Call<String> verifyCode(@Body VerifyCodeRequest verifyCodeRequest);
+  @POST("medic/verify_token")
+  Call<TokenResponse> verifyCode(@Body VerifyCodeRequest verifyCodeRequest);
 
-  @GET("category")
+  //TODO: Not on prodution
+  @POST("medic/test_get_token")
+  Call<TokenResponse> testGetToken(@Body VerifyCodeRequest verifyCodeRequest);
+
+  @GET("medic/category")
   Call<List<Category>> getCategoryList();
 
-  @GET("video_list")
+  @GET("medic/video")
   Call<List<Video>> getVideoList(@Query("category_id") Integer categoryId,
       @Query("count") Integer count);
 }

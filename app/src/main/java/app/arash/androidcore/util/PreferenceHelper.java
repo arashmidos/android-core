@@ -14,6 +14,7 @@ public class PreferenceHelper {
   private static final String PHONE_NUMBER = "PHONE_NUMBER";
   private static final String RECENT_SEARCH = "RECENT_SEARCH";
   private static final String HAS_LOGGED_IN = "HAS_LOGGED_IN";
+  private static final String TOKEN = "TOKEN";
 
   public static void setSeenIntro(boolean hasSeen) {
     MedicApplication.getPreference().edit().putBoolean(HAS_SEEN, hasSeen).apply();
@@ -46,7 +47,6 @@ public class PreferenceHelper {
   public static void setLatestVersion(int latestVersion) {
     MedicApplication.getPreference().edit().putInt(LATEST_VERSION, latestVersion).apply();
   }
-
 
   public static boolean isForceExit() {
     return MedicApplication.getPreference().getBoolean(FORCE_EXIT, false);
@@ -82,5 +82,13 @@ public class PreferenceHelper {
     SharedPreferences.Editor editor = MedicApplication.getPreference().edit();
     editor.clear();
     editor.apply();
+  }
+
+  public static String getToken() {
+    return MedicApplication.getPreference().getString(TOKEN, "");
+  }
+
+  public static void setToken(String token) {
+    MedicApplication.getPreference().edit().putString(TOKEN, token).apply();
   }
 }
