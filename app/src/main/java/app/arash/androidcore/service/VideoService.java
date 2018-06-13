@@ -97,7 +97,7 @@ public class VideoService {
     RestService restService = ServiceGenerator.createService(RestService.class);
 //TODO:
 //    phone = phone.replace("0", "1");
-    Call<TokenResponse> call = restService.verifyCode(new VerifyCodeRequest(phone,code));
+    Call<TokenResponse> call = restService.verifyCode(new VerifyCodeRequest(phone, code));
 //    Call<TokenResponse> call = restService.testGetToken(new VerifyCodeRequest(phone, code));
 
     call.enqueue(new Callback<TokenResponse>() {
@@ -159,6 +159,32 @@ public class VideoService {
 
       @Override
       public void onFailure(Call<List<Video>> call, Throwable t) {
+        EventBus.getDefault().post(new ErrorEvent(StatusCodes.NETWORK_ERROR));
+      }
+    });
+  }
+
+  public void unsubscribe() {
+    if (!NetworkUtil.isNetworkAvailable(MedicApplication.getInstance())) {
+      EventBus.getDefault().post(new ErrorEvent(StatusCodes.NO_NETWORK));
+      return;
+    }
+    RestService restService = ServiceGenerator.createService(RestService.class);
+
+    Call<Void> call = restService.unsubscribe();
+
+    call.enqueue(new Callback<Void>() {
+      @Override
+      public void onResponse(Call<Void> call, Response<Void> response) {
+        if (response.isSuccessful()) {
+          EventBus.getDefault().post(new ActionEvent(StatusCodes.SUCCESS));
+        } else {
+          EventBus.getDefault().post(new ErrorEvent(StatusCodes.AUTHENTICATE_ERROR));
+        }
+      }
+
+      @Override
+      public void onFailure(Call<Void> call, Throwable t) {
         EventBus.getDefault().post(new ErrorEvent(StatusCodes.NETWORK_ERROR));
       }
     });

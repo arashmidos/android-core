@@ -8,6 +8,7 @@ import app.arash.androidcore.data.entity.Video;
 import java.util.List;
 import retrofit2.Call;
 import retrofit2.http.Body;
+import retrofit2.http.DELETE;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
 import retrofit2.http.Query;
@@ -30,6 +31,9 @@ public interface RestService {
 
   @GET("medic/category")
   Call<List<Category>> getCategoryList();
+
+  @DELETE("medic/unsubscribe")
+  Call<Void> unsubscribe();
 
   @GET("medic/video")
   Call<List<Video>> getVideoList(@Query("category_id") Integer categoryId,

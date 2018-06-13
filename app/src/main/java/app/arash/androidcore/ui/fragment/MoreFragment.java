@@ -10,6 +10,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 import app.arash.androidcore.BuildConfig;
 import app.arash.androidcore.R;
+import app.arash.androidcore.data.constant.StatusCodes;
+import app.arash.androidcore.data.event.Event;
+import app.arash.androidcore.service.VideoService;
 import app.arash.androidcore.ui.activity.AboutUsActivity;
 import app.arash.androidcore.ui.activity.ContactUsActivity;
 import app.arash.androidcore.ui.activity.MainActivity;
@@ -21,6 +24,8 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
 
 public class MoreFragment extends BaseFragment {
 
@@ -80,9 +85,8 @@ public class MoreFragment extends BaseFragment {
         DialogUtil
             .showCustomDialog(mainActivity, getString(R.string.logout_account), getString(R.string.message_confirm_exit),
                 getString(R.string.exit), (dialogInterface, i) -> {
-                  PreferenceHelper.setPhoneNumber("");
-                  PreferenceHelper.setToken("");
-                  mainActivity.finish();
+              new VideoService().unsubscribe();
+
                 }, getString(R.string.cancel), (dialogInterface, i) -> dialogInterface.dismiss(),
                 R.drawable.ic_info_outline_24dp);
         break;
@@ -95,5 +99,26 @@ public class MoreFragment extends BaseFragment {
   @Override
   public int getFragmentId() {
     return MainActivity.MORE_FRAGMENT;
+  }
+
+  @Override
+  public void onResume() {
+    super.onResume();
+    EventBus.getDefault().register(this);
+  }
+
+  @Override
+  public void onPause() {
+    super.onPause();
+    EventBus.getDefault().unregister(this);
+  }
+
+  @Subscribe
+  public void getMessage(Event event) {
+    if (event.getStatusCode() == StatusCodes.SUCCESS) {
+      PreferenceHelper.setPhoneNumber("");
+      PreferenceHelper.setToken("");
+      mainActivity.finish();
+    }
   }
 }
