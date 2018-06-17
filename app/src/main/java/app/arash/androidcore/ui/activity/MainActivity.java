@@ -243,13 +243,12 @@ public class MainActivity extends AppCompatActivity implements OnNewMeasureSelec
 
   private void checkInternetConnection() {
     if (!NetworkUtil.isNetworkAvailable(this)) {
-      showGpsOffDialog();
+      showNetworkOff();
     }
   }
 
-  private void showGpsOffDialog() {
-    DialogUtil.showConfirmDialog(this, "دسترسی به اینترنت امکان پذیر نمی باشد",
-        "لطفا جهت بهره مندی از برنامه، دستگاه خود را به اینترنت متصل نمایید!",
-        (dialog, which) -> finish());
+  private void showNetworkOff() {
+    DialogUtil.showConfirmDialog(this, getString(R.string.no_network_found),
+        getString(R.string.connect_device_to_network), (dialog, which) -> finish());
   }
 }

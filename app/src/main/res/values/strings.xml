@@ -197,6 +197,8 @@
   <string name="no_data_found">هیچ اطلاعاتی یافت نشد</string>
   <string name="getting_video_list">در حال دریافت لیست ویدیو ها</string>
   <string name="getting_video_detail">در حال دریافت اطلاعات ویدیو</string>
+  <string name="no_network_found">دسترسی به اینترنت امکان پذیر نمی باشد</string>
+  <string name="connect_device_to_network">لطفا جهت بهره مندی از برنامه، دستگاه خود را به اینترنت متصل نمایید!</string>
 
 
 </resources>

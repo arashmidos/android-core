@@ -312,6 +312,7 @@ public class HomeFragment extends BaseFragment {
     setUpMedicineRecyclerView();
     setUpVisitRecyclerView();
     new VideoService().getVideoList(null, 5);
+    new VideoService().checkUserSubscription();
   }
 
   @Subscribe
@@ -337,6 +338,7 @@ public class HomeFragment extends BaseFragment {
         ToastUtil.toastError(mainActivity, getString(R.string.credit_low));
         Intent intent = new Intent(mainActivity, NewPhoneActivity.class);
         PreferenceHelper.setToken("");
+        PreferenceHelper.setPhoneNumber("");
         startActivity(intent);
         mainActivity.finish();
         break;
@@ -351,6 +353,7 @@ public class HomeFragment extends BaseFragment {
         break;
     }
   }
+
   @Subscribe
   public void getMessage(VideoEvent event) {
     setupVideoRecycler(event.getVideoList());

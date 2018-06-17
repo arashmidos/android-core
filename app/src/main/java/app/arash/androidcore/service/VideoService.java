@@ -4,6 +4,7 @@ import app.arash.androidcore.MedicApplication;
 import app.arash.androidcore.data.constant.StatusCodes;
 import app.arash.androidcore.data.entity.Category;
 import app.arash.androidcore.data.entity.SendSmsRequest;
+import app.arash.androidcore.data.entity.SubscriptionResponse;
 import app.arash.androidcore.data.entity.TokenResponse;
 import app.arash.androidcore.data.entity.VerifyCodeRequest;
 import app.arash.androidcore.data.entity.Video;
@@ -185,6 +186,40 @@ public class VideoService {
 
       @Override
       public void onFailure(Call<Void> call, Throwable t) {
+        EventBus.getDefault().post(new ErrorEvent(StatusCodes.NETWORK_ERROR));
+      }
+    });
+  }
+
+  public void checkUserSubscription() {
+    if (!NetworkUtil.isNetworkAvailable(MedicApplication.getInstance())) {
+      EventBus.getDefault().post(new ErrorEvent(StatusCodes.NO_NETWORK));
+      return;
+    }
+    RestService restService = ServiceGenerator.createService(RestService.class);
+
+    Call<SubscriptionResponse> call = restService
+        .checkSubscription(PreferenceHelper.getPhoneNumber());
+
+    call.enqueue(new Callback<SubscriptionResponse>() {
+      @Override
+      public void onResponse(Call<SubscriptionResponse> call,
+          Response<SubscriptionResponse> response) {
+        if (response.isSuccessful()) {
+          SubscriptionResponse subResponse = response.body();
+          if (subResponse != null && subResponse.getIsUserPartOfMedic() != null
+              && subResponse.getIsUserPartOfMedic() == 1) {
+            EventBus.getDefault().post(new ActionEvent(StatusCodes.SUCCESS));
+          } else {
+            EventBus.getDefault().post(new ErrorEvent(StatusCodes.AUTHENTICATE_ERROR));
+          }
+        } else {
+          EventBus.getDefault().post(new ErrorEvent(StatusCodes.AUTHENTICATE_ERROR));
+        }
+      }
+
+      @Override
+      public void onFailure(Call<SubscriptionResponse> call, Throwable t) {
         EventBus.getDefault().post(new ErrorEvent(StatusCodes.NETWORK_ERROR));
       }
     });

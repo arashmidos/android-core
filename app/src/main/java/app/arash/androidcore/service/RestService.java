@@ -2,6 +2,7 @@ package app.arash.androidcore.service;
 
 import app.arash.androidcore.data.entity.Category;
 import app.arash.androidcore.data.entity.SendSmsRequest;
+import app.arash.androidcore.data.entity.SubscriptionResponse;
 import app.arash.androidcore.data.entity.TokenResponse;
 import app.arash.androidcore.data.entity.VerifyCodeRequest;
 import app.arash.androidcore.data.entity.Video;
@@ -34,6 +35,9 @@ public interface RestService {
 
   @DELETE("medic/unsubscribe")
   Call<Void> unsubscribe();
+
+  @GET("medic/check_subscription")
+  Call<SubscriptionResponse> checkSubscription(@Query("mobilenum") String number);
 
   @GET("medic/video")
   Call<List<Video>> getVideoList(@Query("category_id") Integer categoryId,
