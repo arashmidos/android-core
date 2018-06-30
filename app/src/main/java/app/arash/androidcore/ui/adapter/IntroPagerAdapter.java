@@ -11,7 +11,7 @@ public class IntroPagerAdapter extends FragmentStatePagerAdapter {
 
   private final int[] texts = {R.string.intro_text_0, R.string.intro_text_1, R.string.intro_text_2,
       R.string.intro_text_3};
-  private final int[] images = {R.drawable.im_slide_1, R.drawable.im_slide_2,
+  private final int[] images = {R.drawable.launcher_512, R.drawable.im_slide_2,
       R.drawable.im_slide_3, R.drawable.im_slide_4};
   private final Context context;
 

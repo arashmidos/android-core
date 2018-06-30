@@ -5,7 +5,7 @@ package app.arash.androidcore.util;
  */
 public class Constants {
 
-  public static final String APPLICATION_NAME = "Medic";
+  public static final String APPLICATION_NAME = "MyClinic";
   public static final String PATTERN = "09(0[0-9]|1[0-9]|2[0-9]|3[0-9]|9[0-9])-?[0-9]{3}-?[0-9]{4}";
   public static final String PHONE_NUMBER = "PHONE_NUMBER";
   public static final long SMS_WAITING_TOTAL = 30000;

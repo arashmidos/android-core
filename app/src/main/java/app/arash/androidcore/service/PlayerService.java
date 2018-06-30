@@ -54,7 +54,7 @@ import org.greenrobot.eventbus.EventBus;
  */
 public class PlayerService extends Service {
 
-  private static final String PACKAGE_NAME = "app.arash.androidcore.service";
+  private static final String PACKAGE_NAME = "app.arash.myclinic.service";
   public static final String ACTION_BROADCAST = PACKAGE_NAME + ".broadcast";
   public static final String EXTRA_LOCATION = PACKAGE_NAME + ".location";
   public static final String EXTRA_POSITION = PACKAGE_NAME + ".position";

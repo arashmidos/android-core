@@ -32,30 +32,77 @@
       android:src="@drawable/ic_back_24_dp" />
 
   </LinearLayout>
-  <ImageView
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:layout_marginTop="16dp"
-    android:layout_gravity="center"
-    android:src="@drawable/im_slide_1" />
+
   <ScrollView
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
-    <TextView
-      android:id="@+id/description_tv"
-      style="@style/IranSans.Light"
+    <LinearLayout
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
-      android:paddingTop="16dp"
-      android:paddingStart="20dp"
-      android:paddingEnd="16dp"
-      android:paddingLeft="20dp"
-      android:paddingRight="16dp"
-      android:gravity="center"
-      android:lineSpacingExtra="16sp"
-      android:text="@string/contact_us_detail"
-      android:textColor="@color/black_21"
-      android:textSize="14sp" />
+      android:orientation="vertical">
+
+      <TextView
+        style="@style/ContactUsText"
+        android:text="@string/contact_us_text" />
+
+      <View style="@style/Separators" />
+
+      <LinearLayout
+        android:id="@+id/fragment_contact_us_phone_container"
+        style="@style/ContactUsItemContainer">
+
+        <ImageView style="@style/ContactUsItemArrow" />
+
+        <LinearLayout style="@style/ContactUsItemPhoneContainer">
+
+          <TextView
+            style="@style/ContactUsItemPhoneNumber"
+            android:text="@string/phone_number_tel" />
+
+          <TextView
+            style="@style/ContactUsItemPhoneText"
+            android:text="@string/support_phone" />
+
+        </LinearLayout>
+
+        <ImageView
+          style="@style/ContactUsItemImage"
+          android:src="@drawable/ic_phone_green_24_dp" />
+
+      </LinearLayout>
+
+      <View style="@style/Separators" />
+
+      <LinearLayout
+        android:id="@+id/fragment_contact_us_email_container"
+        style="@style/ContactUsItemContainer">
+
+        <ImageView style="@style/ContactUsItemArrow" />
+
+        <LinearLayout style="@style/ContactUsItemPhoneContainer">
+
+          <TextView
+            style="@style/ContactUsItemPhoneNumber"
+            android:text="@string/email" />
+
+          <TextView
+            style="@style/ContactUsItemPhoneText"
+            android:text="@string/support_email" />
+
+        </LinearLayout>
+
+        <ImageView
+          style="@style/ContactUsItemImage"
+          android:src="@drawable/ic_email_blue_24_dp" />
+
+      </LinearLayout>
+
+      <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@drawable/bottom_bar_shadow" />
+    </LinearLayout>
   </ScrollView>
+
 </LinearLayout>

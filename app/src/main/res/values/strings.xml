@@ -1,14 +1,10 @@
 <resources>
-  <string name="app_name">Medic</string>
+  <string name="app_name">مای کلینیک</string>
   <string name="message_please_wait">لطفا صبر کنید</string>
   <string name="yes">بله</string>
   <string name="no">خیر</string>
   <string name="button_ok">تایید</string>
   <string name="button_cancel">انصراف</string>
-  <string name="title_activity_main">MainActivity</string>
-  <string name="title_home">Home</string>
-  <string name="title_dashboard">Dashboard</string>
-  <string name="title_notifications">Notifications</string>
   <string name="healthy_chart">نمودار سلامت</string>
   <string name="medicine">داروها</string>
   <string name="home">خانه</string>
@@ -25,11 +21,11 @@
   <string name="drugs_list">لیست دارو ها</string>
   <string name="category">دسته بندی</string>
   <string name="stared">نشان شده ها</string>
-  <string name="about_us_description">با اپلیکیشن مدیک دغدغه های خود راجع به سلامتی را کاهش داده و زندگی سالمتری داشته باشید.
-یادآوری زمان مصرف داروهایتان را به مدیک بسپارید، این اپلیکیشن علاوه بر اینکه زمان مصرف داروهایتان را یادآوری می کند، اطلاعات کاملی در مورد آنها در اختیارتان می گذارد. اطلاعاتی مثل موارد مصرف، منع مصرف، عوارض جانبی، تداخلات دارویی و ... .
-علاوه بر اینها، اطلاعات پزشکان خود را به مدیک بدهید و برای آنها پروفایل بسازید.  او را در جریان نوبت ویزیت های بعدی خود قرار دهید. مطمئن باشید که مدیک اجازه نمی دهد نوبتتان را فراموش کنید.
-مدیک حواسش به سلامتی شما هم هست. اطلاعات مربوط به سلامتی مثل فشار خون، وزن، ضربان قلب، کالری دریافت شده از رژیم غذایی و ... را به مدیک بسپارید تا با آمار و نمودار، شما را در جریان وضعیت سلامتی بدنتان قرار دهد.
-مدیک دستیار شخصی شما در مورد سلامتی است!</string>
+  <string name="about_us_description">با اپلیکیشن مای کلینیک دغدغه های خود راجع به سلامتی را کاهش داده و زندگی سالمتری داشته باشید.
+یادآوری زمان مصرف داروهایتان را به مای کلینیک بسپارید، این اپلیکیشن علاوه بر اینکه زمان مصرف داروهایتان را یادآوری می کند، اطلاعات کاملی در مورد آنها در اختیارتان می گذارد. اطلاعاتی مثل موارد مصرف، منع مصرف، عوارض جانبی، تداخلات دارویی و ... .
+علاوه بر اینها، اطلاعات پزشکان خود را به مای کلینیک بدهید و برای آنها پروفایل بسازید.  او را در جریان نوبت ویزیت های بعدی خود قرار دهید. مطمئن باشید که مای کلینیک اجازه نمی دهد نوبتتان را فراموش کنید.
+مای کلینیک حواسش به سلامتی شما هم هست. اطلاعات مربوط به سلامتی مثل فشار خون، وزن، ضربان قلب، کالری دریافت شده از رژیم غذایی و ... را به مای کلینیک بسپارید تا با آمار و نمودار، شما را در جریان وضعیت سلامتی بدنتان قرار دهد.
+مای کلینیک دستیار شخصی شما در مورد سلامتی است!</string>
   <string name="specification">مشخصات</string>
   <string name="reminder">یادآور</string>
   <string name="usage">موارد مصرف</string>
@@ -46,16 +42,18 @@
   <string name="intro_text_2">وضعیت معیارهای مهم سلامتیتان مانند فشار خون، وزن، میزان کالری مصرفی و ... را در گذر زمان بررسی کنید.</string>
   <string name="intro_text_3">اطلاعات پزشکانتان را در اپلیکیشن ذخیره کنید و همیشه و همه جا به آنها دسترسی داشته باشید.</string>
   <string name="enter_to_app">ورود به برنامه</string>
-  <string name="medic_desc">برای آشنا شدن با مدیک، ورق بزنید!</string>
-  <string name="intro_text_0">به اپلیکیشن مدیک خوش آمدید!\n با مدیک سالمتر زندگی کنید!</string>
+  <string name="medic_desc">برای آشنا شدن با مای کلینیک، ورق بزنید!</string>
+  <string name="intro_text_0">به اپلیکیشن مای کلینیک خوش آمدید!\n با مای کلینیک سالمتر زندگی کنید!</string>
   <string name="set_alarm_for_drugs">برای دارو های مصرفی تان، یادآور تنظیم کنید!</string>
-  <string name="set_visit_empty">مدیک وقت ویزیتتان را به شما یادآوری می کند!</string>
+  <string name="set_visit_empty">مای کلینیک وقت ویزیتتان را به شما یادآوری می کند!</string>
   <string name="set_visit">ثبت وقت ویزیت</string>
   <string name="set_drug_alarm">ثبت یادآور دارو</string>
   <string name="register_doctor">ثبت پزشک</string>
   <string name="doctor_name">نام پزشک</string>
   <string name="filed">تخصص</string>
   <string name="phone_number">شماره تماس</string>
+  <string name="phone_number_tel">۰۲۱-۲۲۸۵۴۲۸۵</string>
+
   <string name="address">آدرس</string>
   <string name="weight">وزن</string>
   <string name="weight_unit">Kg</string>
@@ -199,6 +197,12 @@
   <string name="getting_video_detail">در حال دریافت اطلاعات ویدیو</string>
   <string name="no_network_found">دسترسی به اینترنت امکان پذیر نمی باشد</string>
   <string name="connect_device_to_network">لطفا جهت بهره مندی از برنامه، دستگاه خود را به اینترنت متصل نمایید!</string>
-
+  <string name="contact_us_text">شما می توانید از طریق شماره تلفن و آدرس ایمیل زیر با تیم پشتیبانی مای کلینیک در ارتباط باشید.
+  </string>
+  <string name="support_phone">تلفن پشتیبانی</string>
+  <string name="support_email">ایمیل پشتیبانی</string>
+  <string name="email">Info@rasaaa.com</string>
+  <string name="send_email_title">Send email...</string>
+  <string name="android_application">اپلیکیشن اندروید</string>
 
 </resources>

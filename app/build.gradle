@@ -28,11 +28,11 @@ android {
     }
     compileSdkVersion 26
     defaultConfig {
-        applicationId "app.arash.androidcore"
+        applicationId "app.arash.myclinic"
         minSdkVersion 16
-        targetSdkVersion 26
-        versionCode 16
-        versionName "1.4.3"
+        targetSdkVersion 25
+        versionCode 18
+        versionName "1.5.1"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         multiDexEnabled true
 
@@ -49,7 +49,7 @@ android {
     }
     android.applicationVariants.all { variant ->
         variant.outputs.all {
-            outputFileName = "Medic-${variant.versionName}.apk"
+            outputFileName = "MyClinic-${variant.versionName}.apk"
         }
     }
     buildTypes {

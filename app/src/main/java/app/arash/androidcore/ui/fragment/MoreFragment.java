@@ -85,8 +85,10 @@ public class MoreFragment extends BaseFragment {
         DialogUtil
             .showCustomDialog(mainActivity, getString(R.string.logout_account), getString(R.string.message_confirm_exit),
                 getString(R.string.exit), (dialogInterface, i) -> {
-              new VideoService().unsubscribe();
-
+              /*new VideoService().unsubscribe();*///TODO: LATER
+                  PreferenceHelper.setPhoneNumber("");
+                  PreferenceHelper.setToken("");
+                  mainActivity.finish();
                 }, getString(R.string.cancel), (dialogInterface, i) -> dialogInterface.dismiss(),
                 R.drawable.ic_info_outline_24dp);
         break;

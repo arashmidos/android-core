@@ -312,7 +312,7 @@ public class HomeFragment extends BaseFragment {
     setUpMedicineRecyclerView();
     setUpVisitRecyclerView();
     new VideoService().getVideoList(null, 5);
-    new VideoService().checkUserSubscription();
+//    new VideoService().checkUserSubscription();//TODO LATER
   }
 
   @Subscribe

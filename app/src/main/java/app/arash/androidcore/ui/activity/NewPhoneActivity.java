@@ -62,8 +62,11 @@ public class NewPhoneActivity extends AppCompatActivity {
       case R.id.submit_btn:
       case R.id.enter_button:
         if (!TextUtils.isEmpty(phoneEdt.getText().toString().trim())) {
-          DialogUtil.showProgressDialog(this, getString(R.string.message_please_wait));
-          new VideoService().sendSms(phoneEdt.getText().toString().trim());
+          PreferenceHelper.setPhoneNumber(phoneEdt.getText().toString().trim());//TODO CHANGE LATER
+          startActivity(new Intent(this, MainActivity.class));
+          finish();
+        /*  DialogUtil.showProgressDialog(this, getString(R.string.message_please_wait));//TODO
+          new VideoService().sendSms(phoneEdt.getText().toString().trim());*/
         } else {
           ToastUtil.toastError(root, R.string.enter_phone_is_required);
         }
@@ -87,8 +90,9 @@ public class NewPhoneActivity extends AppCompatActivity {
   public void getMessage(Event event) {
     DialogUtil.dismissProgressDialog();
     if (event instanceof ActionEvent) {
-      PreferenceHelper.setPhoneNumber(phoneEdt.getText().toString().trim());
-      startActivity(new Intent(this, CodeActivity.class));
+      PreferenceHelper.setPhoneNumber(phoneEdt.getText().toString().trim());//TODO CHANGE LATER
+      startActivity(new Intent(this, MainActivity.class));
+      finish();
     } else if (event instanceof ErrorEvent) {
       if (event.getStatusCode() == StatusCodes.NO_NETWORK) {
         ToastUtil.toastError(this, R.string.error_no_network);
