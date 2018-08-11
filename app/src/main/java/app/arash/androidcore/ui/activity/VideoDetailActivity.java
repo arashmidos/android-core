@@ -8,6 +8,7 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
@@ -174,16 +175,16 @@ public class VideoDetailActivity extends AppCompatActivity {
   protected void onResume() {
     super.onResume();
     EventBus.getDefault().register(this);
-    DialogUtil.showProgressDialog(this, getString(R.string.getting_video_detail));
     if (!loaded) {
+      DialogUtil.showProgressDialog(this, getString(R.string.getting_video_detail));
       new VideoService().getVideoList(video.getCategoryId(), 5);
-      loaded = true;
     }
   }
 
   @Subscribe
   public void getMessage(VideoEvent event) {
     DialogUtil.dismissProgressDialog();
+    loaded = true;
     List<Video> list = new ArrayList<>();
     List<Video> videoList = event.getVideoList();
     for (int i = 0; i < videoList.size(); i++) {
@@ -244,6 +245,7 @@ public class VideoDetailActivity extends AppCompatActivity {
 
     // Get saved position.
     position = savedInstanceState.getInt("CurrentPosition");
+    Log.d("VIDEO", "position:" + position);
     videoView.seekTo(position);
   }
 }
