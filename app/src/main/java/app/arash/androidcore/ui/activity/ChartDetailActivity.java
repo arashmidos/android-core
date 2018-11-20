@@ -9,7 +9,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 import app.arash.androidcore.R;
 import app.arash.androidcore.chart.MeasureValueFormatter;
 import app.arash.androidcore.chart.XAxisValueFormatter;
@@ -18,7 +17,6 @@ import app.arash.androidcore.data.entity.Measure;
 import app.arash.androidcore.data.entity.MeasureDetailType;
 import app.arash.androidcore.data.impl.MeasureDaoImpl;
 import app.arash.androidcore.ui.fragment.dialog.MeasureHistoryListDialogFragment;
-import app.arash.androidcore.ui.fragment.dialog.MeasureListDialogFragment;
 import app.arash.androidcore.ui.fragment.dialog.NewMeasureDialogFragment;
 import app.arash.androidcore.ui.fragment.dialog.NewMeasureDialogFragment.OnNewMeasureAdded;
 import app.arash.androidcore.util.MeasureComparator;
@@ -36,11 +34,11 @@ import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
 import com.github.mikephil.charting.formatter.IAxisValueFormatter;
 import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
+import io.github.inflationx.viewpump.ViewPumpContextWrapper;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
-import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 public class ChartDetailActivity extends AppCompatActivity implements OnNewMeasureAdded {
 
@@ -232,7 +230,8 @@ public class ChartDetailActivity extends AppCompatActivity implements OnNewMeasu
         break;
       case R.id.measure_history_label:
         FragmentTransaction ft3 = getFragmentManager().beginTransaction();
-        MeasureHistoryListDialogFragment dialogFragment2 = MeasureHistoryListDialogFragment.newInstance(this,type);
+        MeasureHistoryListDialogFragment dialogFragment2 = MeasureHistoryListDialogFragment
+            .newInstance(this, type);
         dialogFragment2.show(ft3, "history list");
         break;
     }
@@ -240,12 +239,12 @@ public class ChartDetailActivity extends AppCompatActivity implements OnNewMeasu
 
   @Override
   protected void attachBaseContext(Context newBase) {
-    super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
+    super.attachBaseContext(ViewPumpContextWrapper.wrap(newBase));
   }
 
   @Override
   public void newMeasureAdded(Measure measure) {
-    this.measure=measure;
+    this.measure = measure;
     chart.setData(null);
     setData();
     setChart();

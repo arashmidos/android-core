@@ -86,4 +86,19 @@ public class Video implements Serializable{
   public void setBody(String body) {
     this.body = body;
   }
+
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
+
+    Video video = (Video) o;
+
+    return videoUrl != null ? videoUrl.equals(video.videoUrl) : video.videoUrl == null;
+  }
 }

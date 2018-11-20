@@ -16,8 +16,8 @@ import app.arash.androidcore.util.ToastUtil;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import io.github.inflationx.viewpump.ViewPumpContextWrapper;
 import java.util.regex.Pattern;
-import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 public class PhoneActivity extends AppCompatActivity {
 
@@ -98,6 +98,6 @@ public class PhoneActivity extends AppCompatActivity {
 
   @Override
   protected void attachBaseContext(Context newBase) {
-    super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
+    super.attachBaseContext(ViewPumpContextWrapper.wrap(newBase));
   }
 }

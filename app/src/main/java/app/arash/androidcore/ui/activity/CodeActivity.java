@@ -22,10 +22,10 @@ import app.arash.androidcore.util.ToastUtil;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import io.github.inflationx.viewpump.ViewPumpContextWrapper;
 import java.util.Locale;
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
-import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 public class CodeActivity extends AppCompatActivity {
 
@@ -115,7 +115,7 @@ public class CodeActivity extends AppCompatActivity {
 
   @Override
   protected void attachBaseContext(Context newBase) {
-    super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
+    super.attachBaseContext(ViewPumpContextWrapper.wrap(newBase));
   }
 
   @Subscribe

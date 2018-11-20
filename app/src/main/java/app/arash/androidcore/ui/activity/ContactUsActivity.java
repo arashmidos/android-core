@@ -9,7 +9,7 @@ import android.view.View;
 import app.arash.androidcore.R;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
+import io.github.inflationx.viewpump.ViewPumpContextWrapper;
 
 public class ContactUsActivity extends AppCompatActivity {
 
@@ -22,7 +22,7 @@ public class ContactUsActivity extends AppCompatActivity {
 
   @Override
   protected void attachBaseContext(Context newBase) {
-    super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
+    super.attachBaseContext(ViewPumpContextWrapper.wrap(newBase));
   }
 
   @OnClick({R.id.back_img, R.id.fragment_contact_us_phone_container,

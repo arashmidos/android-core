@@ -24,10 +24,10 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import com.alirezaafkar.sundatepicker.DatePicker.Builder;
+import io.github.inflationx.viewpump.ViewPumpContextWrapper;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
-import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 public class NewVisitActivity extends AppCompatActivity {
 
@@ -176,7 +176,7 @@ public class NewVisitActivity extends AppCompatActivity {
 
   @Override
   protected void attachBaseContext(Context newBase) {
-    super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
+    super.attachBaseContext(ViewPumpContextWrapper.wrap(newBase));
   }
 
   public void setSelectedDoctor(Doctor doctor) {

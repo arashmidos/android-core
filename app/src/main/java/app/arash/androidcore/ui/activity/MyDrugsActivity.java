@@ -17,10 +17,10 @@ import app.arash.androidcore.ui.fragment.dialog.SearchDialogFragment;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import io.github.inflationx.viewpump.ViewPumpContextWrapper;
 import java.util.List;
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
-import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 public class MyDrugsActivity extends AppCompatActivity {
 
@@ -90,6 +90,6 @@ public class MyDrugsActivity extends AppCompatActivity {
 
   @Override
   protected void attachBaseContext(Context newBase) {
-    super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
+    super.attachBaseContext(ViewPumpContextWrapper.wrap(newBase));
   }
 }

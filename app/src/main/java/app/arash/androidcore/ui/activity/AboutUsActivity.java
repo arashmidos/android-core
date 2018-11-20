@@ -6,7 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import app.arash.androidcore.R;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
+import io.github.inflationx.viewpump.ViewPumpContextWrapper;
 
 public class AboutUsActivity extends AppCompatActivity {
 
@@ -24,6 +24,6 @@ public class AboutUsActivity extends AppCompatActivity {
 
   @Override
   protected void attachBaseContext(Context newBase) {
-    super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
+    super.attachBaseContext(ViewPumpContextWrapper.wrap(newBase));
   }
 }

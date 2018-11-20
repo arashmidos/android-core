@@ -1,7 +1,9 @@
 package app.arash.androidcore.service;
 
 import android.app.ActivityManager;
+import android.app.Notification;
 import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
@@ -11,11 +13,14 @@ import android.os.Binder;
 import android.os.Handler;
 import android.os.HandlerThread;
 import android.os.IBinder;
+import android.support.v4.app.NotificationCompat;
 import android.util.Log;
 import android.view.Surface;
+import app.arash.androidcore.R;
 import app.arash.androidcore.data.constant.StatusCodes;
 import app.arash.androidcore.data.entity.Video;
 import app.arash.androidcore.data.event.ErrorEvent;
+import app.arash.androidcore.ui.activity.MainActivity;
 import app.arash.androidcore.util.Empty;
 import com.google.android.exoplayer2.DefaultLoadControl;
 import com.google.android.exoplayer2.DefaultRenderersFactory;
@@ -26,8 +31,10 @@ import com.google.android.exoplayer2.Player.DefaultEventListener;
 import com.google.android.exoplayer2.SimpleExoPlayer;
 import com.google.android.exoplayer2.audio.AudioRendererEventListener;
 import com.google.android.exoplayer2.decoder.DecoderCounters;
+import com.google.android.exoplayer2.extractor.DefaultExtractorsFactory;
 import com.google.android.exoplayer2.source.ConcatenatingMediaSource;
 import com.google.android.exoplayer2.source.ExtractorMediaSource;
+import com.google.android.exoplayer2.source.ExtractorMediaSource.Factory;
 import com.google.android.exoplayer2.source.MediaSource;
 import com.google.android.exoplayer2.source.dash.DashChunkSource;
 import com.google.android.exoplayer2.source.dash.DashMediaSource;
@@ -36,7 +43,6 @@ import com.google.android.exoplayer2.source.hls.HlsMediaSource;
 import com.google.android.exoplayer2.trackselection.AdaptiveTrackSelection;
 import com.google.android.exoplayer2.trackselection.DefaultTrackSelector;
 import com.google.android.exoplayer2.trackselection.TrackSelection;
-import com.google.android.exoplayer2.ui.SimpleExoPlayerView;
 import com.google.android.exoplayer2.upstream.DataSource;
 import com.google.android.exoplayer2.upstream.DefaultBandwidthMeter;
 import com.google.android.exoplayer2.upstream.DefaultHttpDataSourceFactory;
@@ -68,6 +74,7 @@ public class PlayerService extends Service {
    */
   private static final int NOTIFICATION_ID = 12345679;
   private static final DefaultBandwidthMeter BANDWIDTH_METER = new DefaultBandwidthMeter();
+  public static boolean isPlayingLive = false;
   public static boolean playing;
   private final IBinder mBinder = new LocalBinder();
   /**
@@ -79,12 +86,13 @@ public class PlayerService extends Service {
   private NotificationManager notificationManager;
   private Handler serviceHandler;
   private ComponentListener componentListener;
-  private SimpleExoPlayerView videoView;
   private SimpleExoPlayer player;
   private int currentWindow = 0;
   private long playbackPosition = 0;
   private boolean playWhenReady = true;
+  private boolean radioInitialized = false;
   private Video currentVideo;
+  private DefaultExtractorsFactory extractorsFactory;
 
   public PlayerService() {
   }
@@ -158,19 +166,19 @@ public class PlayerService extends Service {
         new DefaultExtractorsFactory();
     DefaultHttpDataSourceFactory dataSourceFactory =
         new DefaultHttpDataSourceFactory("user-agent");
-*/
-    ExtractorMediaSource videoSource =
-        new ExtractorMediaSource.Factory(
-            new DefaultHttpDataSourceFactory("exoplayer-codelab")).
-            createMediaSource(uri);
 
-//    Uri audioUri = Uri.parse(uri);
-/*    ExtractorMediaSource audioSource =
+    ExtractorMediaSource videoSource =
         new ExtractorMediaSource.Factory(
             new DefaultHttpDataSourceFactory("exoplayer-codelab")).
             createMediaSource(uri);*/
 
-    return new ConcatenatingMediaSource(videoSource);
+//    Uri audioUri = Uri.parse(uri);
+    ExtractorMediaSource audioSource =
+        new ExtractorMediaSource.Factory(
+            new DefaultHttpDataSourceFactory("exoplayer-codelab")).
+            createMediaSource(uri);
+
+    return new ConcatenatingMediaSource(audioSource);
   }
 
   private MediaSource buildMediaSource(Uri uri) {
@@ -183,19 +191,30 @@ public class PlayerService extends Service {
         manifestDataSourceFactory).createMediaSource(uri);
   }
 
-//  private MediaSource buildLiveMediaSource(Uri uri) {
-//    return new ExtractorMediaSource.Factory(
-//        new DefaultHttpDataSourceFactory("exoplayer-codelab")).createMediaSource(uri);
+  private MediaSource buildVideoMediaSource(Uri uri) {
+   /* DataSource.Factory manifestDataSourceFactory =
+        new DefaultHttpDataSourceFactory("ua");
+    extractorsFactory = new DefaultExtractorsFactory();
 
-//    RtmpDataSourceFactory rtmpDataSourceFactory = new RtmpDataSourceFactory();
-// Produces Extractor instances for parsing the media data.
-//    ExtractorsFactory extractorsFactory = new DefaultExtractorsFactory();
-// This is the MediaSource representing the media to be played.
-//    MediaSource videoSource = new ExtractorMediaSource(uri,
-//        rtmpDataSourceFactory, extractorsFactory, null, null);
+    return new ExtractorMediaSource(uri,
+        manifestDataSourceFactory, extractorsFactory, null, null);*/
+    DefaultHttpDataSourceFactory dataSourceFactory = new DefaultHttpDataSourceFactory(
+        "exoplayer-codelab");
+    dataSourceFactory.getDefaultRequestProperties().set("Accept-Encoding", "video/mp4");
+    dataSourceFactory.setDefaultRequestProperty("Accept-Encoding", "video/mp4");
+    Factory factory = new Factory(dataSourceFactory);
 
-//    return videoSource;
-//  }
+    ExtractorMediaSource videoSource =
+        factory.createMediaSource(uri);
+
+//    Uri audioUri = Uri.parse(uri);
+/*    ExtractorMediaSource audioSource =
+        new ExtractorMediaSource.Factory(
+            new DefaultHttpDataSourceFactory("exoplayer-codelab")).
+            createMediaSource(uri);*/
+
+    return new ConcatenatingMediaSource(videoSource);
+  }
 
   @Override
   public int onStartCommand(Intent intent, int flags, int startId) {
@@ -213,6 +232,7 @@ public class PlayerService extends Service {
 
     switch (action) {
       case ACTION_PLAY_LIVE:
+        playRadio();
         break;
       case ACTION_PAUSE_LIVE:
         pause();
@@ -265,7 +285,9 @@ public class PlayerService extends Service {
     // service. If this method is called due to a configuration change in MainActivity, we
     // do nothing. Otherwise, we make this service a foreground service.
     Log.i(TAG, "Starting foreground service");
-
+//    startForeground(NOTIFICATION_ID, getNotification());
+    playing = false;
+    player.setPlayWhenReady(false);
     return true; // Ensures onRebind() is called when a client re-binds.
   }
 
@@ -274,11 +296,40 @@ public class PlayerService extends Service {
     try {
       if (serviceHandler != null) {
         serviceHandler.removeCallbacksAndMessages(null);
+        releasePlayer();
       }
     } catch (Exception e) {
       e.printStackTrace();
     }
   }
+
+  /**
+   * Returns the {@link NotificationCompat} used as part of the foreground service.
+   */
+  private Notification getNotification() {
+    CharSequence text = getString(R.string.app_name);
+
+    // The PendingIntent to launch activity.
+    PendingIntent activityPendingIntent = PendingIntent.getActivity(this, 0,
+        new Intent(this, MainActivity.class), 0);
+
+    return new NotificationCompat.Builder(this)
+        .addAction(R.drawable.ic_launcher, getString(R.string.app_name), activityPendingIntent)
+        .setContentText(text)
+        .setOngoing(true)
+        .setPriority(0)
+        .setSmallIcon(R.drawable.ic_launcher)
+        .setTicker(text)
+        .setWhen(System.currentTimeMillis()).build();
+  }
+/*
+  private void onNewLocation(Location location) {
+
+    // Update notification content if running as a foreground service.
+    if (serviceIsRunningInForeground(this)) {
+      notificationManager.notify(NOTIFICATION_ID, getNotification());
+    }
+  }*/
 
   /**
    * Returns true if this is a foreground service.
@@ -297,6 +348,22 @@ public class PlayerService extends Service {
       }
     }
     return false;
+  }
+
+  public void playRadio() {
+    if (player != null) {
+
+      player.setPlayWhenReady(true);
+      isPlayingLive = true;
+      playing = true;
+      Log.d(TAG, "Live radio playing...");
+    } else {
+      initializePlayer();
+      player.setPlayWhenReady(true);
+      isPlayingLive = true;
+      playing = true;
+      Log.d(TAG, "Live radio playing...");
+    }
   }
 
   public void pause() {
@@ -319,20 +386,20 @@ public class PlayerService extends Service {
     return player;
   }
 
-  public boolean playVideo(Video post) {
-
-    if (currentVideo != null && currentVideo.equals(post)) {
-
+  public boolean playSong(Video video) {
+    if (Empty.isNotEmpty(video) && Empty.isNotEmpty(currentVideo) && currentVideo.equals(video)) {
       return true;
     }
-    currentVideo = post;
-    Uri uri = Uri.parse(currentVideo.getVideoUrl());
+    currentVideo = video;
+    Uri uri = Uri.parse(video.getVideoUrl());
     MediaSource mediaSource = null;
-    mediaSource = buildMediaSourceList(uri);
-
+    mediaSource = buildVideoMediaSource(uri);
     player.setPlayWhenReady(false);
+    isPlayingLive = false;
     playing = false;
+    radioInitialized = false;
     player.prepare(mediaSource, true, false);
+//    player.seekTo(0);
     return false;
   }
 

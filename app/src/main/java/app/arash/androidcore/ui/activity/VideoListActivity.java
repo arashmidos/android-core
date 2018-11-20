@@ -12,11 +12,9 @@ import android.widget.TextView;
 import app.arash.androidcore.R;
 import app.arash.androidcore.data.entity.Category;
 import app.arash.androidcore.data.entity.Constant;
-import app.arash.androidcore.data.event.CategoryEvent;
 import app.arash.androidcore.data.event.ErrorEvent;
 import app.arash.androidcore.data.event.VideoEvent;
 import app.arash.androidcore.service.VideoService;
-import app.arash.androidcore.ui.adapter.VideoCategoryListAdapter;
 import app.arash.androidcore.ui.adapter.VideoListAdapter;
 import app.arash.androidcore.util.DialogUtil;
 import app.arash.androidcore.util.PreferenceHelper;
@@ -24,9 +22,9 @@ import app.arash.androidcore.util.ToastUtil;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import io.github.inflationx.viewpump.ViewPumpContextWrapper;
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
-import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 public class VideoListActivity extends AppCompatActivity {
 
@@ -119,6 +117,6 @@ public class VideoListActivity extends AppCompatActivity {
 
   @Override
   protected void attachBaseContext(Context newBase) {
-    super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
+    super.attachBaseContext(ViewPumpContextWrapper.wrap(newBase));
   }
 }

@@ -98,5 +98,7 @@
   <color name="gray_85">#858585</color>
   <color name="red_e5">#e53935</color>
   <color name="separator">#eeeeee</color>
+  <color name="black60x">#60000000</color>
+  <color name="gray_d8">#d8d8d8</color>
 
 </resources>

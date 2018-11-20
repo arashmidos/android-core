@@ -16,16 +16,15 @@ import app.arash.androidcore.data.constant.StatusCodes;
 import app.arash.androidcore.data.event.ActionEvent;
 import app.arash.androidcore.data.event.ErrorEvent;
 import app.arash.androidcore.data.event.Event;
-import app.arash.androidcore.service.VideoService;
 import app.arash.androidcore.util.DialogUtil;
 import app.arash.androidcore.util.PreferenceHelper;
 import app.arash.androidcore.util.ToastUtil;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import io.github.inflationx.viewpump.ViewPumpContextWrapper;
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
-import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 public class NewPhoneActivity extends AppCompatActivity {
 
@@ -104,6 +103,6 @@ public class NewPhoneActivity extends AppCompatActivity {
 
   @Override
   protected void attachBaseContext(Context newBase) {
-    super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
+    super.attachBaseContext(ViewPumpContextWrapper.wrap(newBase));
   }
 }

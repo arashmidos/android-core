@@ -1,6 +1,7 @@
 package app.arash.androidcore.ui.adapter;
 
 import android.content.Context;
+import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.RecyclerView.Adapter;
 import android.text.TextUtils;
@@ -16,7 +17,6 @@ import app.arash.androidcore.ui.fragment.DrugSpecificationFragment;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import java.util.List;
-import org.jetbrains.annotations.Nullable;
 
 /**
  * Created by shkbhbb on 1/24/18.

@@ -22,9 +22,9 @@ import app.arash.androidcore.util.Empty;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import io.github.inflationx.viewpump.ViewPumpContextWrapper;
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
-import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 public class DoctorDetailActivity extends AppCompatActivity {
 
@@ -120,6 +120,6 @@ public class DoctorDetailActivity extends AppCompatActivity {
 
   @Override
   protected void attachBaseContext(Context newBase) {
-    super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
+    super.attachBaseContext(ViewPumpContextWrapper.wrap(newBase));
   }
 }

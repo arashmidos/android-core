@@ -13,8 +13,8 @@ import app.arash.androidcore.util.PreferenceHelper;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import io.github.inflationx.viewpump.ViewPumpContextWrapper;
 import me.relex.circleindicator.CircleIndicator;
-import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 public class IntroActivity extends AppCompatActivity {
 
@@ -30,7 +30,8 @@ public class IntroActivity extends AppCompatActivity {
     super.onCreate(savedInstanceState);
     Intent intent;
     if (PreferenceHelper.hasSeenIntro()) {//TODO: CHECK TOKEN LATER
-      if (Empty.isEmpty(PreferenceHelper.getPhoneNumber())/* || Empty.isEmpty(PreferenceHelper.getToken())*/) {
+      if (Empty.isEmpty(
+          PreferenceHelper.getPhoneNumber())/* || Empty.isEmpty(PreferenceHelper.getToken())*/) {
         intent = new Intent(this, NewPhoneActivity.class);
       } else {
         intent = new Intent(this, MainActivity.class);
@@ -75,6 +76,6 @@ public class IntroActivity extends AppCompatActivity {
 
   @Override
   protected void attachBaseContext(Context newBase) {
-    super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
+    super.attachBaseContext(ViewPumpContextWrapper.wrap(newBase));
   }
 }
