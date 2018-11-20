@@ -9,6 +9,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.TextView;
+import app.arash.androidcore.MedicApplication;
 import app.arash.androidcore.R;
 import app.arash.androidcore.data.entity.Category;
 import app.arash.androidcore.data.entity.Constant;
@@ -25,6 +26,8 @@ import butterknife.OnClick;
 import io.github.inflationx.viewpump.ViewPumpContextWrapper;
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
+import org.piwik.sdk.Tracker;
+import org.piwik.sdk.extra.TrackHelper;
 
 public class VideoListActivity extends AppCompatActivity {
 
@@ -51,6 +54,11 @@ public class VideoListActivity extends AppCompatActivity {
     toolbarTitleTv.setText(category.getName().trim());
 
     setUpRecyclerView();
+
+    Tracker tracker = MedicApplication.getInstance().getTracker();
+
+    TrackHelper.track().screen("/activity/video_list").title("Video List").with(tracker);
+
   }
 
   private void setUpRecyclerView() {
@@ -92,6 +100,8 @@ public class VideoListActivity extends AppCompatActivity {
 
   @Subscribe
   public void getMessage(ErrorEvent event) {
+    DialogUtil.dismissProgressDialog();
+
     switch (event.getStatusCode()) {
       case NO_NETWORK:
         ToastUtil.toastError(this, R.string.error_no_network);

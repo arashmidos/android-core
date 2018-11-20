@@ -28,10 +28,11 @@ public class IntroActivity extends AppCompatActivity {
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
+
     Intent intent;
-    if (PreferenceHelper.hasSeenIntro()) {//TODO: CHECK TOKEN LATER
-      if (Empty.isEmpty(
-          PreferenceHelper.getPhoneNumber())/* || Empty.isEmpty(PreferenceHelper.getToken())*/) {
+    if (PreferenceHelper.hasSeenIntro()) {
+      if (Empty.isEmpty(PreferenceHelper.getPhoneNumber()) || Empty
+          .isEmpty(PreferenceHelper.getToken())) {
         intent = new Intent(this, NewPhoneActivity.class);
       } else {
         intent = new Intent(this, MainActivity.class);

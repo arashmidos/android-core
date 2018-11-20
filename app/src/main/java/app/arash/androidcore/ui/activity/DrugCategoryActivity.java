@@ -9,6 +9,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.TextView;
+import app.arash.androidcore.MedicApplication;
 import app.arash.androidcore.R;
 import app.arash.androidcore.data.entity.Constant;
 import app.arash.androidcore.data.entity.Drug;
@@ -23,6 +24,8 @@ import io.github.inflationx.viewpump.ViewPumpContextWrapper;
 import java.util.List;
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
+import org.piwik.sdk.Tracker;
+import org.piwik.sdk.extra.TrackHelper;
 
 public class DrugCategoryActivity extends AppCompatActivity {
 
@@ -41,6 +44,11 @@ public class DrugCategoryActivity extends AppCompatActivity {
     ButterKnife.bind(this);
     getIntentData();
     setUpRecyclerView();
+
+    Tracker tracker = MedicApplication.getInstance().getTracker();
+
+    TrackHelper.track().screen("/activity/drug_category").title("Drug Category").with(tracker);
+
   }
 
   private void getIntentData() {

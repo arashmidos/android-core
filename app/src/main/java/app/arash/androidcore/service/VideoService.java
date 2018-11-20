@@ -3,6 +3,7 @@ package app.arash.androidcore.service;
 import app.arash.androidcore.MedicApplication;
 import app.arash.androidcore.data.constant.StatusCodes;
 import app.arash.androidcore.data.entity.Category;
+import app.arash.androidcore.data.entity.GeneralResponse;
 import app.arash.androidcore.data.entity.SendSmsRequest;
 import app.arash.androidcore.data.entity.SubscriptionResponse;
 import app.arash.androidcore.data.entity.TokenResponse;
@@ -26,7 +27,6 @@ import retrofit2.Response;
  */
 
 public class VideoService {
-
 
   public void getCategoryList() {
     if (!NetworkUtil.isNetworkAvailable(MedicApplication.getInstance())) {
@@ -71,12 +71,12 @@ public class VideoService {
     }
     RestService restService = ServiceGenerator.createService(RestService.class);
 
-    Call<String> call = restService.sendSms(new SendSmsRequest(phone));
+    Call<GeneralResponse> call = restService.sendSms(new SendSmsRequest(phone));
 
-    call.enqueue(new Callback<String>() {
+    call.enqueue(new Callback<GeneralResponse>() {
       @Override
-      public void onResponse(Call<String> call, Response<String> response) {
-        if (response.code() == 204) {
+      public void onResponse(Call<GeneralResponse> call, Response<GeneralResponse> response) {
+        if (response.code() == 204|| response.code() == 200) {
           EventBus.getDefault().post(new ActionEvent(StatusCodes.SMS_SUCCESS));
         } else {
           EventBus.getDefault().post(new ErrorEvent(StatusCodes.SERVER_ERROR));
@@ -84,7 +84,7 @@ public class VideoService {
       }
 
       @Override
-      public void onFailure(Call<String> call, Throwable t) {
+      public void onFailure(Call<GeneralResponse> call, Throwable t) {
         EventBus.getDefault().post(new ErrorEvent(StatusCodes.NETWORK_ERROR));
       }
     });
@@ -96,7 +96,7 @@ public class VideoService {
       return;
     }
     RestService restService = ServiceGenerator.createService(RestService.class);
-//TODO:
+
 //    phone = phone.replace("0", "1");
     Call<TokenResponse> call = restService.verifyCode(new VerifyCodeRequest(phone, code));
 //    Call<TokenResponse> call = restService.testGetToken(new VerifyCodeRequest(phone, code));

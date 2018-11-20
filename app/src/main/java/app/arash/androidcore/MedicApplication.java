@@ -9,13 +9,16 @@ import android.support.multidex.MultiDexApplication;
 import android.support.v7.app.AppCompatDelegate;
 import android.util.DisplayMetrics;
 import android.util.Log;
+import app.arash.androidcore.data.entity.Category;
 import app.arash.androidcore.util.Constants;
 import co.ronash.pushe.Pushe;
 import com.crashlytics.android.Crashlytics;
 import io.fabric.sdk.android.Fabric;
 import io.github.inflationx.calligraphy3.CalligraphyConfig;
+import io.github.inflationx.calligraphy3.CalligraphyConfig.Builder;
 import io.github.inflationx.calligraphy3.CalligraphyInterceptor;
 import io.github.inflationx.viewpump.ViewPump;
+import java.util.List;
 import java.util.Locale;
 import org.piwik.sdk.Piwik;
 import org.piwik.sdk.Tracker;
@@ -30,6 +33,7 @@ public class MedicApplication extends MultiDexApplication {
 
   public static SharedPreferences sPreference;
   private Tracker mPiwikTracker;
+  private List<Category> categories;
 
   public static MedicApplication getInstance() {
     return sInstance;
@@ -57,7 +61,7 @@ public class MedicApplication extends MultiDexApplication {
 
     ViewPump.init(ViewPump.builder()
         .addInterceptor(new CalligraphyInterceptor(
-            new CalligraphyConfig.Builder()
+            new Builder()
                 .setDefaultFontPath("fonts/IRANSansMobile.ttf")
                 .setFontAttrId(R.attr.fontPath)
                 .build()))
@@ -92,5 +96,13 @@ public class MedicApplication extends MultiDexApplication {
     Configuration conf = res.getConfiguration();
     conf.locale = locale;
     res.updateConfiguration(conf, dm);
+  }
+
+  public void setCategories(List<Category> categories) {
+    this.categories = categories;
+  }
+
+  public List<Category> getCategories() {
+    return categories;
   }
 }

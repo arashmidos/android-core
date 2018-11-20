@@ -9,6 +9,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+import app.arash.androidcore.MedicApplication;
 import app.arash.androidcore.R;
 import app.arash.androidcore.data.entity.Constant;
 import app.arash.androidcore.data.entity.Drug;
@@ -26,6 +27,8 @@ import butterknife.OnClick;
 import io.github.inflationx.viewpump.ViewPumpContextWrapper;
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
+import org.piwik.sdk.Tracker;
+import org.piwik.sdk.extra.TrackHelper;
 
 public class DrugDetailActivity extends AppCompatActivity {
 
@@ -54,6 +57,11 @@ public class DrugDetailActivity extends AppCompatActivity {
     } else {
       viewPager.setCurrentItem(1);
     }
+
+    Tracker tracker = MedicApplication.getInstance().getTracker();
+
+    TrackHelper.track().screen("/activity/drug_detail").title("Drug Detail").with(tracker);
+
   }
 
   private void getIntentData() {

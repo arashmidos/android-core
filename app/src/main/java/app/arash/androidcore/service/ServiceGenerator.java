@@ -6,13 +6,7 @@ import app.arash.androidcore.util.Empty;
 import app.arash.androidcore.util.PreferenceHelper;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonPrimitive;
-import com.google.gson.JsonSerializationContext;
-import com.google.gson.JsonSerializer;
 import java.io.IOException;
-import java.lang.reflect.Type;
-import java.math.BigDecimal;
 import java.util.concurrent.TimeUnit;
 import okhttp3.Credentials;
 import okhttp3.Interceptor;
@@ -25,8 +19,7 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 /**
- * Created by Arash on 2017-02-16.
- * Generate different Retrofit services to call REST services
+ * Created by Arash on 2017-02-16. Generate different Retrofit services to call REST services
  */
 
 public class ServiceGenerator {
@@ -72,7 +65,7 @@ public class ServiceGenerator {
 
     String baseUrl = "https://rasavas.ir";
 //    String baseUrl = "http://91.121.179.217:8087";
-   // String baseUrl = "http://195.201.187.154";
+    // String baseUrl = "http://195.201.187.154";
 
 //    if (Empty.isEmpty(baseUrl)) {
 //      baseUrl = "http://www.google.com";
@@ -121,13 +114,15 @@ public class ServiceGenerator {
       String encodedRequest = original.url().toString();
 //      encodedRequest = encodedRequest.replace("|", "%7c");
 //
-     Request.Builder builder;
+      Request.Builder builder;
       if (Empty.isEmpty(authToken)) {
         String token = PreferenceHelper.getToken();
         builder = original.newBuilder().addHeader("Authorization", "Bearer " + token);
       } else {
         builder = original.newBuilder().header("Authorization", authToken);
       }
+      builder.addHeader("User-Agent", "MyClinic");
+
       Request request = builder.url(encodedRequest).build();
       return chain.proceed(request);
 

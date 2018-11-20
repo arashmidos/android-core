@@ -24,14 +24,6 @@ public class PreferenceHelper {
     return MedicApplication.getPreference().getBoolean(HAS_SEEN, false);
   }
 
-  public static void setLogIn(boolean hasLoggedIn) {
-    MedicApplication.getPreference().edit().putBoolean(HAS_LOGGED_IN, hasLoggedIn).apply();
-  }
-
-  public static boolean hasLoggedIn() {
-    return MedicApplication.getPreference().getBoolean(HAS_LOGGED_IN, false);
-  }
-
   public static String getPhoneNumber() {
     return MedicApplication.getPreference().getString(PHONE_NUMBER, "");
   }

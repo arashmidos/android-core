@@ -1,6 +1,7 @@
 package app.arash.androidcore.service;
 
 import app.arash.androidcore.data.entity.Category;
+import app.arash.androidcore.data.entity.GeneralResponse;
 import app.arash.androidcore.data.entity.SendSmsRequest;
 import app.arash.androidcore.data.entity.SubscriptionResponse;
 import app.arash.androidcore.data.entity.TokenResponse;
@@ -21,12 +22,11 @@ import retrofit2.http.Query;
 public interface RestService {
 
   @POST("medic/send_verification_code")
-  Call<String> sendSms(@Body SendSmsRequest sendSmsRequest);
+  Call<GeneralResponse> sendSms(@Body SendSmsRequest sendSmsRequest);
 
   @POST("medic/verify_token")
   Call<TokenResponse> verifyCode(@Body VerifyCodeRequest verifyCodeRequest);
 
-  //TODO: Not on prodution
   @POST("medic/test_get_token")
   Call<TokenResponse> testGetToken(@Body VerifyCodeRequest verifyCodeRequest);
 

@@ -26,7 +26,7 @@ android {
     }
     compileSdkVersion 27
     defaultConfig {
-        applicationId "app.arash.myclinic"
+        applicationId "ir.rasaaa.myclinic"
         minSdkVersion 16
         targetSdkVersion 27
         versionCode 20
@@ -55,12 +55,37 @@ android {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-            buildConfigField "String", "SERVICE_NUMBER", "\"405026\""
-            buildConfigField "int", "PIWIK_SITE_ID", "5"
+            buildConfigField "String", "SERVICE_NUMBER", "\"405029\""
+            buildConfigField "int", "PIWIK_SITE_ID", "6"
         }
         debug {
-            buildConfigField "String", "SERVICE_NUMBER", "\"405026\""
-            buildConfigField "int", "PIWIK_SITE_ID", "5"
+            buildConfigField "String", "SERVICE_NUMBER", "\"405029\""
+            buildConfigField "int", "PIWIK_SITE_ID", "6"
+        }
+    }
+
+    flavorDimensions "promoter"
+
+    productFlavors {
+        app1 {
+            dimension "promoter"
+            buildConfigField "int", "app_id", "1"
+        }
+        app2 {
+            dimension "promoter"
+            buildConfigField "int", "app_id", "2"
+        }
+        app3 {
+            dimension "promoter"
+            buildConfigField "int", "app_id", "3"
+        }
+        app4 {
+            dimension "promoter"
+            buildConfigField "int", "app_id", "4"
+        }
+        app5 {
+            dimension "promoter"
+            buildConfigField "int", "app_id", "5"
         }
     }
 }

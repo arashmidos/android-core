@@ -9,6 +9,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import app.arash.androidcore.MedicApplication;
 import app.arash.androidcore.R;
 import app.arash.androidcore.chart.MeasureValueFormatter;
 import app.arash.androidcore.chart.XAxisValueFormatter;
@@ -39,6 +40,8 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
+import org.piwik.sdk.Tracker;
+import org.piwik.sdk.extra.TrackHelper;
 
 public class ChartDetailActivity extends AppCompatActivity implements OnNewMeasureAdded {
 
@@ -74,6 +77,10 @@ public class ChartDetailActivity extends AppCompatActivity implements OnNewMeasu
       setData();
       setChart();
     }
+    Tracker tracker = MedicApplication.getInstance().getTracker();
+
+    TrackHelper.track().screen("/activity/chart").title("Chart").with(tracker);
+
   }
 
   private void setData() {

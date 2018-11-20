@@ -7,6 +7,7 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.TextView;
+import app.arash.androidcore.MedicApplication;
 import app.arash.androidcore.R;
 import app.arash.androidcore.data.entity.Constant;
 import app.arash.androidcore.data.entity.Doctor;
@@ -25,6 +26,8 @@ import butterknife.OnClick;
 import io.github.inflationx.viewpump.ViewPumpContextWrapper;
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
+import org.piwik.sdk.Tracker;
+import org.piwik.sdk.extra.TrackHelper;
 
 public class DoctorDetailActivity extends AppCompatActivity {
 
@@ -51,6 +54,11 @@ public class DoctorDetailActivity extends AppCompatActivity {
     } else {
       viewPager.setCurrentItem(1);
     }
+
+    Tracker tracker = MedicApplication.getInstance().getTracker();
+
+    TrackHelper.track().screen("/activity/doctor_detail").title("Doctor Detail").with(tracker);
+
   }
 
   private void getIntentData() {

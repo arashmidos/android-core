@@ -2,6 +2,7 @@ package app.arash.androidcore.ui.fragment;
 
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,7 +13,6 @@ import app.arash.androidcore.BuildConfig;
 import app.arash.androidcore.R;
 import app.arash.androidcore.data.constant.StatusCodes;
 import app.arash.androidcore.data.event.Event;
-import app.arash.androidcore.service.VideoService;
 import app.arash.androidcore.ui.activity.AboutUsActivity;
 import app.arash.androidcore.ui.activity.ContactUsActivity;
 import app.arash.androidcore.ui.activity.MainActivity;
@@ -20,6 +20,7 @@ import app.arash.androidcore.ui.activity.VideoCategoryListActivity;
 import app.arash.androidcore.util.DialogUtil;
 import app.arash.androidcore.util.NumberUtil;
 import app.arash.androidcore.util.PreferenceHelper;
+import app.arash.androidcore.util.ToastUtil;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -83,11 +84,24 @@ public class MoreFragment extends BaseFragment {
         break;
       case R.id.log_out_tv:
         DialogUtil
-            .showCustomDialog(mainActivity, getString(R.string.logout_account), getString(R.string.message_confirm_exit),
+            .showCustomDialog(mainActivity, getString(R.string.logout_account),
+                getString(R.string.message_confirm_exit),
                 getString(R.string.exit), (dialogInterface, i) -> {
-              /*new VideoService().unsubscribe();*///TODO: LATER
-                  PreferenceHelper.setPhoneNumber("");
-                  PreferenceHelper.setToken("");
+
+                  try {
+
+                    Intent intent = new Intent(Intent.ACTION_VIEW,
+                        Uri.parse("sms:" + "+98" + BuildConfig.SERVICE_NUMBER));
+                    intent.putExtra("sms_body", "OFF");
+                    startActivity(intent);
+                    mainActivity.finish();
+                  } catch (Exception ex) {
+                    if (ex instanceof SecurityException) {
+                      ToastUtil.toastError(mainActivity,
+                          "امکان ارسال پیامک وجود ندارد. کد OFF را به شماره سرویس ارسال کنید");
+                    }
+                    ex.printStackTrace();
+                  }
                   mainActivity.finish();
                 }, getString(R.string.cancel), (dialogInterface, i) -> dialogInterface.dismiss(),
                 R.drawable.ic_info_outline_24dp);

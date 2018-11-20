@@ -33,6 +33,7 @@
       android:src="@drawable/ic_back_24_dp" />
   </LinearLayout>
   <TextView
+    android:id="@+id/desc_tv"
     style="@style/IranSans.Light"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"

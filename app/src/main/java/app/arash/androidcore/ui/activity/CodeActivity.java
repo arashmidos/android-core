@@ -39,6 +39,9 @@ public class CodeActivity extends AppCompatActivity {
   TextView resendTv;
   @BindView(R.id.title)
   TextView title;
+  @BindView(R.id.desc_tv)
+  TextView descTv;
+  private String phoneNumber;
 
   private VideoService videoService;
   private String mobile;
@@ -49,7 +52,14 @@ public class CodeActivity extends AppCompatActivity {
     setContentView(R.layout.activity_code);
     ButterKnife.bind(this);
     videoService = new VideoService();
+    getIntentData();
     countDown();
+  }
+
+  private void getIntentData() {
+    phoneNumber = PreferenceHelper.getPhoneNumber();
+    descTv.setText(NumberUtil
+        .digitsToPersian(String.format(getString(R.string.code_sent_to_numer_x), phoneNumber)));
   }
 
   private void countDown() {
@@ -125,7 +135,6 @@ public class CodeActivity extends AppCompatActivity {
       if (event.getStatusCode() == StatusCodes.SMS_SUCCESS) {
         ToastUtil.toastMessage(this, "کد تایید با موفقیت ارسال شد");
       } else if (event.getStatusCode() == StatusCodes.SUCCESS) {
-        PreferenceHelper.setLogIn(true);
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
         finishAffinity();

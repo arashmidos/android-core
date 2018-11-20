@@ -20,6 +20,7 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
+import app.arash.androidcore.MedicApplication;
 import app.arash.androidcore.R;
 import app.arash.androidcore.data.entity.Constant;
 import app.arash.androidcore.data.entity.Video;
@@ -54,6 +55,8 @@ import java.util.List;
 import java.util.Locale;
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
+import org.piwik.sdk.Tracker;
+import org.piwik.sdk.extra.TrackHelper;
 
 public class VideoDetailActivity extends AppCompatActivity {
 
@@ -148,6 +151,11 @@ public class VideoDetailActivity extends AppCompatActivity {
     if (recyclerView == null) {
       toolbar.setVisibility(View.GONE);
     }
+
+    Tracker tracker = MedicApplication.getInstance().getTracker();
+
+    TrackHelper.track().screen("/activity/video_detail").title("Video Detail").with(tracker);
+
   }
 
   private void startVideo() {
@@ -317,6 +325,8 @@ public class VideoDetailActivity extends AppCompatActivity {
 
   @Subscribe
   public void getMessage(ErrorEvent event) {
+    DialogUtil.dismissProgressDialog();
+
     switch (event.getStatusCode()) {
       case NO_NETWORK:
         ToastUtil.toastError(this, R.string.error_no_network);

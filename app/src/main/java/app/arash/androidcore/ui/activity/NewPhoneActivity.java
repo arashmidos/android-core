@@ -16,6 +16,8 @@ import app.arash.androidcore.data.constant.StatusCodes;
 import app.arash.androidcore.data.event.ActionEvent;
 import app.arash.androidcore.data.event.ErrorEvent;
 import app.arash.androidcore.data.event.Event;
+import app.arash.androidcore.service.VideoService;
+import app.arash.androidcore.util.Constants;
 import app.arash.androidcore.util.DialogUtil;
 import app.arash.androidcore.util.PreferenceHelper;
 import app.arash.androidcore.util.ToastUtil;
@@ -60,12 +62,13 @@ public class NewPhoneActivity extends AppCompatActivity {
     switch (view.getId()) {
       case R.id.submit_btn:
       case R.id.enter_button:
-        if (!TextUtils.isEmpty(phoneEdt.getText().toString().trim())) {
-          PreferenceHelper.setPhoneNumber(phoneEdt.getText().toString().trim());//TODO CHANGE LATER
-          startActivity(new Intent(this, MainActivity.class));
-          finish();
-        /*  DialogUtil.showProgressDialog(this, getString(R.string.message_please_wait));//TODO
-          new VideoService().sendSms(phoneEdt.getText().toString().trim());*/
+        String phone = phoneEdt.getText().toString().trim();
+        if (!TextUtils.isEmpty(phone)) {
+          PreferenceHelper.setPhoneNumber(phone);
+//          startActivity(new Intent(this, MainActivity.class));
+//          finish();
+          DialogUtil.showProgressDialog(this, getString(R.string.message_please_wait));
+          new VideoService().sendSms(phone);
         } else {
           ToastUtil.toastError(root, R.string.enter_phone_is_required);
         }
@@ -88,9 +91,12 @@ public class NewPhoneActivity extends AppCompatActivity {
   @Subscribe
   public void getMessage(Event event) {
     DialogUtil.dismissProgressDialog();
-    if (event instanceof ActionEvent) {
-      PreferenceHelper.setPhoneNumber(phoneEdt.getText().toString().trim());//TODO CHANGE LATER
-      startActivity(new Intent(this, MainActivity.class));
+    if (event instanceof ActionEvent && event.getStatusCode() == StatusCodes.SMS_SUCCESS) {
+//      PreferenceHelper.setPhoneNumber(phoneEdt.getText().toString().trim());
+
+      Intent intent = new Intent(this, CodeActivity.class);
+
+      startActivity(intent);
       finish();
     } else if (event instanceof ErrorEvent) {
       if (event.getStatusCode() == StatusCodes.NO_NETWORK) {

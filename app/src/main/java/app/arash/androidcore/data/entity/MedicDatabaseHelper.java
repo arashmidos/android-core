@@ -20,7 +20,7 @@ public class MedicDatabaseHelper extends SQLiteOpenHelper {
   private static final String DATABASE_NAME = "medic.db";
   private static final Integer DATABASE_VERSION = 2;
   private static final String SQL_ADD_COLUMN = "ALTER TABLE %s ADD COLUMN %s %s ";
-  private static String DATABASE_PATH = "/data/data/app.arash.myclinic/databases/";
+  private static String DATABASE_PATH = "/data/data/ir.rasaaa.myclinic/databases/";
   private static MedicDatabaseHelper sInstance;
   private final Context context;
   private SQLiteDatabase myDataBase;
@@ -65,6 +65,7 @@ public class MedicDatabaseHelper extends SQLiteOpenHelper {
   }
 
   private boolean checkDataBase() {
+
     SQLiteDatabase checkDB = null;
 
     try {

@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import app.arash.androidcore.MedicApplication;
 import app.arash.androidcore.R;
 import app.arash.androidcore.data.entity.Constant;
 import app.arash.androidcore.data.entity.Doctor;
@@ -28,6 +29,8 @@ import io.github.inflationx.viewpump.ViewPumpContextWrapper;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
+import org.piwik.sdk.Tracker;
+import org.piwik.sdk.extra.TrackHelper;
 
 public class NewVisitActivity extends AppCompatActivity {
 
@@ -57,6 +60,10 @@ public class NewVisitActivity extends AppCompatActivity {
     doctorVisitDao = new DoctorVisitDaoImpl(this);
     getIntentData();
     setData();
+    Tracker tracker = MedicApplication.getInstance().getTracker();
+
+    TrackHelper.track().screen("/activity/visit").title("Visit").with(tracker);
+
   }
 
   private void setData() {

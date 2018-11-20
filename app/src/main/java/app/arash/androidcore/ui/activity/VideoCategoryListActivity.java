@@ -8,7 +8,9 @@ import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import app.arash.androidcore.MedicApplication;
 import app.arash.androidcore.R;
+import app.arash.androidcore.data.entity.Category;
 import app.arash.androidcore.data.event.CategoryEvent;
 import app.arash.androidcore.data.event.ErrorEvent;
 import app.arash.androidcore.service.VideoService;
@@ -20,8 +22,11 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import io.github.inflationx.viewpump.ViewPumpContextWrapper;
+import java.util.List;
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
+import org.piwik.sdk.Tracker;
+import org.piwik.sdk.extra.TrackHelper;
 
 public class VideoCategoryListActivity extends AppCompatActivity {
 
@@ -35,6 +40,11 @@ public class VideoCategoryListActivity extends AppCompatActivity {
     setContentView(R.layout.activity_video_list);
     ButterKnife.bind(this);
     setUpRecyclerView();
+
+    Tracker tracker = MedicApplication.getInstance().getTracker();
+
+    TrackHelper.track().screen("/activity/video_category").title("Video Category").with(tracker);
+
   }
 
   private void setUpRecyclerView() {
@@ -63,19 +73,30 @@ public class VideoCategoryListActivity extends AppCompatActivity {
   protected void onResume() {
     super.onResume();
     EventBus.getDefault().register(this);
-    DialogUtil.showProgressDialog(this, "در حال دریافت لیست دسته بندی ها");
-    new VideoService().getCategoryList();
+    List<Category> categories = MedicApplication.getInstance().getCategories();
+    if (categories == null) {
+      DialogUtil.showProgressDialog(this, "در حال دریافت لیست دسته بندی ها");
+      new VideoService().getCategoryList();
+    } else {
+      listAdapter = new VideoCategoryListAdapter(this, categories);
+      recyclerView.setAdapter(listAdapter);
+    }
   }
 
   @Subscribe
   public void getMessage(CategoryEvent event) {
     DialogUtil.dismissProgressDialog();
-    listAdapter = new VideoCategoryListAdapter(this, event.getCategoryList());
+
+    List<Category> categoryList = event.getCategoryList();
+    MedicApplication.getInstance().setCategories(categoryList);
+    listAdapter = new VideoCategoryListAdapter(this, categoryList);
     recyclerView.setAdapter(listAdapter);
   }
 
   @Subscribe
   public void getMessage(ErrorEvent event) {
+    DialogUtil.dismissProgressDialog();
+
     switch (event.getStatusCode()) {
       case NO_NETWORK:
         ToastUtil.toastError(this, R.string.error_no_network);
