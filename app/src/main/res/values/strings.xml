@@ -204,5 +204,6 @@
   <string name="email">Info@rasaaa.com</string>
   <string name="send_email_title">Send email...</string>
   <string name="android_application">اپلیکیشن اندروید</string>
+  <string name="get_confirm_code">دریافت کد تایید</string>
 
 </resources>

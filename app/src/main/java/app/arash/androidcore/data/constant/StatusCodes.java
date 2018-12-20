@@ -9,7 +9,6 @@ import app.arash.androidcore.util.Empty;
  */
 public enum StatusCodes {
   SUCCESS(200),
-  SMS_SUCCESS(209),
   SIGNUP_SUCCESS(201),
   LOGIN_SUCCESS(202),
   SIGNIN_SUCCESS(203),
@@ -18,6 +17,7 @@ public enum StatusCodes {
   ORDER_SUCCESSFULL(206),
   DUPLICATE_USER(207),
   VERIFY_CODE_SUCCESS(208),
+  SMS_SUCCESS(209),
   AUTHENTICATE_ERROR(401),
   NO_NETWORK(1001),
   INVALID_DATA(1002),

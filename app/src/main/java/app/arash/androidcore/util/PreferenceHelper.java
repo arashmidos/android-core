@@ -15,6 +15,7 @@ public class PreferenceHelper {
   private static final String RECENT_SEARCH = "RECENT_SEARCH";
   private static final String HAS_LOGGED_IN = "HAS_LOGGED_IN";
   private static final String TOKEN = "TOKEN";
+  private static final String PERMISSION_GRANTED = "PERMISSION_GRANTED";
 
   public static void setSeenIntro(boolean hasSeen) {
     MedicApplication.getPreference().edit().putBoolean(HAS_SEEN, hasSeen).apply();
@@ -82,5 +83,15 @@ public class PreferenceHelper {
 
   public static void setToken(String token) {
     MedicApplication.getPreference().edit().putString(TOKEN, token).apply();
+  }
+
+
+  public static boolean isPermissionGranted() {
+    return MedicApplication.getPreference().getBoolean(PERMISSION_GRANTED, false);
+  }
+
+  public static void setPermissionGranted(boolean permissionGranted) {
+    MedicApplication.getPreference().edit().putBoolean(PERMISSION_GRANTED, permissionGranted)
+        .apply();
   }
 }

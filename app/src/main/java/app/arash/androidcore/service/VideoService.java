@@ -1,10 +1,12 @@
 package app.arash.androidcore.service;
 
+import android.support.annotation.NonNull;
 import app.arash.androidcore.MedicApplication;
 import app.arash.androidcore.data.constant.StatusCodes;
 import app.arash.androidcore.data.entity.Category;
 import app.arash.androidcore.data.entity.GeneralResponse;
 import app.arash.androidcore.data.entity.SendSmsRequest;
+import app.arash.androidcore.data.entity.StaticResponse;
 import app.arash.androidcore.data.entity.SubscriptionResponse;
 import app.arash.androidcore.data.entity.TokenResponse;
 import app.arash.androidcore.data.entity.VerifyCodeRequest;
@@ -12,6 +14,7 @@ import app.arash.androidcore.data.entity.Video;
 import app.arash.androidcore.data.event.ActionEvent;
 import app.arash.androidcore.data.event.CategoryEvent;
 import app.arash.androidcore.data.event.ErrorEvent;
+import app.arash.androidcore.data.event.StaticPageEvent;
 import app.arash.androidcore.data.event.VideoEvent;
 import app.arash.androidcore.util.Empty;
 import app.arash.androidcore.util.NetworkUtil;
@@ -39,7 +42,8 @@ public class VideoService {
 
     call.enqueue(new Callback<List<Category>>() {
       @Override
-      public void onResponse(Call<List<Category>> call, Response<List<Category>> response) {
+      public void onResponse(@NonNull Call<List<Category>> call,
+          @NonNull Response<List<Category>> response) {
         if (response.isSuccessful()) {
           List<Category> categoryList = response.body();
           if (categoryList != null && categoryList.size() > 0) {
@@ -75,8 +79,9 @@ public class VideoService {
 
     call.enqueue(new Callback<GeneralResponse>() {
       @Override
-      public void onResponse(Call<GeneralResponse> call, Response<GeneralResponse> response) {
-        if (response.code() == 204|| response.code() == 200) {
+      public void onResponse(@NonNull Call<GeneralResponse> call,
+          Response<GeneralResponse> response) {
+        if (response.code() == 204 || response.code() == 200) {
           EventBus.getDefault().post(new ActionEvent(StatusCodes.SMS_SUCCESS));
         } else {
           EventBus.getDefault().post(new ErrorEvent(StatusCodes.SERVER_ERROR));
@@ -84,7 +89,7 @@ public class VideoService {
       }
 
       @Override
-      public void onFailure(Call<GeneralResponse> call, Throwable t) {
+      public void onFailure(@NonNull Call<GeneralResponse> call, @NonNull Throwable t) {
         EventBus.getDefault().post(new ErrorEvent(StatusCodes.NETWORK_ERROR));
       }
     });
@@ -103,7 +108,8 @@ public class VideoService {
 
     call.enqueue(new Callback<TokenResponse>() {
       @Override
-      public void onResponse(Call<TokenResponse> call, Response<TokenResponse> response) {
+      public void onResponse(@NonNull Call<TokenResponse> call,
+          @NonNull Response<TokenResponse> response) {
         if (response.isSuccessful()) {
           TokenResponse tokenResponse = response.body();
           String accessToken = tokenResponse.getAccessToken();
@@ -140,7 +146,8 @@ public class VideoService {
 
     call.enqueue(new Callback<List<Video>>() {
       @Override
-      public void onResponse(Call<List<Video>> call, Response<List<Video>> response) {
+      public void onResponse(@NonNull Call<List<Video>> call,
+          @NonNull Response<List<Video>> response) {
         if (response.isSuccessful()) {
           List<Video> videoList = response.body();
           if (videoList != null && videoList.size() > 0) {
@@ -224,4 +231,38 @@ public class VideoService {
       }
     });
   }
+
+
+  public void getStatics() {
+    if (!NetworkUtil.isNetworkAvailable(MedicApplication.getInstance())) {
+      EventBus.getDefault().post(new ErrorEvent(StatusCodes.NO_NETWORK));
+      return;
+    }
+    RestService restService = ServiceGenerator.createService(RestService.class);
+
+    Call<StaticResponse> call = restService.statics();
+
+    call.enqueue(new Callback<StaticResponse>() {
+      @Override
+      public void onResponse(@NonNull Call<StaticResponse> call,
+          @NonNull Response<StaticResponse> response) {
+        if (response.isSuccessful()) {
+          StaticResponse subResponse = response.body();
+          if (subResponse != null) {
+            EventBus.getDefault().post(new StaticPageEvent(StatusCodes.SUCCESS, subResponse));
+          } else {
+            EventBus.getDefault().post(new ErrorEvent(StatusCodes.AUTHENTICATE_ERROR));
+          }
+        } else {
+          EventBus.getDefault().post(new ErrorEvent(StatusCodes.AUTHENTICATE_ERROR));
+        }
+      }
+
+      @Override
+      public void onFailure(@NonNull Call<StaticResponse> call, @NonNull Throwable t) {
+        EventBus.getDefault().post(new ErrorEvent(StatusCodes.NETWORK_ERROR));
+      }
+    });
+  }
+
 }

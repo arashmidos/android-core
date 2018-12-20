@@ -9,6 +9,8 @@
   <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
   <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
   <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+  <uses-permission android:name="android.permission.RECEIVE_SMS" />
+  <uses-permission android:name="android.permission.READ_SMS" />
 
   <application
     android:allowBackup="false"
@@ -41,11 +43,11 @@
     <activity
       android:name=".ui.activity.IntroActivity"
       android:screenOrientation="portrait">
-      <intent-filter>
-        <action android:name="android.intent.action.MAIN" />
+      <!--<intent-filter>-->
+        <!--<action android:name="android.intent.action.MAIN" />-->
 
-        <category android:name="android.intent.category.LAUNCHER" />
-      </intent-filter>
+        <!--<category android:name="android.intent.category.LAUNCHER" />-->
+      <!--</intent-filter>-->
     </activity>
     <activity
       android:name=".ui.activity.DoctorDetailActivity"
@@ -128,6 +130,22 @@
       android:enabled="true"
       android:exported="false"
       android:name=".service.PlayerService" />
+
+
+    <receiver
+      android:enabled="true"
+      android:exported="true"
+      android:name=".receiver.SmsBroadcastReceiver" />
+
+    <activity
+      android:name=".ui.activity.PhoneDynamicActivity"
+      android:screenOrientation="portrait">
+      <intent-filter>
+        <action android:name="android.intent.action.MAIN" />
+
+        <category android:name="android.intent.category.LAUNCHER" />
+      </intent-filter>
+    </activity>
   </application>
 
 </manifest>

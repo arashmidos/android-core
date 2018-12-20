@@ -1,5 +1,6 @@
 package app.arash.androidcore.service;
 
+import android.support.annotation.NonNull;
 import android.text.TextUtils;
 import app.arash.androidcore.BuildConfig;
 import app.arash.androidcore.util.Empty;
@@ -27,8 +28,8 @@ public class ServiceGenerator {
   private static Retrofit retrofit;
   private static OkHttpClient.Builder httpClient =
       new OkHttpClient.Builder()
-          .readTimeout(60, TimeUnit.SECONDS)
-          .connectTimeout(60, TimeUnit.SECONDS);
+          .readTimeout(120, TimeUnit.SECONDS)
+          .connectTimeout(120, TimeUnit.SECONDS);
   //Change different level of logging here
   private static HttpLoggingInterceptor logging =
       new HttpLoggingInterceptor()
@@ -108,7 +109,7 @@ public class ServiceGenerator {
     }
 
     @Override
-    public Response intercept(Chain chain) throws IOException {
+    public Response intercept(@NonNull Chain chain) throws IOException {
       Request original = chain.request();
 
       String encodedRequest = original.url().toString();

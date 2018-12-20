@@ -25,8 +25,6 @@ import io.github.inflationx.viewpump.ViewPumpContextWrapper;
 import java.util.List;
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
-import org.piwik.sdk.Tracker;
-import org.piwik.sdk.extra.TrackHelper;
 
 public class VideoCategoryListActivity extends AppCompatActivity {
 
@@ -40,10 +38,6 @@ public class VideoCategoryListActivity extends AppCompatActivity {
     setContentView(R.layout.activity_video_list);
     ButterKnife.bind(this);
     setUpRecyclerView();
-
-    Tracker tracker = MedicApplication.getInstance().getTracker();
-
-    TrackHelper.track().screen("/activity/video_category").title("Video Category").with(tracker);
 
   }
 

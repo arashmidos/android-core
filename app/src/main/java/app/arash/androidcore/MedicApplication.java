@@ -14,15 +14,11 @@ import app.arash.androidcore.util.Constants;
 import co.ronash.pushe.Pushe;
 import com.crashlytics.android.Crashlytics;
 import io.fabric.sdk.android.Fabric;
-import io.github.inflationx.calligraphy3.CalligraphyConfig;
 import io.github.inflationx.calligraphy3.CalligraphyConfig.Builder;
 import io.github.inflationx.calligraphy3.CalligraphyInterceptor;
 import io.github.inflationx.viewpump.ViewPump;
 import java.util.List;
 import java.util.Locale;
-import org.piwik.sdk.Piwik;
-import org.piwik.sdk.Tracker;
-import org.piwik.sdk.TrackerConfig;
 
 /**
  * @author Arash
@@ -32,7 +28,6 @@ public class MedicApplication extends MultiDexApplication {
   public static MedicApplication sInstance;
 
   public static SharedPreferences sPreference;
-  private Tracker mPiwikTracker;
   private List<Category> categories;
 
   public static MedicApplication getInstance() {
@@ -76,18 +71,6 @@ public class MedicApplication extends MultiDexApplication {
     Log.d("Test", "");
   }
 
-  public synchronized Tracker getTracker() {
-    if (mPiwikTracker != null) {
-      return mPiwikTracker;
-    }
-    mPiwikTracker = Piwik
-        .getInstance(this)
-        .newTracker(
-            new TrackerConfig("https://rasavas.ir/matomo/piwik.php", BuildConfig.PIWIK_SITE_ID,
-                "FitPress Android App"));
-    return mPiwikTracker;
-  }
-
   public void setLanguage() {
     Locale locale = new Locale(Constants.DEFAULT_LANGUAGE);
 
@@ -98,11 +81,11 @@ public class MedicApplication extends MultiDexApplication {
     res.updateConfiguration(conf, dm);
   }
 
-  public void setCategories(List<Category> categories) {
-    this.categories = categories;
-  }
-
   public List<Category> getCategories() {
     return categories;
+  }
+
+  public void setCategories(List<Category> categories) {
+    this.categories = categories;
   }
 }

@@ -29,8 +29,8 @@ android {
         applicationId "ir.rasaaa.myclinic"
         minSdkVersion 16
         targetSdkVersion 27
-        versionCode 20
-        versionName "1.7"
+        versionCode 22
+        versionName "1.9"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         multiDexEnabled true
 
@@ -118,18 +118,21 @@ dependencies {
     implementation 'com.github.matecode:Snacky:1.0.3'
     implementation 'me.relex:circleindicator:1.2.2@aar'
     implementation 'com.github.bumptech.glide:glide:4.8.0'
-//    implementation 'uk.co.chrisjenx:calligraphy:2.3.0'
+    implementation('com.github.bumptech.glide:okhttp3-integration:4.8.0') {
+        exclude group: 'glide-parent'
+    }
+    implementation 'com.github.bumptech.glide:annotations:4.8.0'
+    annotationProcessor 'com.github.bumptech.glide:compiler:4.8.0'
     implementation 'io.github.inflationx:calligraphy3:3.0.0'
     implementation 'io.github.inflationx:viewpump:1.0.0'
     implementation 'com.android.support:multidex:1.0.3'
     implementation 'com.getbase:floatingactionbutton:1.10.1'
     debugImplementation 'com.amitshekhar.android:debug-db:1.0.4'
     implementation 'com.github.sharish:ShimmerRecyclerView:v1.3'
-    implementation 'com.google.android.exoplayer:exoplayer:2.8.2'
+    implementation 'com.google.android.exoplayer:exoplayer:2.9.2'
     implementation 'com.github.sharish:ShimmerRecyclerView:v1.3'
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
     annotationProcessor 'com.google.dagger:dagger-compiler:2.0.2'
-    implementation 'org.piwik.sdk:piwik-sdk:3.0.3'
     implementation 'co.ronash.android:pushe-base:1.4.1'
     implementation group: 'com.google.code.findbugs', name: 'jsr305', version: '3.0.2'
 

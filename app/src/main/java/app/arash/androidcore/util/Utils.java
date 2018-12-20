@@ -16,6 +16,8 @@ import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import app.arash.androidcore.R;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 
 public class Utils {
@@ -114,5 +116,22 @@ public class Utils {
     shareIntent.putExtra(Intent.EXTRA_TEXT, content);
     shareIntent.setType("text/plain");
     context.startActivity(shareIntent);
+  }
+
+
+  public static String extractConfirmCode(String sms) {
+
+    if (Empty.isNotEmpty(sms)) {
+
+      Pattern p = Pattern.compile("-?\\d+");
+      Matcher m = p.matcher(sms);
+      while (m.find()) {
+        String group = m.group();
+        if (group.length() == 4) {
+          return group;
+        }
+      }
+    }
+    return "";
   }
 }

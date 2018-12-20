@@ -3,6 +3,7 @@ package app.arash.androidcore.service;
 import app.arash.androidcore.data.entity.Category;
 import app.arash.androidcore.data.entity.GeneralResponse;
 import app.arash.androidcore.data.entity.SendSmsRequest;
+import app.arash.androidcore.data.entity.StaticResponse;
 import app.arash.androidcore.data.entity.SubscriptionResponse;
 import app.arash.androidcore.data.entity.TokenResponse;
 import app.arash.androidcore.data.entity.VerifyCodeRequest;
@@ -42,5 +43,9 @@ public interface RestService {
   @GET("medic/video")
   Call<List<Video>> getVideoList(@Query("category_id") Integer categoryId,
       @Query("count") Integer count);
+
+
+  @GET("/medic/statics")
+  Call<StaticResponse> statics();
 }
 

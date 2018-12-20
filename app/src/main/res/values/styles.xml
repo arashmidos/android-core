@@ -247,4 +247,24 @@
     <item name="android:layout_marginRight">16dp</item>
 
   </style>
+
+  <style name="IranSansMobile">
+    <item name="fontPath">fonts/IRANSansMobile.ttf</item>
+  </style>
+
+  <style name="IranSansMobile.Bold">
+    <item name="fontPath">fonts/IRANSansMobile_Bold.ttf</item>
+  </style>
+
+  <style name="IranSansMobile.Light">
+    <item name="fontPath">fonts/IRANSansMobile_Light.ttf</item>
+  </style>
+
+  <style name="IranSansMobile.Medium">
+    <item name="fontPath">fonts/IRANSansMobile_Medium.ttf</item>
+  </style>
+
+  <style name="IranSansMobile.UltraLight">
+    <item name="fontPath">fonts/IRANSansMobile_UltraLight.ttf</item>
+  </style>
 </resources>

@@ -15,7 +15,6 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
-import app.arash.androidcore.MedicApplication;
 import app.arash.androidcore.R;
 import app.arash.androidcore.data.entity.Constant;
 import app.arash.androidcore.data.entity.FabChangedEvent;
@@ -41,8 +40,6 @@ import io.github.inflationx.viewpump.ViewPumpContextWrapper;
 import java.util.ArrayList;
 import java.util.List;
 import org.greenrobot.eventbus.EventBus;
-import org.piwik.sdk.Tracker;
-import org.piwik.sdk.extra.TrackHelper;
 
 public class MainActivity extends AppCompatActivity implements OnNewMeasureSelected,
     OnNewMeasureAdded {
@@ -101,9 +98,6 @@ public class MainActivity extends AppCompatActivity implements OnNewMeasureSelec
     }
 
     new BootReceiver().setAlarm(this);
-    Tracker tracker = MedicApplication.getInstance().getTracker();
-
-    TrackHelper.track().screen("/activity/main").title("Main").with(tracker);
 
   }
 

@@ -45,7 +45,9 @@ import com.google.android.exoplayer2.trackselection.DefaultTrackSelector;
 import com.google.android.exoplayer2.trackselection.TrackSelection;
 import com.google.android.exoplayer2.upstream.DataSource;
 import com.google.android.exoplayer2.upstream.DefaultBandwidthMeter;
+import com.google.android.exoplayer2.upstream.DefaultDataSourceFactory;
 import com.google.android.exoplayer2.upstream.DefaultHttpDataSourceFactory;
+import com.google.android.exoplayer2.util.Util;
 import com.google.android.exoplayer2.video.VideoRendererEventListener;
 import org.greenrobot.eventbus.EventBus;
 
@@ -125,14 +127,9 @@ public class PlayerService extends Service {
 
   private void initializePlayer() {
     if (player == null) {
-      // a factory to create an AdaptiveVideoTrackSelection
-      TrackSelection.Factory adaptiveTrackSelectionFactory =
-          new AdaptiveTrackSelection.Factory(BANDWIDTH_METER);
 
-      player = ExoPlayerFactory.newSimpleInstance(
-          new DefaultRenderersFactory(this),
-          new DefaultTrackSelector(adaptiveTrackSelectionFactory),
-          new DefaultLoadControl());
+      player = ExoPlayerFactory.newSimpleInstance(this);
+
       player.addListener(componentListener);
 
 //    player = ExoPlayerFactory.newSimpleInstance(
@@ -198,22 +195,24 @@ public class PlayerService extends Service {
 
     return new ExtractorMediaSource(uri,
         manifestDataSourceFactory, extractorsFactory, null, null);*/
-    DefaultHttpDataSourceFactory dataSourceFactory = new DefaultHttpDataSourceFactory(
-        "exoplayer-codelab");
-    dataSourceFactory.getDefaultRequestProperties().set("Accept-Encoding", "video/mp4");
-    dataSourceFactory.setDefaultRequestProperty("Accept-Encoding", "video/mp4");
-    Factory factory = new Factory(dataSourceFactory);
-
-    ExtractorMediaSource videoSource =
-        factory.createMediaSource(uri);
-
+//    DefaultHttpDataSourceFactory dataSourceFactory = new DefaultHttpDataSourceFactory(
+//        "exoplayer-codelab");
+//    dataSourceFactory.getDefaultRequestProperties().set("Accept-Encoding", "video/mp4");
+//    dataSourceFactory.setDefaultRequestProperty("Accept-Encoding", "video/mp4");
+//    Factory factory = new Factory(dataSourceFactory);
+//
+//    ExtractorMediaSource videoSource =
+//        factory.createMediaSource(uri);
+    DataSource.Factory dataSourceFactory = new DefaultDataSourceFactory(this,
+        Util.getUserAgent(this, "MyClinic"));
 //    Uri audioUri = Uri.parse(uri);
 /*    ExtractorMediaSource audioSource =
         new ExtractorMediaSource.Factory(
             new DefaultHttpDataSourceFactory("exoplayer-codelab")).
             createMediaSource(uri);*/
 
-    return new ConcatenatingMediaSource(videoSource);
+    return new Factory(dataSourceFactory).createMediaSource(uri);
+
   }
 
   @Override
