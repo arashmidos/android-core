@@ -22,8 +22,6 @@ import app.arash.androidcore.data.entity.Video;
 import app.arash.androidcore.data.event.ErrorEvent;
 import app.arash.androidcore.ui.activity.MainActivity;
 import app.arash.androidcore.util.Empty;
-import com.google.android.exoplayer2.DefaultLoadControl;
-import com.google.android.exoplayer2.DefaultRenderersFactory;
 import com.google.android.exoplayer2.ExoPlayer;
 import com.google.android.exoplayer2.ExoPlayerFactory;
 import com.google.android.exoplayer2.Format;
@@ -40,9 +38,6 @@ import com.google.android.exoplayer2.source.dash.DashChunkSource;
 import com.google.android.exoplayer2.source.dash.DashMediaSource;
 import com.google.android.exoplayer2.source.dash.DefaultDashChunkSource;
 import com.google.android.exoplayer2.source.hls.HlsMediaSource;
-import com.google.android.exoplayer2.trackselection.AdaptiveTrackSelection;
-import com.google.android.exoplayer2.trackselection.DefaultTrackSelector;
-import com.google.android.exoplayer2.trackselection.TrackSelection;
 import com.google.android.exoplayer2.upstream.DataSource;
 import com.google.android.exoplayer2.upstream.DefaultBandwidthMeter;
 import com.google.android.exoplayer2.upstream.DefaultDataSourceFactory;
@@ -54,11 +49,11 @@ import org.greenrobot.eventbus.EventBus;
 /**
  * @author Arash
  *
- *         This class is a long-running service for location updates. When an activity is bound to
- *         this service, frequent location updates are permitted. When the activity is removed from
- *         the foreground, the service promotes itself to a foreground service, and location updates
- *         continue. When the activity comes back to the foreground, the foreground service stops,
- *         and the notification assocaited with that service is removed.
+ * This class is a long-running service for location updates. When an activity is bound to this
+ * service, frequent location updates are permitted. When the activity is removed from the
+ * foreground, the service promotes itself to a foreground service, and location updates continue.
+ * When the activity comes back to the foreground, the foreground service stops, and the
+ * notification assocaited with that service is removed.
  */
 public class PlayerService extends Service {
 
@@ -497,8 +492,8 @@ public class PlayerService extends Service {
   }
 
   /**
-   * Class used for the client Binder.  Since this service runs in the same process as its
-   * clients, we don't need to deal with IPC.
+   * Class used for the client Binder.  Since this service runs in the same process as its clients,
+   * we don't need to deal with IPC.
    */
   public class LocalBinder extends Binder {
 

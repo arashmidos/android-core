@@ -48,9 +48,9 @@ public class MedicApplication extends MultiDexApplication {
     super.onCreate();
     sInstance = this;
 
-    if (!BuildConfig.DEBUG) {
-      Fabric.with(this, new Crashlytics());
-    }
+//    if (!BuildConfig.DEBUG) {
+    Fabric.with(this, new Crashlytics());
+//    }
 
     MultiDex.install(this);
 

@@ -21,9 +21,10 @@
     android:theme="@style/AppTheme"
     tools:ignore="GoogleAppIndexingWarning"
     tools:replace="android:supportsRtl">
+
     <meta-data
       android:name="io.fabric.ApiKey"
-      android:value="bf939acb1b76ea3f52f26b54a1d8f266e5f6fea4" />
+      android:value="025fe1dbe674e7631f86b54c45e3d82590b9ac3f" />
 
     <activity
       android:name=".ui.activity.MainActivity"

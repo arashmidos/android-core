@@ -60,7 +60,7 @@ public class ContactUsActivity extends AppCompatActivity {
         onBackPressed();
         break;
       case R.id.fragment_contact_us_phone_container:
-        String uri = "tel:" + getString(R.string.phone_number_tel);
+        String uri = "tel:" + NumberUtil.digitsToEnglish(contactUsPhone.getText().toString());
         Intent intent = new Intent(Intent.ACTION_DIAL);
         intent.setData(Uri.parse(uri));
         startActivity(intent);
@@ -68,7 +68,7 @@ public class ContactUsActivity extends AppCompatActivity {
 
       case R.id.fragment_contact_us_email_container:
         Intent emailIntent = new Intent(Intent.ACTION_SENDTO, Uri.fromParts(
-            "mailto", getString(R.string.email), null));
+            "mailto", contactUsMail.getText().toString(), null));
         emailIntent.putExtra(Intent.EXTRA_SUBJECT, getString(R.string.android_application));
         emailIntent.putExtra(Intent.EXTRA_TEXT, "");
         startActivity(Intent.createChooser(emailIntent,
