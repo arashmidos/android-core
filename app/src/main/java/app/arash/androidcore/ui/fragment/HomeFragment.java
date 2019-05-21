@@ -165,10 +165,15 @@ public class HomeFragment extends BaseFragment {
   }
 
   private void setDate() {
-    String dateString = DateUtil.getFullPersianDate(new Date());
     doctorVisitDao = new DoctorVisitDaoImpl(mainActivity);
-    toolbarDate.setText(String.format("امروز، %s", NumberUtil.digitsToPersian(dateString)));
     drugAlarmDao = new DrugAlarmDaoImpl(mainActivity);
+
+    try {
+      String dateString = DateUtil.getFullPersianDate(new Date());
+      toolbarDate.setText(String.format("امروز، %s", NumberUtil.digitsToPersian(dateString)));
+    } catch (Exception ignore) {
+      toolbarDate.setText("");
+    }
   }
 
   private void setUpMedicineRecyclerView() {

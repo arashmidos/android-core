@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "359014604698",
+    "firebase_url": "https://myclinic-27538.firebaseio.com",
+    "project_id": "myclinic-27538",
+    "storage_bucket": "myclinic-27538.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:359014604698:android:ca742fa26b9f3eb5",
+        "android_client_info": {
+          "package_name": "ir.rasaaa.myclinic"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "359014604698-qlfvlms1dq06s1lmtf6mbj0uuehc91u0.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBuJ_K5GmVfS8o0aoverRtFxhSFOHTsQNc"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

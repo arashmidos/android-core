@@ -55,7 +55,7 @@ public class MedicDatabaseHelper extends SQLiteOpenHelper {
       //By calling this method and empty database will be created into the default system path
       //of your application so we are gonna be able to overwrite that database with our database.
       this.getReadableDatabase();
-
+//      this.close();
       try {
         copyDataBase();
       } catch (IOException e) {
@@ -85,7 +85,7 @@ public class MedicDatabaseHelper extends SQLiteOpenHelper {
   private void copyDataBase() throws IOException {
 
     //Open your local db as the input stream
-    InputStream myInput = context.getAssets().open("databases/"+DATABASE_NAME);
+    InputStream myInput = context.getAssets().open("databases/" + DATABASE_NAME);
 
     // Path to the just created empty db
     String outFileName = DATABASE_PATH + DATABASE_NAME;
@@ -106,7 +106,7 @@ public class MedicDatabaseHelper extends SQLiteOpenHelper {
     myInput.close();
   }
 
-  public SQLiteDatabase openDataBase() throws SQLException{
+  public SQLiteDatabase openDataBase() throws SQLException {
 
     if (myDataBase == null) {
       //Open the database
@@ -126,5 +126,17 @@ public class MedicDatabaseHelper extends SQLiteOpenHelper {
     }
 
     super.close();
+  }
+
+  @Override
+  public void onOpen(SQLiteDatabase db) {
+    super.onOpen(db);
+    db.disableWriteAheadLogging();
+  }
+
+  @Override
+  public void onConfigure(SQLiteDatabase db) {
+    super.onConfigure(db);
+    db.disableWriteAheadLogging();
   }
 }

@@ -1,5 +1,7 @@
 package app.arash.androidcore.util;
 
+import android.os.Build.VERSION;
+import android.os.Build.VERSION_CODES;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -81,6 +83,9 @@ public class DateUtil {
       formatter.setCalendar(gregorianCalendar);
     }
     String englishDate = formatter.format(date);
+    if (VERSION.SDK_INT >= VERSION_CODES.N && formatter.equals(GLOBAL_FORMATTER)) {
+      englishDate = getMonthNumberForAndroid8(englishDate, formatter);
+    }
     englishDate = NumberUtil.digitsToEnglish(englishDate);
     return englishDate;
   }
@@ -297,8 +302,8 @@ public class DateUtil {
   }
 
   public static Date convertStringToDate(String date, SimpleDateFormat formatter, String locale) {
-    if (date.length() == 8 && !date.startsWith("13")) {
-      date = "13" + date;
+    if (Empty.isEmpty(date)) {
+      return null;
     }
     if (locale.equalsIgnoreCase("EN")) {
       GregorianCalendar gregorianCalendar = new GregorianCalendar();
@@ -306,6 +311,12 @@ public class DateUtil {
       formatter.setCalendar(gregorianCalendar);
     }
     try {
+      if (VERSION.SDK_INT >= VERSION_CODES.N && formatter.equals(GLOBAL_FORMATTER)) {
+        date = getMonthNumberForAndroid8(date, formatter);
+      }
+      if (date.length() == 8 && !date.startsWith("13")) {
+        date = "13" + date;
+      }
       return formatter.parse(date);
     } catch (Exception e) {
       e.printStackTrace();
@@ -400,17 +411,74 @@ public class DateUtil {
     return "";
   }
 
+  public static String getMonthNumberForAndroid8(String date, SimpleDateFormat formatter) {
+    try {
+      String[] month = formatter.getDateFormatSymbols().getShortMonths();
+      String m = date.split("/")[1];
+      String realM = null;
+      for (int i = 0; i < month.length; i++) {
+        if (m.equals(month[i])) {
+          int result = i + 1;
+          if (result < 10) {
+            realM = "0" + result;
+          } else {
+            realM = String.valueOf(result);
+          }
+          break;
+        }
+      }
+      if (realM != null) {
+        date = date.replace(m, realM);
+      }
+      if (date.contains("Sep")) {
+        date = date.replace("Sep", "09");
+      }
+      if (date.contains("Oct")) {
+        date = date.replace("Oct", "10");
+      }
+      if (date.contains("Nov")) {
+        date = date.replace("Nov", "11");
+      }
+      if (date.contains("Dec")) {
+        date = date.replace("Dec", "12");
+      }
+    } catch (Exception ex) {
+      ex.printStackTrace();
+    }
+    return date;
+  }
+
   public static String getFullPersianDate(Date date) {
     Calendar calendar = Calendar.getInstance();
     calendar.setTime(date);
     int dayOfWeek = calendar.get(Calendar.DAY_OF_WEEK);
     String dateString = DateUtil.convertDate(date, DateUtil.GLOBAL_FORMATTER, "FA");
     String[] splitDate = dateString.split("/");
-    String monthName = monthNames[Integer.parseInt(splitDate[1]) - 1];
+
+    String monthName = "";
+    try {
+      monthName = monthNames[Integer.parseInt(splitDate[1]) - 1];
+    } catch (Exception ex) {
+      monthName = getMonthNameForAndroid8(splitDate[1], DateUtil.GLOBAL_FORMATTER);
+    }
+
     if (splitDate[2].startsWith("0")) {
       splitDate[2] = splitDate[2].replace("0", "");
     }
     return String.format("%s %s %s", getPersianDayOfWeek(dayOfWeek), splitDate[2], monthName);
+  }
+
+
+  public static String getMonthNameForAndroid8(String date, SimpleDateFormat globalFormatter) {
+    String[] months = globalFormatter.getDateFormatSymbols().getShortMonths();
+    String m = "0";
+
+    for (int i = 0; i < months.length; i++) {
+      if (date.equals(months[i])) {
+        m = String.valueOf(i);
+      }
+    }
+    return monthNames[Integer.parseInt(m)];
   }
 
   public static String getPersianVisitDate(Date date) {

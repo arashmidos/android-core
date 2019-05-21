@@ -9,7 +9,7 @@ buildscript {
         maven { url 'https://maven.fabric.io/public' }
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:3.3.0'
+        classpath 'com.android.tools.build:gradle:3.3.1'
         classpath 'io.fabric.tools:gradle:1.25.4'
     }
 }
@@ -30,8 +30,8 @@ android {
         applicationId "ir.rasaaa.myclinic"
         minSdkVersion 16
         targetSdkVersion 27
-        versionCode 23
-        versionName "1.10"
+        versionCode 25
+        versionName "1.12"
         multiDexEnabled true
 
         vectorDrawables.useSupportLibrary = true
