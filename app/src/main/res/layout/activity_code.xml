@@ -46,7 +46,20 @@
     android:text="@string/code_has_sent"
     android:textColor="@color/black_21"
     android:textSize="14sp" />
+  <TextView
+    android:id="@+id/up_text"
+    style="@style/IranSans.Light"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
 
+    android:layout_marginBottom="16dp"
+    android:layout_marginLeft="48dp"
+    android:layout_marginRight="48dp"
+    android:layout_gravity="center"
+    android:gravity="center"
+    android:text="@string/code_has_sent"
+    android:textColor="@color/black_21"
+    android:textSize="14sp" />
   <EditText
     android:id="@+id/code_edt"
     style="@style/IranSans.Light"

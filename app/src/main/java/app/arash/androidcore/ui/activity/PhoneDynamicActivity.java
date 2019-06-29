@@ -4,7 +4,9 @@ import android.Manifest.permission;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Paint;
 import android.graphics.drawable.Drawable;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.NonNull;
@@ -53,8 +55,7 @@ public class PhoneDynamicActivity extends AppCompatActivity {
 
   private static final String TAG = PhoneDynamicActivity.class.getName();
   private static final int REQUEST_PERMISSIONS_REQUEST_CODE = 34;
-  @BindView(R.id.mid)
-  ImageView mid;
+
   @BindView(R.id.phone_number_edt)
   EditText phoneNumberEdt;
   @BindView(R.id.phone_main_lay)
@@ -74,11 +75,14 @@ public class PhoneDynamicActivity extends AppCompatActivity {
   private Pattern pattern;
   private String userInput;
   private int imageDownloaded = 0;
+  private StaticResponse response;
+  private String upText;
+
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
-    setContentView(R.layout.activity_phone_dynamic);
+    setContentView(R.layout.activity_phone_dynamic_no_img);
     ButterKnife.bind(this);
     onEditTextAction();
     pattern = Pattern.compile(Constants.PATTERN);
@@ -227,68 +231,62 @@ public class PhoneDynamicActivity extends AppCompatActivity {
       }
     } else if (event instanceof StaticPageEvent) {
 
-      StaticResponse response = ((StaticPageEvent) event).getSubResponse();
-      Glide.with(this)
-          .load(response.getSendCodePage().getMid())
-          .addListener(new RequestListener<Drawable>() {
-            @Override
-            public boolean onLoadFailed(@Nullable GlideException e, Object model,
-                Target<Drawable> target, boolean isFirstResource) {
-              Log.d(TAG, "mid failed");
-              return false;
-            }
-
-            @Override
-            public boolean onResourceReady(Drawable resource, Object model, Target<Drawable> target,
-                DataSource dataSource, boolean isFirstResource) {
-              Log.d(TAG, "mid loaded");
-              if (++imageDownloaded == 2) {
-                splash.setVisibility(View.GONE);
-                staticPage.setVisibility(View.VISIBLE);
-              }
-              return false;
-            }
-          })
-          .into(mid);
-      Glide.with(this)
-          .load(response.getSendCodePage().getBack())
-          .addListener(new RequestListener<Drawable>() {
-            @Override
-            public boolean onLoadFailed(@Nullable GlideException e, Object model,
-                Target<Drawable> target, boolean isFirstResource) {
-              Log.d(TAG, "back failed");
-              return false;
-            }
-
-            @Override
-            public boolean onResourceReady(Drawable resource, Object model, Target<Drawable> target,
-                DataSource dataSource, boolean isFirstResource) {
-              Log.d(TAG, "back loaded");
-              if (++imageDownloaded == 2) {
-                splash.setVisibility(View.GONE);
-                staticPage.setVisibility(View.VISIBLE);
-              }
-              return false;
-            }
-          })
-          .into(new SimpleTarget<Drawable>() {
-            @Override
-            public void onResourceReady(Drawable resource,
-                Transition<? super Drawable> transition) {
-              phoneMainLay.setBackground(resource);
-            }
-          });
-      down.setText(response.getSendCodePage().getDown());
-      up.setText(response.getSendCodePage().getUp());
-      nextBtn.setVisibility(View.VISIBLE);
-      phoneNumberEdt.setVisibility(View.VISIBLE);
-      tarrif.setVisibility(View.VISIBLE);
+      this.response = ((StaticPageEvent) event).getSubResponse();
+      setupUI();
     }
+  }
+
+  private void setupUI() {
+    splash.setVisibility(View.GONE);
+    staticPage.setVisibility(View.VISIBLE);
+    Glide.with(this)
+        .load(response.getSendCodePage().getBack())
+        .addListener(new RequestListener<Drawable>() {
+          @Override
+          public boolean onLoadFailed(@Nullable GlideException e, Object model,
+              Target<Drawable> target, boolean isFirstResource) {
+            Log.d(TAG, "back failed");
+            return false;
+          }
+
+          @Override
+          public boolean onResourceReady(Drawable resource, Object model, Target<Drawable> target,
+              DataSource dataSource, boolean isFirstResource) {
+            Log.d(TAG, "back loaded");
+//            if (++imageDownloaded == 2) {
+//
+//            }
+            return false;
+          }
+        })
+        .into(new SimpleTarget<Drawable>() {
+          @Override
+          public void onResourceReady(Drawable resource,
+              Transition<? super Drawable> transition) {
+            phoneMainLay.setBackground(resource);
+          }
+        });
+    down.setText(response.getSendCodePage().getDown());
+    upText = response.getSendCodePage().getUp();
+    this.up.setText(upText);
+
+
+    tarrif.setText(response.getSendCodePage().getLinkText());
+//      tarrif.setText(String.format("<a href=\"%s\">%s</a>", response.getSendCodePage().getLink(),response.getSendCodePage().getLinkText()));
+    tarrif.setPaintFlags(tarrif.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
+
+    tarrif.setOnClickListener(v -> {
+      Intent intent = new Intent(Intent.ACTION_VIEW,
+          Uri.parse(response.getSendCodePage().getLink()));
+      startActivity(intent);
+    });
   }
 
   private void goToNextPage() {
     Intent intent = new Intent(this, CodeActivity.class);
     intent.putExtra(Constants.PHONE_NUMBER, userInput);
+    intent.putExtra(Constants.UP_TEXT, upText);
+
     startActivity(intent);
 //      startActivity(new Intent(this, MainActivity.class));
     finish();

@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
+  xmlns:tools="http://schemas.android.com/tools"
+  android:id="@+id/phone_main_lay"
+  android:layout_width="match_parent"
+  android:layout_height="match_parent"
+  android:background="@color/white">
+  <android.support.constraint.ConstraintLayout
+    android:id="@+id/splash"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    tools:context="app.arash.football.ui.activity.PhoneDynamicActivity"
+    tools:visibility="gone">
+    <ImageView
+      android:id="@+id/imageView"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:src="@drawable/launcher_512"
+      app:layout_constraintBottom_toBottomOf="parent"
+      app:layout_constraintLeft_toLeftOf="parent"
+      app:layout_constraintRight_toRightOf="parent"
+      app:layout_constraintTop_toTopOf="parent" />
+
+    <ProgressBar
+      android:id="@+id/progressBar2"
+      style="?android:attr/progressBarStyle"
+      android:layout_width="24dp"
+      android:layout_height="24dp"
+      android:layout_alignParentBottom="true"
+      android:layout_centerHorizontal="true"
+      app:layout_constraintBottom_toBottomOf="parent"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toBottomOf="@+id/imageView" />
+
+  </android.support.constraint.ConstraintLayout>
+  <RelativeLayout
+    android:id="@+id/static_page"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:visibility="visible"
+    android:visibility="invisible">
+    <TextView
+      android:id="@+id/up"
+      style="@style/IranSansMobile"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_marginBottom="16dp"
+      android:layout_above="@+id/phone_number_edt"
+      android:gravity="center"
+      android:textColor="@color/white"
+      android:textSize="12sp"
+      tools:text="Up"
+      tools:textColor="@color/black_55" />
+    <TextView
+      android:id="@+id/down"
+      style="@style/IranSansMobile.Medium"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="100dp"
+      android:layout_alignParentTop="true"
+      android:lineSpacingExtra="12sp"
+      android:gravity="center"
+      android:textColor="@color/white"
+      android:textSize="16sp"
+      tools:text="down\ndosn"
+      tools:textColor="@color/black_55" />
+
+    <EditText
+      android:id="@+id/phone_number_edt"
+      style="@style/IranSansMobile"
+      android:layout_width="match_parent"
+      android:layout_height="40dp"
+      android:layout_above="@id/next_btn"
+      android:layout_alignLeft="@id/next_btn"
+      android:layout_alignRight="@id/next_btn"
+      android:layout_gravity="center_vertical"
+      android:paddingTop="5dp"
+      android:paddingBottom="5dp"
+      android:paddingRight="8dp"
+      android:background="@drawable/bg_white"
+      android:gravity="center"
+      android:hint="@string/mobile_number"
+      android:imeOptions="actionDone"
+      android:inputType="phone"
+      android:textColor="@color/black_21"
+      android:textColorHint="@color/gray_9e"
+      android:textSize="14sp"
+      tools:text="09123609446" />
+
+    <Button
+      android:id="@+id/next_btn"
+      style="@style/IranSansMobile.Medium"
+      android:layout_width="wrap_content"
+      android:layout_height="40dp"
+      android:layout_marginTop="16dp"
+      android:layout_marginBottom="8dp"
+      android:layout_above="@id/tarrif"
+      android:layout_centerHorizontal="true"
+      android:paddingLeft="24dp"
+      android:paddingRight="24dp"
+      android:background="@drawable/intro_btn_red"
+      android:gravity="center"
+      android:text="@string/get_confirm_code"
+      android:textColor="@color/white"
+      android:textSize="16sp" />
+
+    <TextView
+      android:id="@+id/tarrif"
+      style="@style/IranSansMobile"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginBottom="100dp"
+      android:layout_alignParentBottom="true"
+      android:layout_centerInParent="true"
+      android:elevation="5dp"
+      android:gravity="center"
+      android:textColor="@color/white"
+      android:textSize="12sp"
+      tools:text="تعرفه روزانه پانصد تومان" />
+  </RelativeLayout>
+</RelativeLayout>

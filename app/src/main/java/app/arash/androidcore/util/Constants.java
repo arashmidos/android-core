@@ -12,5 +12,7 @@ public class Constants {
   public static final long INTERVAL = 1000;
 
   public static final String DEFAULT_LANGUAGE = "fa";
+  public static final String UP_TEXT = "UP_TEXT";
+
 
 }

@@ -55,6 +55,8 @@ public class CodeActivity extends AppCompatActivity {
   ImageView backBtn;
   @BindView(R.id.next_btn)
   Button nextBtn;
+  @BindView(R.id.up_text)
+  TextView upText;
   private String phoneNumber;
   private SmsBroadcastReceiver smsBroadcastReceiver;
 
@@ -118,6 +120,8 @@ public class CodeActivity extends AppCompatActivity {
   private void getIntentData() {
     if (!TextUtils.isEmpty(getIntent().getExtras().getString(Constants.PHONE_NUMBER))) {
       phoneNumber = getIntent().getExtras().getString(Constants.PHONE_NUMBER);
+      String up = getIntent().getExtras().getString(Constants.UP_TEXT, "");
+      upText.setText(up);
     }
     descTv.setText(NumberUtil
         .digitsToPersian(String.format(getString(R.string.code_sent_to_numer_x), phoneNumber)));

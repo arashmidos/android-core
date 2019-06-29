@@ -17,6 +17,28 @@ public class SendCodePage {
   @SerializedName("down")
   @Expose
   private String down;
+  @SerializedName("link")
+  @Expose
+  private String link;
+  @SerializedName("link_text")
+  @Expose
+  private String linkText;
+
+  public String getLink() {
+    return link;
+  }
+
+  public void setLink(String link) {
+    this.link = link;
+  }
+
+  public String getLinkText() {
+    return linkText;
+  }
+
+  public void setLinkText(String linkText) {
+    this.linkText = linkText;
+  }
 
   public String getMid() {
     return mid;
